@@ -1,0 +1,25 @@
+---
+description: This patch re-enables the “Parallel tool calls” experiment and fixes worktree indexing and provider tool-calling issues.
+keywords:
+  - zoo code 3.44.2
+  - experimental features
+  - bug fixes
+  - provider updates
+---
+
+# Zoo Code 3.44.2 Release Notes (2026-01-27)
+
+此补丁重新启用了“并行工具调用”实验，并修复了 worktree 索引及 provider 工具调用问题。
+
+## 并行工具调用（实验性）
+
+重新启用了并行工具调用（增加了 new_task 隔离保护），因此你可以再次使用实验性的“并行工具调用”设置，而不会破坏任务委派工作流。([#11006](https://github.com/RooCodeInc/Roo-Code/pull/11006))
+
+## Bug 修复
+
+* 修复了 Zoo 可能无法为存储在隐藏目录中的 worktree（例如 `~/.roo/worktrees/`）内的代码建立索引的问题，该问题会导致这些 worktree 中的搜索和其他代码库功能失效。([#11009](https://github.com/RooCodeInc/Roo-Code/pull/11009))
+
+## Provider 更新
+
+* 修复了本地 Ollama 模型可能因针对空路由模型列表进行校验而被错误标记为不可用的问题。([#10893](https://github.com/RooCodeInc/Roo-Code/pull/10893))
+* 修复了使用基于 OpenAI Responses API 的 provider 时工具可能重复出现的问题，减少了重复的工具输出，使结果更易跟进。([#11008](https://github.com/RooCodeInc/Roo-Code/pull/11008))

@@ -1,0 +1,16 @@
+---
+description: This patch fixes LiteLLM + Amazon Bedrock proxy tool calling, adjusts Cerebras model defaults, and improves website deployment checks.
+keywords:
+  - zoo code 3.44.1
+  - provider updates
+  - bug fixes
+---
+
+# Zoo Code 3.44.1 Release Notes (2026-01-27)
+
+此补丁修复了 LiteLLM + Amazon Bedrock 代理工具调用问题，调整了 Cerebras 模型默认值，并改进了网站部署检查。
+
+## Provider 更新
+
+* 修复了当使用 LiteLLM 作为 Amazon Bedrock 的代理时，由于 Bedrock 工具调用 ID 校验限制，启用工具的聊天可能失败的问题。([#10990](https://github.com/RooCodeInc/Roo-Code/pull/10990))
+* 为 Cerebras 的 `zai-glm-4.7` 模型设置默认采样参数（temperature 和 top_p），使输出在不额外配置的情况下更一致。（感谢 sebastiand-cerebras！）([#10945](https://github.com/RooCodeInc/Roo-Code/pull/10945))

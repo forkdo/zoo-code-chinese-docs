@@ -1,0 +1,44 @@
+---
+description: 此版本改进了智能上下文压缩功能，更新了提供商，并修复了导出和设置问题。
+keywords:
+  - zoo code 3.43.0
+  - new features
+  - bug fixes
+image: /img/v3.43.0/v3.43.0.png
+---
+
+# Zoo Code 3.43.0 版本说明 (2026-01-23)
+
+此版本更新了智能上下文压缩功能，移除了已弃用的设置，并修复了导出和设置问题。
+
+<img src="/img/v3.43.0/v3.43.0.png" alt="Zoo Code v3.43.0 Release" width="600" />
+
+## 智能上下文压缩 v2
+
+当对话接近模型上下文限制时，智能上下文压缩功能会自动运行。它会总结较早的消息，而不是直接丢弃它们。压缩后，Zoo Code 会基于单个摘要继续对话，而不是混合摘要和大量旧消息的尾部。如果您的任务以斜杠命令开始，Zoo Code 会在压缩过程中保留这些由斜杠命令驱动的指令。Zoo Code 在压缩过程中更不容易破坏工具密集型对话，从而减少失败的请求和丢失的工具结果。
+
+设置变更：**压缩提示编辑器**现已移至**上下文管理**部分，重置操作会清除您的覆盖设置。压缩功能使用当前对话的模型/提供商，不再有单独的压缩模型/提供商选择器。
+
+([#10873](https://github.com/RooCodeInc/Roo-Code/pull/10873), [#10920](https://github.com/RooCodeInc/Roo-Code/pull/10920), [#10909](https://github.com/RooCodeInc/Roo-Code/pull/10909), [#10927](https://github.com/RooCodeInc/Roo-Code/pull/10927), [#10931](https://github.com/RooCodeInc/Roo-Code/pull/10931), [#10876](https://github.com/RooCodeInc/Roo-Code/pull/10876), [#10881](https://github.com/RooCodeInc/Roo-Code/pull/10881), [#10901](https://github.com/RooCodeInc/Roo-Code/pull/10901))
+
+## 体验优化
+
+* 移除了未使用的“启用并发文件编辑”实验性开关，以减少设置项的杂乱。 ([#10925](https://github.com/RooCodeInc/Roo-Code/pull/10925))
+* 移除了实验性**动力转向**设置（一个已弃用的实验功能，不再提升效果）。 ([#10926](https://github.com/RooCodeInc/Roo-Code/pull/10926))
+* 移除了不再影响行为的过时 diff/match-precision 提供商设置。 ([#10298](https://github.com/RooCodeInc/Roo-Code/pull/10298))
+* 添加了 `pnpm install:vsix:nightly` 命令，使安装夜间版 VSIX 构建更加容易。 ([#10912](https://github.com/RooCodeInc/Roo-Code/pull/10912))
+
+## Bug 修复
+
+* 修复了通过 UI 保存的 MCP 配置文件可能被重写为单行压缩格式的问题。现在文件会以美观格式保存。（感谢 Michaelzag！） ([#9864](https://github.com/RooCodeInc/Roo-Code/pull/9864))
+* 修复了将任务导出为 Markdown 时，某些模型可能包含 `[Unexpected content type: thoughtSignature]` 行的问题。现在导出的内容是干净的。（感谢 rossdonald！） ([#10932](https://github.com/RooCodeInc/Roo-Code/pull/10932))
+* 修复了 **Model** 部分可能在 OpenAI Codex 提供商设置中重复出现的问题。 ([#10930](https://github.com/RooCodeInc/Roo-Code/pull/10930))
+
+## 其他改进
+
+* 移除了不再使用的传统 XML 工具调用代码路径，减少了维护工作量。 ([#10929](https://github.com/RooCodeInc/Roo-Code/pull/10929))
+
+## 提供商更新
+
+* 更新了 Z.AI 模型，添加了新的变体和定价元数据。（感谢 ErdemGKSL！） ([#10860](https://github.com/RooCodeInc/Roo-Code/pull/10860))
+* 修正了 Gemini 3 Flash 和 Pro 模型的定价，以匹配官方发布的定价。（感谢 rossdonald！） ([#10487](https://github.com/RooCodeInc/Roo-Code/pull/10487))```

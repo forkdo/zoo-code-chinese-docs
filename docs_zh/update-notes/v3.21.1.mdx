@@ -1,0 +1,20 @@
+---
+description: Zoo Code v3.21.1 引入了一项新的 `auto_install_peers` 设置，用于简化 MCP 软件包安装过程中的依赖项管理。此更新通过自动安装必需的 peer 依赖项来简化设置，从而改善开发者体验并减少手动配置。
+---
+
+# Zoo Code 3.21.1 版本发布说明 (2025-06-18)
+
+此补丁版本提升了稳定性、安全性，并为多个关键功能提供了更好的错误处理。
+
+## Bug 修复
+
+* **解析器可靠性**：修复了某些环境下可能导致解析器无法正确加载的问题，提升了整体稳定性 ([#4857](https://github.com/RooCodeInc/Roo-Code/pull/4857))
+* **Windows 稳定性**：解决了在 Windows 上使用 node 版本管理器时 MCP 服务器可能崩溃的问题 ([#4711](https://github.com/RooCodeInc/Roo-Code/pull/4711))
+* **子任务速率限制**：实施了全局速率限制，防止创建子任务时出现错误，确保任务执行更加可靠 (感谢 olweraltuve!) ([#4453](https://github.com/RooCodeInc/Roo-Code/pull/4453))
+* **代码库搜索错误**：改进了代码库搜索的错误消息，使嵌入相关问题的诊断和解决更加容易 ([#4432](https://github.com/RooCodeInc/Roo-Code/pull/4432))
+
+## 其他改进
+
+* **Anthropic 成本追踪**：提升了 Anthropic 模型成本报告的准确性 ([#4849](https://github.com/RooCodeInc/Roo-Code/pull/4849))
+* **性能优化**：“启用 MCP 服务器创建”设置现在默认禁用，减少了大多数用户的令牌使用量并简化了提示 ([#4838](https://github.com/RooCodeInc/Roo-Code/pull/4838))
+* **安全性**：通过更新依赖项解决了安全漏洞 ([#4844](https://github.com/RooCodeInc/Roo-Code/pull/4844))

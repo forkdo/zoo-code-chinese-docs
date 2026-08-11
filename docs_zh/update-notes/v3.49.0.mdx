@@ -1,0 +1,26 @@
+---
+description: Zoo Code 3.49.0 adds a file changes panel per conversation, per-workspace codebase indexing control, and fixes chat scroll and multi-window history reliability.
+keywords:
+  - zoo code 3.49.0
+  - file changes panel
+  - per-workspace indexing
+  - codebase indexing
+  - chat scroll fix
+---
+
+# Zoo Code 3.49.0 Release Notes (2026-02-19)
+
+此版本新增了显示对话期间所有编辑内容的文件变更面板，引入了可停止的按工作区代码库索引选择加入，并修复了聊天滚动和多窗口历史可靠性。
+
+## 文件变更面板
+
+任务视图中聊天消息下方现在会出现一个可折叠的 **“本次对话更改了 X 个文件”** 面板。任务期间编辑并批准过的每个文件都会显示在面板中——展开任意条目即可查看其完整 diff，而无需在对话中往回滚动。对同一文件的多次编辑按路径分组，且当没有文件被更改时面板会自动隐藏。（感谢 saneroen！）([#11494](https://github.com/RooCodeInc/Roo-Code/pull/11494))
+
+## 按工作区索引控制
+
+代码库索引不再在每次打开工作区文件夹时静默自动启动。你现在获得了明确的按工作区控制：代码库索引设置中的新开关可让你为当前文件夹启用索引，且该偏好会在 IDE 重启后保存。一个 **停止索引** 按钮让你可以随时取消正在进行的扫描，而不会丢失部分结果。在多根工作区中，为一个文件夹启用索引不再触发其他所有文件夹的索引。此外还修复了一个 bug：在活跃扫描期间禁用全局“启用代码库索引”开关会让脉冲指示器继续运行——现在扫描会立即停止。（感谢 JamesRobert20、thomas-mindruptive！）([#11456](https://github.com/RooCodeInc/Roo-Code/pull/11456))
+
+## Bug 修复
+
+* **重新打开时的聊天滚动**：修复了重新打开已有聊天时无法可靠滚动到最新消息，导致用户停留在对话中途较旧消息的问题。自动滚动到底部现在会在聊天打开时一致激活，滚动到底部按钮可靠地重新锚定视图，向上手动滚动浏览历史会正确暂停自动跟随，且不受代码块等嵌套滚动区域的干扰。([#11483](https://github.com/RooCodeInc/Roo-Code/pull/11483))
+* **多窗口任务历史数据丢失**：修复了 Zoo Code 同时在两个或更多 VS Code 窗口运行时任务历史静默丢失的问题。现在每个任务的历史存储在其自己的文件中，并采用跨进程文件锁，因此并发的多窗口写入不再互相覆盖。从旧存储格式的迁移是自动且向后兼容的。([#11490](https://github.com/RooCodeInc/Roo-Code/pull/11490))

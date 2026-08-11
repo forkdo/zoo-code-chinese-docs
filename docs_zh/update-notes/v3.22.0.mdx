@@ -1,0 +1,58 @@
+---
+description: 本次重大版本更新引入了 1-click 任务共享、全局规则目录、增强的模式发现功能，以及针对内存泄漏和提供程序集成的全面修复。
+---
+
+# Zoo Code 3.22.0 发布说明（2025-06-25）
+
+本次重大版本更新引入了 1-click 任务共享、全局规则目录、增强的模式发现功能，以及针对内存泄漏和提供程序集成的全面修复。
+
+## 1-Click 任务共享
+
+<img src="/img/task-sharing/task-sharing-1.gif" alt="Zoo Code 任务共享演示" width="600" />
+
+我们新增了直接从扩展中公开共享您的 Zoo Code 任务的功能（[了解更多](/roo-code-cloud/task-sharing)）：
+
+- **公开共享**：选择“公开共享”以生成可供任何人访问的共享链接
+- **自动复制到剪贴板**：生成的链接将自动复制到剪贴板，便于快速分享
+- **协作就绪**：与团队成员或协作者共享任务，让他们查看您的任务及对话历史
+
+## 全局规则目录支持
+
+我们新增了通过全局目录加载实现跨工作区自定义指令共享的支持（感谢 samhvw8！）（[#5016](https://github.com/RooCodeInc/Roo-Code/pull/5016)）：
+
+- **全局规则**：将规则存储在 `~/.roo/rules/` 中，实现所有项目间的一致配置
+- **项目特定规则**：使用 `.roo/rules/` 目录进行项目级别的自定义
+- **分层加载**：全局规则优先加载，项目规则可覆盖全局设置
+- **团队协作**：通过版本控制共享项目规则，统一团队标准和工作流程
+
+此功能支持跨项目和设备的配置管理，非常适合组织入职和保持一致的开发环境。[了解如何设置全局规则](/features/custom-instructions#setting-up-global-rules)。
+
+## 体验优化（QOL Improvements）
+
+* **模式发现**：改进了模式选择器，新增新用户高亮提示、重新设计的界面以及描述性文本。同时将 [Zoo Code 市场](/features/marketplace) 和 [模式配置](/features/custom-modes) 按钮移出顶部菜单，以提升组织性（感谢 brunobergher！）（[#4902](https://github.com/RooCodeInc/Roo-Code/pull/4902)）
+
+<img src="/img/v3.22.0/v3.22.0.png" alt="增强的模式选择器界面，展示改进的高亮和描述性文本以提升用户体验" width="400" />
+
+* **快速修复控制**：新增设置项以禁用 Zoo Code 快速修复功能，避免与其他扩展冲突（感谢 OlegOAndreev！）（[#4878](https://github.com/RooCodeInc/Roo-Code/pull/4878)）- [了解更多](/features/code-actions#disablingenabling-code-actions)
+
+<img src="/img/v3.22.0/v3.22.0-1.png" alt="VSCode 设置中显示的 'Enable Zoo Code quick fixes' 切换选项" width="300" />
+
+## Bug 修复
+
+* **任务文件损坏**：修复了导致任务文件损坏的竞态条件，消除了“无现有 API 对话历史”的错误（感谢 KJ7LNW！）（[#4733](https://github.com/RooCodeInc/Roo-Code/pull/4733)）
+* **内存泄漏**：修复了聊天界面和 CodeBlock 组件中的多个内存泄漏问题，这些问题可能导致崩溃和灰屏（感谢 kiwina、xyOz-dev！）（[#4244](https://github.com/RooCodeInc/Roo-Code/pull/4244)、[#4190](https://github.com/RooCodeInc/Roo-Code/pull/4190)）
+* **任务名称**：修复了任务历史中空白条目的问题，现在任务将显示有意义的名称，如“Task #1 (Incomplete)”（感谢 daniel-lxs！）（[#5071](https://github.com/RooCodeInc/Roo-Code/pull/5071)）
+* **设置导入**：修复了配置中包含允许命令时的导入功能（感谢 catrielmuller！）（[#5110](https://github.com/RooCodeInc/Roo-Code/pull/5110)）
+* **文件创建**：修复了 [`write_to_file`](/advanced-usage/available-tools/write-to-file) 工具在内容为空或仅包含换行符时失败的问题（感谢 Githubguy132010！）（[#3550](https://github.com/RooCodeInc/Roo-Code/pull/3550)）
+
+## 提供程序更新
+
+* **Claude Code**：修复了令牌计数问题、长任务的消息处理，移除了误导性的 UI 控件，并改进了缓存和图像上传功能（[#5108](https://github.com/RooCodeInc/Roo-Code/pull/5108)、[#5072](https://github.com/RooCodeInc/Roo-Code/pull/5072)、[#5105](https://github.com/RooCodeInc/Roo-Code/pull/5105)、[#5113](https://github.com/RooCodeInc/Roo-Code/pull/5113)）
+* **Azure OpenAI**：通过移除不支持的 temperature 参数，修复了与推理模型的兼容性问题（感谢 ExactDoug！）（[#5116](https://github.com/RooCodeInc/Roo-Code/pull/5116)）
+* **AWS Bedrock**：改进了限流错误检测和重试机制（[#4748](https://github.com/RooCodeInc/Roo-Code/pull/4748)）
+
+## 其他改进
+
+* **VSCode 命令集成**：新增通过命令面板（“Zoo: Import Settings”）或 VSCode API 实现程序化设置导入的功能，便于自动化（感谢 shivamd1810！）（[#5095](https://github.com/RooCodeInc/Roo-Code/pull/5095)）
+* **翻译流程**：优化了内部翻译流程，减少文件读取并提升效率（感谢 KJ7LNW！）（[#5126](https://github.com/RooCodeInc/Roo-Code/pull/5126)）
+* **YAML 解析**：增强了自定义模式配置对边界情况和特殊字符的处理能力（[#5099](https://github.com/RooCodeInc/Roo-Code/pull/5099)）

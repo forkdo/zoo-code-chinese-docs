@@ -1,0 +1,178 @@
+---
+description: 通过 VSCode 的灯泡（快速修复）系统，直接在编辑器中访问 Zoo Code 的 AI 辅助功能。获得即时修复、解释和改进建议。
+keywords:
+  - code actions
+  - quick fixes
+  - lightbulb menu
+  - AI assistance
+  - VSCode integration
+  - code improvements
+  - error fixes
+---
+
+# Code Actions
+
+Code Actions 通过 VSCode 的灯泡（快速修复）系统，直接在代码编辑器中提供对 Zoo Code AI 辅助功能的即时访问。此上下文感知功能可自动检测相关的代码情况，并提供适当的 AI 驱动操作，无需切换到聊天界面。
+
+<div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden' }}>
+  <iframe
+    src="https://www.youtube.com/embed/_Op3VfLPEu8?rel=0&modestbranding=1"
+    style={{
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+    }}
+    frameBorder="0"
+    allow="autoplay; encrypted-media"
+    allowFullScreen
+  ></iframe>
+</div>
+
+<div style={{ marginTop: '20px' }}></div>
+
+---
+
+## Code Actions 是什么？
+
+Code Actions 以灯泡图标 (💡) 的形式出现在编辑器装订线（行号左侧的区域）中。也可以通过右键单击上下文菜单或键盘快捷键访问。在以下情况下会触发：
+
+*   您选择了一段代码。
+*   您的光标位于有问题的行上（错误、警告或提示）。
+*   您通过命令调用它们。
+
+单击灯泡、右键单击并选择“Zoo Code”，或使用键盘快捷键（默认为 `Ctrl+.` 或 macOS 上的 `Cmd+.`）可显示可用操作的菜单。
+
+---
+
+## Zoo Code 的 Code Actions
+
+Zoo Code 提供 5 个 code actions，但其可用性因上下文而异：
+
+### 上下文菜单操作（右键单击）
+*   **添加到上下文：** 快速将选定的代码添加到您与 Zoo 的聊天中，包括文件名和行号，以便 Zoo 确切知道代码的来源。它列在菜单的首位，以便于访问。
+*   **解释代码：** 要求 Zoo Code 解释选定的代码。
+*   **改进代码：** 要求 Zoo Code 对选定的代码提出改进建议。
+
+### 其他操作
+*   **修复代码：** 可通过灯泡菜单和命令面板访问（但不能通过右键单击菜单）。要求 Zoo Code 修复选定代码中的问题。
+*   **新建任务：** 使用选定的代码创建一个新任务。可通过命令面板访问。
+
+### Context-Aware Actions
+灯泡菜单会根据代码的当前状态智能地显示不同的操作：
+
+**对于有问题的代码**（当 VSCode 显示红色/黄色波浪线时）：
+- **修复代码** - 获取分步指导以解决特定错误或警告
+- **添加到上下文** - 将问题代码添加到 Zoo 的上下文中进行讨论
+
+**对于干净的代码**（无诊断信息）：
+- **解释代码** - 获取代码功能的详细解释
+- **改进代码** - 接收优化建议和最佳实践
+- **添加到上下文** - 将代码添加到 Zoo 的上下文中进行进一步工作
+
+有关诊断信息如何与 Code Actions 集成的更多详细信息，请参阅[诊断集成](/features/diagnostics-integration)。
+
+### 添加到上下文深度解析
+
+**添加到上下文**操作列在 Code Actions 菜单的首位，因此您可以快速将代码片段添加到对话中。当您使用它时，Zoo Code 会包含文件名和行号以及代码。
+
+这有助于 Zoo 了解项目中代码的确切上下文，从而使其能够提供更相关、更准确的帮助。
+
+提示：使用 macOS Cmd+K Cmd+A 或 Windows/Linux Ctrl+K Ctrl+A 可快速将选定内容添加到上下文中。请参阅[键盘快捷键](/features/keyboard-shortcuts)。
+
+**聊天输入示例：**
+
+```
+你能解释一下这个函数吗？
+@myFile.js:15:25
+```
+
+*(其中 `@myFile.js:15:25` 代表通过“添加到上下文”添加的代码)*
+
+---
+
+## 使用 Code Actions
+
+有三种主要方式可以使用 Zoo Code 的 Code Actions：
+
+### 1. 从灯泡 (💡) 开始
+
+1.  **选择代码：** 选择您要处理的代码。您可以选择单行、多行或整个代码块。
+2.  **查找灯泡：** 灯泡图标将出现在选定代码旁边的装订线中（或带有错误/警告的行）。
+3.  **单击灯泡：** 单击灯泡图标以打开 Code Actions 菜单。
+4.  **选择操作：** 从菜单中选择所需的 Zoo Code 操作。
+5.  **查看并批准：** Zoo Code 将在聊天面板中提出解决方案。查看提议的更改并批准或拒绝它们。
+
+### 2. 从右键单击上下文菜单
+
+1.  **选择代码：** 选择您要处理的代码。
+2.  **右键单击：** 右键单击选定的代码以打开上下文菜单。
+3.  **选择“Zoo Code”：** 从上下文菜单中选择“Zoo Code”选项。将出现一个包含可用 Zoo Code 操作的子菜单。
+4.  **选择操作：** 从子菜单中选择所需的操作。
+5.  **查看并批准：** Zoo Code 将在聊天面板中提出解决方案。查看提议的更改并批准或拒绝它们。
+
+### 3. 从命令面板
+
+1.  **选择代码：** 选择您要处理的代码。
+2.  **打开命令面板：** 按 `Ctrl+Shift+P` (Windows/Linux) 或 `Cmd+Shift+P` (macOS)。
+3.  **输入命令：** 键入“Zoo Code”以过滤命令，然后选择相关的 code action（例如，“Zoo Code: 解释代码”）。该操作将应用于最符合逻辑的上下文（通常是当前活动的聊天任务，如果存在）。
+4.  **查看并批准：** Zoo Code 将在聊天面板中提出解决方案。查看提议的更改并批准或拒绝它们。
+
+---
+
+## 终端操作
+
+Zoo Code 还为终端输出提供类似的操作：
+
+*   **终端：添加到上下文：** 将选定的终端输出添加到您的聊天中
+*   **终端：修复命令：** 要求 Zoo Code 修复失败的终端命令
+*   **终端：解释命令：** 要求 Zoo Code 解释终端输出或命令
+
+当您选择终端中的文本并右键单击时，可以使用这些操作。
+
+---
+
+## Disabling/Enabling Code Actions
+
+您可以通过 VSCode 设置控制 Code Actions：
+
+### 启用/禁用 Code Actions
+- **设置**：[`roo-cline.enableCodeActions`](vscode://settings/roo-cline.enableCodeActions)
+- **默认值**：已启用
+- **描述**：控制 Zoo Code 快速修复选项是否出现在编辑器中
+
+要访问此设置：
+1. 打开 VSCode 设置 (`Ctrl/Cmd + ,`)
+2. 搜索 "enableCodeActions"
+3. 切换复选框以启用或禁用
+
+---
+
+## 自定义 Code Action 提示
+
+您可以通过修改**提示**选项卡中的“支持提示”来自定义每个 Code Action 使用的提示。这允许您微调给 AI 模型的指令，并使响应符合您的特定需求。
+
+1.  **打开“提示”选项卡：** 单击 Zoo Code 顶部菜单栏中的 <Codicon name="notebook" /> 图标。
+2. **查找“支持提示”：** 您将看到支持提示，包括“增强提示”、“解释代码”、“改进代码”和“修复代码”。
+3. **编辑提示：** 修改您要自定义的提示的文本区域中的文本。提示使用 `${placeholder}` 格式的占位符：
+    - `${filePath}` - 当前文件的路径
+    - `${selectedText}` - 当前选定的文本
+    - `${diagnostics}` - 任何错误或警告消息（用于修复代码）- 有关详细信息，请参阅[诊断集成](/features/diagnostics-integration)
+4. **单击“完成”：** 保存您的更改。
+
+### 提示模板示例
+```
+请解释来自 ${filePath} 的以下代码：
+
+${selectedText}
+```
+
+通过使用 Zoo Code 的 Code Actions，您可以直接在编码工作流程中快速获得 AI 驱动的帮助。这可以节省您的时间并帮助您编写更好的代码。
+
+---
+
+## 相关功能
+
+- [诊断集成](/features/diagnostics-integration) - 了解 Zoo Code 如何与 VSCode 的“问题”面板集成
+- [上下文提及](/basic-usage/context-mentions) - 探索向 Zoo Code 提供上下文的其他方法

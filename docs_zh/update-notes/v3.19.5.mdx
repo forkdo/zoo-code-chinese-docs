@@ -1,0 +1,20 @@
+---
+description: 本次发布专注于修复 Gemini 2.5 Pro Preview 模型的 bug 并改进内部评估系统。
+---
+
+# Zoo Code 3.19.5 发布说明 (2025-06-05)
+
+本次发布专注于修复 Gemini 2.5 Pro Preview 模型的 bug 并改进内部评估系统。
+
+---
+
+## Bug 修复
+
+*   **Gemini 2.5 Pro Preview**: 修复了思考预算未被正确应用导致出错的问题。Zoo Code 现在将在设置中未定义时正确默认使用指定的 token 值。（感谢 cte!）([#4401](https://github.com/RooCodeInc/Roo-Code/pull/4401))
+
+---
+
+## 其他改进
+
+*   **Evals**: 改进了内部评估系统中“运行状态”部分，以提供有关任务流、控制器和运行器状态的更详细信息。（感谢 cte!）([#4400](https://github.com/RooCodeInc/Roo-Code/pull/4400))
+*   **Evals**: Rust 评估现在使用 bash 运行以提高可靠性，日志输出也已改进，以提供更一致的结果。（感谢 cte!）([#4392](https://github.com/RooCodeInc/Roo-Code/pull/4392))

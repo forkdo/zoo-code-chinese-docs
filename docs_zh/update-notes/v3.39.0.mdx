@@ -1,0 +1,64 @@
+---
+description: Zoo Code 3.39.0 增加了图片文件 @mentions 功能，使提供程序配置文件与任务绑定，并更新了关键 UI 标签。
+keywords:
+  - zoo code 3.39.0
+  - image @mentions
+  - providers
+  - qol improvements
+  - bug fixes
+image: /img/v3.39.0/v3.39.0.png
+---
+
+# Zoo Code 3.39.0 版本发布说明 (2026-01-08)
+
+此版本增加了图片文件 @mentions 功能，使提供程序配置文件与任务绑定，并更新了关键 UI 标签。
+
+<img src="/img/v3.39.0/v3.39.0.png" alt="Zoo Code v3.39.0 Release" width="600" />
+
+## 图片文件 @mentions
+
+您现在可以 @mention 图片文件，将其作为内联图片包含在消息中，无需手动附加文件即可更轻松地共享屏幕截图和 UI 模型（感谢 hannesrudolph！）([#10189](https://github.com/RooCodeInc/Roo-Code/pull/10189))。
+
+> **📚 文档**：使用详情请参阅[上下文提及](/basic-usage/context-mentions)。
+
+## 粘性提供程序配置文件
+
+任务现在会记住其启动时的提供程序配置文件（API 配置），因此在其他地方切换配置文件不会影响正在运行的任务或恢复的任务（感谢 hannesrudolph！）([#10018](https://github.com/RooCodeInc/Roo-Code/pull/10018))。
+
+> **📚 文档**：详情请参阅[API 配置配置文件](/features/api-configuration-profiles)。
+
+## YOLO → BRRRRRRRRRR
+
+整个 UI 中的自动批准模式标签已从“YOLO”重命名为“BRRRRRRRRRR”（感谢 app/roomote！）([#10507](https://github.com/RooCodeInc/Roo-Code/pull/10507))。
+
+> **📚 文档**：详情请参阅[自动批准操作](/features/auto-approving-actions)。
+
+## 生活质量改进
+
+* `@` 文件选择器现在会遵循 `.rooignore`，减少大型工作区中的干扰，帮助您避免意外附加被忽略/生成的文件（感谢 app/roomote, jerrill-johnson-bitwerx！）([#10174](https://github.com/RooCodeInc/Roo-Code/pull/10174))
+* 添加了仅限调试的代理路由设置，以便您可以在 VS Code 调试器 (F5) 下运行时检查扩展网络流量（感谢 hannesrudolph, SleeperSmith！）([#10467](https://github.com/RooCodeInc/Roo-Code/pull/10467))
+* 改进了后续建议模式徽章的样式，以提高可读性（感谢 mrubens！）([#9260](https://github.com/RooCodeInc/Roo-Code/pull/9260))
+* 在原生 `read_file` 工具描述中澄清了当模型支持视觉功能时支持图片格式（感谢 app/roomote, nabilfreeman！）([#10442](https://github.com/RooCodeInc/Roo-Code/pull/10442))
+
+## Bug 修复
+
+* 修复了由于缺少/不匹配的工具调用 ID 导致对话在压缩后可能失败的问题，提高了较长对话的可靠性（感谢 daniel-lxs！）([#10471](https://github.com/RooCodeInc/Roo-Code/pull/10471))
+* 修复了重复的 `tool_result` 块可能导致提供程序 API 错误的问题（包括 Anthropic “duplicate toolResult” 失败），提高了工具密集型工作流的可靠性（感谢 daniel-lxs！）([#10497](https://github.com/RooCodeInc/Roo-Code/pull/10497))
+* 修复了运行过程中切换终端可能产生重复工具结果并触发协议错误的边缘情况，减少了无人值守模式的软锁定（感谢 app/roomote, nabilfreeman！）([#10466](https://github.com/RooCodeInc/Roo-Code/pull/10466))
+* 修复了 Zoo Code 可能在 Windows 上生成错误命令链接语法的问题，使建议的终端命令更有可能无需编辑即可工作（感谢 app/roomote, AlexNek！）([#10434](https://github.com/RooCodeInc/Roo-Code/pull/10434))
+* 修复了 PATH 中没有 PowerShell 的 Windows 系统上聊天请求可能失败的问题（“spawnSync powershell ENOENT”）（感谢 app/roomote, Yang-strive！）([#9897](https://github.com/RooCodeInc/Roo-Code/pull/9897))
+* 修复了当提供程序状态暂时不可用时可能忽略 API 速率限制设置的罕见边缘情况（感谢 app/roomote！）([#10266](https://github.com/RooCodeInc/Roo-Code/pull/10266))
+* 通过为调试代理配置添加缺失的设置描述修复了夜间构建中的验证失败（感谢 app/roomote！）([#10505](https://github.com/RooCodeInc/Roo-Code/pull/10505))
+
+## 提供程序更新
+
+* 向 Fireworks AI 提供程序添加了 `kimi-k2-thinking` 模型（感谢 app/roomote, kavehsfv！）([#9202](https://github.com/RooCodeInc/Roo-Code/pull/9202))
+* 为 OpenAI 兼容提供程序添加了“超高 (xhigh)”推理努力选项（当端点/模型支持时）（感谢 app/roomote, Soorma718！）([#10061](https://github.com/RooCodeInc/Roo-Code/pull/10061))
+* 向 Cerebras 模型列表添加了 `zai-glm-4.7`（感谢 sebastiand-cerebras！）([#10500](https://github.com/RooCodeInc/Roo-Code/pull/10500))
+* 从 AWS Bedrock 中移除了遗留的 Claude 2 模型，以防止选择不受支持的选项（感谢 app/roomote, KevinZhao！）([#10501](https://github.com/RooCodeInc/Roo-Code/pull/10501))
+* 改进了与 OpenAI Responses API 的 MCP 工具模式的兼容性，减少了模式省略 `additionalProperties: false` 时的工具调用失败（感谢 daniel-lxs！）([#10472](https://github.com/RooCodeInc/Roo-Code/pull/10472))
+
+## 其他改进
+
+* 添加了一行 CLI 安装程序工作流，简化了 Zoo Code CLI 的安装/升级（感谢 cte！）([#10474](https://github.com/RooCodeInc/Roo-Code/pull/10474))
+* 添加了评估工具使用的早期 CLI 支持，包括评估运行的新“CLI”执行选项（感谢 cte！）([#10452](https://github.com/RooCodeInc/Roo-Code/pull/10452), [#10456](https://github.com/RooCodeInc/Roo-Code/pull/10456))```

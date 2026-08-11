@@ -1,0 +1,366 @@
+---
+description: 了解代码库索引如何通过 AI 嵌入和语义搜索帮助 Zoo Code 理解大型项目。OpenAI 和 Qdrant 集成设置指南。
+keywords:
+  - codebase indexing
+  - semantic search
+  - AI embeddings
+  - OpenAI
+  - Qdrant
+  - large projects
+  - code search
+---
+
+import Codicon from '@site/src/components/Codicon';
+
+# 代码库索引
+
+代码库索引通过创建使用 AI 嵌入的语义搜索索引，彻底改变了 Zoo Code 理解项目的方式。它不再搜索完全匹配的文本，而是理解查询的*含义*，即使你不知道具体的函数名或文件位置，也能帮助 Zoo 找到相关的代码。
+
+<div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden' }}>
+  <iframe
+    src="https://www.youtube.com/embed/r1bpod1VWhg?rel=0&modestbranding=1"
+    style={{
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+    }}
+    frameBorder="0"
+    allow="autoplay; encrypted-media"
+    allowFullScreen
+    title="Codebase Indexing Setup Tutorial"
+  ></iframe>
+</div>
+
+<br />
+
+---
+
+## 它的功能
+
+启用后，索引系统将：
+
+1. **解析代码**：使用 Tree-sitter 识别语义块（函数、类、方法）
+2. **创建嵌入**：使用 AI 模型为每个代码块创建嵌入向量
+3. **存储向量**：将向量存储在 Qdrant 数据库中，以便快速进行相似性搜索
+4. **提供 [`codebase_search`](/advanced-usage/available-tools/codebase-search) 工具**：供 Zoo 进行智能代码发现
+
+这使得像“用户身份验证逻辑”或“数据库连接处理”这样的自然语言查询能够跨整个项目找到相关的代码。
+
+---
+
+## Quick Start Guide
+
+:::tip 💰 完全免费的设置方案
+你可以通过以下方式**零成本**设置代码库索引：
+- **Qdrant Cloud**（免费层级）或 **Docker Qdrant**（完全免费）
+- **Google Gemini**（目前免费）
+
+这样你就可以在不支付任何订阅费用的情况下，获得专业级的语义搜索功能！
+:::
+
+### 步骤 1：选择你的设置方案
+
+在启用代码库索引之前，你需要两个组件：
+
+1. **嵌入提供者** - 将代码转换为可搜索的向量
+2. **向量数据库** - 存储和搜索这些向量
+
+### 步骤 2：设置 Qdrant（向量数据库）
+
+#### 选项 A：云端设置（推荐用于入门）- **免费**
+
+1. 在 [Qdrant Cloud](https://cloud.qdrant.io/) 注册（提供免费层级）
+2. 创建一个集群
+3. 复制你的 URL 和 API 密钥
+
+#### 选项 B：本地设置 - **免费**
+
+使用 Docker：
+```bash
+docker run -d \
+  --name qdrant \
+  --restart unless-stopped \
+  -p 6333:6333 \
+  -v qdrant_data:/qdrant/storage \
+  qdrant/qdrant
+```
+
+使用 Docker Compose：
+```yaml
+services:
+  qdrant:
+    image: qdrant/qdrant
+    ports:
+      - "6333:6333"
+    volumes:
+      - qdrant_storage:/qdrant/storage
+volumes:
+  qdrant_storage:
+```
+
+### 步骤 3：设置嵌入提供者
+
+#### Google Gemini 设置（推荐）- **免费**
+
+1. 从 [Google AI Studio](https://aistudio.google.com/apikey) 获取 API 密钥（目前免费）
+2. 在 Zoo Code 设置中：
+   - 提供者：**Google Gemini**
+   - API 密钥：你的 Google AI Studio 密钥
+
+:::info 其他可用提供者
+虽然本指南重点介绍 Google Gemini（因为目前免费），但 Zoo Code 也支持 OpenAI、Ollama、OpenAI 兼容、Mistral、Vercel AI Gateway、Bedrock 和 OpenRouter 提供者。你可以在配置下拉菜单中探索这些选项。
+:::
+
+### 步骤 4：保存
+
+1. 点击**保存**并**开始索引**
+
+状态指示器将显示：
+- **黄色（索引中）**：当前正在处理文件
+- **绿色（已索引）**：准备就绪，可以搜索
+- **红色（错误）**：请查看故障排除部分
+
+---
+
+## 管理和配置索引器
+
+你可以直接从 Zoo Code 聊天界面监控状态并管理代码库索引器的所有配置。
+
+### 状态图标
+
+在聊天输入框的右下角，你会找到**代码库索引状态图标**。该图标提供了索引器当前状态的快速概览。
+
+<img src="/img/codebase-indexing/codebase-indexing-1.png" alt="Codebase Indexing Status Icon" />
+
+图标的颜色表示状态：
+
+- 🟢 **绿色**：**已索引**。索引是最新的，可以开始搜索。
+- 🟡 **黄色**：**索引中**。系统正在积极处理文件。仍然可以执行搜索，但结果可能不完整。
+- 🔴 **红色**：**错误**。发生了问题（例如，无法连接到 Qdrant 或嵌入提供者）。请查看故障排除部分以获取帮助。
+- ⚪ **灰色**：**待机**。索引器正在等待配置或已被禁用。
+
+**多文件夹工作区**：在多文件夹工作区中，每个文件夹都维护自己的索引状态和配置。状态图标反映所有工作区文件夹的综合状态。
+
+### 配置弹出窗口
+
+点击状态图标将打开主配置弹出窗口。在这里，你可以查看详细状态并管理所有设置。
+
+<img src="/img/codebase-indexing/codebase-indexing-2.png" alt="Codebase Indexing Popover" />
+
+- **状态**：显示当前状态的详细消息，例如“已索引 - 文件监视器已启动”或正在进行的扫描进度。
+- **设置**：包含连接到你的嵌入提供者和向量数据库的主要字段。
+- **高级配置**：允许你微调搜索参数，如相似度阈值。
+- **清除索引数据**：从 Qdrant 集合中删除所有数据，并清除本地文件缓存。当你想从头开始重新索引整个项目时使用此功能。**此操作无法撤销。**
+- **保存**：应用你的配置更改。如果更改了关键设置（如 API 密钥或模型），索引器将自动重启。
+
+### 详细配置字段
+
+本指南解释了配置弹出窗口中可用的每个设置。
+
+<img src="/img/codebase-indexing/codebase-indexing-3.png" alt="Codebase Indexing Configuration Details" />
+
+#### **设置字段**
+
+- **嵌入提供者**
+  - **用途**：选择生成 AI 嵌入的来源。
+  - **行为**：此下拉菜单决定显示哪些配置字段。你的选项是 **OpenAI**、**Google Gemini**、**Ollama**、**OpenAI 兼容**、**Mistral**、**Vercel AI Gateway**、**Bedrock** 和 **OpenRouter**。
+
+- **API 密钥**（适用于 OpenAI、Gemini、OpenAI 兼容）
+  - **用途**：用于验证你的选择的提供者的密钥。
+  - **行为**：所有基于云的提供者都需要此输入，并安全地存储在 VS Code 的秘密存储中。
+
+- **基础 URL**（适用于 Ollama、OpenAI 兼容）
+  - **用途**：连接到提供者 API 的端点。
+  - **行为**：对于 **Ollama**，通常是 `http://localhost:11434`。对于 **OpenAI 兼容** 的提供者（如 Azure），这是完整的部署 URL。
+
+- **模型**
+  - **用途**：选择你想要使用的特定嵌入模型。
+  - **行为**：可用模型列表会根据选择的提供者而变化。模型的向量维度（例如，`1536 维`）会显示出来，因为更改维度需要完全重新索引。
+
+- **Qdrant URL**
+  - **用途**：你的 Qdrant 向量数据库的连接端点。
+  - **行为**：这必须是一个有效的 URL，指向你的本地或基于云的 Qdrant 实例（例如，`http://localhost:6333`）。
+
+- **Qdrant API 密钥**
+  - **用途**：用于安全的 Qdrant 实例的身份验证密钥。
+  - **行为**：此字段是可选的，仅当你的 Qdrant 部署需要 API 密钥时才应使用。
+
+#### Advanced Configuration Fields
+
+- **搜索分数阈值**
+  - **用途**：控制代码片段被视为匹配所需的最小相似度分数。
+  - **行为**：使用滑块设置 0.0 到 1.0 之间的值。较低的值会返回更多（但可能不太相关）的结果，而较高的值会返回更少、更精确的结果。
+  - **推荐设置**：
+    - **低 (0.15-0.3)**：更广泛的结果，适合探索
+    - **中 (0.4-0.5)**：平衡的精度和召回率（默认值：0.4）
+    - **高 (0.6-0.8)**：仅精确匹配
+
+- **搜索结果最大数量**
+  - **用途**：设置单次 `codebase_search` 返回的最大代码片段数量。
+  - **行为**：使用滑块调整限制。这有助于控制提供给 AI 的上下文量。
+
+---
+
+## 核心优势
+
+- **语义搜索**：通过含义而非仅关键词查找代码
+- **增强 AI 理解**：Zoo 可以更好地理解并处理您的代码库
+- **跨项目发现**：搜索所有文件，而不仅仅是已打开的文件
+- **模式识别**：定位相似的实现和代码模式
+
+---
+
+## 文件处理方式
+
+### 智能代码解析
+
+系统采用复杂的解析策略：
+
+1. **优先使用 Tree-sitter**：对于支持的语言，使用 AST 解析来识别语义代码块（函数、类、方法）
+2. **Markdown 支持**：将 Markdown 文件的标题作为语义入口点进行索引
+3. **智能回退**：对于不支持的文件类型，回退到基于行的分块处理
+
+**块大小**：
+- 最小值：100 字符
+- 最大值：1,000 字符
+- 大型函数会在逻辑边界处智能分割
+
+### 文件过滤
+
+索引器会尊重您项目的忽略模式：
+- 匹配 `.gitignore` 模式的文件
+- 匹配 `.rooignore` 模式的文件
+- 二进制文件和图像
+- 大于 1MB 的文件
+
+**重要提示**：确保您的 `.gitignore` 包含常见的依赖文件夹，如 `node_modules`、`vendor`、`target` 等，因为系统完全依赖这些模式进行过滤。
+
+### 增量更新
+
+- **文件监控**：实时监控工作区中的更改
+- **智能更新**：仅重新处理修改过的文件
+- **分支感知**：自动处理 Git 分支切换
+- **基于哈希的缓存**：避免重新处理未更改的内容
+- **多文件夹工作区**：多文件夹工作区中的每个文件夹都维护自己的索引，具有独立的设置和状态
+
+---
+
+## 最佳实践
+
+### 编写有效的查询
+
+不要搜索确切的语法：
+- ❌ `const getUser`
+- ✅ `function to fetch user from database`
+
+使用自然语言描述：
+- "authentication middleware"
+- "error handling for API requests"
+- "database connection setup"
+
+### 安全考虑
+
+- **API 密钥**：安全存储在 VS Code 的加密存储中
+- **代码隐私**：仅发送少量代码片段用于嵌入
+- **本地处理**：所有解析都在本地进行
+- **访问控制**：尊重文件权限和忽略模式
+
+---
+
+## 故障排除
+
+### 连接问题
+
+**"连接 Qdrant 失败"**
+- 确保 Qdrant 正在运行（使用 `docker ps` 检查）
+- 验证 URL 是否匹配（默认：`http://localhost:6333`）
+- 检查防火墙/网络策略
+- 对于云实例，确认 URL 和 API 密钥
+
+**"无效 API 密钥" 或 "401 未授权"**
+- 仔细检查您的 API 密钥是否正确
+- 确保密钥具有必要的权限
+- 对于 Ollama，验证服务是否正在运行
+
+### API 密钥格式错误（"ByteString 转换"）
+
+- 症状：索引期间或保存设置时出现提及 "ByteString 转换" 的错误
+- 可能原因：您的嵌入提供商 API 密钥包含无效/特殊字符或隐藏空格
+- 解决方法：
+  - 从提供商仪表板重新生成新的 API 密钥
+  - 再次粘贴密钥，确保没有前导/尾随空格或隐藏字符
+  - 如果密钥无效，Zoo 将显示清晰的验证消息
+
+### 模型问题
+
+**"未找到模型"**
+- 对于 Google Gemini：确保模型名称正确（例如，`gemini-embedding-001`）
+- 对于其他提供商：查阅其文档以了解可用模型和正确命名
+
+### 索引问题
+
+**"卡在错误状态"**
+1. 首先检查连接问题
+2. 在设置中点击 "清除索引并重新索引"
+3. 这可以解决缓存或集合损坏的问题
+
+**"索引耗时过长"**
+- 大型代码库（10k+ 文件）属于正常情况
+- 检查 `.gitignore` 是否包含大型目录
+- 考虑向 `.rooignore` 添加模式
+
+---
+
+## 使用搜索功能
+
+一旦建立索引，Zoo 就可以使用 [`codebase_search`](/advanced-usage/available-tools/codebase-search) 工具：
+
+**自然语言查询示例**：
+- "用户认证是如何处理的？"
+- "数据库连接设置"
+- "错误处理模式"
+- "API 端点定义"
+- "组件状态管理"
+
+该工具提供：
+- 相关代码片段
+- 带行号的文件路径
+- 相似度分数
+- 直接导航链接
+
+---
+
+## 隐私与数据安全
+
+**您的代码保持私密**：
+- 仅发送少量代码块（100-1000 字符）用于嵌入
+- 嵌入是单向的数学表示
+- 本地解析意味着完整文件永远不会离开您的机器
+- 使用 Ollama 实现完全离线操作
+
+**数据存储**：
+- 向量存储在您选择的 Qdrant 实例中
+- 您控制数据的位置（本地/云）
+- 易于删除：只需清除索引
+
+---
+
+## 当前限制
+
+- **文件大小**：每个文件最大 1MB
+- **外部依赖**：需要嵌入提供商 + Qdrant
+- **语言支持**：对 Tree-sitter 支持的语言效果最佳
+
+---
+
+## 未来增强功能
+
+计划改进：
+- 更多嵌入提供商
+- 多工作区索引
+- 增强的过滤选项
+- 团队协作功能
+- VS Code 原生搜索集成
+- 增量重新索引优化

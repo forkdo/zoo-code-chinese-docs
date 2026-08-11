@@ -1,0 +1,47 @@
+---
+description: Zoo Code 3.47.0 adds Claude Opus 4.6 across all providers, GPT-5.3-Codex for the OpenAI Codex provider, multi-mode Skills targeting, AGENTS.local.md personal overrides, and CLI improvements.
+image: /img/v3.47.0/v3.47.0.png
+keywords:
+  - zoo code 3.47.0
+  - new features
+  - bug fixes
+---
+
+# Zoo Code 3.47.0 Release Notes (2026-02-05)
+
+此版本为 OpenAI Codex provider 添加了 GPT-5.3-Codex（无广告！哈哈），为所有 provider 添加了 Claude Opus 4.6，新增多模式技能定向、个人 AGENTS.local.md 覆盖文件，以及 CLI 改进。
+
+<img src="/img/v3.47.0/v3.47.0.png" alt="Zoo Code v3.47.0 Release" width="600" />
+
+## GPT-5.3-Codex - 使用你的 ChatGPT Plus/Pro 订阅即可！
+
+GPT-5.3-Codex 可直接在 Zoo Code 中使用，凭你的 ChatGPT Plus 或 Pro 订阅即可——无需单独的 API 计费。它在 SWE-Bench Pro（57%，覆盖四种编程语言）和 Terminal-Bench 2.0（77.3%，较 5.2-Codex 的 64% 有所提升）上创下新高，同时使用比以往任何模型更少的 token，运行速度快 25%。
+
+它与 5.2-Codex 一样拥有 400K 上下文窗口和 128K 最大输出，但持续多步骤工程工作的提升是明显的。([#11225](https://github.com/RooCodeInc/Roo-Code/pull/11225))
+
+## Claude Opus 4.6 - 1M 上下文来了！！！
+
+Opus 4.6 已在 Zoo Code 的 Anthropic、AWS Bedrock、Vertex AI、OpenRouter、Zoo Code Router 和 Vercel AI Gateway 中可用。这是首个拥有 1M token 上下文窗口（测试版）的 Opus 级模型——足以将整个大型代码库喂入单次对话。而且它确实*用*到了所有这些上下文：在 MRCR v2 needle-in-a-haystack 基准上得分 76%，而 Sonnet 4.5 仅为 18.5%，这意味着“上下文衰减”问题——即早期模型在对话增长时崩溃的现象——已基本解决。
+
+Opus 4.6 在 Terminal-Bench 2.0（智能体编码）、Humanity's Last Exam（多学科推理）和 GDPval-AA（金融与法律领域的知识工作）上也领先所有前沿模型。它规划能力更强，更持久地保持任务专注，并且能发现自己的错误。（感谢 PeterDaveHello！）([#11224](https://github.com/RooCodeInc/Roo-Code/pull/11224))
+
+## 质量改进（QOL）
+
+* **多模式技能定向**：技能现在可以通过 `modeSlugs` frontmatter 数组同时针对多个模式，取代了单一的 `mode` 字段（仍保持向后兼容）。技能设置中新增的齿轮图标弹窗让你可以选择技能适用的模式。Slash Commands 设置面板也经过重新设计以保持视觉一致。([#11157](https://github.com/RooCodeInc/Roo-Code/pull/11157))
+* **AGENTS.local.md 个人覆盖文件**：你现在可以在 `AGENTS.md` 旁边创建一个 `AGENTS.local.md` 文件，用于个人 agent 规则覆盖，且不纳入版本控制。本地文件内容会追加在独立的“Agent Rules Local”标题下，`AGENTS.local.md` 和 `AGENT.local.md` 都会自动添加到 `.gitignore`。([#11183](https://github.com/RooCodeInc/Roo-Code/pull/11183))
+
+## Bug 修复
+
+* **AI SDK 消息转换期间保留推理内容**：修复了来自 DeepSeek `deepseek-reasoner` 等模型的推理/思考内容在消息转换过程中被丢弃，导致工具调用后的后续请求失败的问题。推理内容现在作为结构化内容在转换层中保留。([#11217](https://github.com/RooCodeInc/Roo-Code/pull/11217))
+* **环境详情不再破坏交错思考模型**：修复了 `<environment_details>` 作为独立的尾部文本块追加，导致使用交错思考的模型出现消息形态不匹配的问题。详情现在会合并到最后一个已有的文本或工具结果块中。([#11198](https://github.com/RooCodeInc/Roo-Code/pull/11198))
+
+## Provider 更新
+
+* **Gemini 和 Vertex provider 迁移至 AI SDK**：两个 provider 现在都使用统一的 Vercel AI SDK 基础，提升了各 provider 之间流式输出、工具调用和结构化输出的一致性。完整功能对等得以保留，包括思考支持、接地（grounding）工具、成本计算和 Vertex 认证。([#11180](https://github.com/RooCodeInc/Roo-Code/pull/11180))
+* **Fireworks 新增 Kimi K2.5**：将 Moonshot AI 的 Kimi K2.5 模型添加到 Fireworks provider，拥有 262K 上下文窗口、16K 最大输出、图像支持和提示缓存。([#11177](https://github.com/RooCodeInc/Roo-Code/pull/11177))
+
+## 其他改进
+
+* **CLI 开发体验与 Zoo provider API 密钥支持**：CLI 现在支持 `--api-key` 标志和 `ROO_API_KEY` 环境变量用于 Zoo provider 认证，免去了 CI/脚本工作流中对 `roo auth login` 的需求。开发使用 `tsx` 直接执行源码（无需构建步骤），调试日志受 `--debug` 控制。([#11203](https://github.com/RooCodeInc/Roo-Code/pull/11203))
+* **Zoo Code CLI v0.0.50**：新增 Linux 平台支持、`--exit-on-error` 标志以便 API 出错时立即退出，以及来自 API 密钥支持 PR 的所有开发体验改进。([#11204](https://github.com/RooCodeInc/Roo-Code/pull/11204))
+* **CLI 模式变更不再覆盖 provider 设置**：修复了 CLI 提供的 provider 设置（`--provider`、`--api-key`）在斜杠命令触发的模式切换期间被覆盖的竞态条件。初始化序列现在会在发送 webview 启动信号之前写入 CLI 设置。([#11205](https://github.com/RooCodeInc/Roo-Code/pull/11205))

@@ -1,0 +1,38 @@
+---
+description: 此版本增加了设置搜索功能，改进了停止按钮和错误显示，修复了工具调用兼容性问题，并解决了 Gemini 的模式切换错误。
+keywords:
+  - zoo code 3.40
+  - new features
+  - bug fixes
+image: /img/v3.40.0/v3.40.0.png
+---
+
+# Zoo Code 3.40 版本说明 (2026-01-14)
+
+此版本增加了设置搜索功能，改进了停止按钮和错误显示，修复了工具调用兼容性问题，并解决了 Gemini 的模式切换错误。
+
+<img src="/img/v3.40.0/v3.40.0.png" alt="Zoo Code v3.40 Release" width="600" />
+
+## 设置搜索
+
+您现在可以通过 Zoo Code 设置中的专用搜索功能快速找到并跳转到所需的设置。无需在各个部分中查找，您可以通过关键字搜索并直接跳转到正确的设置，搜索结果布局更清晰，更易于浏览。 ([#10619](https://github.com/RooCodeInc/Roo-Code/pull/10619), [#10633](https://github.com/RooCodeInc/Roo-Code/pull/10633))
+
+## 停止按钮改进
+
+停止流式响应现在更加清晰和一致，采用了标准的停止按钮，在编辑消息时具有更好的可见性。停止操作在更多情况下保持可见，并取代了旧的、过大的取消 UI，因此中断长时间响应感觉更熟悉，视觉干扰更少。 ([#10639](https://github.com/RooCodeInc/Roo-Code/pull/10639), [#10696](https://github.com/RooCodeInc/Roo-Code/pull/10696))
+
+## 工具调用兼容性修复
+
+此版本通过解决请求/响应验证的边缘情况，提高了跨提供程序（尤其是 Gemini 和 OpenAI 兼容后端）的兼容性（感谢 Idlebrand！）。Zoo Code 现在避免发送某些后端拒绝的工具调用参数，并处理工具输出为空的情况，减少了以前可能在运行过程中破坏使用工具的聊天的验证失败。 ([#10671](https://github.com/RooCodeInc/Roo-Code/pull/10671), [#10672](https://github.com/RooCodeInc/Roo-Code/pull/10672))
+
+## 生活质量改进
+
+* 聊天中的错误更易于解释，样式/可见性得到改进，并且在出现问题时提供更完整的详细信息。 ([#10692](https://github.com/RooCodeInc/Roo-Code/pull/10692))
+* 停止按钮在编辑消息时保持可见且更一致，使您在需要时更容易中断长时间响应。 ([#10696](https://github.com/RooCodeInc/Roo-Code/pull/10696))
+* Zoo Code 在流式传输时使用标准的停止按钮，使任务取消更熟悉，视觉干扰更少。 ([#10639](https://github.com/RooCodeInc/Roo-Code/pull/10639))
+
+## Bug 修复
+
+* 修复了在使用 Gemini 时切换模式（例如，从 Code 切换到 Architect）会导致 API 错误的问题，原因是对话历史中的工具权限冲突。 ([#10708](https://github.com/RooCodeInc/Roo-Code/pull/10708))
+* 修复了某些 LiteLLM 路由在本机工具使用时可能失败的问题，原因是始终发送不受支持的工具调用参数。 ([#10671](https://github.com/RooCodeInc/Roo-Code/pull/10671))
+* 修复了基于 Gemini 的提供程序在工具输出为空时可能拒绝工具结果的问题，导致运行过程中出现请求验证错误。 ([#10672](https://github.com/RooCodeInc/Roo-Code/pull/10672))```

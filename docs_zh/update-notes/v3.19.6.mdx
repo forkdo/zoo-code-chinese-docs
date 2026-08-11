@@ -1,0 +1,39 @@
+---
+description: 此版本为 Gemini 模型引入了隐式缓存以减少延迟，明确了并发文件读取限制，并包含多项错误修复和用户体验改进。
+---
+
+# Zoo Code 3.19.6 版本说明 (2025-06-09)
+
+此版本为 Gemini 模型引入了隐式缓存以减少延迟，明确了并发文件读取限制，并包含多项错误修复和用户体验改进。
+
+---
+
+## 提供商更新
+
+*   **OpenRouter 延迟**: 通过 OpenRouter 为 Gemini 模型将显式缓存替换为隐式缓存，以显著降低延迟 ([#4488](https://github.com/RooCodeInc/Roo-Code/pull/4488))
+
+---
+
+## 用户体验改进
+
+*   **历史记录预览**: 历史记录预览中的按钮在没有交互时会逐渐淡出，提供更简洁的 UI（感谢 samhvw8！） ([#4458](https://github.com/RooCodeInc/Roo-Code/pull/4458))
+
+---
+
+## 错误修复
+
+*   **MCP 服务器管理**: 修复了 MCP 服务器列表在更改（如添加或删除服务器）后无法正确更新的错误，无需完全重新加载扩展。手动刷新按钮和配置更改时的自动刷新现在可以可靠工作。（感谢 taylorwilsdon！） ([#4267](https://github.com/RooCodeInc/Roo-Code/pull/4267))
+*   **LiteLLM 提供商**: 修复了当 LiteLLM 提供商 URL 包含尾部斜杠时导致错误的 bug（感谢 kcwhite！） ([#4275](https://github.com/RooCodeInc/Roo-Code/pull/4275))
+*   **复制按钮**: 修复了复制按钮逻辑的问题（感谢 samhvw8！） ([#4458](https://github.com/RooCodeInc/Roo-Code/pull/4458))
+
+---
+
+## 文档更新
+
+*   **并发文件读取**: 明确了默认并发文件读取限制为 15，而非最大值（感谢 olearycrew！） ([#4474](https://github.com/RooCodeInc/Roo-Code/pull/4474))
+
+---
+
+## 其他改进
+
+*   **构建脚本**: 从某些 npm 脚本中移除了不必要的 `npx` 使用（感谢 user202729！） ([#4003](https://github.com/RooCodeInc/Roo-Code/pull/4003))

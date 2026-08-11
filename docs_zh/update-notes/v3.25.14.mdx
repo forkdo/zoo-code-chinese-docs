@@ -1,0 +1,23 @@
+---
+description: 修复 AWS Bedrock 1M 上下文、OpenAI 模型切换以及开发环境改进相关的 Bug。
+keywords:
+  - zoo code 3.25.14
+  - aws bedrock fix
+  - openai verbosity fix
+  - bug fixes
+---
+
+# Zoo Code 3.25.14 版本发布说明 (2025-08-13)
+
+此版本修复了 AWS Bedrock 1M 上下文支持、OpenAI 模型切换的关键问题，并改进了开发环境。
+
+## Bug 修复
+
+* **AWS Bedrock 1M 上下文**：修复 Claude Sonnet 4 模型的参数位置，以正确启用 1M 上下文窗口支持 ([#7056](https://github.com/RooCodeInc/Roo-Code/pull/7056))
+* **OpenAI 模型切换**：修复从 GPT-5 模型切换到 GPT-4.1 或其他不支持 verbosity 参数的模型时的 API 错误（感谢 eastonmeth！） ([#7055](https://github.com/RooCodeInc/Roo-Code/pull/7055))
+* **开发环境**：修复开发模式下的 webview 功能 ([#7044](https://github.com/RooCodeInc/Roo-Code/pull/7044))
+* **Token 使用量报告**：回滚之前的更改，优先考虑用户体验，允许中断请求而非精确的成本报告 ([#7039](https://github.com/RooCodeInc/Roo-Code/pull/7039))
+
+## 内部改进
+
+* **代码组织**：将云相关的类型从 @roo-code/types 移至专用的 @roo-code/cloud 包 ([#7038](https://github.com/RooCodeInc/Roo-Code/pull/7038))```

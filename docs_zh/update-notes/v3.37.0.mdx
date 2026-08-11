@@ -1,0 +1,57 @@
+---
+description: Zoo Code 3.37 引入了自定义工具调用、扩展了提供商支持，并提升了工具调用的可靠性。
+keywords:
+  - zoo code 3.37.0
+  - new features
+  - bug fixes
+image: /img/v3.37.0/v3.37.0.png
+---
+
+# Zoo Code 3.37.0 版本说明 (2025-12-22)
+
+Zoo Code 3.37 引入了实验性自定义工具、新增提供商功能，并提升了工具调用的可靠性。
+
+<img src="/img/v3.37.0/v3.37.0.png" alt="Zoo Code v3.37.0 版本发布" width="600" />
+
+## 新增模型
+
+## Z.ai GLM-4.7（思考模式）
+
+GLM-4.7 现已可通过 Zoo Code 中的 Z.ai 提供商直接使用，也可通过 Zoo Code Cloud 提供商（以及其他提供 Z.ai 服务的提供商）使用。这是一个适用于 Agent 工作流的强大编码模型，与 GLM-4.6 相比，它在多语言编码、终端任务、工具使用和复杂推理方面均有改进 ([#10282](https://github.com/RooCodeInc/Roo-Code/pull/10282))。
+
+<img src="/img/v3.37/v3.37-2.png" alt="GLM-4.7 基准测试性能" width="600" />
+
+## MiniMax M2.1 改进
+
+MiniMax M2.1 现已可通过 Zoo Code 中的 MiniMax 提供商直接使用，也可通过 Zoo Code Cloud 提供商（以及其他提供 MiniMax 服务的提供商）使用。它是 Agent 编码工作流的理想选择，在工具使用、指令遵循和多步骤任务的长期规划方面表现更佳，且运行速度更快 ([#10284](https://github.com/RooCodeInc/Roo-Code/pull/10284))。
+
+<img src="/img/v3.37/v3.37-1.png" alt="MiniMax M2.1 基准测试性能" width="600" />
+
+## 实验性自定义工具
+
+您现在可以定义并使用**自定义工具**，以便 Zoo Code 能够调用项目或团队特定的操作，就像使用内置工具一样。通过在项目中附带工具架构，而不是反复提示相同的步骤，可以更轻松地在团队中标准化工作流程 ([#10083](https://github.com/RooCodeInc/Roo-Code/pull/10083))。
+
+## Bug 修复
+
+* 修复了在某些 OpenAI 兼容提供商中，当流式传输在工具调用边界结束时，Zoo Code 可能会卡住的问题（感谢 torxeon！） ([#10280](https://github.com/RooCodeInc/Roo-Code/pull/10280))
+* 通过确保发出最终工具调用完成事件，修复了在某些 OpenAI 兼容提供商中，Zoo Code 可能会在工具调用后卡住的问题 ([#10293](https://github.com/RooCodeInc/Roo-Code/pull/10293))
+* 修复了 MCP 工具在严格架构模式下，当可选参数被视为必需参数时可能会中断的问题 ([#10220](https://github.com/RooCodeInc/Roo-Code/pull/10220))
+* 修复了内置 `read_file` 工具在某些模型上可能因可选数组参数的无效架构归一化而失败的问题 ([#10276](https://github.com/RooCodeInc/Roo-Code/pull/10276))
+* 修复了 `search_replace` / `search_and_replace` 在 CRLF 文件上可能错过匹配项的问题，提升了跨平台搜索替换的可靠性 ([#10288](https://github.com/RooCodeInc/Roo-Code/pull/10288))
+* 修复了 Requesty 的**刷新模型**功能可能因未在刷新流程中包含凭据而导致模型列表过时的问题（感谢 requesty-JohnCosta27！） ([#10273](https://github.com/RooCodeInc/Roo-Code/pull/10273))
+* 修复了如果提供商返回格式错误的模型条目，Chutes 模型加载可能会失败的问题 ([#10279](https://github.com/RooCodeInc/Roo-Code/pull/10279))
+* 修复了 `reasoning_details` 在流式传输过程中可能被错误合并/排序的问题，提升了依赖严格推理序列化的提供商的可靠性 ([#10285](https://github.com/RooCodeInc/Roo-Code/pull/10285))
+* 修复了 DeepSeek-reasoner 在压缩后，如果压缩摘要缺少必需的推理字段可能会报错的问题 ([#10292](https://github.com/RooCodeInc/Roo-Code/pull/10292))
+
+## 其他改进
+
+* **更清晰的评估日志**：去重重复的消息日志条目，使评估跟踪更易于阅读 ([#10286](https://github.com/RooCodeInc/Roo-Code/pull/10286))
+
+## 体验优化
+
+* 新任务现在默认在支持原生工具调用的模型上使用原生工具调用，减少手动选择工具协议的需要 ([#10281](https://github.com/RooCodeInc/Roo-Code/pull/10281))
+
+## 提供商更新
+
+* 通过将 `environment_details` 附加到工具结果而不是发出单独的系统消息，改进了 Z.ai 思考模型的消息格式化 ([#10289](https://github.com/RooCodeInc/Roo-Code/pull/10289))
+* LiteLLM 不再发送 `parallel_tool_calls`，提升了工具调用兼容性（感谢 farazoman！） ([#10274](https://github.com/RooCodeInc/Roo-Code/pull/10274))```

@@ -1,0 +1,26 @@
+---
+description: 此版本提升了大型代码库的性能，并优化了开发工作流程。
+keywords:
+  - zoo code 3.23.16
+  - performance improvements
+  - code indexing
+  - rate limiting
+---
+
+# Zoo Code 3.23.16 版本说明 (2025-07-19)
+
+此版本提升了大型代码库的性能，并优化了开发工作流程。
+
+## 性能改进
+
+* **代码索引**：添加了内存安全的批处理限制，防止扫描大型代码库时发生溢出（感谢 daniel-lxs！）([#5891](https://github.com/RooCodeInc/Roo-Code/pull/5891))
+* **API 速率限制**：为 OpenAI 兼容的嵌入实现了全局速率限制和指数退避机制，防止 API 过载并提高可靠性（感谢 daniel-lxs！）([#5854](https://github.com/RooCodeInc/Roo-Code/pull/5854))
+
+## 生活质量改进
+
+* **开发环境**：通过将评估服务端口改为 5433（PostgreSQL）和 6380（Redis）而非默认端口，修复了 Docker 端口冲突问题（感谢 roomote！）([#5909](https://github.com/RooCodeInc/Roo-Code/pull/5909))
+* **发布工程**：增强了发布说明生成功能，包含问题编号和报告者信息，以便更好地进行归属（感谢 roomote！）([#5940](https://github.com/RooCodeInc/Roo-Code/pull/5940))
+
+## 其他改进
+
+* **仓库统计**：从 GitHub 语言统计中排除非英语翻译文件，以更准确地表示代码库（感谢 roomote！）([#5943](https://github.com/RooCodeInc/Roo-Code/pull/5943))```

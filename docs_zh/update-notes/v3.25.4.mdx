@@ -1,0 +1,72 @@
+---
+description: Zoo Code 3.25.4 新增 Doubao 和 SambaNova 提供商，引入上下文感知的提示增强功能，并改进了工具功能。
+keywords:
+  - roo code 3.25.4
+  - doubao provider
+  - sambanova provider
+  - task history context
+  - prompt enhancement
+---
+
+# Zoo Code 3.25.4 版本说明 (2025-07-31)
+
+此版本引入了两个新的 AI 提供商，通过对话上下文增强了提示建议，并改进了各种工具功能。
+
+## Doubao 提供商支持
+
+我们新增了对 Doubao 的支持，这是字节跳动（ByteDance）的 AI 模型提供商（感谢 AntiMoron！）：[#6345](https://github.com/RooCodeInc/Roo-Code/pull/6345)：
+
+- **访问字节跳动 AI 模型**：连接到 Doubao 的语言模型，用于 AI 驱动的开发任务
+- **完整集成**：完整的提供商实现，包含 API 处理
+- **简单配置**：通过 Zoo Code 的提供商设置轻松配置，支持国际化提示
+
+Doubao 扩展了您的 AI 模型选项，让您可以在现有提供商之外访问字节跳动具有竞争力的语言模型。
+
+> **📚 文档**：请参阅 Doubao 提供商指南 了解设置说明和可用模型。
+
+## SambaNova 提供商集成
+
+我们将 SambaNova 集成为一个新的 LLM 提供商（感谢 snova-jorgep！）：[#6188](https://github.com/RooCodeInc/Roo-Code/pull/6188)：
+
+- **高速推理**：体验具有竞争力的推理速度，获得更快的 AI 响应
+- **更广泛的模型选择**：访问 SambaNova 多样化的语言模型系列
+- **无缝集成**：像使用其他任何提供商一样配置和使用 SambaNova 模型
+
+SambaNova 将企业级 AI 基础设施引入 Zoo Code，为您的开发工作流提供强大的替代方案。
+
+> **📚 文档**：请参阅 [SambaNova 提供商指南](/providers/sambanova) 了解配置详情。
+
+## 上下文感知的提示增强
+
+提示增强现在会使用您的对话历史记录来提供更相关的建议（感谢 liwilliam2021！）：[#6343](https://github.com/RooCodeInc/Roo-Code/pull/6343)：
+
+- **更智能的建议**：增强功能会考虑您最近的 10 条消息，生成更相关的提示
+- **减少幻觉**：上下文感知可防止 AI 做出无根据的建议
+- **灵活配置**：为增强操作使用单独的 API 配置
+- **切换控制**：根据需要启用或禁用任务历史记录包含
+
+要启用此功能：设置 → 提示选项卡 → 选择“ENHANCE” → 勾选“在增强中包含任务历史记录”以获得更好的上下文。
+
+> **📚 文档**：请参阅 [提示增强指南](/features/enhance-prompt) 了解配置选项。
+
+## 生活质量改进
+
+* **任务恢复消息**：通过移除关于恢复任务的误导性消息，改进了 LLM 指令（感谢 KJ7LNW！）：[#5851](https://github.com/RooCodeInc/Roo-Code/pull/5851)
+* **AGENTS.md 支持**：为 AGENTS.md 文件加载添加符号链接支持：[#6326](https://github.com/RooCodeInc/Roo-Code/pull/6326)
+* **市场更新**：当组织设置更改时自动刷新市场数据：[#6446](https://github.com/RooCodeInc/Roo-Code/pull/6446)
+
+## Bug 修复
+
+* **执行命令终止按钮**：修复了 execute_command 工具的终止按钮功能：[#6457](https://github.com/RooCodeInc/Roo-Code/pull/6457)
+* **Token 计数**：通过使用 VSCode LM API 从消息中提取文本，修复了准确性问题（感谢 NaccOll！）：[#6424](https://github.com/RooCodeInc/Roo-Code/pull/6424)
+
+## 提供商更新
+
+* **Chutes AI**：新增对 zai-org/GLM-4.5-FP8 模型的支持：[#6441](https://github.com/RooCodeInc/Roo-Code/pull/6441)
+* **OpenRouter**：将 horizon-alpha 模型的最大 token 数设置为 32k：[#6470](https://github.com/RooCodeInc/Roo-Code/pull/6470)
+* **Databricks**：新增对 /invocations 端点模式的支持（感谢 adambrand！）：[#6317](https://github.com/RooCodeInc/Roo-Code/pull/6317)
+
+## 其他改进
+
+* **Navigator 全局错误**：通过更新 mammoth 和 bluebird 依赖项解决了错误：[#6363](https://github.com/RooCodeInc/Roo-Code/pull/6363)
+* **Nightly 构建修复**：通过单独的更新日志解决了市场冻结问题：[#6449](https://github.com/RooCodeInc/Roo-Code/pull/6449)

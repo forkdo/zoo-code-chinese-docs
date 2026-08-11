@@ -1,0 +1,84 @@
+---
+description: Zoo Code v3.26.0 引入了 Grok Code Fast、内置 /init 命令以及对 Qwen Code CLI API 的支持。
+keywords:
+  - roo code 3.26.0
+  - grok code fast
+  - init command
+  - qwen code cli
+image: /img/v3.26.0/v3.26.0.png
+---
+
+# Zoo Code 3.26.0 版本发布说明 (2025-08-26)
+
+此版本引入了 Grok Code Fast（前身为 Sonic）、内置 /init 命令以及对 Qwen Code CLI API 的支持。
+
+<img src="/img/v3.26.0/v3.26.0.png" alt="Zoo Code v3.26.0 Release" width="600" />
+
+## Grok Code Fast
+
+你可能已经猜到了，我们的隐身模型 Sonic 正式亮相了！ ([#7426](https://github.com/RooCodeInc/Roo-Code/pull/7426))
+
+来自 xAI 的这款模型针对编码任务进行了优化，并因其以下特点而广受社区喜爱：
+
+- **敏锐的推理**能力
+- **大规模计划执行**
+- **具有 UI 品味和直觉的代码建议**
+
+如果你已经在 Zoo Code Cloud 中体验过 Sonic，你将被自动切换到 Grok Code Fast。模型 `xai/grok-code-fast-1` 也可在 [xAI Provider](/providers/xai) 下使用，且并非免费（当免费期于 2025 年 8 月 28 日结束时）。
+
+非常感谢我们的合作伙伴 xAI 以及所有用户——在隐身期间，超过 1000 亿个 token（并且还在增加！）通过 Sonic 运行！你们的惊人采用率和宝贵反馈将 Grok Code Fast 塑造成了今天如此强大的模型。
+
+**重要提示：** 在促销期间，通过 [Zoo Code Router](/providers/roo-code-router) 访问 Grok Code Fast 仍然是**免费的**。一旦定价确定，直接通过 xAI 提供商使用将产生标准费用。
+
+> **📚 文档**：请参阅 [xAI Provider](/providers/xai) 进行直接配置。
+
+## 内置 /init 命令
+
+我们新增了一个 /init 斜杠命令，用于项目入门 ([#7381](https://github.com/RooCodeInc/Roo-Code/pull/7381), [#7400](https://github.com/RooCodeInc/Roo-Code/pull/7400))：
+
+- **自动项目分析**：分析整个代码库并创建全面的 AGENTS.md 文件
+- **AI 助手优化**：生成文档，使 AI 助手能够立即在代码库中高效工作
+- **模式特定指导**：为不同的 Zoo Code 模式（代码、调试、架构师等）创建定制文档
+
+/init 命令通过记录项目特定信息（这些信息无法仅从代码结构中明显看出），帮助 LLM 理解项目的独特模式和约定。
+
+> 📚 文档：请参阅 [Slash Commands - The init command](/features/slash-commands#the-init-command) 了解详情。
+
+## Qwen Code CLI API 支持
+
+我们集成了 Qwen Code CLI 工具，允许 Zoo Code 利用其免费访问层级来使用阿里巴巴的 Qwen3 Coder 模型 ([#7380](https://github.com/RooCodeInc/Roo-Code/pull/7380))：
+
+- **免费推理**：通过 OAuth 利用 Qwen Code CLI 慷慨的免费层级（每天 2000 次请求，每分钟 60 次请求，无 token 限制），在促销期间可用。
+- **100 万上下文窗口**：在单个对话中处理整个代码库。
+- **无缝设置**：如果你已经对 Qwen Code CLI 工具进行了身份验证，则会自动工作。
+
+此集成通过使用 Qwen Code CLI 的本地身份验证，为 Qwen3 Coder 模型提供免费访问。
+
+> **📚 文档**：请参阅 [Qwen Code CLI Provider](/providers/qwen-code) 进行设置和配置。
+
+## 提供商更新
+
+* **Fireworks 上的 DeepSeek V3.1**：在 Fireworks AI 提供商中添加了 DeepSeek V3.1 模型支持（感谢 dmarkey！） ([#7375](https://github.com/RooCodeInc/Roo-Code/pull/7375))
+* **提供商可见性**：没有模型的静态提供商现在从提供商列表中隐藏，以获得更清晰的界面 ([#7392](https://github.com/RooCodeInc/Roo-Code/pull/7392))
+
+## 生活质量改进
+
+* **自动批准切换 UI**：自动批准切换现在在展开时保持在底部，减少鼠标移动（感谢 elianiva, kyle-apex！） ([#7318](https://github.com/RooCodeInc/Roo-Code/pull/7318))
+* **OpenRouter 缓存定价**：现在为 OpenRouter 模型显示缓存读取和写入价格（感谢 chrarnoldus！） ([#7176](https://github.com/RooCodeInc/Roo-Code/pull/7176))
+* **受保护的工作区文件**：VS Code 工作区配置文件 (*.code-workspace) 现在受到保护，防止意外修改（感谢 thelicato！） ([#7403](https://github.com/RooCodeInc/Roo-Code/pull/7403))
+
+## Bug 修复
+
+* **安全性 - 符号链接处理**：修复了符号链接可能绕过 rooignore 模式的安全漏洞 ([#7405](https://github.com/RooCodeInc/Roo-Code/pull/7405))
+* **安全性 - 默认命令**：从默认允许列表中删除了潜在的不安全命令 (`npm test`, `npm install`, `tsc`)（感谢 thelicato, SGudbrandsson！） ([#7404](https://github.com/RooCodeInc/Roo-Code/pull/7404))
+* **命令验证**：修复了命令验证中替换模式的处理 ([#7390](https://github.com/RooCodeInc/Roo-Code/pull/7390))
+* **后续输入保留**：修复了选择后续选项时用户输入未保留的问题 ([#7394](https://github.com/RooCodeInc/Roo-Code/pull/7394))
+* **Mistral 思考内容**：修复了使用发送思考内容的 Mistral 模型时的验证错误（感谢 Biotrioo！） ([#7106](https://github.com/RooCodeInc/Roo-Code/pull/7106))
+* **Requesty 模型列表**：修复了使用自定义基础 URL 时 Requesty 提供商的模型列表 ([#7378](https://github.com/RooCodeInc/Roo-Code/pull/7378))
+* **待办事项列表设置**：修复了新任务需要待办事项设置，以正确执行待办事项列表要求 ([#7363](https://github.com/RooCodeInc/Roo-Code/pull/7363))
+
+## 其他改进
+
+* **问题修复器模式**：在新任务工具使用中添加了缺失的待办事项参数 ([#7391](https://github.com/RooCodeInc/Roo-Code/pull/7391))
+* **隐私政策更新**：更新了隐私政策，以明确代理模式数据处理（感谢 jdilla1277！） ([#7255](https://github.com/RooCodeInc/Roo-Code/pull/7255))
+* **依赖项**：将 drizzle-kit 更新到 v0.31.4 ([#5453](https://github.com/RooCodeInc/Roo-Code/pull/5453))

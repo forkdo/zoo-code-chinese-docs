@@ -1,0 +1,25 @@
+---
+description: 添加 Markdown 预览按钮，修复 OpenAI Codex 设置问题，并提升 LiteLLM 中的 Gemini 兼容性。
+keywords:
+  - zoo code 3.41.2
+  - new features
+  - bug fixes
+  - provider updates
+---
+
+# Zoo Code 3.41.2 版本说明 (2026-01-16)
+
+此补丁版本让长 Markdown 回复更易于阅读，修复了 OpenAI Codex 设置问题，并提升了 LiteLLM 中的 Gemini 兼容性。
+
+## 在 VS Code 预览中打开 Markdown 回复
+
+聊天中的 Markdown 回复现在可以直接在 VS Code 的 Markdown 预览中打开，让较长的格式化回复更易于阅读和导航，无需在聊天气泡中滚动。 ([#10773](https://github.com/RooCodeInc/Roo-Code/pull/10773))
+
+## Bug 修复
+
+* 修复了 OpenAI – ChatGPT Plus/Pro 在设置期间可能错误地要求 API 密钥的问题，即使它使用 OAuth 登录，也会在提供商选择时阻止您。 ([#10786](https://github.com/RooCodeInc/Roo-Code/pull/10786))
+* 修复了 OpenAI Codex 提供商在切换提供商后可能保留无效模型选择的问题，自动恢复有效的模型选择。 ([#10777](https://github.com/RooCodeInc/Roo-Code/pull/10777))
+
+## 提供商更新
+
+* 修复了通过 LiteLLM 路由的 Gemini 请求在模型名称包含空格时可能失败的问题，提升了 Gemini 模型组命名的兼容性。 ([#10787](https://github.com/RooCodeInc/Roo-Code/pull/10787))```

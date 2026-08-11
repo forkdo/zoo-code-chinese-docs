@@ -1,0 +1,28 @@
+---
+description: 新增 Fireworks AI 模型，修复 token 计算问题，并优化聊天输入焦点。
+keywords:
+  - roo code 3.25.9
+  - fireworks ai models
+  - glm-4.5
+  - bug fixes
+---
+
+# Zoo Code 3.25.9 版本发布说明 (2025-08-07)
+
+此版本为 Fireworks 提供商添加了新的 AI 模型，修复了 token 计算问题，并优化了聊天创建体验。
+
+## 提供商更新
+
+* **Fireworks AI 模型**：新增了 GLM-4.5 系列模型（355B 和 106B 参数，支持 128K 上下文）以及 OpenAI gpt-oss 模型（20b 适用于边缘部署，120b 适用于生产环境），以扩展模型选择选项（感谢 alexfarlander！）（[#6784](https://github.com/RooCodeInc/Roo-Code/pull/6784)）
+
+## 体验优化
+
+* **聊天输入焦点**：现在通过 + 按钮创建新聊天时，聊天输入框会自动聚焦，让您可以立即开始输入（[#6689](https://github.com/RooCodeInc/Roo-Code/pull/6689)）
+
+## Bug 修复
+
+* **Token 计算**：修复了导致 GLM-4.5 等特定模型无法正常工作的舍入错误，通过确保最大输出 token 正确向上取整（感谢 markp018！）（[#6808](https://github.com/RooCodeInc/Roo-Code/pull/6808)）
+
+## 其他改进
+
+* **云集成**：恢复使用 @roo-code/cloud 的 npm 包版本，以提高构建稳定性和可维护性（[#6795](https://github.com/RooCodeInc/Roo-Code/pull/6795)）

@@ -1,0 +1,113 @@
+---
+description: Zoo Code 3.21 发布 Zoo Marketplace，新增 Gemini 2.5 模型支持、Claude Max 订阅集成以及 Excel 文件支持。
+keywords:
+  - Zoo Code 3.21
+  - release notes
+  - Zoo Marketplace
+  - Gemini 2.5
+  - Claude Max
+  - Excel support
+---
+
+# Zoo Code 3.21 版本发布说明
+
+此版本发布了 Zoo Marketplace，新增了对最新 Gemini 2.5 模型的支持，并引入了 Excel 文件支持，以及众多改进和修复。
+
+## [Zoo Marketplace 上线](/features/marketplace)
+
+我们很高兴地宣布 [Zoo Marketplace](/features/marketplace) 正式上线 ([#4788](https://github.com/RooCodeInc/Roo-Code/pull/4788))：
+
+- **发现优秀的 MCP 和模式**：直接在 Zoo Code 中浏览并安装社区创建的 Model Context Protocol 服务器和自定义模式
+- **无缝集成**：Marketplace 现已向所有用户开放，无需启用实验性功能
+- **轻松安装**：只需点击几下即可找到并安装所需工具
+
+Zoo Marketplace 让您可以轻松扩展 Zoo Code 的功能，使用我们充满活力的社区创建的强大集成。
+
+## 在 Zoo Code 中使用您的 Claude Max 订阅
+
+您现在可以通过我们新的 Claude Code 提供商（感谢 Cline！）直接在 Zoo Code 中使用您的 Claude Max 订阅 ([#4864](https://github.com/RooCodeInc/Roo-Code/pull/4864), [#5038](https://github.com/RooCodeInc/Roo-Code/pull/5038))：
+
+- **利用您现有的订阅**：通过 Claude CLI 将您的 Claude Max 计划连接到 Zoo Code
+- **无需额外 API 费用**：使用您的订阅权益，而不是按 token 付费的 API 费率
+- **访问高级模型**：使用您的计划中包含的 Claude Sonnet 4、Opus 4 和其他高级模型
+- **零设置复杂性**：在初始设置期间选择 Claude Code 作为您的提供商 - 无需 API 密钥
+- **高级推理支持**：完全访问 Claude 的思考模式和推理能力
+
+非常适合希望最大化订阅价值的 Claude Max 订阅者。
+
+## [Gemini 2.5 模型支持](https://blog.google/products/gemini/gemini-2-5-model-family-expands/)
+
+我们新增了对 [Google 最新 Gemini 2.5 模型](https://blog.google/products/gemini/gemini-2-5-model-family-expands/) 的支持 ([#4762](https://github.com/RooCodeInc/Roo-Code/pull/4762), [#4770](https://github.com/RooCodeInc/Roo-Code/pull/4770), [#4767](https://github.com/RooCodeInc/Roo-Code/pull/4767))：
+
+- **Gemini 2.5 Pro**：增强复杂编码任务的能力
+- **Gemini 2.5 Flash**：性能改进的快速模型
+- **Gemini 2.5 Flash Lite**：轻量级模型，非常适合快速任务
+
+这些新模型带来了增强的推理能力和在各种编码任务中更好的性能。
+
+## Excel 文件支持
+
+在工具中新增了对读取 Excel (.xlsx) 文件的支持 ([#4751](https://github.com/RooCodeInc/Roo-Code/pull/4751))。您现在可以：
+
+- **读取 Excel 文件**：直接分析并使用 Excel 电子表格
+- **提取数据**：访问单元格值、公式和工作表信息
+- **无缝集成**：与所有现有的 Zoo Code 工具和功能配合使用
+
+## 新功能
+
+* **LaTeX 渲染**：您现在可以直接在聊天窗口中渲染 LaTeX 数学方程（感谢 ColbySerpa！） ([#4786](https://github.com/RooCodeInc/Roo-Code/pull/4786))
+* **MCP 工具切换**：新增了一个切换开关，允许您禁用单个 MCP 服务器工具包含在提示上下文中（感谢 Rexarrior！） ([#3551](https://github.com/RooCodeInc/Roo-Code/pull/3551))
+* **符号链接支持**：`list_files` 工具现在支持符号链接（感谢 josh-clanton-powerschool！） ([#4859](https://github.com/RooCodeInc/Roo-Code/pull/4859))
+
+## 生活质量改进
+
+*   **配置文件特定的上下文阈值**：您现在可以为每个 API 配置文件配置不同的智能上下文压缩阈值。这为您提供了对上下文管理的更精细控制，尤其是在使用具有不同上下文窗口大小的多个模型时非常有用（感谢 SannidhyaSah, SirBadfish！） ([#4456](https://github.com/RooCodeInc/Roo-Code/pull/4456))。
+* **引导流程**：对引导流程进行了一些调整，以更好地强调模式 ([#4791](https://github.com/RooCodeInc/Roo-Code/pull/4791))
+* **任务编排**：将“Boomerang 任务”重命名为“任务编排”以提高清晰度 ([#4856](https://github.com/RooCodeInc/Roo-Code/pull/4856))
+* **`attempt_completion`**：`attempt_completion` 工具不再执行命令。这是一个永久性更改，实验性设置已被移除。 ([#4884](https://github.com/RooCodeInc/Roo-Code/pull/4884))
+* **OpenAI 兼容最大 Token 数**：在 OpenAI 兼容提供商设置中新增了最大 token 数的复选框选项 ([#4600](https://github.com/RooCodeInc/Roo-Code/pull/4600), [#4623](https://github.com/RooCodeInc/Roo-Code/pull/4623))
+* **提供商更新**：更新了 Groq 和 Mistral 的模型列表和定价 ([#4798](https://github.com/RooCodeInc/Roo-Code/pull/4798), [#4797](https://github.com/RooCodeInc/Roo-Code/pull/4797))
+* **终端详情**：现在包括当前工作目录，以提供更好的上下文感知 ([#4783](https://github.com/RooCodeInc/Roo-Code/pull/4783))
+* **多文件差异**：鼓励使用 start_line 参数以匹配传统的差异行为 ([#4777](https://github.com/RooCodeInc/Roo-Code/pull/4777))
+
+## UI/UX 改进
+
+* **Marketplace 品牌**：更新为显示“Zoo Marketplace”以保持品牌一致性 ([#4718](https://github.com/RooCodeInc/Roo-Code/pull/4718))
+* **历史记录 UI**：重构为更一致和现代的界面 ([#4598](https://github.com/RooCodeInc/Roo-Code/pull/4598))
+* **上下文菜单**：调整位置，使其靠近 GitHub Copilot，以便于访问 ([#4306](https://github.com/RooCodeInc/Roo-Code/pull/4306))
+* **面板焦点**：点击时始终聚焦面板，以确保菜单按钮可见 ([#4312](https://github.com/RooCodeInc/Roo-Code/pull/4312))
+
+## Bug 修复
+
+* **Qdrant 向量存储**：修复了 QdrantClient 初始化期间对带有路径前缀的部署的 URL 前缀处理（感谢 CW-B-W！）（[#5033](https://github.com/RooCodeInc/Roo-Code/pull/5033)）
+* **Claude Code 提供商**：解决了 JSON 解析问题，并改进了推理块显示，以展示可折叠的推理块而非原始 JSON（[#5049](https://github.com/RooCodeInc/Roo-Code/pull/5049)）
+* **LM Studio**：改进了模型检测功能，现在可以显示所有已下载的模型，而不仅仅是当前加载的模型（感谢 daniel-lxs！）（[#5047](https://github.com/RooCodeInc/Roo-Code/pull/5047)）
+* **应用差异准确性**：修复了应用多个文件差异时起始行参数无法正常工作的问题（感谢 samhvw8！）（[#5019](https://github.com/RooCodeInc/Roo-Code/pull/5019)）
+* **Ollama 兼容性**：解决了导致 Ollama 无法与某些模型配合使用的验证错误（感谢 daniel-lxs、MartinHarding1998！）（[#5014](https://github.com/RooCodeInc/Roo-Code/pull/5014)）
+* **Ollama 和 LM Studio 上下文长度**：现在会自动检测并正确显示由 Ollama 和 LM Studio 提供服务的模型的上下文长度，因此您无需再手动配置（感谢 thecolorblue、Fade78！）（[#4314](https://github.com/RooCodeInc/Roo-Code/pull/4314)）。
+* **MCP 工具 UI**：解决了 MCP 工具的“眼睛”图标显示错误状态以及在应隐藏时却在聊天上下文中可见的问题（感谢 daniel-lxs！）（[#4994](https://github.com/RooCodeInc/Roo-Code/pull/4994)）。
+* **市场**：修复了市场在填充后会变空白以及超时问题（感谢 yangbinbin48！）（[#4941](https://github.com/RooCodeInc/Roo-Code/pull/4941)）
+* **@提及**：修复了使用 @提及 的“添加文件夹”功能时的递归目录扫描问题（感谢 village-way！）（[#4863](https://github.com/RooCodeInc/Roo-Code/pull/4863)）
+* **子任务**：解决了在 API 重试期间取消任务时会显示“幽灵”“子任务结果”的问题（[#4893](https://github.com/RooCodeInc/Roo-Code/pull/4893)）
+* **定价**：更正了 Gemini 2.5 Flash 模型的定价（感谢 sr-tream！）（[#4898](https://github.com/RooCodeInc/Roo-Code/pull/4898)）
+* **Markdown**：修复了链接后跟标点符号时的 Markdown 渲染问题（[#4841](https://github.com/RooCodeInc/Roo-Code/pull/4841)）
+* **解析器可靠性**：修复了在某些环境中可能导致解析器无法正确加载的问题，提高了整体稳定性（[#4857](https://github.com/RooCodeInc/Roo-Code/pull/4857)）
+* **Windows 稳定性**：解决了在 Windows 上使用节点版本管理器运行 MCP 服务器时可能发生的崩溃问题（[#4711](https://github.com/RooCodeInc/Roo-Code/pull/4711)）
+* **子任务速率限制**：实施了全局速率限制，以防止创建子任务时出现错误，确保任务执行更加可靠（[#4453](https://github.com/RooCodeInc/Roo-Code/pull/4453)）
+* **代码库搜索错误**：改进了代码库搜索的错误消息，使嵌入相关问题的诊断和解决更加容易（[#4432](https://github.com/RooCodeInc/Roo-Code/pull/4432)）
+* **API 对话历史记录**：为对话历史记录问题添加了适当的错误处理（[#4741](https://github.com/RooCodeInc/Roo-Code/pull/4741)、[#4738](https://github.com/RooCodeInc/Roo-Code/pull/4738)）
+* **模型 ID 错误**：修复了模糊的模型 ID 错误消息（[#4709](https://github.com/RooCodeInc/Roo-Code/pull/4709)、[#4710](https://github.com/RooCodeInc/Roo-Code/pull/4710)）
+* **提示设置**：修复了提示设置的保存/放弃/还原流程（[#4623](https://github.com/RooCodeInc/Roo-Code/pull/4623)、[#4312](https://github.com/RooCodeInc/Roo-Code/pull/4312)）
+* **代码库索引**：修复了与 list-files 隐藏目录过滤的对齐问题（[#4684](https://github.com/RooCodeInc/Roo-Code/pull/4684)）
+* **子任务完成**：修复了子任务与整体任务完成状态不匹配的问题（[#4656](https://github.com/RooCodeInc/Roo-Code/pull/4656)）
+* **Windows MCP 配置**：修复了 Windows 上 MCP 变量注入中的路径规范化问题（[#4607](https://github.com/RooCodeInc/Roo-Code/pull/4607)）
+
+## 其他改进
+
+* **Anthropic 成本跟踪**：提高了 Anthropic 模型成本报告的准确性（[#4849](https://github.com/RooCodeInc/Roo-Code/pull/4849)）
+* **性能优化**：“启用 MCP 服务器创建”设置现在默认禁用，减少了大多数用户的令牌使用量并简化了提示（[#4838](https://github.com/RooCodeInc/Roo-Code/pull/4838)）
+* **安全性**：通过更新依赖项解决了安全漏洞（[#4844](https://github.com/RooCodeInc/Roo-Code/pull/4844)）
+* **测试模式更新**：更新了测试模式以支持 Vitest 测试框架（[#4778](https://github.com/RooCodeInc/Roo-Code/pull/4778)）
+* **工作目录警告**：移除了关于工作目录更改的不必要警告（[#4795](https://github.com/RooCodeInc/Roo-Code/pull/4795)）
+* **遥测**：添加了市场标签页视图和安装点击跟踪（[#4781](https://github.com/RooCodeInc/Roo-Code/pull/4781)）
+* **Windows Docker**：更新了 evals Docker 设置以在 Windows 上运行（[#4467](https://github.com/RooCodeInc/Roo-Code/pull/4467)）

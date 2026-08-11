@@ -1,0 +1,60 @@
+---
+description: Zoo Code 3.25.5 新增 Cerebras AI 提供商支持（集成 Qwen 3 Coder 模型），引入自动审批成本限制功能以更好地控制预算，并修复了 VB.NET 索引以及其他多项改进。
+keywords:
+  - roo code 3.25.5
+  - cerebras provider
+  - qwen 3 coder
+  - cost limits
+  - vb.net indexing
+  - bug fixes
+---
+
+# Zoo Code 3.25.5 版本发布说明 (2025-08-01)
+
+此版本新增 Cerebras AI 提供商支持（集成强大的 Qwen 3 Coder 模型），引入自动审批成本限制功能以更好地控制预算，并包含针对 VB.NET 索引和消息处理的重要错误修复。
+
+## Cerebras 提供商支持
+
+我们新增了对 Cerebras 作为 AI 提供商的支持（感谢 kevint-cerebras！）（[#6392](https://github.com/RooCodeInc/Roo-Code/pull/6392)，[#6562](https://github.com/RooCodeInc/Roo-Code/pull/6562)）：
+
+- **Qwen 3 Coder 模型**：可访问 Qwen 3 Coder，提供免费和付费层级选项
+- **多种模型变体**：包括 Llama 3.3 70B 以及各种 Qwen 3 配置（32B、235B）
+- **自动思维令牌过滤**：Cerebras 推理模型会自动过滤思维令牌，使输出更清晰
+
+Cerebras 提供商提供具有竞争力的性能，并具备灵活的定价层级，是实验和生产环境的绝佳选择。
+
+> **📚 文档**：请参阅 Cerebras 提供商指南 获取设置说明和可用模型信息。
+
+## 自动审批成本限制
+
+我们在自动审批设置中引入了一项新的成本控制功能，以帮助管理 API 支出（感谢 hassoncs！）（[#6484](https://github.com/RooCodeInc/Roo-Code/pull/6484)）：
+
+- **预算保护**：在自动审批设置中设置最大成本限制，以控制总 API 支出
+- **自动提示**：当接近成本限制时，Zoo Code 将提示您进行审批
+- **补充请求限制**：与现有的请求计数限制协同工作，实现全面控制
+
+<img src="/img/v3.25.5/v3.25.5.png" alt="显示新增“最大成本”字段的自动审批设置" width="400" />
+
+此功能在使用昂贵模型或运行长时间会话时提供安心保障，确保您始终在预算范围内。您可以在自动审批配置面板中找到这个新的“最大成本”设置，它与现有的“最大计数”设置并列显示。
+
+## 生活质量改进
+
+* **自动审批 UI**：界面更简洁、更流畅，本地化支持得到改进 ([#6538](https://github.com/RooCodeInc/Roo-Code/pull/6538))
+![alt text](../../static/img/v3.25.5/v3.25.5-1.png)
+* **命令验证**：更好地处理后台执行 (`&`) 和子 shell 模式（如 `(cmd1; cmd2)`） ([#6486](https://github.com/RooCodeInc/Roo-Code/pull/6486))
+
+## Bug 修复
+
+* **VB.NET 索引**：现在使用回退分块技术在大型单体仓库中正确索引文件（感谢 JensvanZutphen！）（[#6552](https://github.com/RooCodeInc/Roo-Code/pull/6552)）
+* **消息发送**：恢复点击保存按钮时的功能 ([#6487](https://github.com/RooCodeInc/Roo-Code/pull/6487))
+* **搜索/替换容错**：对 AI 生成的差异中额外的 `>` 字符更加宽容 ([#6537](https://github.com/RooCodeInc/Roo-Code/pull/6537))
+* **Qdrant 删除**：优雅处理删除错误，防止索引中断 ([#6296](https://github.com/RooCodeInc/Roo-Code/pull/6296))
+* **LM Studio 上下文长度**：模型现在正确显示其实际上下文长度，而不是显示“1”（感谢 pwilkin、Angular-Angel！）（[#6183](https://github.com/RooCodeInc/Roo-Code/pull/6183)）
+* **Claude Code 错误**：ENOENT 错误现在显示有用的安装指导（感谢 JamieJ1！）（[#5867](https://github.com/RooCodeInc/Roo-Code/pull/5867)）
+
+## 其他改进
+
+* **斜杠命令插值**：跳过对不存在命令的插值 ([#6475](https://github.com/RooCodeInc/Roo-Code/pull/6475))
+* **Linter 覆盖范围**：应用于本地化 README 文件（感谢 liwilliam2021！）（[#6477](https://github.com/RooCodeInc/Roo-Code/pull/6477)）
+* **云服务事件**：从回调迁移到基于事件的架构 ([#6519](https://github.com/RooCodeInc/Roo-Code/pull/6519))
+* **网站更新**：第一阶段改进（感谢 thill2323！）（[#6085](https://github.com/RooCodeInc/Roo-Code/pull/6085)）

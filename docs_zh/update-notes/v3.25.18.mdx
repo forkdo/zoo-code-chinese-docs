@@ -1,0 +1,40 @@
+---
+description: 更新至 Zoo Code 3.25.18 以体验 Sonic —— 一款来自主流 AI 提供商的 stealth 模型，拥有 262,144 个 token 的超大上下文窗口，并提供 72 小时免费试用，同时包含多项提供商优化和问题修复。
+keywords:
+  - zoo code 3.25.18
+  - sonic model
+  - provider updates
+  - bug fixes
+---
+
+# Zoo Code 3.25.18 版本说明 (2025-08-19)
+
+更新至 Zoo Code 3.25.18 即可体验 Sonic —— 一款来自主流 AI 提供商的 stealth 模型，拥有高达 262,144 个 token 的超大上下文窗口，并可免费试用 72 小时。本次版本还包含多项提供商增强功能以及可靠性修复。
+
+## Sonic (Stealth 模型)
+
+Sonic 现已在 Zoo Code 中可用 ([#7207](https://github.com/RooCodeInc/Roo-Code/pull/7207)) ([#7212](https://github.com/RooCodeInc/Roo-Code/pull/7212)) ([#7218](https://github.com/RooCodeInc/Roo-Code/pull/7218)) —— 这是一款专为长距离、上下文密集型工作而设计的 stealth 模型：
+
+- 262,144 个 token 的上下文窗口，让您可以在单个会话中处理超大型代码库、日志和转录文本。
+- 免费试用 72 小时，让您可以用真实任务来体验 Sonic 的强大能力。
+
+> 重要提示：Sonic 通过 Zoo Code Cloud 提供。要使用此模型，您必须将 IDE 连接到 Zoo Code Cloud。请参阅[连接到 Zoo Code Cloud](/roo-code-cloud/connect)。
+
+**前提条件**
+- Zoo Code v3.25.18 或更高版本
+- 已连接 Zoo Code Cloud 账户 —— 请参阅[连接到 Zoo Code Cloud](/roo-code-cloud/connect)
+
+**如何启用 Sonic**
+1. 打开 设置 → 提供商，将“提供商”设置为 **Zoo Code Router**。
+2. 在模型选择器中，选择 **Sonic**。
+
+> 📚 文档：请参阅[连接到 Zoo Code Cloud](/roo-code-cloud/connect) 和 [Zoo Code Router](/providers/roo-code-router)。
+
+## 问题修复
+
+- LM Studio 模型：防止重复条目（不区分大小写）（感谢 fbuechler！）（[#7185](https://github.com/RooCodeInc/Roo-Code/pull/7185)）
+- 推理使用：遵守 enableReasoningEffort 设置，避免产生非预期的推理成本（感谢 ikbencasdoei！）（[#7049](https://github.com/RooCodeInc/Roo-Code/pull/7049)）
+
+## 文档更新
+
+- ask_followup_question：简化提示指导，使编写更清晰（[#7191](https://github.com/RooCodeInc/Roo-Code/pull/7191)）—— 请参阅 [ask_followup_question 工具](/advanced-usage/available-tools/ask-followup-question)。```

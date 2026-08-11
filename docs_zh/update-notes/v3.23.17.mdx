@@ -1,0 +1,48 @@
+---
+description: 此版本引入了智能合并冲突解决、新的 AI 提供商、增强的稳定性以及众多提升使用体验的改进。
+keywords:
+  - zoo code 3.23.17
+  - merge resolver
+  - mistral embedding
+  - moonshot provider
+  - qwen model
+---
+
+# Zoo Code 3.23.17 版本说明 (2025-07-22)
+
+此版本引入了新的 AI 提供商、增强的稳定性以及众多提升使用体验的改进。
+
+## 使用体验改进
+
+* **跳转到新文件**：为新建文件添加了跳转图标，与编辑文件的体验保持一致（感谢 mkdir700！）（[#5738](https://github.com/RooCodeInc/Roo-Code/pull/5738)）
+* **应用差异错误消息**：在 apply_diff 失败时添加了大小写敏感性提醒，帮助用户理解匹配要求（感谢 maskelihileci！）（[#6076](https://github.com/RooCodeInc/Roo-Code/pull/6076)）
+* **上下文压缩提示位置**：移至“提示”部分，以提高可发现性和持久可见性（感谢 SannidhyaSah、notadamking！）（[#5279](https://github.com/RooCodeInc/Roo-Code/pull/5279)）
+* **待办事项列表工具控制**：在提供商设置中添加了复选框，用于启用/禁用待办事项列表工具（[#6032](https://github.com/RooCodeInc/Roo-Code/pull/6032)）
+* **MCP 内容优化**：当未配置服务器时，自动省略与 MCP 相关的提示（[#5889](https://github.com/RooCodeInc/Roo-Code/pull/5889)）
+* **Git 安装检查**：当 Git 未安装时，为检查点功能显示清晰的警告信息和下载链接（感谢 MuriloFP！）（[#5920](https://github.com/RooCodeInc/Roo-Code/pull/5920)）
+* **可配置的评估超时**：添加了滑块，用于设置 5-10 分钟的评估超时（[#5865](https://github.com/RooCodeInc/Roo-Code/pull/5865)）
+
+### Bug 修复
+
+* **终端输出限制**：修复了由终端命令输出极长行导致的严重崩溃。现在正确限制输出，防止上下文爆炸（感谢 robottwo！）（[#5777](https://github.com/RooCodeInc/Roo-Code/pull/5777)）
+* **API 错误消息**：修复了所有 API 失败都显示为“API 请求已取消”的问题。现在显示正确的错误消息，以便更好地进行故障排除（感谢 MDean-Slalom、daniel-lxs！）（[#6025](https://github.com/RooCodeInc/Roo-Code/pull/6025)）
+* **AWS Bedrock 令牌计数**：修复了 Bedrock 用户令牌计数不准确和上下文窗口错误的问题（感谢 daniel-lxs、fedorbass！）（[#6019](https://github.com/RooCodeInc/Roo-Code/pull/6019)）
+* **API 操作期间导出**：恢复了在 API 运行时导出、共享和复制内容的能力（感谢 MuriloFP、KJ7LNW！）（[#5849](https://github.com/RooCodeInc/Roo-Code/pull/5849)）
+* **符号链接规则文件**：修复了符号链接规则文件的排序，使用符号链接名称，允许使用数字前缀进行正确排序（感谢 dsent！）（[#5903](https://github.com/RooCodeInc/Roo-Code/pull/5903)）
+* **全局模式导出**：修复了导出全局模式时不包含关联规则文件的问题（[#5837](https://github.com/RooCodeInc/Roo-Code/pull/5837)）
+* **Vitest 命令**：添加了缺失的运行参数，防止测试在监视模式下挂起（感谢 KJ7LNW！）（[#5991](https://github.com/RooCodeInc/Roo-Code/pull/5991)）
+* **评估系统**：修复了先前更新中破坏的评估超时处理（[#6065](https://github.com/RooCodeInc/Roo-Code/pull/6065)）
+* **云会话处理**：改进了会话错误处理，防止在服务问题期间不必要的注销（[#6051](https://github.com/RooCodeInc/Roo-Code/pull/6051)）
+
+## 提供商更新
+
+* **Mistral 嵌入提供商**：代码库索引通过 Mistral 作为新的嵌入提供商获得了重大升级，提供卓越的性能且无需成本。只需在嵌入设置中选择 Mistral 的 codestral-embed 模型，即可获得更好的代码理解和更准确的 AI 响应（感谢 SannidhyaSah、shariqriazz！）（[#5946](https://github.com/RooCodeInc/Roo-Code/pull/5946)）
+* **Qwen3-235B 模型**：添加了对 Qwen3-235B-A22B-Instruct-2507 的支持，在 Chutes AI 上具有巨大的 262K 令牌上下文窗口（感谢 apple-techie！）（[#6052](https://github.com/RooCodeInc/Roo-Code/pull/6052)）
+* **Moonshot AI**：添加了 Moonshot 作为新的 AI 提供商选项（感谢 CellenLee！）（[#6046](https://github.com/RooCodeInc/Roo-Code/pull/6046)）
+* **Llama 4 Maverick**：在 US-EAST5 区域的 Google Vertex AI 中添加了 Llama 4 Maverick 模型（128K 上下文）（感谢 MuriloFP、konstantinosbotonakis！）（[#6023](https://github.com/RooCodeInc/Roo-Code/pull/6023)）
+
+## 其他改进
+
+* **合并解析器模式**：添加了智能合并冲突解决模式，分析提交历史以智能决定保留哪些更改（感谢 daniel-lxs！）（[#6090](https://github.com/RooCodeInc/Roo-Code/pull/6090)）
+* **令牌回退逻辑**：改进了滑动窗口，采用一致的 8192 令牌回退，以实现更可预测的上下文处理（[#5993](https://github.com/RooCodeInc/Roo-Code/pull/5993)）
+* **待办事项列表澄清**：更新了文档，澄清待办事项列表工具适用于复杂任务，而不仅仅是多步骤任务（[#5926](https://github.com/RooCodeInc/Roo-Code/pull/5926)）```

@@ -1,0 +1,27 @@
+---
+description: 此版本引入了安全修复、UI 改进和代码库重构，以提升安全性、用户体验和可维护性。
+---
+
+# Zoo Code 3.20.2 版本说明 (2025-06-13)
+
+此版本引入了安全修复、UI 改进和代码库重构，以提升安全性、用户体验和可维护性。
+
+## Bug 修复
+
+*   **安全性**:
+    *   强制使用 `tar-fs >=2.1.3` 以修复安全漏洞 ([#4629](https://github.com/RooCodeInc/Roo-Code/pull/4629))
+    *   将 `search_files` 限制在工作空间内以提升安全性 ([#4642](https://github.com/RooCodeInc/Roo-Code/pull/4642))
+*   **用户界面**:
+    *   同步 `BatchDiffApproval` 与 `BatchFilePermission` 的样式，以保持 UI 一致性 (感谢 samhvw8!) ([#4640](https://github.com/RooCodeInc/Roo-Code/pull/4640))
+    *   为 MCP 执行响应添加最大高度限制，以改善用户体验 (感谢 samhvw8!) ([#4644](https://github.com/RooCodeInc/Roo-Code/pull/4644))
+    *   防止 MCP “已安装” 标签被挤压 (感谢 daniel-lxs!) ([#4649](https://github.com/RooCodeInc/Roo-Code/pull/4649))
+*   **Bedrock**: 重新应用 Bedrock 推理修复 (感谢 daniel-lxs!) ([#4645](https://github.com/RooCodeInc/Roo-Code/pull/4645))
+
+## 其他改进
+
+*   **上下文压缩**: 允许更低的上下文压缩阈值 (感谢 SECKainersdorfer!) ([#4634](https://github.com/RooCodeInc/Roo-Code/pull/4634))
+*   **代码质量**:
+    *   避免类型系统重复，使代码库更简洁 (感谢 EamonNerbonne!) ([#4596](https://github.com/RooCodeInc/Roo-Code/pull/4596))
+    *   改进 PR 审阅者和问题修复者规则，以提供更好的指导和更有针对性的修复 ([#4651](https://github.com/RooCodeInc/Roo-Code/pull/4651), [#4652](https://github.com/RooCodeInc/Roo-Code/pull/4652))
+*   **Unbound**: 为 Unbound 上的自定义顶点模型添加缓存断点 (感谢 pugazhendhi-m!) ([#4585](https://github.com/RooCodeInc/Roo-Code/pull/4585))
+*   **文档**: 添加文档提取器模式，以进行全面的文档提取 ([#4621](https://github.com/RooCodeInc/Roo-Code/pull/4621))

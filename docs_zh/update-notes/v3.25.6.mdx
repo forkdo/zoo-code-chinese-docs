@@ -1,0 +1,31 @@
+---
+description: 支持 OpenRouter 上的全新 Horizon Beta 隐形模型，以及云提供商配置文件同步和错误修复。
+keywords:
+  - roo code 3.25.6
+  - horizon beta
+  - stealth model
+  - cloud provider sync
+  - bug fixes
+---
+
+# Zoo Code 3.25.6 发布说明 (2025-08-02)
+
+此版本包含对全新 Horizon Beta 隐形模型的支持、云提供商配置文件同步以及错误修复。
+
+## 通过 OpenRouter 支持 Horizon Beta 隐形模型
+
+我们已优化对 OpenRouter 全新隐形模型 Horizon Beta 的支持 ([#6577](https://github.com/RooCodeInc/Roo-Code/pull/6577))：
+
+- **性能提升**：将最大 token 数设置为 32k（从默认的 128k 减少）
+- **免费使用**：感谢 OpenRouter，Horizon Beta 是 Horizon Alpha 的改进版本，且仍然免费
+
+非常感谢 OpenRouter 为社区提供这一创新的隐形模型！
+
+## 错误修复
+
+* **Claude Code 错误处理**：修复了使用 Claude Code 提供商时出现的 "spawn claude ENOENT" 错误，现在提供了更好的错误处理和安装指导（感谢 JamieJ1！）([#6565](https://github.com/RooCodeInc/Roo-Code/pull/6565))
+
+## 其他改进
+
+* **云提供商配置文件同步**：新增支持从云端同步提供商配置文件，实现跨设备自动同步和团队协作 ([#6540](https://github.com/RooCodeInc/Roo-Code/pull/6540))
+* **类型定义**：将 @roo-code/types 更新至 v1.41.0 以获得最新的类型兼容性 ([#6568](https://github.com/RooCodeInc/Roo-Code/pull/6568))

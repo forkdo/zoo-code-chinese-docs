@@ -1,0 +1,518 @@
+---
+description: 在 Zoo Code 中使用模型上下文协议 (MCP) 的完整指南。了解如何配置 MCP 服务器、管理工具以及扩展 Zoo Code 的功能。
+keywords:
+  - MCP
+  - Model Context Protocol
+  - MCP servers
+  - Zoo Code integration
+  - external tools
+  - API integration
+sidebar_label: 在 Zoo Code 中使用 MCP
+---
+
+# 在 Zoo Code 中使用 MCP
+
+:::info 对 MCP 服务器感到困惑？
+
+MCP（模型上下文协议）服务器充当桥梁，让 Zoo Code 能够访问更广泛的**工具**和外部服务，例如数据库、API 或自定义脚本。它使用标准的通信方法，使 Zoo 能够利用这些外部功能。
+
+如需深入了解，请参阅[什么是 MCP？](/features/mcp/what-is-mcp)。
+:::
+
+模型上下文协议 (MCP) 通过连接外部工具和服务来扩展 Zoo Code 的功能。本指南涵盖了在 Zoo Code 中使用 MCP 所需了解的所有内容。
+
+<div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden' }}>
+  <iframe
+    src="https://www.youtube.com/embed/VAbadUDhH5c?rel=0&modestbranding=1"
+    style={{
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+    }}
+    frameBorder="0"
+    allow="autoplay; encrypted-media"
+    allowFullScreen
+  ></iframe>
+</div>
+<br />
+
+---
+
+## Configuring MCP Servers
+
+MCP 服务器配置可在两个级别进行管理：
+
+1.  **全局配置**：存储在 `mcp_settings.json` 文件中，可通过 VS Code 设置访问（见下文）。这些设置适用于所有工作区，除非被项目级配置覆盖。
+2.  **项目级配置**：在项目根目录下的 `.roo/mcp.json` 文件中定义。这使您可以设置特定于项目的服务器，并通过将文件提交到版本控制来与团队共享配置。如果存在此文件，Zoo Code 会自动检测并加载它。
+
+**优先级**：如果服务器名称同时存在于全局和项目配置中，则**项目级配置优先**。
+
+### Editing MCP Settings Files
+
+您可以直接从 Zoo Code MCP 设置视图编辑全局和项目级 MCP 配置文件：
+
+1. 点击 Zoo Code 窗格顶部导航栏中的 <Codicon name="server" /> 图标。
+
+  <img src="/img/using-mcp-in-roo/using-mcp-in-roo-10.png" alt="Zoo Code 中的 MCP 服务器界面" width="400" />
+
+2. 滚动到 MCP 设置视图的底部。
+3. 点击相应的按钮：
+    *   **`编辑全局 MCP`**：打开全局 `mcp_settings.json` 文件。
+    *   **`编辑项目 MCP`**：打开项目特定的 `.roo/mcp.json` 文件。如果此文件不存在，Zoo Code 将为您创建它。
+
+  <img src="/img/using-mcp-in-roo/using-mcp-in-roo-9.png" alt="编辑全局 MCP 和编辑项目 MCP 按钮" width="600" />
+
+这两个文件都使用 JSON 格式，其中包含一个 `mcpServers` 对象，该对象包含命名的服务器配置：
+
+  ```json
+  {
+    "mcpServers": {
+      "server1": {
+        "command": "python",
+        "args": ["/path/to/server.py"],
+        "env": {
+          "API_KEY": "your_api_key"
+        },
+        "alwaysAllow": ["tool1", "tool2"],
+        "disabled": false
+      }
+    }
+  }
+    ```
+    *Zoo Code 中 MCP 服务器配置示例（STDIO 传输）*
+
+  ### 了解传输类型
+
+  MCP 支持三种用于服务器通信的传输类型：用于本地服务器的 STDIO、用于新远程服务器的流式 HTTP（推荐），以及用于旧版远程服务器的 SSE。
+
+  #### STDIO 传输
+
+  用于在您的机器上运行的本地服务器：
+
+  * 通过标准输入/输出流进行通信
+  * 更低的延迟（无网络开销）
+  * 更好的安全性（无网络暴露）
+  * 更简单的设置（无需 HTTP 服务器）
+  * 作为子进程在您的机器上运行
+
+  有关 STDIO 传输如何工作的深入信息，请参阅[STDIO 传输](/features/mcp/server-transports#stdio-transport)。
+
+  STDIO 配置参数：
+
+  *   `command`（必需）：要运行的可执行文件（例如，`node`、`python`、`npx` 或绝对路径）。
+  *   `args`（可选）：传递给命令的字符串参数数组。您可以使用 `${env:VARIABLE_NAME}` 语法引用系统环境变量。
+  *   `cwd`（可选）：启动服务器进程的工作目录。如果省略，则默认为第一个工作区文件夹路径或主进程的工作目录。如果服务器脚本依赖于相对路径，则此参数很有用。
+  *   `env`（可选）：包含要为服务器进程设置的环境变量的对象。
+  *   `alwaysAllow`（可选）：来自此服务器要自动批准的工具名称数组。
+  *   `disabled`（可选）：设置为 `true` 以禁用此服务器配置。
+
+  STDIO 配置示例：
+  ```json
+  {
+    "mcpServers": {
+      "local-server": {
+        "command": "node",
+        "args": ["server.js"],
+        "cwd": "/path/to/project/root", // 可选：指定工作目录
+        "env": {
+          "API_KEY": "your_api_key"
+        },
+        "alwaysAllow": ["tool1", "tool2"],
+        "disabled": false
+      }
+    }
+  }
+  ```
+
+  #### 在参数中使用系统环境变量
+
+  您可以在 `args` 数组中使用 `${env:VARIABLE_NAME}` 语法引用系统级环境变量。这允许您从系统环境传递敏感信息（如 API 密钥或令牌），而无需在配置文件中硬编码它们：
+
+  ```json
+  {
+    "mcpServers": {
+      "github": {
+        "command": "docker",
+        "args": [
+          "run",
+          "-i",
+          "--rm",
+          "-e",
+          "GITHUB_PERSONAL_ACCESS_TOKEN=${env:GITHUB_PERSONAL_ACCESS_TOKEN}",
+          "ghcr.io/github/github-mcp-server"
+        ],
+        "alwaysAllow": [
+          "get_pull_request"
+        ]
+      }
+    }
+  }
+  ```
+
+  在此示例中，`${env:GITHUB_PERSONAL_ACCESS_TOKEN}` 将被替换为您的系统中 `GITHUB_PERSONAL_ACCESS_TOKEN` 环境变量的值。这在以下情况下特别有用：
+  - 使用需要通过环境变量传递的 Docker 容器
+  - 将敏感凭据排除在配置文件之外
+  - 在不同凭据的不同环境中使用相同的配置
+
+  **注意：** 环境变量必须在您的系统环境中存在才能正常工作。您可以通过操作系统的设置或 shell 配置文件（例如，`.bashrc`、`.zshrc` 或 Windows 环境变量）设置系统环境变量。
+#### Streamable HTTP Transport
+
+这是通过 HTTP/HTTPS 访问远程服务器的**现代标准**，提供了更大的灵活性，并取代了新实现的旧版 SSE 传输。
+
+*   通过 HTTP POST/GET 到单个 MCP 端点进行通信
+*   可选择使用服务器发送事件 (SSE) 进行流式传输
+*   可以托管在不同的机器上
+*   支持多个客户端连接
+*   需要网络访问
+*   允许集中部署和管理
+
+有关流式 HTTP 传输如何工作的深入信息，请参阅[流式 HTTP 传输](/features/mcp/server-transports#streamable-http-transport)。
+
+流式 HTTP 配置参数：
+
+*   `type`（必需）：必须设置为 `"streamable-http"`。
+*   `url`（必需）：远程 MCP 服务器单个端点的完整 URL（例如，`https://your-server.com/mcp`）。
+*   `headers`（可选）：包含要与请求一起发送的自定义 HTTP 标头的对象（例如，用于身份验证令牌）。
+*   `alwaysAllow`（可选）：来自此服务器要自动批准的工具名称数组。
+*   `disabled`（可选）：设置为 `true` 以禁用此服务器配置。
+
+流式 HTTP 配置示例：
+```json
+{
+  "mcpServers": {
+    "modern-remote-server": {
+      "type": "streamable-http",
+      "url": "https://your-modern-server.com/api/mcp-endpoint",
+      "headers": {
+        "X-API-Key": "your-secure-api-key"
+      },
+      "alwaysAllow": ["newToolA", "newToolB"],
+      "disabled": false
+    }
+  }
+}
+```
+
+  #### SSE 传输（旧版）
+
+用于通过 HTTP/HTTPS 访问的旧版远程服务器。**对于新的远程服务器实现，建议使用[可流式 HTTP 传输](#streamable-http-transport)。**
+
+* 通过服务器发送事件 (Server-Sent Events) 协议进行通信（通常需要为客户端到服务器和服务器到客户端通信分别设置端点）
+* 可托管在不同机器上
+* 支持多个客户端连接
+* 需要网络访问权限
+* 支持集中部署和管理
+
+有关传统 SSE 传输工作原理的详细信息，请参阅 [SSE 传输（传统）](/features/mcp/server-transports#sse-transport-legacy)。
+
+SSE（传统）配置参数：
+
+*   `type`（可选，但建议明确指定）：如果为 SSE 服务器提供 `url`，则应设置为 `"sse"`，以区别于可流式 HTTP。如果存在 `url` 但省略了 `type`，Zoo Code 可能会尝试推断，但显式声明更安全。
+*   `url`（必需）：远程 MCP 服务器的基础 URL。对于传统 SSE，这通常意味着服务器将派生或期望类似 `/events`（用于 SSE 流）和 `/message`（用于 POST 请求）的单独路径。
+*   `headers`（可选）：一个对象，包含要与请求一起发送的自定义 HTTP 标头（例如，用于身份验证令牌）。
+*   `alwaysAllow`（可选）：一个数组，包含要自动批准的来自此服务器的工具名称。
+*   `disabled`（可选）：设置为 `true` 以禁用此服务器配置。
+
+SSE（传统）配置示例：
+```json
+{
+  "mcpServers": {
+    "legacy-remote-server": {
+      "type": "sse", // 明确指定为 SSE
+      "url": "https://your-legacy-server-url.com/mcp-base", // 基础 URL
+      "headers": {
+        "Authorization": "Bearer your-legacy-token"
+      },
+      "alwaysAllow": ["oldToolX"],
+      "disabled": false
+    }
+  }
+}
+```
+
+## Enabling or Disabling MCP Servers
+
+在此处禁用 MCP 服务器将从系统提示中移除所有与 MCP 相关的逻辑和定义，从而减少令牌使用量。这将阻止 Zoo Code 连接到任何 MCP 服务器，并且 `use_mcp_tool` 和 `access_mcp_resource` 工具将不可用。如果您不打算使用 MCP 服务器，请取消勾选此选项。默认情况下此选项是开启的。
+
+1. 点击 Zoo Code 窗格顶部导航栏中的 <Codicon name="server" /> 图标
+2. 勾选/取消勾选 `启用 MCP 服务器`
+
+  <img src="/img/using-mcp-in-roo/using-mcp-in-roo-2.png" alt="启用 MCP 服务器开关" width="400" />
+
+---
+
+## Enabling or Disabling MCP Server Creation
+
+在此处禁用 MCP 服务器创建只会从系统提示中移除 Zoo Code 用于编写 MCP 服务器的指令，而不会移除与操作它们相关的上下文。这可以减少令牌使用量。默认情况下此选项是开启的。
+
+1. 点击 Zoo Code 窗格顶部导航栏中的 <Codicon name="server" /> 图标
+2. 勾选/取消勾选 `启用 MCP 服务器创建`
+
+  <img src="/img/using-mcp-in-roo/using-mcp-in-roo-3.png" alt="启用 MCP 服务器创建开关" width="400" />
+
+---
+
+## 如何使用 Zoo 创建 MCP 服务器
+
+如果您需要现有 MCP 服务器无法提供的特定工具或功能，可以要求 Zoo Code 为您构建一个新的服务器。
+
+**前提条件：** 确保在 MCP 设置面板中勾选了 **[启用 MCP 服务器创建](#enabling-or-disabling-mcp-server-creation)** 设置。如果此选项被禁用，Zoo 将没有构建服务器所需的必要指令。
+
+**如何启动：**
+
+1.  **提出请求：** 明确要求 Zoo 提供新的工具或功能。例如：
+    *   “创建一个获取比特币当前价格的 MCP 工具。”
+    *   “我需要一个通过其 API 连接到公司内部用户数据库的工具。”
+    *   “构建一个与 GitHub Gist API 交互的 MCP 服务器。”
+
+2.  **Zoo 的处理流程（简化）：** 一旦您提出请求（且设置已启用），Zoo 将：
+    *   获取用于服务器创建的内部指令。
+    *   在默认 MCP 目录（例如 macOS 上的 `~/Documents/Cline/MCP`）中搭建一个基本服务器项目（通常是 TypeScript），除非您另行指定。
+    *   编写代码以实现请求的工具，包括处理必要的 API 调用。
+    *   **处理密钥：** 如果工具需要 API 密钥或其他凭据，Zoo 将使用 [`ask_followup_question`](/advanced-usage/available-tools/ask-followup-question) 工具向您询问它们，以确保它们被安全地配置为服务器的环境变量。
+    *   **配置：** 自动将新服务器的配置添加到您的全局 `mcp_settings.json` 或项目 `.roo/mcp.json` 文件中。
+    *   **激活：** 尝试连接到新配置的服务器，以便其工具立即可用。
+
+3.  **结果：** 如果成功，Zoo 将确认创建，并且新服务器及其工具将出现在您的 MCP 服务器列表中，随时可以使用。
+
+此功能允许您通过让 Zoo 直接根据您的请求构建您需要的特定集成来定制其功能。要深入了解内部机制，请参阅[工具调用机制](/advanced-usage/available-tools/tool-use-overview#tool-calling-mechanism)。
+
+---
+
+## 管理单个 MCP 服务器
+
+   <img src="/img/using-mcp-in-roo/using-mcp-in-roo-8.png" alt="MCP 服务器配置面板示例" width="400" />
+
+每个 MCP 服务器都有自己的配置面板，您可以在其中修改设置、管理工具和控务其操作。要访问这些设置：
+
+1. 点击 Zoo Code 窗格顶部导航栏中的 <Codicon name="server" /> 图标
+2. 在列表中找到您要管理的 MCP 服务器
+   <img src="/img/using-mcp-in-roo/using-mcp-in-roo-4.png" alt="MCP 服务器列表" width="400" />
+
+### 删除服务器
+
+1. 点击您要删除的 MCP 服务器旁边的 <Codicon name="trash" /> 图标
+2. 在确认框中点击 `删除` 按钮
+
+  <img src="/img/using-mcp-in-roo/using-mcp-in-roo-5.png" alt="删除确认框" width="400" />
+
+### 重启服务器
+
+1. 点击您要重启的 MCP 服务器旁边的 <Codicon name="refresh" /> 按钮
+
+### 启用或禁用服务器
+
+1. 点击 MCP 服务器旁边的 <Codicon name="activate" /> 切换开关以启用/禁用它
+
+### 网络超时
+
+要设置在调用 MCP 服务器工具后等待响应的最长时间：
+
+1. 点击单个 MCP 服务器配置框底部的 `网络超时` 下拉菜单并更改时间。默认为 1 分钟，但可以在 30 秒到 5 分钟之间设置。
+
+<img src="/img/using-mcp-in-roo/using-mcp-in-roo-6.png" alt="网络超时下拉菜单" width="400" />
+
+### Auto Approve Tools
+
+MCP 工具自动批准是基于每个工具进行的，默认情况下是禁用的。要配置自动批准：
+
+1. 首先在[自动批准操作](/features/auto-approving-actions)中启用全局的“使用 MCP 服务器”自动批准选项
+2. 在 MCP 服务器设置中，找到您要自动批准的具体工具
+3. 勾选工具名称旁边的 `始终允许` 复选框
+
+<img src="/img/using-mcp-in-roo/using-mcp-in-roo-7.png" alt="MCP 工具的始终允许复选框" width="120" />
+
+启用后，Zoo Code 将自动批准此特定工具而无需提示。请注意，全局的“使用 MCP 服务器”设置具有优先权 - 如果它被禁用，则不会自动批准任何 MCP 工具。
+
+---
+
+## 查找和安装 MCP 服务器
+
+Zoo Code 不附带任何预安装的 MCP 服务器。您需要单独查找和安装它们。
+
+* **社区仓库：** 在 GitHub 上查找社区维护的 MCP 服务器列表
+* **询问 Zoo：** 您可以要求 Zoo Code 帮助您查找甚至创建 MCP 服务器（当“[启用 MCP 服务器创建](#enabling-or-disabling-mcp-server-creation)”启用时）
+* **自行构建：** 使用 SDK 创建自定义 MCP 服务器，以使用您自己的工具扩展 Zoo Code
+
+完整的 SDK 文档，请访问 [MCP GitHub 仓库](https://github.com/modelcontextprotocol/)。
+
+---
+
+## 在工作流中使用 MCP 工具
+
+配置 MCP 服务器后，Zoo 会自动检测其可用的工具和资源。要有效利用这些工具，需要了解核心交互步骤，更重要的是了解 Zoo 如何解释你提供的工具。
+
+### 核心工作流程步骤
+
+你与 MCP 工具的交互通常遵循以下顺序：
+
+#### 1. 启动任务
+在 Zoo Code 聊天界面中输入你的请求。
+
+#### 2. Zoo 识别工具
+Zoo 会分析你的请求，以确定是否有可用的 MCP 工具可以提供帮助。此阶段高度依赖于 MCP 工具定义的质量。
+
+##### 描述的关键作用
+Zoo 的以下能力都依赖于工具和参数清晰、简洁且信息丰富的描述：
+*   为任务识别*正确*的工具，
+*   了解如何构建必要的参数，以及
+*   避免误解工具的功能，
+
+如果工具和参数的描述模糊或缺失，尤其是参数的描述，会严重阻碍 Zoo 有效选择或使用工具的能力。
+
+例如，像“分析我的 API 性能”这样的请求可能会让 Zoo 考虑一个用于 API 端点测试的 MCP 工具。Zoo 是否能按预期成功识别并利用此工具，直接受其描述质量的影响。
+
+##### 定义 MCP 工具的最佳实践
+为了确保 Zoo 能高效地利用你的 MCP 工具，在服务器中定义它们时请考虑以下几点：
+
+*   **工具名称：** 选择一个描述性强且无歧义的名称，能清楚表明工具的主要功能。
+*   **工具描述：** 提供工具功能、用途以及使用时的任何重要上下文或先决条件的综合摘要。解释使用工具的结果或产出。
+*   **参数描述：** 这至关重要。对于每个参数：
+    *   清楚说明其用途以及它期望接收的数据类型（例如，“用于查找的用户 ID”、“要处理的文件路径”、“搜索查询字符串”）。
+    *   指定任何格式要求、约束条件，或在适用时提供一个有效值的示例。
+    *   指明该参数是可选的还是必需的（尽管 MCP 模式通常会处理这一点，但备注会很有帮助）。
+*   **对 AI 的清晰度：** 编写描述时，请假设你正在向另一个开发者（或 AI）解释该工具。Zoo 拥有的上下文越多，它就能越好地将工具集成到其问题解决工作流程中。如果某个工具旨在按特定顺序使用或与其他工具结合使用，提及这一点也会有益。
+*   **使用自定义指令进行增强：** 除了嵌入在 MCP 服务器中的描述之外，你还可以通过提供[自定义指令](/features/custom-instructions)来进一步指导 Zoo 对特定 MCP 工具的使用。这允许你定义首选方法、概述涉及多个工具的复杂工作流程，或指定何时应优先考虑或避免使用某个特定的 MCP 工具。
+
+#### 3. 工具调用
+如果 Zoo 在工具描述的引导下识别出合适的工具，它会提出使用建议。然后你批准此操作（除非为受信任的工具配置了[自动批准](#auto-approve-tools)）。
+
+### 最大化与 MCP 服务器的协同效应
+通过投入精力编写详细的描述，并可能使用自定义指令对其进行增强，你可以显著改善 Zoo Code 与你的 MCP 服务器之间的协同效应。这能充分发挥它们在更可靠、更高效地完成任务方面的全部潜力。
+
+---
+
+## 排查 MCP 服务器问题
+
+常见问题及解决方案：
+
+* **服务器无响应：** 检查服务器进程是否正在运行，并验证网络连接
+* **权限错误：** 确保在 `mcp_settings.json`（用于全局设置）或 `.roo/mcp.json`（用于项目设置）中配置了正确的 API 密钥和凭据。
+* **工具不可用：** 确认服务器已正确实现该工具，并且未在设置中禁用它
+* **性能缓慢：** 尝试调整特定 MCP 服务器的网络超时值
+
+---
+
+## 特定平台的 MCP 配置示例
+
+### Windows 配置示例
+
+在 Windows 上设置 MCP 服务器时，你需要使用 Windows 命令提示符 (`cmd`) 来执行命令。以下是在 Windows 上配置 Puppeteer MCP 服务器的示例：
+
+```json
+{
+  "mcpServers": {
+    "puppeteer": {
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "@modelcontextprotocol/server-puppeteer"
+      ]
+    }
+  }
+}
+```
+
+此 Windows 特定配置：
+- 使用 `cmd` 命令访问 Windows 命令提示符
+- 使用 `/c` 告诉 cmd 执行命令然后终止
+- 使用 `npx` 运行包而无需永久安装它
+- `-y` 标志在安装过程中自动回答“是”以避免任何提示
+- 运行 `@modelcontextprotocol/server-puppeteer` 包，该包提供浏览器自动化功能
+
+### macOS 和 Linux 配置示例
+
+在 macOS 或 Linux 上设置 MCP 服务器时，你可以使用更简单的配置，因为你不需要 Windows 命令提示符。以下是在 macOS 或 Linux 上配置 Puppeteer MCP 服务器的示例：
+
+```json
+{
+  "mcpServers": {
+    "puppeteer": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-puppeteer"
+      ]
+    }
+  }
+}
+```
+
+此配置：
+- 直接使用 `npx` 而无需 shell 包装器
+- 使用 `-y` 标志在安装过程中自动回答“是”以避免任何提示
+- 运行 `@modelcontextprotocol/server-puppeteer` 包，该包提供浏览器自动化功能
+
+对于 Windows 上的其他 MCP 服务器，可以采用相同的方法，只需根据需要调整服务器类型的包名即可。
+
+---
+
+## 运行时版本管理器配置
+
+在使用多种编程语言或运行时版本时，你可能会使用版本管理器，如 [asdf](https://asdf-vm.com/) 或 [mise](https://mise.jdx.dev/)（前身为 rtx）。这些工具可以帮助你在单个系统上管理多个运行时版本。以下是如何配置 MCP 服务器以使用这些版本管理器：
+
+### mise 配置示例
+
+[mise](https://mise.jdx.dev/) 是一个快速、现代的运行时版本管理器，可用于指定你的 MCP 服务器使用哪个版本的 Node.js、Python 或其他运行时：
+
+```json
+{
+  "mcpServers": {
+    "mcp-batchit": {
+      "command": "mise",
+      "args": [
+        "x",
+        "--",
+        "node",
+        "/Users/myself/workspace/mcp-batchit/build/index.js"
+      ],
+      "disabled": false,
+      "alwaysAllow": [
+        "search",
+        "batch_execute"
+      ]
+    }
+  }
+}
+```
+
+此配置：
+- 使用 `mise` 命令来管理运行时版本
+- `x` 子命令使用配置的运行时版本执行命令
+- `--` 将 mise 参数与要运行的命令分隔开
+- 使用你在 mise 设置中配置的特定版本运行 `node`
+- 指向 MCP 服务器的 JavaScript 文件
+- 自动允许“search”和“batch_execute”工具
+
+### asdf 配置示例
+
+[asdf](https://asdf-vm.com/) 是一个流行的用于管理多个运行时版本的工具。以下是如何配置 MCP 服务器以使用由 asdf 管理的特定 Node.js 版本：
+
+```json
+{
+  "mcpServers": {
+    "appsignal": {
+      "command": "/Users/myself/.asdf/installs/nodejs/22.2.0/bin/node",
+      "args": [
+        "/Users/myself/Code/Personal/my-mcp/build/index.js"
+      ],
+      "env": {
+        "ASDF_NODE_VERSION": "22.2.0"
+      },
+      "disabled": false,
+      "alwaysAllow": []
+    }
+  }
+}
+```
+
+此配置：
+- 直接从 asdf 安装目录引用 Node.js 可执行文件
+- 设置 `ASDF_NODE_VERSION` 环境变量以确保版本使用的一致性
+- 指向 MCP 服务器的 JavaScript 文件
+
+使用版本管理器可确保你的 MCP 服务器以正确的运行时版本运行，而不管系统的默认版本如何，从而在不同的环境中提供一致性并防止版本冲突。

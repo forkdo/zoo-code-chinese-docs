@@ -1,0 +1,13 @@
+---
+description: 此补丁版本修复了 QdrantClient URL 处理问题，改进了 LM Studio 模型检测，并解决了 Claude Code JSON 解析问题。
+---
+
+# Zoo Code 3.21.5 版本说明 (2025-06-23)
+
+此补丁版本修复了 QdrantClient URL 处理问题，改进了 LM Studio 模型检测，并解决了 Claude Code JSON 解析问题。
+
+## Bug 修复
+
+* **Qdrant 向量存储**：修复了 QdrantClient 初始化期间带有路径前缀的部署的 URL 前缀处理问题（感谢 CW-B-W！）（[#5033](https://github.com/RooCodeInc/Roo-Code/pull/5033)）
+* **Claude Code 提供商**：解决了 JSON 解析问题，并改进了推理块显示，以显示可折叠的推理块而非原始 JSON（感谢 hannesrudolph！）（[#5049](https://github.com/RooCodeInc/Roo-Code/pull/5049)）
+* **LM Studio**：改进了模型检测，以显示所有已下载的模型，而不仅仅是当前加载的模型（感谢 daniel-lxs！）（[#5047](https://github.com/RooCodeInc/Roo-Code/pull/5047)）

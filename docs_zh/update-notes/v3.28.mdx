@@ -1,0 +1,187 @@
+---
+description: Zoo Code v3.28 综合版本说明，包含 Supernova 模型、用于手机任务管理的 Task Sync、Zoo Code Cloud 集成、改进的聊天编辑功能以及各种错误修复。
+keywords:
+  - zoo code 3.28
+  - supernova model
+  - task sync
+  - cloud integration
+  - chat editing
+image: /img/v3.28.0/v3.28.0.png
+---
+
+# Zoo Code 3.28 综合版本说明
+
+此版本为 Zoo Code Cloud 引入了 Supernova 模型，Task Sync 功能可让您通过手机监控任务，还包含 Zoo Code Cloud 集成功能、增强的聊天编辑、对话保存改进以及多项错误修复。
+
+## Supernova 模型 - 免费使用
+
+我们已将全新的 **zoo/code-supernova** 隐身模型添加到 Zoo Code Cloud 提供商 - **促销期间完全免费** ([#8175](https://github.com/RooCodeInc/Roo-Code/pull/8175))：
+
+- **免费使用**：无需 API 密钥，无需付费 - 通过 Zoo Code Cloud 完全免费
+- **高级功能**：强大的 AI 模型，支持**图像功能**，适用于多模态编码任务
+- **上下文窗口适中**：200,000 个 token 的上下文窗口，最大输出 16,384 个 token
+- **隐身性能**：体验 code-supernova 变体的尖端模型性能
+- **零配置**：只需从 Zoo Code Cloud 提供商中选择即可 - 无需任何配置
+
+从 Zoo 提供商中选择**免费**的 code-supernova 模型，即可**零成本**开始使用这一强大新功能。
+
+> **文档**：查看 [模型提供商](/providers) 了解模型选择详情。
+
+## Task Sync
+
+推出我们的新云连接功能，让您能够**通过手机监控长时间运行的任务** - 不再需要守在办公桌前！ ([#7799](https://github.com/RooCodeInc/Roo-Code/pull/7799), [#7805](https://github.com/RooCodeInc/Roo-Code/pull/7805), [#7850](https://github.com/RooCodeInc/Roo-Code/pull/7850))：
+
+> **重要提示**：Zoo Code 仍然**完全免费且开源**。Task Sync 是可选的补充服务，可将您的本地 VS Code 连接到云端 - 所有处理仍在您的 VS Code 实例中进行。
+
+<img src="/img/v3.28.0/v3.28.0.png" alt="Task Sync 界面，显示从浏览器实时监控任务" width="300" />
+
+**[Task Sync](/roo-code-cloud/task-sync) (所有用户免费)**：
+- **随时随地监控**：离开办公桌时可通过手机查看长时间运行的任务
+- **实时更新**：本地任务消息和进度的实时流式传输
+- **任务历史**：您的任务会保存到云端，方便日后参考
+- **云端可见性**：可通过任何浏览器查看您的 VS Code 任务
+
+> **文档**：Task Sync 在本版本中首次推出。
+
+## GPT-5-Codex 登陆 OpenAI Native
+
+- **处理仓库级上下文**：借助 400k token 窗口，可在单个线程中保留多文件规范和长评论。
+- **更快重用提示并包含视觉内容**：提示缓存和图像支持帮助您在无需重新上传上下文的情况下迭代 UI 修复。
+- **让模型自适应其努力程度**：GPT-5-Codex 会自动平衡简单问题的快速响应与复杂构建的深入推理。
+
+这为团队提供了无需额外配置的高容量 OpenAI 选项。[#8260](https://github.com/RooCodeInc/Roo-Code/pull/8260)：
+
+> **文档**：查看 [OpenAI 提供商指南](/providers/openai) 了解功能和设置指导。
+
+## 生活质量改进
+
+* **云账户管理**：为已登录用户添加账户切换器和"创建团队账户"选项，更方便管理多个账户 ([#8291](https://github.com/RooCodeInc/Roo-Code/pull/8291))
+* **聊天图标尺寸**：聊天界面图标在有限空间内现在保持一致的尺寸 ([#8343](https://github.com/RooCodeInc/Roo-Code/pull/8343))
+* **社交媒体分享**：改进 OpenGraph 图像，在 Slack、Twitter 和 Facebook 上分享 Zoo Code 链接时获得更好的预览卡片 ([#8285](https://github.com/RooCodeInc/Roo-Code/pull/8285))
+* **自动批准键盘快捷键**：在编辑器任意位置使用 Cmd/Ctrl+Alt+A 切换批准状态，这样在审查更改时可以保持流畅的工作流程 (通过 [#8214](https://github.com/RooCodeInc/Roo-Code/pull/8214))
+* **点击编辑聊天消息**：直接点击任何消息文本进行编辑，ESC 键取消，并改进了内边距一致性 ([#7790](https://github.com/RooCodeInc/Roo-Code/pull/7790))
+* **增强的推理显示**：AI 的思维过程现在显示持久计时器，并以清晰的斜体文本显示推理内容 ([#7752](https://github.com/RooCodeInc/Roo-Code/pull/7752))
+* **更易于扫描的推理记录**：在 UI 中的推理标题前添加清晰的分隔线，使长思维更易于浏览 (通过 [#7868](https://github.com/RooCodeInc/Roo-Code/pull/7868))
+* **手动认证 URL 输入**：容器化环境中的用户在自动重定向失败时现在可以手动粘贴认证重定向 URL ([#7805](https://github.com/RooCodeInc/Roo-Code/pull/7805))
+* **活动模式居中**：模式选择下拉菜单现在打开时会自动将活动模式居中显示 ([#7883](https://github.com/RooCodeInc/Roo-Code/pull/7883))
+* **保留第一条消息**：包含斜杠命令或初始上下文的第一条消息现在在对话压缩期间会被保留，而不是被摘要替换 ([#7910](https://github.com/RooCodeInc/Roo-Code/pull/7910))
+* **检查点初始化通知**：现在当检查点初始化失败时会收到清晰的通知，特别是在嵌套 Git 仓库中 ([#7766](https://github.com/RooCodeInc/Roo-Code/pull/7766))
+* **翻译覆盖审计**：翻译检查器现在默认验证 package.nls 区域设置，以便在发布前捕获缺失的字符串 (通过 [#8255](https://github.com/RooCodeInc/Roo-Code/pull/8255))
+
+* 更小更微妙的自动批准 UI (感谢 brunobergher!) ([#7894](https://github.com/RooCodeInc/Roo-Code/pull/7894))
+* 为 cloudview 添加内边距以获得更好的视觉间距 ([#7954](https://github.com/RooCodeInc/Roo-Code/pull/7954))
+
+* 通过全局“启用”开关临时暂停自动批准功能，这样您就可以暂停自动批准而不会丢失每个开关的设置；UI 清晰地区分全局状态和每个开关的状态 ([#8024](https://github.com/RooCodeInc/Roo-Code/pull/8024))
+* 斜杠命令管理移至“设置”>“斜杠命令”，并可通过聊天弹出窗口上的齿轮快捷方式访问；弹出窗口现在仅用于选择，以便快速使用 ([#7988](https://github.com/RooCodeInc/Roo-Code/pull/7988))
+* 快速“添加到上下文”的键盘快捷键（macOS：Cmd+Y；Windows/Linux：Ctrl+Y） ([#7908](https://github.com/RooCodeInc/Roo-Code/pull/7908))
+* “添加图片”按钮移至文本区域内（右上角），“优化提示”按钮位于“发送”按钮上方，以减少鼠标移动并明确布局 ([#7989](https://github.com/RooCodeInc/Roo-Code/pull/7989))
+* Composer 操作按钮现在仅在存在文本输入时显示，从而减少视觉混乱和误点击 ([#7987](https://github.com/RooCodeInc/Roo-Code/pull/7987))
+* “新建任务”按钮图标从“+”更改为撰写/铅笔图标，以更好地匹配其用途并与 codicon 标准保持一致 ([#7942](https://github.com/RooCodeInc/Roo-Code/pull/7942))
+* **重新设计的消息流**：享受更简洁、更易读的聊天界面，改进的视觉层次结构帮助您专注于重要内容 ([#7985](https://github.com/RooCodeInc/Roo-Code/pull/7985))
+* **响应式自动批准**：自动批准下拉菜单现在可根据不同窗口大小自适应，采用智能的 1-2 列布局，工具提示显示所有已启用的操作，不会截断 ([#8032](https://github.com/RooCodeInc/Roo-Code/pull/8032))
+* **网络弹性**：遥测数据现在在网络故障时自动重试，确保在连接问题期间不会丢失分析和诊断信息 ([#7597](https://github.com/RooCodeInc/Roo-Code/pull/7597))
+* **代码块默认换行**：代码块现在默认换行，代码片段工具栏不再包含语言或换行切换按钮，从而确保代码片段在不同语言环境下都保持可读性（通过 [#8194](https://github.com/RooCodeInc/Roo-Code/pull/8194)；[#8208](https://github.com/RooCodeInc/Roo-Code/pull/8208)）
+
+* **重置会注销 Zoo Code Cloud**：重置现在还会注销 Zoo Code Cloud，实现真正的全新开始；即使注销失败，重置仍会完成。 ([#8312](https://github.com/RooCodeInc/Roo-Code/pull/8312))
+* **衡量升级销售消息的参与度**：可关闭升级销售消息的遥测功能跟踪关闭与点击（仅 upsellId），以调整消息传递并减少干扰；对用户没有可见的行为更改。 ([#8309](https://github.com/RooCodeInc/Roo-Code/pull/8309))
+* **欢迎屏幕 Zoo 提供商实验**：在欢迎屏幕上显示 Zoo 提供商（本地化，带点击遥测），以加快设置速度。 ([#8317](https://github.com/RooCodeInc/Roo-Code/pull/8317))
+* **更简洁的提示（无“思考”标签）**：移除 `<thinking>` 标签以获得更简洁的输出、更少的 token 和更好的模型兼容性；保留纯语言规则以确认工具成功。 ([#8319](https://github.com/RooCodeInc/Roo-Code/pull/8319))
+* **更简单的 Requesty 模型刷新**：移除刷新 Requesty 模型列表时的不必要警告，这样您就可以获取新策略而无需离开屏幕。 ([#7710](https://github.com/RooCodeInc/Roo-Code/pull/7710))
+* **Bedrock 1M 上下文复选框**：添加复选框以启用 Bedrock 上 Claude Sonnet 4 和 4.5 的 1M 上下文窗口支持，为大型项目提供更多灵活性 ([#8384](https://github.com/RooCodeInc/Roo-Code/pull/8384))
+* 在云任务历史记录中包含推理消息，以便您在运行后查看完整的思考过程 ([#8401](https://github.com/RooCodeInc/Roo-Code/pull/8401))
+
+* 在扩展桥中识别云任务，以改进诊断、日志记录和未来的 UI 行为 ([#8539](https://github.com/RooCodeInc/Roo-Code/pull/8539))
+* 在遥测中添加父任务 ID，以提高可追溯性 ([#8532](https://github.com/RooCodeInc/Roo-Code/pull/8532))
+* 澄清 zh-TW “运行命令”标签，使其与工具提示匹配并减少混淆（感谢 PeterDaveHello！） ([#8631](https://github.com/RooCodeInc/Roo-Code/pull/8631))
+
+* 图片生成模型选择更新：默认为 Gemini 2.5 Flash Image；添加 OpenAI GPT-5 Image 和 GPT-5 Image Mini；更清晰的设置下拉菜单（感谢 chrarnoldus！） ([#8698](https://github.com/RooCodeInc/Roo-Code/pull/8698))
+
+## Bug 修复
+
+* **AWS Bedrock Claude Sonnet 4.5**：更正了 AWS Bedrock 上 Claude Sonnet 4.5 的模型标识符（感谢 sunhyung！） ([#8371](https://github.com/RooCodeInc/Roo-Code/pull/8371))
+* **OpenRouter Claude Sonnet 4.5**：更正了模型 ID 格式，使其与命名约定保持一致，防止选择/API 不匹配 ([#8373](https://github.com/RooCodeInc/Roo-Code/pull/8373))
+* **GPT-5 LiteLLM 兼容性**：通过使用正确的 `max_completion_tokens` 参数修复了 GPT-5 模型与 LiteLLM 提供程序不兼容的问题（感谢 lx1054331851！） ([#6980](https://github.com/RooCodeInc/Roo-Code/pull/6980))
+* **修复“未使用工具”错误**：解决了 LLM 有时在其响应中不进行工具调用的情况，从而改善了 Zoo 的整体流程。 ([#8292](https://github.com/RooCodeInc/Roo-Code/pull/8292))
+* **上下文压缩**：修复了初始任务请求在上下文压缩过程中丢失的问题，该问题导致 Zoo 在压缩后恢复时尝试重新回答原始任务请求 ([#8298](https://github.com/RooCodeInc/Roo-Code/pull/8298))
+* **Zoo 提供商保持登录状态**：Zoo 提供商令牌会自动刷新，本地 evals 应用会绑定到端口 3446，以实现可预测的脚本（通过 [#8224](https://github.com/RooCodeInc/Roo-Code/pull/8224)）
+* **检查点文本保持在一行**：防止中文、韩语、日语和俄语等语言中的多行换行，以保持检查点 UI 紧凑（通过 [#8207](https://github.com/RooCodeInc/Roo-Code/pull/8207)；在 [#8206](https://github.com/RooCodeInc/Roo-Code/issues/8206) 中报告）
+* **Ollama 尊重 Modelfile num_ctx**：Zoo 现在会遵从您的 Modelfile 的上下文窗口，以避免 GPU 内存不足，同时仍允许在需要时进行显式覆盖（通过 [#7798](https://github.com/RooCodeInc/Roo-Code/pull/7798)；在 [#7797](https://github.com/RooCodeInc/Roo-Code/issues/7797) 中报告）
+* **Groq 上下文窗口**：修复了上下文窗口中缓存 token 的错误显示 ([#7839](https://github.com/RooCodeInc/Roo-Code/pull/7839))
+* **聊天消息操作**：解决了编辑消息时的重复问题和删除时的“找不到时间戳”错误 ([#7793](https://github.com/RooCodeInc/Roo-Code/pull/7793))
+* **UI 重叠**：修复了 CodeBlock 按钮的 z-index，以防止与弹出窗口和配置面板重叠（感谢 A0nameless0man！） ([#7783](https://github.com/RooCodeInc/Roo-Code/pull/7783))
+* 修复 Task.ask() 中消息队列重新排队循环，该循环可能会降低性能 ([#7823](https://github.com/RooCodeInc/Roo-Code/pull/7823))
+* 将 @-提及解析限制为行首或空白边界，以防止误触发 ([#7876](https://github.com/RooCodeInc/Roo-Code/pull/7876))
+* 使嵌套 git 存储库警告持久化并包含路径信息，以提高可见性 ([#7885](https://github.com/RooCodeInc/Roo-Code/pull/7885))
+* 在 Ollama /api/tags 请求中包含 API 密钥，以支持经过身份验证的实例（感谢 ItsOnlyBinary！） ([#7903](https://github.com/RooCodeInc/Roo-Code/pull/7903))
+* 在对话压缩期间保留原始第一条消息的上下文，以实现更连贯的长对话 ([#7939](https://github.com/RooCodeInc/Roo-Code/pull/7939))
+
+* **温度参数**：恢复温度参数以修复 TabbyApi 和 ExLlamaV2 后端的崩溃问题（感谢 drknyt！） ([#7594](https://github.com/RooCodeInc/Roo-Code/pull/7594))
+* **Ollama 模型信息**：修复了 Ollama 模型的最大上下文窗口显示（感谢 ItsOnlyBinary！） ([#7679](https://github.com/RooCodeInc/Roo-Code/pull/7679))
+* **图片预览缓存**：这确保聊天始终显示新生成的图片，而不是缓存版本 ([#7860](https://github.com/RooCodeInc/Roo-Code/pull/7860))
+
+* 恢复 Gemini 生成代码中的方括号，使数组/索引器能够正确渲染（例如 `string[] items = new string[5];`）（感谢 AtkinsDynamicObjects！）（[#7577](https://github.com/RooCodeInc/Roo-Code/pull/7577)）
+* 过滤掉 Claude Code 内置工具（ExitPlanMode、BashOutput、KillBash），避免错误的工具调用和干扰性警告（感谢 juliettefournier-econ！）（[#7818](https://github.com/RooCodeInc/Roo-Code/pull/7818)）
+* 修复编辑消息时上下文菜单可能被遮挡的问题；菜单在不同屏幕尺寸下保持可见且可用（感谢 NaccOll、mini2s！）（[#7951](https://github.com/RooCodeInc/Roo-Code/pull/7951)）
+* 在代码索引期间，当 API 密钥包含无效/特殊字符时，显示清晰且可操作的错误信息，而非晦涩的 ByteString 转换失败提示（感谢 PavelA85！）（[#8008](https://github.com/RooCodeInc/Roo-Code/pull/8008)）
+* 修正 C# tree-sitter 查询，使 C# 文件能够被正确解析和索引，从而提升语义搜索、导航和上下文质量（感谢 mubeen-zulfiqar、vadash、Source-GuyCoder！）（[#7813](https://github.com/RooCodeInc/Roo-Code/pull/7813)）
+* **键盘快捷键**：修复 Nightly 版本中的 command+y 快捷键，恢复快速向上下文添加内容的功能（[#8070](https://github.com/RooCodeInc/Roo-Code/pull/8070)）
+* **待办事项列表兼容性**：当 AI 模型返回带破折号前缀的清单（`- [ ] 任务`）时，待办事项列表现在能够正确显示，提升了与各种模型的兼容性（感谢 NaccOll！）（[#8055](https://github.com/RooCodeInc/Roo-Code/pull/8055)）
+* **Vertex AI 定价准确性**：修复通过 Vertex AI 使用 Gemini 模型时的本地成本计算，正确应用阶梯定价和缓存折扣，确保显示的成本与 Google Cloud 实际账单一致（感谢 ikumi3！）（[#8018](https://github.com/RooCodeInc/Roo-Code/pull/8018)）
+* **对话历史记录保留**：修复在模型响应期间（尤其是在推理阶段）取消操作时出现的重复/重叠任务以及对话历史丢失问题（[#8171](https://github.com/RooCodeInc/Roo-Code/pull/8171)）
+
+* **工具使用指导清晰度**：明确重试建议，使模型在 apply-diff 重试期间选择正确的文件读取步骤，减少文件编辑失败（[#8315](https://github.com/RooCodeInc/Roo-Code/pull/8315)）
+* **Anthropic Sonnet 4.5 模型 ID**：将模型 ID 修正为官方名称 `claude-sonnet-4-5`，解决使用 Claude Sonnet 4.5 时的 API 错误（[#8384](https://github.com/RooCodeInc/Roo-Code/pull/8384)）
+
+* **AWS Bedrock**：移除 `topP` 参数以避免与扩展思考功能冲突，提升流式和非流式响应的可靠性（感谢 ronyblum！）（[#8388](https://github.com/RooCodeInc/Roo-Code/pull/8388)）
+* **Vertex AI**：修复 Sonnet 4.5 模型配置，防止 404 错误，并与正确的默认模型 ID 保持一致（感谢 nickcatal！）（[#8391](https://github.com/RooCodeInc/Roo-Code/pull/8391)）
+* “重置并继续”现在真正重置成本跟踪；后续请求仅计算新消息的成本（[#6890](https://github.com/RooCodeInc/Roo-Code/pull/6890)）
+* 提示设置：保存按钮在首次更改时激活，并保留空字符串（[#8267](https://github.com/RooCodeInc/Roo-Code/pull/8267)）
+* 设置：移除在没有更改时过于激进的“未保存更改”对话框（[#8410](https://github.com/RooCodeInc/Roo-Code/pull/8410)）
+* 仅附加图片时显示“发送”按钮（[#8423](https://github.com/RooCodeInc/Roo-Code/pull/8423)）
+
+* 修复由长上下文任务会话引起的灰屏问题（[#8696](https://github.com/RooCodeInc/Roo-Code/pull/8696)）
+* 编辑器定位修复：避免编辑只读的 git diff 视图；编辑实际文件（感谢 hassoncs！）（[#8676](https://github.com/RooCodeInc/Roo-Code/pull/8676)）
+
+## 提供商更新
+
+* **Claude 4.5 Sonnet**：在所有提供商（Anthropic、AWS Bedrock、Claude Code、Google Vertex AI 和 OpenRouter）中增加对 Anthropic 最新 Claude 4.5 Sonnet 模型的支持，支持 100 万上下文窗口（[#8368](https://github.com/RooCodeInc/Roo-Code/pull/8368)）
+* **新的免费模型**：在 Zoo 提供商中新增两个免费模型：xai/grok-4-fast 和 deepseek/deepseek-chat-v3.1（[#8304](https://github.com/RooCodeInc/Roo-Code/pull/8304)）
+* **Vertex AI 模型**：增加对 6 个新模型的支持，包括 DeepSeek-V3、GPT-OSS 和 Qwen 模型，以及 us-south1 区域（感谢 ssweens！）（[#7727](https://github.com/RooCodeInc/Roo-Code/pull/7727)）
+* **DeepSeek 定价**：更新至 2025 年 9 月 5 日起生效的新统一费率：输入 token 每百万 $0.56，输出 token 每百万 $1.68（感谢 NaccOll！）（[#7687](https://github.com/RooCodeInc/Roo-Code/pull/7687)）
+
+* **Chutes 提供商**：增加 Qwen3 Next 80B A3B 模型（[#7948](https://github.com/RooCodeInc/Roo-Code/pull/7948)）
+* **Z.ai 编码计划**：提供基于区域的选项（国际/中国），自动选择基础 URL 并提供合理默认值，简化设置流程（感谢 chrarnoldus！）（[#8003](https://github.com/RooCodeInc/Roo-Code/pull/8003)）
+* **SambaNova 模型**：在 SambaNova 提供商中增加 DeepSeek-V3.1 和 GPT-OSS 120B 模型（感谢 snova-jorgep！）（[#8186](https://github.com/RooCodeInc/Roo-Code/pull/8186)）
+
+* **Supernova 100 万上下文**：将默认 Supernova 升级至 zoo/code-supernova-1-million（1,000,000 token 上下文）。现有设置将自动迁移；在长任务中预计会减少截断（[#8330](https://github.com/RooCodeInc/Roo-Code/pull/8330)）
+* **Z.ai GLM-4.6**：增加 GLM-4.6 模型支持，提供 20 万（204,800）上下文窗口，并在国际和中国大陆 API 线路上均可用（感谢 dmarkey！）（[#8408](https://github.com/RooCodeInc/Roo-Code/pull/8408)）
+* **Chutes**：在提供商选择器中增加 DeepSeek-V3.1-Terminus、DeepSeek-V3.1-turbo、DeepSeek-V3.2-Exp、GLM-4.6-FP8 和 Qwen3-VL-235B-A22B-Thinking 模型（[#8467](https://github.com/RooCodeInc/Roo-Code/pull/8467)）
+* **Claude Code**：增加 Claude Sonnet 4.5 的 100 万上下文变体；通过 `[1m]` 后缀选择，以适应更大的代码库和日志，减少截断（感谢 ColbySerpa！）（[#8586](https://github.com/RooCodeInc/Roo-Code/pull/8586)）
+* **Claude Haiku 4.5**：在 Anthropic、AWS Bedrock 和 Vertex AI 上可用，提供 20 万上下文、最多 6.4 万输出、图像输入和提示缓存支持（[#8673](https://github.com/RooCodeInc/Roo-Code/pull/8673)）
+* **Gemini**：移除不支持的免费“2.5 Flash Image Preview”模型；付费路径不受影响（[#8359](https://github.com/RooCodeInc/Roo-Code/pull/8359)）
+* **Zoo Code Cloud**：弃用“Grok 4 Fast”；如果已选择则显示警告，未选择时则隐藏（[#8481](https://github.com/RooCodeInc/Roo-Code/pull/8481)）
+* **Bedrock**：Claude Sonnet 4 100 万上下文处理和兼容性改进（[#8421](https://github.com/RooCodeInc/Roo-Code/pull/8421)）
+
+* Bedrock：增加带版本的用户代理，用于按版本进行指标和错误跟踪；无需操作（感谢 ajjuaire！）（[#8663](https://github.com/RooCodeInc/Roo-Code/pull/8663)）
+* Z AI：仅支持两个编码端点（国际/中国）；默认为国际；不支持旧版非编码端点（[#8693](https://github.com/RooCodeInc/Roo-Code/pull/8693)）
+
+## 其他改进
+
+* **网站改进**：新增定价页面，优化首页信息传达，并改进导航/视觉效果（包括移动端）。扩展程序用户体验无变更。([#8303](https://github.com/RooCodeInc/Roo-Code/pull/8303), [#8326](https://github.com/RooCodeInc/Roo-Code/pull/8326))
+* **遥测追踪**：增强分析功能，追踪用户更改遥测设置的时间点 ([#8339](https://github.com/RooCodeInc/Roo-Code/pull/8339))
+* **网站用户评价**：更新网站，增强用户评价展示区域 ([#8360](https://github.com/RooCodeInc/Roo-Code/pull/8360))
+* **贡献者认可**：改进贡献者徽章工作流程，实现缓存自动刷新 ([#8083](https://github.com/RooCodeInc/Roo-Code/pull/8083))
+* **内部清理**：移除已弃用的 pr-reviewer 模式。扩展程序用户体验无变更。([#8222](https://github.com/RooCodeInc/Roo-Code/pull/8222))
+* **基础设施**：在生产模式下为 web-evals 服务设置端口 3446 ([#8288](https://github.com/RooCodeInc/Roo-Code/pull/8288))
+* **云端任务按钮**：新增按钮，用于通过二维码和可共享 URL 在 Zoo Code Cloud 中打开任务 ([#7572](https://github.com/RooCodeInc/Roo-Code/pull/7572))
+* **遥测默认设置**：Posthog 遥测现默认启用，并在设置中提供便捷的退出选项 ([#7909](https://github.com/RooCodeInc/Roo-Code/pull/7909))
+* **Zoo Code Cloud 公告**：更新应用内关于 Zoo Code Cloud 功能的公告，支持 18 种语言本地化 ([#7914](https://github.com/RooCodeInc/Roo-Code/pull/7914))
+* **合并解决模式**：添加 GIT_EDITOR 环境变量，防止在非交互式变基操作期间出现挂起 ([#7819](https://github.com/RooCodeInc/Roo-Code/pull/7819))
+* 更新依赖 esbuild 至 v0.25.9，以提升构建性能 ([#5455](https://github.com/RooCodeInc/Roo-Code/pull/5455))
+* 更新依赖 @changesets/cli 至 v2.29.6 ([#7376](https://github.com/RooCodeInc/Roo-Code/pull/7376))
+* 更新依赖 nock 至 v14.0.10 ([#6465](https://github.com/RooCodeInc/Roo-Code/pull/6465))
+* 更新依赖 eslint-config-prettier 至 v10.1.8 ([#6464](https://github.com/RooCodeInc/Roo-Code/pull/6464))
+* 更新依赖 eslint-plugin-turbo 至 v2.5.6 ([#7764](https://github.com/RooCodeInc/Roo-Code/pull/7764))
+* 更新依赖 axios 至 v1.12.0，以提升 HTTP 请求的可靠性和安全性 ([#7963](https://github.com/RooCodeInc/Roo-Code/pull/7963))
+* **Code Supernova 公告**：新增关于全新 Code Supernova 模型的公告，改进认证流程和落地页重定向 ([#8197](https://github.com/RooCodeInc/Roo-Code/pull/8197))
+* **隐私政策更新**：更新隐私政策，包含可选营销邮件的相关条款，并提供清晰的退出选项（感谢 jdilla1277！）([#8180](https://github.com/RooCodeInc/Roo-Code/pull/8180))

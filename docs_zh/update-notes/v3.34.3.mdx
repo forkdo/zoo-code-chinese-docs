@@ -1,0 +1,35 @@
+---
+description: 此补丁添加了 Zoo Code Cloud 嵌入功能用于代码库索引，流式传输原生工具调用，扩展了 Claude Opus 4.5 的覆盖范围，并包含了用户界面和可靠性改进。
+keywords:
+  - zoo code 3.34.3
+  - new features
+  - bug fixes
+  - provider updates
+  - codebase indexing
+  - zoo code cloud
+image: /img/v3.34.3/v3.34.3.png
+---
+
+# Zoo Code 3.34.3 版本说明 (2025-11-25)
+
+此版本添加了 Zoo Code Cloud 作为代码库索引的嵌入提供者，流式传输原生工具调用，扩展了 Claude Opus 4.5 支持，并包含了用户界面、可靠性和成本改进。
+
+<img src="/img/v3.34.3/v3.34.3.png" alt="Zoo Code v3.34.3 发布" width="600" />
+
+* **Zoo Code Cloud 代码库索引嵌入功能**：使用 Zoo Code Cloud 作为托管嵌入提供者进行代码库索引，这样您就可以在不运行自己的嵌入服务或管理单独 API 密钥的情况下，为您的项目构建语义搜索。代码索引用户界面现在将 Zoo Code Cloud 显示为嵌入器选项，并通过 Zoo Code Cloud 批量处理、速率限制和认证嵌入请求，以实现更可靠的索引。([#9543](https://github.com/RooCodeInc/Roo-Code/pull/9543)) ([#9542](https://github.com/RooCodeInc/Roo-Code/pull/9542)) 有关设置和使用详情，请参阅[代码库索引](/features/codebase-indexing)。
+* **流式传输原生工具调用**：原生工具（包括 Zoo Code Cloud 和 OpenRouter 助手）现在将参数和部分结果流式传输到用户界面，与 XML 工具的流式体验相匹配，这样您就可以观察长时间运行操作的进度并更轻松地调试工具行为。([#9542](https://github.com/RooCodeInc/Roo-Code/pull/9542))
+
+## 生活质量改进
+
+* **使用 mise 简化裸机评估设置**：将裸机评估设置脚本标准化为使用 `mise` 运行时管理器而不是 `asdf`，减少设置摩擦并避免运行本地评估的贡献者出现版本不匹配问题。([#9548](https://github.com/RooCodeInc/Roo-Code/pull/9548))
+* **“关于 Zoo Code”页面中的联系链接**：在“关于 Zoo Code”设置页面直接添加清晰的联系选项，这样您就可以快速报告错误、请求功能、披露安全问题或通过电子邮件联系团队，而无需离开扩展程序。([#9570](https://github.com/RooCodeInc/Roo-Code/pull/9570))
+
+## 错误修复
+
+* **流式传输后续问题**：修复 `ask_followup_question` 流式传输，使用户界面仅显示预期的问题文本而不是原始 JSON，并确保所有原生工具在启用流式传输时正确发出和处理部分工具调用，防止出现令人困惑或丢失的工具输出。([#9561](https://github.com/RooCodeInc/Roo-Code/pull/9561))
+* **Claude Opus 4.5 的提示缓存**：确保 Anthropic Claude Opus 4.5 请求现在像其他 Claude 模型一样使用提示缓存，显著降低依赖 Opus 4.5 的用户的持续 API 成本（感谢 iainRedro！）。([#9568](https://github.com/RooCodeInc/Roo-Code/pull/9568))
+
+## 提供者更新
+
+* **Claude Code 中的 Claude Opus 4.5**：将 `claude-opus-4-5-20251101` 模型添加到 Claude Code 提供者，这样您就可以像选择其他 Claude 代码模型一样选择它，支持提示缓存，不支持图像，并且在用户界面中没有推理努力/预算控制。([#9560](https://github.com/RooCodeInc/Roo-Code/pull/9560))
+* **AWS Bedrock 中的 Claude Opus 4.5**：通过 AWS Bedrock 提供者公开 Claude Opus 4.5，这样 Bedrock 用户就可以访问与现有 Claude Opus 4 模型相同的 20 万上下文、8192 令牌限制、提示缓存和推理功能（感谢 pisicode！）。([#9572](https://github.com/RooCodeInc/Roo-Code/pull/9572)) 有关启用和配置此模型的详情，请参阅[AWS Bedrock](/providers/bedrock)。

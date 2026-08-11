@@ -1,0 +1,16 @@
+---
+description: 此版本通过 OAuth 引入免费的 Gemini 访问，修复了一些错误，并改善了整体用户体验。
+---
+
+# Zoo Code 3.22.4 版本说明 (2025-06-27)
+
+此补丁版本提高了工作流效率，并修复了影响任务共享和 Claude Code 提供商可靠性的关键错误。
+
+## 生活质量改进
+
+* **模式切换**：后续问题建议现在可以直接切换模式，无需在选择建议后手动更改模式 ([#5200](https://github.com/RooCodeInc/Roo-Code/pull/5200))
+
+## 错误修复
+
+* **任务共享**：修复了点击时共享按钮弹出窗口无法打开的问题 - 现在可以正常工作，同时保持工具提示功能 ([#5203](https://github.com/RooCodeInc/Roo-Code/pull/5203))
+* **Claude Code 可靠性**：通过实现 stdin 流式传输而非命令行参数，修复了在 Linux 和 Code-Server 环境中处理大型对话历史记录时的挂起和失败问题（感谢 Fovty、edgan、flyguy7299！） ([#5186](https://github.com/RooCodeInc/Roo-Code/pull/5186))

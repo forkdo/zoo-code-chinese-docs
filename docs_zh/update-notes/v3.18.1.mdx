@@ -1,0 +1,28 @@
+---
+description: 此版本增加了对 Anthropic 最新 AI 模型的支持，修复了文档显示问题，并通过现代化的开发基础设施引入了自动化的每日构建。
+---
+
+# Zoo Code 3.18.1 版本说明 (2025-05-22)
+
+此版本增加了对 Anthropic 最新 AI 模型的支持，修复了文档显示问题，并通过现代化的开发基础设施引入了自动化的每日构建。
+
+---
+
+## 提供商更新
+
+*   **Claude 4.0 模型**：为 [`Anthropic`](/providers/anthropic)、[`Bedrock`](/providers/bedrock) 和 [`Vertex`](/providers/vertex) 提供商添加了 [`Claude Sonnet 4`](/providers/anthropic) 和 [`Claude Opus 4`](/providers/anthropic) 模型（含思考变体）的支持（感谢 shariqriazz！）
+
+---
+
+## Bug 修复
+
+*   **README 显示**：修复了所有本地化版本中的 README GIF 显示问题，确保所有 17 种支持语言的用户都能看到一致的视觉指南
+*   **引用 URL**：修复了文档链接中的技术性引用 URL 问题
+
+---
+
+## 开发基础设施
+
+*   **Monorepo 迁移**：将代码库切换为 monorepo 结构，以改进开发工作流程
+*   **自动化每日构建**：创建了自动化的[每日发布系统](/advanced-usage/zoo-code-nightly)，以便更快地交付最新功能和修复
+*   **增强的工具链**：改进了构建流程和依赖管理，提高了可靠性

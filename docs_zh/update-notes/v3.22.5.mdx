@@ -1,0 +1,18 @@
+---
+description: 此版本引入了通过 OAuth 免费访问 Gemini 的功能，修复了若干错误，并提升了整体用户体验。
+---
+
+# Zoo Code 3.22.5 版本说明 (2025-06-29)
+
+此补丁版本移除了 Gemini CLI 提供程序，并修复了若干内部遥测问题。
+
+## 提供程序更新
+
+* **Gemini CLI 移除**：根据 Google 的要求，为了采用更标准的实现方式，Gemini CLI 提供程序已被移除。之前使用 Gemini CLI 提供程序的用户应迁移至标准 Gemini 提供程序，以继续访问 Gemini 模型 ([#5223](https://github.com/RooCodeInc/Roo-Code/pull/5223))
+
+## 错误修复
+
+* **仓库 URL 处理**：修复了遥测功能，通过自动将 SSH URL 转换为 HTTPS 格式来正确处理 git 仓库 URL，确保无论用户配置了哪种 URL 格式，遥测功能都能正常工作 ([#5202](https://github.com/RooCodeInc/Roo-Code/pull/5202))（感谢 liwilliam2021！）
+* **云端遥测**：修复了之前优化操作意外破坏的针对助手消息的云端遥测捕获功能 ([#5220](https://github.com/RooCodeInc/Roo-Code/pull/5220))
+* **内部遥测**：改进了内部遥测系统，防止重复事件捕获，提升了数据准确性和系统效率 ([#5211](https://github.com/RooCodeInc/Roo-Code/pull/5211))
+* **类型错误预防**：修复了移除 gemini-cli 提供程序时出现的内部类型错误，确保运行更加顺畅 ([#5226](https://github.com/RooCodeInc/Roo-Code/pull/5226))

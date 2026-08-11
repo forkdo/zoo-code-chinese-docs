@@ -1,0 +1,39 @@
+---
+title: 模型提供商
+description: 比较 Zoo Code 的所有可用模型提供商。一目了然地查看哪些提供商可与 VS Code 扩展和 Zoo Code Cloud 配合使用。
+keywords:
+  - model providers
+  - API providers
+  - Zoo Code providers
+  - cloud providers
+  - extension providers
+---
+
+import ProviderTable from '@site/src/components/ProviderTable';
+
+# 模型提供商
+
+Zoo Code VS Code 扩展和 Zoo Code Cloud Agents 是功能强大的智能编码代理。虽然它们本身具备很多功能，但仍需依赖 LLM 提供商来提供完成任务所需的推理能力。
+
+其他工具在设计上固有地绑定到特定提供商（如 Claude Code → Anthropic 模型或 Codex → OpenAI 模型），迫使您无论环境如何变化（变化很快）都必须坚持使用它们。而 Zoo 是**与模型无关的**，允许您根据预算、技能水平、代码库等因素选择最适合您需求的模型。
+
+我们支持连接广泛的模型提供商，让您在访问 AI 模型的方式上拥有灵活性。一些提供商可与 VS Code 扩展配合使用，而其他提供商则可通过 Zoo Code Cloud Agents 使用。
+
+了解如何在 [Zoo Code VS Code 扩展中设置您的提供商](/getting-started/connecting-api-provider)。
+
+## 提供商比较
+
+以下是您支持的每个提供商以及您可以在哪里使用它们。点击查看详细说明。
+
+我们定期对所有支持的模型进行评估，以了解它们在我们标准测试套件中的表现。[查看最新结果](https://roocode.com/evals)。
+
+<ProviderTable />
+
+## 选择困难？
+
+是的，确实有很多选择。
+
+- **希望即装即用？** 选择 [Zoo Code Router](/roo-code-router/overview)，它提供精选的模型选择和最简单的设置，无需 API 密钥
+- **希望访问多种模型？** 尝试 [OpenRouter](/providers/openrouter)，它通过单一 API 提供 100 多种模型
+- **希望针对特定模型进行优化？** 使用每个模型的首选提供商（Anthropic、OpenAI 等）
+- **寻找本地/离线模型？** 查看 [Ollama](/providers/ollama) 或 [LM Studio](/providers/lmstudio)

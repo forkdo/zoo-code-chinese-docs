@@ -1,0 +1,28 @@
+---
+description: Claude 模型在 Vertex AI 上的原生工具调用、通过优雅重试机制改进错误处理，以及针对 OpenAI 提供商的 MCP 兼容性修复。
+keywords:
+  - zoo code 3.36.14
+  - vertex ai
+  - native tool calling
+  - error handling
+  - mcp compatibility
+image: /img/v3.36.14/v3.36.14.png
+---
+
+# Zoo Code v3.36.14 版本说明 (2025-12-18)
+
+此版本为 Vertex AI 上的 Claude 模型添加了原生工具调用功能，通过优雅重试机制改进了错误处理，并修复了与 OpenAI 提供商的 MCP 兼容性问题。
+
+<img src="/img/v3.36.14/v3.36.14.png" alt="Zoo Code v3.36.14 Release" width="600" />
+
+## 提供商更新
+
+* **Vertex AI 上的 Claude 原生工具调用**：Vertex AI 上的所有 Claude 模型现在默认使用原生工具调用，与直接使用 Anthropic API 的行为保持一致 ([#10197](https://github.com/RooCodeInc/Roo-Code/pull/10197))
+
+## 体验优化
+
+* **工具错误的优雅重试**：当模型无法使用工具时，Zoo Code 现在会先静默重试，然后再显示错误。只有在连续失败后才显示更清晰的“模型响应不完整”消息 ([#10196](https://github.com/RooCodeInc/Roo-Code/pull/10196))
+
+## Bug 修复
+
+* **OpenAI 提供商的 MCP 兼容性**：修复了 MCP 服务器在其工具模式中使用 `format: "uri"` 时与 OpenAI 提供商不兼容的问题 ([#10198](https://github.com/RooCodeInc/Roo-Code/pull/10198))

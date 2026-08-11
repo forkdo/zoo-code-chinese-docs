@@ -1,0 +1,28 @@
+---
+description: Zoo Code 3.29.2 增加了更高上下文的 Chutes AI 模型，优化了设置文本，并修复了提供商缓存和免费模型价格显示问题。
+keywords:
+  - zoo code 3.29.2
+  - chutes ai
+  - longcat
+  - provider update
+  - bug fixes
+  - free models
+  - pricing display
+---
+
+# Zoo Code 3.29.2 版本说明 (2025-10-27)
+
+此补丁增加了更高上下文的 Chutes AI 模型，清理了设置文本，并修复了提供商缓存和免费模型价格显示问题。
+
+## 提供商更新
+
+* Chutes AI：添加 LongCat-Flash-Thinking-FP8 模型（200K、128K），适用于更长的编码会话，具有更快、更具成本效益的性能（感谢 leakless21！）([#8426](https://github.com/RooCodeInc/Roo-Code/pull/8426))
+
+## 用户体验改进
+
+* 设置描述：移除各语言版本中特定的 "Claude 3.7 Sonnet" 版本，以保持指导内容的时效性（感谢 rwydaegh！）([#8437](https://github.com/RooCodeInc/Roo-Code/pull/8437))
+
+## Bug 修复
+
+* Zoo 提供商：修复缓存逻辑，以发送正确的使用数据并应用适当的协议 ([#8860](https://github.com/RooCodeInc/Roo-Code/pull/8860))
+* 免费模型：隐藏价格信息并显示零成本，以避免混淆 ([#8864](https://github.com/RooCodeInc/Roo-Code/pull/8864))

@@ -1,0 +1,114 @@
+---
+description: Zoo Code 3.20 引入了用于扩展和模式的实验性 Marketplace、并发文件编辑和读取，以及提示历史导航。
+keywords:
+  - Zoo Code 3.20
+  - 发布说明
+  - marketplace
+  - 并发文件编辑
+  - 多文件操作
+---
+
+# Zoo Code 3.20 发布说明 (2025-06-12)
+
+此版本引入了用于发现和安装社区贡献的扩展和模式的实验性 [Marketplace](/features/marketplace)、并发文件编辑和读取，以及众多其他改进和错误修复。
+
+## MCP & Mode Marketplace（实验性）
+
+我们引入了一个实验性的 [Marketplace](/features/marketplace) 用于发现和安装社区贡献的扩展和模式。此功能允许您：
+- 浏览和搜索新的模式和 MCP 服务器
+- 在项目或全局范围内安装项目
+- 直接从 Marketplace 视图管理安装
+
+**启用方式：** 打开 Zoo Code 设置（齿轮图标）→ 实验性设置 → 启用"Marketplace"
+
+（感谢 Smartsheet-JB-Brown、elianiva、monkeyDluffy6017、NamesMT、daniel-lxs 等！）([#4538](https://github.com/RooCodeInc/Roo-Code/pull/4538), [#4604](https://github.com/RooCodeInc/Roo-Code/pull/4604))
+
+<img src="/img/marketplace/marketplace-1.png" alt="MCP 标签显示可用的 MCP，带有安装和移除按钮" width="600" />
+
+## 并发编辑（即多文件）（实验性）
+
+您现在可以同时在多个文件上执行编辑，大大加快重构和多文件更改。无需单独批准每个文件编辑，您可以通过统一的批量批准界面一次性查看和批准所有更改。查看我们的 [并发文件编辑文档](/features/experimental/concurrent-file-edits) 了解详细信息。
+
+**启用方式：** 打开 Zoo Code 设置（齿轮图标）→ 实验性设置 → 启用"启用多文件编辑"
+
+（感谢 samhvw8！）([#4608](https://github.com/RooCodeInc/Roo-Code/pull/4608))
+
+<img src="/img/concurrent-file-edits/concurrent-file-edits-1.png" alt="批量差异批准界面显示多个文件更改" width="600" />
+
+## 并发读取（即多文件）
+
+并发读取的设置已移至上下文设置，默认值为 5。此功能允许 Zoo 在单个步骤中从您的工作区读取多个文件，在处理需要多个文件上下文的任务时显著提高效率。在我们的 [并发文件读取文档](/features/concurrent-file-reads) 中了解更多信息。
+
+([#4597](https://github.com/RooCodeInc/Roo-Code/pull/4597))
+
+<img src="/img/concurrent-file-reads/concurrent-file-reads-2.png" alt="批量批准界面用于读取多个文件" width="600" />
+
+## 提示历史
+
+使用箭头键通过类似终端的体验导航您的提示历史。此功能使重用和优化以前的提示变得容易，无论是来自当前对话还是过去任务。查看我们的 [键盘快捷键文档](/features/keyboard-shortcuts#command-line-style-prompt-history-navigation) 了解使用详情。
+
+([#4580](https://github.com/RooCodeInc/Roo-Code/pull/4580))
+
+## QOL 改进
+
+*   **MCP 执行**：改进了 MCP 执行的用户体验（感谢 samhvw8！）。([#4615](https://github.com/RooCodeInc/Roo-Code/pull/4615))
+*   **Magic Variables**：为 MCP 添加了对 magic variables 的支持，包括 `workspaceFolder` 注入（感谢 NamesMT！）([#4442](https://github.com/RooCodeInc/Roo-Code/pull/4442)）。
+*   **Context Mentions**：添加了对转义上下文提及的支持（感谢 KJ7LNW！）。
+*   **Mermaid 图表**：为 Mermaid 图表添加了用于缩放、复制和查看代码的按钮（感谢 qdaxb！）([#4547](https://github.com/RooCodeInc/Roo-Code/pull/4547)）。
+
+## Provider 更新
+
+*   **[DeepSeek](/providers/deepseek)**：向 Chutes provider 添加了 DeepSeek R1 支持。
+*   **[Bedrock](/providers/bedrock)**：暂时回滚对 Bedrock 模型的思考支持 ([#4626](https://github.com/RooCodeInc/Roo-Code/pull/4626)）。
+*   **[XAI](/providers/xai)**：更新了 XAI 模型和定价（感谢 edwin-truthsearch-io！）。
+*   **[O3](/providers/openai)**：更新了 O3 模型定价 ([#4580](https://github.com/RooCodeInc/Roo-Code/pull/4580)）。
+*   **[OpenAI-Compatible](/providers/openai-compatible)**：添加了手动 OpenAI 兼容格式规范和解析（感谢 dflatline！）([#4463](https://github.com/RooCodeInc/Roo-Code/pull/4463)）。
+*   **[OpenRouter](/providers/openrouter)**：修复了 BYOK 的成本计算（感谢 chrarnoldus！）([#4543](https://github.com/RooCodeInc/Roo-Code/pull/4543)）。
+
+## 错误修复
+
+*   **[`write_to_file`](/advanced-usage/available-tools/write-to-file)**：修复了 `write_to_file` 工具中早期 `relPath` 和 `newContent` 验证检查的问题（感谢 Ruakij！）([#4378](https://github.com/RooCodeInc/Roo-Code/pull/4378)）。
+*   **TaskItem 显示**：修复了任务消息中 HTML 标签的显示和复制问题（感谢 forestyoo！）([#4444](https://github.com/RooCodeInc/Roo-Code/pull/4444)）。
+*   **终端忙碌状态**：修复了手动命令完成后终端忙碌状态未重置的问题 ([#4583](https://github.com/RooCodeInc/Roo-Code/pull/4583)）。
+*   **[`apply_diff`](/advanced-usage/available-tools/apply-diff)**：修复了多文件 `apply_diff` 操作中未定义输出的问题（感谢 daniel-lxs！）([#4608](https://github.com/RooCodeInc/Roo-Code/pull/4608)）。
+*   **安全性**：
+    *   强制 `tar-fs >=2.1.3` 以修复安全漏洞 ([#4629](https://github.com/RooCodeInc/Roo-Code/pull/4629)）
+    *   将 `search_files` 限制在工作区内以提高安全性 ([#4642](https://github.com/RooCodeInc/Roo-Code/pull/4642)）
+*   **UI**：
+    *   同步 `BatchDiffApproval` 样式与 `BatchFilePermission` 以保持 UI 一致性（感谢 @samhvw8！）([#4640](https://github.com/RooCodeInc/Roo-Code/pull/4640)）
+    *   为 MCP 执行响应添加最大高度约束以改善用户体验（感谢 @samhvw8！）([#4644](https://github.com/RooCodeInc/Roo-Code/pull/4644)）
+    *   防止 MCP '已安装' 标签被挤压（感谢 @daniel-lxs！）([#4649](https://github.com/RooCodeInc/Roo-Code/pull/4649)）
+    *   在聊天视图中添加索引状态徽章 ([#4532](https://github.com/RooCodeInc/Roo-Code/pull/4532)）
+*   **Bedrock**：重新应用 bedrock 的推理修复（感谢 @daniel-lxs！）([#4645](https://github.com/RooCodeInc/Roo-Code/pull/4645)）
+*   **Diff Editor**：解决多显示器设置中的 diff editor 竞态条件（感谢 daniel-lxs！）([#4578](https://github.com/RooCodeInc/Roo-Code/pull/4578)）
+*   **自动批准**：
+    *   防止自动批准配置文件的编辑（感谢 mrubens！）([#4667](https://github.com/RooCodeInc/Roo-Code/pull/4667)）
+    *   调整工作区外的搜索以尊重自动批准复选框（感谢 mrubens！）([#4670](https://github.com/RooCodeInc/Roo-Code/pull/4670)）
+    *   使列表工具在工作区外时尊重自动批准设置（感谢 mrubens！）([#4682](https://github.com/RooCodeInc/Roo-Code/pull/4682)）
+*   **文件读取**：修复错误的 `maxReadFileLine` 默认值（感谢 mrubens！）([#4683](https://github.com/RooCodeInc/Roo-Code/pull/4683)）
+*   **多文件 Diff**：修复多文件 diff 错误处理和 UI 反馈（感谢 daniel-lxs！）([#4674](https://github.com/RooCodeInc/Roo-Code/pull/4674)）
+*   **提示历史**：改进提示历史导航，使其不干扰文本编辑（感谢 daniel-lxs！）([#4677](https://github.com/RooCodeInc/Roo-Code/pull/4677)）
+
+## 其他改进
+
+*   **Context Condensing**: 允许更低的上下文压缩阈值（感谢 @SECKainersdorfer！）([#4634](https://github.com/RooCodeInc/Roo-Code/pull/4634))
+*   **代码质量**:
+    *   避免类型系统重复，使代码库更简洁（感谢 @EamonNerbonne！）([#4596](https://github.com/RooCodeInc/Roo-Code/pull/4596))
+    *   改进 PR Reviewer 和 Issue Fixer 规则，提供更好的指导和针对性修复 ([#4651](https://github.com/RooCodeInc/Roo-Code/pull/4651), [#4652](https://github.com/RooCodeInc/Roo-Code/pull/4652))
+*   **Unbound**: 为 Unbound 上的自定义顶点模型添加缓存断点（感谢 @pugazhendhi-m！）([#4585](https://github.com/RooCodeInc/Roo-Code/pull/4585))
+*   **本地化**:
+    *   添加印度尼西亚语翻译支持（感谢 chrarnoldus！）([#4672](https://github.com/RooCodeInc/Roo-Code/pull/4672))
+    *   更新聊天和设置的印度尼西亚语本地化文件（感谢 daniel-lxs！）([#4675](https://github.com/RooCodeInc/Roo-Code/pull/4675))
+    *   修复 markdown 文件 i18n 中的不一致问题（感谢 mrubens！）([#4681](https://github.com/RooCodeInc/Roo-Code/pull/4681))
+*   **类型**: 将市场类型移动到 `@roo-code/types`（感谢 jr！）([#4671](https://github.com/RooCodeInc/Roo-Code/pull/4671))
+
+## 文档
+
+*   **`whenToUse`**: 填充内置模式的 `whenToUse` 描述 ([#4579](https://github.com/RooCodeInc/Roo-Code/pull/4579))
+*   **JSDoc**: 为 `ClineAsk` 和 `ClineSay` 类型添加 JSDoc 文档 ([#4427](https://github.com/RooCodeInc/Roo-Code/pull/4427))
+*   **文档**: 添加文档提取器模式，用于全面的文档提取 ([#4621](https://github.com/RooCodeInc/Roo-Code/pull/4621))
+*   **文档**: 更新贡献者列表 ([#4348](https://github.com/RooCodeInc/Roo-Code/pull/4348))
+
+## 内部
+
+*   **集成测试**: 添加核心工具集成测试，实现全面覆盖 ([#4433](https://github.com/RooCodeInc/Roo-Code/pull/4433))

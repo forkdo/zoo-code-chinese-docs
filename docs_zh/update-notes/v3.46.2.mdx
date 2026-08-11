@@ -1,0 +1,30 @@
+---
+description: This release improves message queuing and task cancellation, fixes MCP image tool outputs, and updates several providers.
+keywords:
+  - zoo code 3.46.2
+  - new features
+  - bug fixes
+---
+
+# Zoo Code 3.46.2 Release Notes (2026-02-03)
+
+此版本改进了消息排队与任务取消，修复了 MCP 图像工具输出问题，并更新了多个 provider。
+
+## Bug 修复
+
+* **MCP 工具结果可包含图像**：修复了返回图像的 MCP 工具（例如 Figma 截图）可能显示为“（无响应）”的问题。详见 [在 Zoo 中使用 MCP](/features/mcp/using-mcp-in-roo)。（感谢 Sniper199999！）([#10874](https://github.com/RooCodeInc/Roo-Code/pull/10874))
+* **通过 LiteLLM 使用 Bedrock 时压缩更可靠**：修复了当历史中包含工具使用/工具结果块时，对话压缩可能失败的问题。([#10975](https://github.com/RooCodeInc/Roo-Code/pull/10975))
+* **命令执行期间消息不会丢失**：修复了命令仍在运行时发送的消息可能丢失的问题；这些消息现在会被排队，并在命令结束时送达。([#11140](https://github.com/RooCodeInc/Roo-Code/pull/11140))
+* **OpenRouter 模型列表刷新遵循你的 Base URL**：修复了刷新 OpenRouter 模型列表时忽略已配置的 Base URL、始终调用 openrouter.ai 的问题。详见 [OpenRouter](/providers/openrouter)。（感谢 sebastianlang84！）([#11154](https://github.com/RooCodeInc/Roo-Code/pull/11154))
+* **更可靠的任务取消与排队消息处理**：修复了在 VS Code 扩展与 CLI 之间取消/关闭任务或更新排队消息时行为可能不一致的问题。([#11162](https://github.com/RooCodeInc/Roo-Code/pull/11162))
+
+## 其他改进
+
+* **更干净的 GitHub issue 模板**：从 issue 模板选择器中移除了“Feature Request（功能请求）”选项，以便将功能请求引导至 Discussions。([#11141](https://github.com/RooCodeInc/Roo-Code/pull/11141))
+
+## Provider 更新
+
+* **代码索引嵌入模型迁移（Gemini）**：通过将请求从已弃用的 `text-embedding-004` 迁移到 `gemini-embedding-001`，保持代码索引功能正常工作。详见 [Gemini](/providers/gemini) 与 [Codebase Indexing](/features/codebase-indexing)。([#11038](https://github.com/RooCodeInc/Roo-Code/pull/11038))
+* **Mistral provider 迁移至 AI SDK**：在保留 Codestral 支持和自定义 Base URL 的同时，提升了流式输出与工具处理的一致性。详见 [Mistral](/providers/mistral)。([#11089](https://github.com/RooCodeInc/Roo-Code/pull/11089))
+* **SambaNova provider 迁移至 AI SDK**：改进了流式输出、工具调用处理和用量上报。详见 [SambaNova](/providers/sambanova)。([#11153](https://github.com/RooCodeInc/Roo-Code/pull/11153))
+* **xAI provider 迁移至专用 AI SDK 包**：在使用 Grok 模型时，提升了流式输出、工具调用和用量上报的一致性。详见 [xAI](/providers/xai)。([#11158](https://github.com/RooCodeInc/Roo-Code/pull/11158))

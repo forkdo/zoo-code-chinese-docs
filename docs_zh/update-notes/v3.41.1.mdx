@@ -1,0 +1,40 @@
+---
+description: 提升 Orchestrator 成本可见性，优化设置导航，并修复提供商兼容性问题。
+keywords:
+  - zoo code 3.41.1
+  - new features
+  - bug fixes
+  - provider updates
+image: /img/v3.41.1/v3.41.1.png
+---
+
+# Zoo Code 3.41.1 版本说明 (2026-01-16)
+
+此补丁版本提升了 Orchestrator 成本可见性，加快了设置导航速度，并修复了多个提供商兼容性问题。
+
+<img src="/img/v3.41.1/v3.41.1.png" alt="Zoo Code v3.41.1 Release" width="600" />
+
+## 聚合 Orchestrator 子任务成本
+
+Orchestrator 父任务现在会显示累计成本总额，汇总整个子任务树的支出，让您能够一目了然地了解编排工作流的真实端到端成本。（感谢 taltas！）([#10757](https://github.com/RooCodeInc/Roo-Code/pull/10757))
+
+## 设置搜索现在包含选项卡标题
+
+设置搜索现在会对选项卡/部分标题（如“MCP”或“Providers”）建立索引，因此您可以搜索某个部分名称并直接跳转到设置 UI 的正确位置，而无需逐个查找设置项。([#10761](https://github.com/RooCodeInc/Roo-Code/pull/10761))
+
+## 生活质量改进
+
+* 明确说明 Slack 和 Linear 集成仅在 Zoo Code Cloud Team 计划中提供，减少在比较计划时的困惑。([#10748](https://github.com/RooCodeInc/Roo-Code/pull/10748))
+
+## Bug 修复
+
+* 修复了在流重试/重新连接后，Anthropic 原生工具调用可能因重复的工具调用 ID 而出现 400 错误的问题。([#10760](https://github.com/RooCodeInc/Roo-Code/pull/10760))
+* 修复了 OpenAI Native 流式传输可能在流中间丢失工具标识字段的问题，避免在某些 OpenAI 兼容流中遗漏或失败工具调用。([#10719](https://github.com/RooCodeInc/Roo-Code/pull/10719))
+* 修复了当 `call_id` 超过 64 个字符限制时，OpenAI Responses API 可能拒绝工具调用的问题，避免在工具使用期间出现 400 验证错误。([#10763](https://github.com/RooCodeInc/Roo-Code/pull/10763))
+* 修复了 Gemini 请求（例如通过 OpenRouter）可能在任务中途因思维签名验证错误而失败的问题，提高了 Gemini 工具调用聊天的可靠性。([#10694](https://github.com/RooCodeInc/Roo-Code/pull/10694))
+* 修复了当用户消息包含空文本块时，Gemini 请求可能失败的问题，确保仅发送非空内容，同时保留图像。([#10728](https://github.com/RooCodeInc/Roo-Code/pull/10728))
+* 修复了某些 MCP 工具模式在使用顶级 `anyOf`/`oneOf`/`allOf` 时可能被提供商拒绝的问题，提高了跨提供商的工具模式兼容性。([#10726](https://github.com/RooCodeInc/Roo-Code/pull/10726))
+
+## 提供商更新
+
+* 防止 Ollama 设置提供无法使用原生工具调用的模型，避免模型将工具 JSON 输出为文本而不是实际调用工具的循环问题。([#10735](https://github.com/RooCodeInc/Roo-Code/pull/10735))```

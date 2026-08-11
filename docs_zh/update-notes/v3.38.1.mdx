@@ -1,0 +1,27 @@
+---
+description: 此补丁版本提高了使用工具和上下文压缩时的可靠性，优化了工具错误消息，并修复了一些小的 UI/链接问题。
+keywords:
+  - zoo code 3.38.1
+  - bug fixes
+  - qol improvements
+image: /img/v3.38.1/v3.38.1.png
+---
+
+# Zoo Code 3.38.1 版本说明 (2025-12-29)
+
+此补丁版本提高了使用工具和上下文压缩时的可靠性，优化了工具错误消息，并修复了一些小的 UI/链接问题。
+
+<img src="/img/v3.38.1/v3.38.1.png" alt="Zoo Code v3.38.1 版本发布" width="600" />
+
+## 生活质量改进
+
+* 在隐私政策中明确了删除 Zoo Code Cloud 账户的导航路径，以便您更快找到安全设置 ([#10367](https://github.com/RooCodeInc/Roo-Code/pull/10367))
+* 通过以与 MCP 工具相同的方式记录自定义工具，提高了内部分析的一致性，这有助于工具使用和错误跟踪保持准确 ([#10364](https://github.com/RooCodeInc/Roo-Code/pull/10364))
+
+## Bug 修复
+
+* 修复了在工具仍在运行时手动压缩上下文可能触发提供程序协议错误的问题，因此工具运行和手动压缩现在可以安全重叠 ([#10379](https://github.com/RooCodeInc/Roo-Code/pull/10379))
+* 撤销了对 OpenAI 兼容提供程序的更改，以避免与工具结果后出现文本相关的消息格式回归 ([#10381](https://github.com/RooCodeInc/Roo-Code/pull/10381))
+* 强制执行 `read_file` 的 `maxConcurrentFileReads` 限制，返回明确的错误而不是静默忽略设置 ([#10363](https://github.com/RooCodeInc/Roo-Code/pull/10363))
+* 改进了在目录上运行 `read_file` 时显示的错误，明确解释问题并建议使用 `list_files` 替代 ([#10371](https://github.com/RooCodeInc/Roo-Code/pull/10371))
+* 修复了 roocode.com 上的"开源"链接可能指向不存在的 GitHub 组织的问题，现在可以可靠地打开正确的仓库 (感谢 jishnuteegala!) ([#10377](https://github.com/RooCodeInc/Roo-Code/pull/10377))```

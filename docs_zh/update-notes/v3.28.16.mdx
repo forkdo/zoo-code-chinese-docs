@@ -1,0 +1,32 @@
+---
+description: 为 Claude Code 添加 Claude Sonnet 4.5 1M 上下文，改进 Cloud 任务路由遥测，并修复 Ollama/LM Studio 可见性问题。
+keywords:
+  - roo code 3.28.16
+  - new features
+  - bug fixes
+image: /img/v3.28.16/v3.28.16.png
+---
+
+# Zoo Code 3.28.16 版本说明 (2025-10-10)
+
+此版本为 Claude Code 添加了 Claude Sonnet 4.5 的 1M 上下文变体，改进了 Cloud 任务路由遥测，并修复了 Ollama/LM Studio 提供程序可见性问题。
+
+<img src="/img/v3.28.16/v3.28.16.png" alt="Zoo Code v3.28.16 Release" width="600" />
+
+## Claude Code 中 Claude Sonnet 4.5 的 1M 上下文
+
+我们为 Claude Code 添加了 Claude Sonnet 4.5 的 1M 令牌上下文变体（感谢 ColbySerpa！）：
+
+- 通过更少的截断处理超大型项目和长日志。
+- 选择模型时通过 [1m] 后缀进行选择；减少拆分和手动分块。
+
+这使得在大型仓库和冗长跟踪中工作时更容易保持上下文。
+
+## 生活质量改进
+
+* 在扩展桥中识别 Cloud 任务，以改进诊断、日志记录和未来 UI 行为
+* 在遥测中添加父任务 ID，以提高可追溯性
+
+## Bug 修复
+
+* 使 Ollama 和 LM Studio 在提供程序列表中显示为动态提供程序，以便可以像其他提供程序一样选择和配置

@@ -1,0 +1,164 @@
+---
+description: Zoo Code 3.18 引入了实验性的代码库索引、增强的上下文压缩、自定义模式的 YAML 支持以及 Gemini 2.5 Flash 支持。
+keywords:
+  - Zoo Code 3.18
+  - release notes
+  - codebase indexing
+  - context condensing
+  - YAML custom modes
+  - Gemini 2.5
+---
+
+# Zoo Code 3.18 版本发布说明 (2025-05-21)
+
+此版本引入了具有增强推理能力的高级 AI 模型、全面的上下文压缩改进、自定义模式的 YAML 支持、简化的开发基础设施，以及众多提升用户体验的改进和错误修复。
+
+---
+
+## 代码库索引（实验性）
+我们的全新**实验性**[代码库索引](/features/codebase-indexing)功能使用 AI 嵌入技术，让您能够在整个项目中进行语义搜索。请注意，此功能**默认禁用**，需要额外设置（在设置 (⚙️) > "实验性" 中启用）。
+
+<img src="/img/codebase-indexing/codebase-indexing.png" alt="代码库索引设置" width="600" />
+
+主要功能：
+*   **语义代码搜索**：使用自然语言查询查找相关代码，而非精确关键词匹配
+*   **AI 驱动的理解**：新的 [`codebase_search`](/advanced-usage/available-tools/codebase-search) 工具可理解代码含义和关系
+*   **跨项目发现**：搜索整个已索引的代码库，而不仅仅是打开的文件
+*   **灵活设置**：在 OpenAI 嵌入或本地 Ollama 处理之间选择
+*   **向量驱动搜索**：先进的嵌入技术，结合 Qdrant 向量数据库存储
+*   **增强设置**：改进的配置保存和 Ollama 索引性能（感谢 daniel-lxs！）
+
+改变您浏览大型代码库的方式——只需询问“查找身份验证逻辑”，即可获得有意义的结果，而无需在文件中苦苦搜寻。
+
+有关设置说明和详细用法，请参阅主要的[代码库索引文档](/features/codebase-indexing)。
+
+---
+
+## 上下文压缩升级
+我们的智能上下文压缩功能进行了重大增强，以提供更好的控制和清晰度。**注意**：从 3.19.0 版本开始，此功能默认启用。
+
+观看快速概览：
+<div style={{width: '50%', margin: 'auto'}}>
+  <div style={{position: 'relative', paddingBottom: '177.77%', height: 0, overflow: 'hidden'}}>
+    <iframe
+      src="https://www.youtube.com/embed/o5xgO9N8vVU?rel=0&modestbranding=1"
+      title="YouTube Short"
+      frameBorder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowFullScreen
+      style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%'}}
+    ></iframe>
+  </div>
+</div>
+主要更新：
+*   **可调节的压缩阈值和手动控制**：微调自动压缩或手动触发。[了解更多](/features/intelligent-context-condensing#controlling-context-condensing)。
+*   **高级控件和 UI 增强**：用于微调对话压缩行为的新设置，并改进了用于管理压缩设置的界面组件。（感谢 SannidhyaSah！）
+*   **清晰的 UI 指示器**：在压缩期间提供更好的视觉反馈。[详情](/features/intelligent-context-condensing#understanding-context-condensing-activity)。
+*   **改进的压缩**：在压缩期间更好地总结对话，同时保留重要上下文。（感谢 SannidhyaSah！）
+*   **准确的令牌计数**：改进上下文和成本计算的准确性。[更多信息](/features/intelligent-context-condensing#token-counting)。
+
+有关完整详细信息，请参阅主要的[智能上下文压缩文档](/features/intelligent-context-condensing)。
+
+---
+
+## 自定义模式：YAML 支持
+
+自定义模式配置现在通过**YAML 支持**得到了显著改进，适用于全局和项目级 (`.roomodes`) 定义。YAML 现在是新的默认格式，具有更清晰的语法、支持注释 (`#`) 和更简单的多行字符串管理，从而提供卓越的可读性。虽然 JSON 仍支持以实现向后兼容性，但 YAML 简化了模式的创建、共享和版本控制。
+
+有关 YAML 优势、语法和迁移现有 JSON 配置的全面详细信息，请参阅我们更新的[自定义模式文档](/features/custom-modes#migration-to-yaml-format)。（感谢 R-omk！另外感谢 GreatScottyMac 提供的 YAML 灵感！）
+
+---
+
+## API 成本控制：请求限制
+为了增强 API 成本管理，您现在可以为自动批准的操作设置**最大请求数**限制。这可防止 Zoo Code 在未经您重新批准的情况下进行过多连续的 API 调用。
+
+<img src="/img/v3.18.0/v3.18.0.png" alt="在 Zoo Code 设置中为自动批准的操作设置最大请求数限制。" width="600" />
+*为自动批准的操作设置“最大请求数”。*
+
+<img src="/img/v3.18.0/v3.18.0-1.png" alt="指示已达到自动批准请求限制的消息。" width="600" />
+*当达到自动批准请求限制时的通知。*
+
+在我们的[速率限制和成本文档](/advanced-usage/rate-limits-costs#limiting-auto-approved-requests)中了解有关配置此保护措施的更多信息。（灵感来自 Cline，感谢 hassoncs！）
+
+---
+
+## 文档更新
+
+*   **README 显示**：修复了所有本地化版本中 README GIF 的显示，确保所有 17 种支持语言的用户都能获得一致的视觉指南
+*   **引荐来源网址**：修复了文档链接中的技术性引荐来源网址问题
+
+---
+
+## 新模型版本：Gemini 2.5 Flash 预览版 (2025 年 5 月)
+访问最新的 `gemini-2.5-flash-preview-05-20` 模型，包括其思考变体。这一前沿新增功能可通过通用的 [Gemini 提供商](/providers/gemini) 和 [Vertex 提供商](/providers/vertex) 获得，进一步扩展您的 AI 模型选项。（感谢 shariqriazz、daniel-lxs！）
+
+---
+
+## 用户体验改进
+
+*   **更好的工具选择**：改进工具描述，以指导 AI 做出更好的文件编辑决策
+*   **MCP 服务器加载**：修复了使用 npx 和 bunx 运行时 MCP 服务器的错误（感谢 devxpain！）
+*   **自动批准输入**：修复了启用自动批准时聊天输入错误清除的问题（感谢 Ruakij！）
+*   **可调整大小的提示文本区域**：恢复了提示输入文本区域（角色定义、自定义指令、支持提示）的垂直调整大小功能，以便更轻松地查看和编辑较长的提示。
+*   **设置导入**：如果导入失败，现在会提供多种语言的错误消息。（感谢 ChuKhaLi！）
+*   **繁体中文语言环境**：改进 zh-TW 繁体中文语言环境（感谢 PeterDaveHello 和 chrarnoldus！）
+
+---
+
+## 错误修复
+
+*   **代码库索引**：修复了设置保存问题，并提升了 Ollama 索引性能，使语义搜索更加可靠（感谢 daniel-lxs！）
+*   **文件处理**：修复了当用户拒绝 apply_diff 操作时对字节顺序标记 (BOM) 的处理（感谢 avtc！）
+*   **上下文跟踪**：修复了上下文跟踪器中的“标记为已读”逻辑（感谢 samhvw8！）
+*   **模型清理**：从 vscode-lm 中移除了已弃用的 claude-3.7-sonnet 模型（感谢 shariqriazz！）
+*   **全局设置导出**：修复了全局设置导出功能，确保配置能在不同设置之间正确传输
+*   **文件选择器图标**：修复了文件选择器中 vscode-material-icons 的显示问题，以获得更好的视觉一致性
+*   **终端集成**：修复了终端集成，使其能正确遵守用户配置的超时设置（感谢 KJ7LNW！）
+*   **VSCode 命令执行**：命令执行现已具备类型安全性，减少了潜在错误。
+*   **设置导入**：系统现在能优雅地处理导入文件中缺失的 `globalSettings`。（感谢 ChuKhaLi！）
+*   **差异视图滚动**：差异视图在内容更新期间不再进行不必要的滚动。（感谢 qdaxb！）
+*   **语法高亮**：改进了文件列表、代码定义和错误消息中的语法高亮一致性。（感谢 KJ7LNW！）
+*   **灰屏问题**：通过优雅地处理关闭差异视图时的错误，实现了对“灰屏”问题的修复，防止了内存泄漏。（感谢 xyOz-dev！）
+*   **设置导入错误消息**：`settings_import_failed` 消息现在被正确归类为错误。（感谢 ChuKhaLi！）
+*   **指向第 0 行的文件链接**：指向行号为 0 的文件的链接现在能正确地打开到第一行，防止错误。（感谢 RSO！）
+*   **打包 `tiktoken.wasm`**：修复了打包过程，以包含正确的 `tiktoken/lite/tiktoken_bg.wasm` 文件，从而实现准确的令牌计数。（感谢 vagadiya！）
+*   **音频播放**：将音频播放移至 Webview，以确保跨平台兼容性和通知及声音的可靠性。（感谢 SmartManoj, samhvw8！）
+
+---
+
+## 提供商更新
+
+*   **Claude 4.0 模型**：为 [`Anthropic`](/providers/anthropic)、[`Bedrock`](/providers/bedrock) 和 [`Vertex`](/providers/vertex) 提供商添加了 [`Claude Sonnet 4`](/providers/anthropic) 和 [`Claude Opus 4`](/providers/anthropic) 模型（含思考变体）的支持（感谢 shariqriazz！）
+*   **增强推理**：为 [`OpenRouter`](/providers/openrouter) 上的 Claude 4 和 Gemini 2.5 Flash 添加了推理支持，并修复了 o1-pro 兼容性
+*   **改进的默认设置**：将默认模型从 Sonnet 3.7 更改为 Sonnet 4，以获得更好的性能
+*   **xAI 模型**：更新了 [`xAI`](/providers/xai) 模型列表和默认模型配置，以提升性能（感谢 PeterDaveHello！）
+*   **提示缓存**：为 Gemini 2.5 Flash Preview 启用了提示缓存，以降低成本并提高响应速度（感谢 shariqriazz！）
+*   **OpenRouter 设置**：在选择特定的 [`OpenRouter`](/providers/openrouter) 提供商时，模型设置现在会保持不变
+*   **LiteLLM 刷新**：添加了刷新 [`LiteLLM`](/providers/litellm) 模型列表的功能，以保持模型可用性的最新状态
+*   **LM Studio 和 Ollama 令牌跟踪**：现在可以跟踪 [LM Studio](/providers/lmstudio) 和 [Ollama](/providers/ollama) 提供商的令牌使用情况。（感谢 xyOz-dev！）
+*   **LM Studio 推理支持**：添加了对解析 [LM Studio](/providers/lmstudio) 响应中“think”标签的支持，以增强对 AI 过程的透明度。（感谢 avtc！）
+*   **Chutes 的 Qwen3 模型系列**：为 [Chutes 提供商](/providers/chutes) 添加了新的 Qwen3 模型（例如，`Qwen/Qwen3-235B-A22B`）。（感谢 zeozeozeo！）
+*   **Unbound 提供商模型刷新**：为 [Unbound](/providers/unbound) 模型添加了刷新按钮，以便轻松更新可用模型列表并即时获得 API 密钥有效性的反馈。（感谢 pugazhendhi-m！）
+*   **Requesty 思考控制**：为 [Requesty 提供商](/providers/requesty) 添加思考控制（感谢 dtrugman！）
+*   **LiteLLM 元数据**：改进 [LiteLLM 提供商](/providers/litellm) 的模型元数据
+
+---
+
+## 其他改进
+
+*   **增强调试**：为所有提供商的 API 请求添加了元数据，以便更好地进行故障排除和监控（感谢 dtrugman！）
+*   **构建过程**：改进了 pnpm 引导并修复了引导脚本参数，以获得更好的兼容性（感谢 KJ7LNW!、ChuKhaLi！）
+*   **代码质量**：简化了对象赋值并实现了代码模式的现代化（感谢 noritaka1166！）
+*   **Monorepo 迁移**：将代码库切换为 monorepo 结构，以改进开发工作流程
+*   **自动化夜间构建**：创建了自动化的[夜间发布系统](/advanced-usage/zoo-code-nightly)，以便更快地交付最新功能和修复
+*   **增强工具链**：改进了构建过程和依赖管理，以获得更好的可靠性
+*   **现代 Linting**：ESLint 9 升级及共享配置可在问题到达用户之前捕获它们
+*   **端到端测试套件**：重组了端到端测试基础设施，以获得更好的质量保证
+*   **构建优化**：增强的构建过程优化减小了包大小并提高了启动时间
+*   **质量保证**：先进的测试基础设施在开发过程中能捕获更多问题
+*   **发布自动化**：改进的发布过程自动化减少了手动错误并加快了交付速度
+*   **开发模式下的自动重载**：核心文件更改现在会在开发模式下自动触发窗口重载，从而实现更快的工作流程。（感谢 hassoncs！）
+*   **简化的循环语法**：重构了多个组件中的循环结构，使用 `for...of` 循环以提高可读性。（感谢 noritaka1166！）
+*   **遥测**：重新启用遥测
+
+这些改进在幕后工作，旨在提供更可靠、更稳定的扩展体验，并实现更快的更新和更高质量的发布。

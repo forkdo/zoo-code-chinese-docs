@@ -1,0 +1,173 @@
+---
+description: 探索并安装社区贡献的 MCP 服务器和自定义模式，扩展您的 AI 编码助手功能。
+keywords:
+  - Zoo Code Marketplace
+  - MCP servers
+  - custom modes
+  - extensions
+  - community tools
+  - AI integrations
+---
+import Codicon from '@site/src/components/Codicon';
+
+# Zoo Code Marketplace
+
+<div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden' }}>
+  <iframe
+    src="https://www.youtube.com/embed/WatooxMlW0U?rel=0&modestbranding=1"
+    style={{
+      position: 'absolute',
+      top: 0,
+      left: '0%',
+      width: '100%',
+      height: '100%',
+    }}
+    frameBorder="0"
+    allow="autoplay; encrypted-media"
+    allowFullScreen
+  ></iframe>
+</div>
+
+<div style={{ marginTop: '20px' }}></div>
+
+---
+
+## 概述
+
+Zoo Code Marketplace 是一个集中发现和安装社区贡献扩展的中心枢纽，这些扩展被称为 MCP（模型上下文协议）和模式。它允许您轻松扩展 Zoo Code 的功能，以满足您的特定需求和工作流程。
+
+### 主要功能
+- **可发现性**：浏览经过策划的 MCP 和模式列表。
+- **简单安装**：一键安装或移除项目。
+- **社区驱动**：访问来自 Zoo Code 社区不断增长的扩展集合。
+- **项目和全局范围**：为特定项目或所有项目安装项目。
+
+---
+
+## 入门指南
+
+Zoo Code Marketplace 直接在 VS Code 中的 Zoo Code 扩展中提供。通过点击顶部菜单栏中的 marketplace 图标 <Codicon name="extensions" /> 来访问它。
+
+---
+
+## Marketplace 项目
+
+marketplace 提供两种类型的项目：
+
+### MCP（模型上下文协议）
+MCP 允许 Zoo Code 连接并与各种 AI 模型、API 和其他外部工具进行交互。通过安装 MCP，您可以配置 Zoo Code 使用不同的语言模型（如 OpenAI、Anthropic 或其他提供商的模型）或与其他服务集成。了解 [什么是 MCP？](/features/mcp/what-is-mcp) 以及 [如何在 Zoo Code 中使用 MCP](/features/mcp/using-mcp-in-roo)。
+
+<img src="/img/marketplace/marketplace-1.png" alt="显示可用 MCP 的 MCP 选项卡，带有安装和移除按钮" width="500" />
+
+### 模式
+模式是为特定任务定制的指令和规则集，用于调整 Zoo Code 的行为。例如，您可能会找到一个针对创建 React 组件优化的"React 组件"模式，或用于编写技术文档的"文档编写者"模式。了解 [如何使用模式](/basic-usage/using-modes) 和 [如何创建自定义模式](/features/custom-modes)。
+
+<img src="/img/marketplace/marketplace-4.png" alt="显示可用模式的模式选项卡" width="500" />
+
+---
+
+## 安装范围
+
+当您从 marketplace 安装项目时，可以选择在项目级别或全局级别进行安装。
+
+### 项目安装
+- **范围**：该项目仅在当前 VS Code 工作区（您的项目）中可用。
+- **配置文件**：
+    - **MCP**：项目根目录中的 [`.roo/mcp.json`](/features/mcp/using-mcp-in-roo#configuring-mcp-servers)。
+    - **模式**：项目根目录中的 [`.roomodes`](/features/custom-modes#3-manual-configuration-yaml--json)。
+- **使用场景**：当项目特定于某个项目的需求，或者当您想与团队共享项目特定配置时，这很有用。
+
+### 全局安装
+- **范围**：该项目在您所有的 VS Code 工作区中都可用。
+- **配置文件**：
+    - **MCP**：Zoo Code 扩展的全局设置目录中的 [`mcp_settings.json`](/features/mcp/using-mcp-in-roo#configuring-mcp-servers)。
+    - **模式**：Zoo Code 扩展的全局设置目录中的 [`custom_modes.yaml`](/features/custom-modes)。
+- **使用场景**：这适用于您想在所有项目中使用的项目，例如您喜欢的模式或常用的 MCP。
+
+---
+
+## 使用 Marketplace
+
+### 浏览和筛选
+
+您可以在 marketplace 视图中浏览所有可用的项目。要查找特定项目：
+- **搜索**：使用搜索栏按名称或描述查找项目。
+- **按类型筛选**：仅显示 MCP 或仅显示模式。
+- **按标签筛选**：查找与特定技术或任务相关的项目。
+- **仅显示已安装**：使用"已安装"复选框筛选视图，仅显示您已安装的项目，从而更轻松地管理和查看已安装的扩展。
+
+"仅显示已安装"筛选器在以下情况下特别有用：
+- 您想快速查看已安装了哪些 MCP 或模式
+- 您需要管理或移除已安装的项目
+- 您正在查看项目或全局配置
+
+### 安装项目
+
+1. 找到您要安装的项目。
+2. 点击"安装"按钮。
+3. 选择是为当前**项目**还是**全局**安装。
+
+#### 安装 MCP
+<img src="/img/marketplace/marketplace-3.png" alt="显示安装范围和方法选项的 MCP 安装模态框" width="500" />
+
+对于 MCP，您可能还需要：
+- 选择安装方法（NPX 或 Docker）
+- 在提示时提供其他参数（参见 [参数化 MCP](#parameterized-mcps)）
+
+#### 安装模式
+<img src="/img/marketplace/marketplace-5.png" alt="显示安装范围选项的模式安装模态框" width="500" />
+
+对于模式，只需选择安装范围并点击安装。
+
+5. Zoo Code 会自动将项目添加到相应的配置文件中。如果文件不存在，Zoo Code 会为您创建它。然后会打开该文件供您查看。
+
+### 移除项目
+
+1. 在 marketplace 视图中找到已安装的项目（已安装的项目会显示"移除"按钮）。
+2. 点击"移除"按钮。
+3. 如果项目在两个范围都安装了，选择从当前项目移除或全局移除。
+4. Zoo Code 会从相应的配置文件中移除该项目。
+
+**注意**："移除"按钮是上下文感知的。如果项目只在一个范围安装（例如，仅针对项目），它将是一个单一操作按钮。只有当项目在两个范围都安装时，才会出现带有"从项目移除"和"全局移除"选项的下拉菜单。
+
+**重要**：点击按钮或从下拉菜单选择选项后，移除操作会立即执行。没有额外的确认提示。
+
+### Parameterized MCPs
+
+<img src="/img/marketplace/marketplace-6.png" alt="显示 API 密钥输入和先决条件的参数化 MCP 安装" width="500" />
+
+某些 MCP 在安装期间需要特定信息，例如 API 密钥或 URL。安装这些"参数化"MCP 时，系统会提示您：
+- 查看任何先决条件（如创建账户或获取 API 密钥）
+- 输入所需的配置值
+- 如果适用，选择安装方法
+
+这可以保护敏感信息安全，并使配置更加灵活。
+
+---
+
+## 故障排除
+
+### 安装错误
+- **无效的 YAML/JSON**：配置文件（`.roomodes`、`.roo/mcp.json` 等）存在语法错误。为防止数据丢失，Zoo Code 不会修改损坏的配置文件。请在安装或移除项目之前修复语法错误。
+- **文件未找到**：罕见错误 - Zoo Code 会自动创建必要的配置文件。
+
+### 项目无法工作
+如果已安装的项目无法工作：
+1. **检查配置文件**：验证项目是否已正确添加。
+2. **重启 VS Code**：新配置有时需要重启。
+3. **检查先决条件**：查看项目的描述以了解任何要求。
+4. **检查 Zoo Code 日志**：在 Zoo Code 输出面板中查找错误消息。
+
+---
+
+## 相关文档
+
+### 对于 MCP
+- [MCP 概述](/features/mcp/overview) - 模型上下文协议综合指南
+- [什么是 MCP？](/features/mcp/what-is-mcp) - 了解基础知识
+- [在 Zoo Code 中使用 MCP](/features/mcp/using-mcp-in-roo) - 详细配置和使用指南
+- [推荐的 MCP 服务器](/features/mcp/recommended-mcp-servers) - 经过测试的服务器策划列表
+
+### 关于模式
+- [使用模式](/basic-usage/using-modes) - 了解内置模式以及如何在它们之间切换
+- [自定义模式](/features/custom-modes) - 创建和配置您自己的专用模式

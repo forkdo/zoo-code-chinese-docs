@@ -1,0 +1,24 @@
+---
+description: Zoo Code 3.35.4 修复了工具调用处理问题，简化了 write_to_file 工具，并更新了 z.ai 提供商设置。
+keywords:
+  - zoo code 3.35.4
+  - bug fixes
+  - write_to_file
+  - z.ai
+---
+
+# Zoo Code 3.35.4 版本发布说明 (2025-12-02)
+
+此版本修复了工具调用处理回归问题，简化了 write_to_file 工具，并更正了 z.ai 提供商的用户界面。
+
+## 生活质量改进
+
+* **简化的 write_to_file 工具**：从 write_to_file 工具中移除了 `line_count` 参数，使工具调用更简洁，并减少了因行数统计错误导致的潜在问题 ([#9667](https://github.com/RooCodeInc/Roo-Code/pull/9667))
+
+## 错误修复
+
+* **格式错误工具调用修复**：修复了格式错误的原生工具调用导致 Zoo Code 无限期挂起的回归问题。现在工具调用会进入验证流程，正确捕获并报告缺失参数 ([#9758](https://github.com/RooCodeInc/Roo-Code/pull/9758))
+
+## 提供商更新
+
+* **z.ai GLM 模型修复**：移除了 z.ai 提供商中 GLM-4.5 和 GLM-4.6 模型具有误导性的推理切换界面，因为这些模型不支持编码代理的 think/reasoning 数据 ([#9752](https://github.com/RooCodeInc/Roo-Code/pull/9752))

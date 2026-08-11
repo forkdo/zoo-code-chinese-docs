@@ -1,0 +1,24 @@
+---
+description: 修复待办事项列表切换、命令解析崩溃问题，并改进错误处理。
+keywords:
+  - zoo code 3.23.18
+  - bug fixes
+  - error handling
+  - command parsing
+---
+
+# Zoo Code 3.23.18 版本说明 (2025-07-23)
+
+此版本修复了关键错误，包括待办事项列表切换功能、命令解析崩溃问题，并添加了更好的错误处理以防止界面崩溃。
+
+## Bug 修复
+
+* **待办事项列表切换**：修复了提供商高级设置中无法正常工作的待办事项列表切换功能（感谢 chrarnoldus！）([#6103](https://github.com/RooCodeInc/Roo-Code/pull/6103))
+
+* **命令解析**：修复了运行包含特殊语法（如算术表达式和数组变量）的复杂 bash 命令时的崩溃问题，使用户能够创建高级 GitHub CLI 别名和其他复杂的 shell 脚本（感谢 daniel-lxs、KJ7LNW！）([#5743](https://github.com/RooCodeInc/Roo-Code/pull/5743))
+
+* **错误处理**：添加了错误边界，防止在发生错误时整个 Zoo Code 界面崩溃。用户现在可以看到包含调试信息的有用错误消息，而不是空白屏幕，从而可以继续使用扩展的其他部分（感谢 KJ7LNW、elianiva！）([#5085](https://github.com/RooCodeInc/Roo-Code/pull/5085))
+
+## 其他改进
+
+* **进程终止**：Zoo Code 现在能够更可靠地终止无响应的进程，防止挂起的命令阻塞您的工作流程 ([#6071](https://github.com/RooCodeInc/Roo-Code/pull/6071))```

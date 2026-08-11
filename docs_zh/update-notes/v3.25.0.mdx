@@ -1,0 +1,107 @@
+---
+description: 此版本引入了自定义斜杠命令、Gemini 网络工具、read_file 的图像支持、消息排队以及许多提升使用体验的改进。
+keywords:
+  - zoo code 3.25.0
+  - custom slash commands
+  - gemini tools
+  - image support
+  - message queueing
+---
+
+# Zoo Code 3.25.0 版本说明 (2025-07-29)
+
+此版本为 Zoo Code 带来了强大的新功能，包括用于工作流自动化的自定义斜杠命令、具有网络访问功能的增强型 Gemini 模型、全面的图像支持，以及无缝消息排队功能，让您的对话不受中断。
+
+## 自定义斜杠命令
+
+创建您自己的斜杠命令来自动化重复性工作流 ([#6263](https://github.com/RooCodeInc/Roo-Code/pull/6263), [#6286](https://github.com/RooCodeInc/Roo-Code/pull/6286), [#6333](https://github.com/RooCodeInc/Roo-Code/pull/6333), [#6336](https://github.com/RooCodeInc/Roo-Code/pull/6336), [#6327](https://github.com/RooCodeInc/Roo-Code/pull/6327))：
+
+- **基于文件的命令**：在 `.roo/commands/` 中放置 markdown 文件即可立即创建自定义命令
+- **管理界面**：用于创建、编辑和删除命令的新界面，内置模糊搜索功能
+- **参数提示**：命令会在您输入时显示有关必需参数的有用提示
+- **丰富描述**：添加元数据和描述，使命令具有自文档化特性
+
+<img src="/img/slash-commands/slash-commands-4.png" alt="显示可用命令的斜杠命令菜单" width="600" />
+
+将复杂的工作流转换为简单的命令，如 `/deploy` 或 `/review`，以加快开发速度。
+
+> **📚 文档**：请参阅[斜杠命令指南](/features/slash-commands)获取详细使用说明。
+
+## 消息排队
+
+通过新的消息排队系统，在 Roo 处理您的请求时继续输入 ([#6167](https://github.com/RooCodeInc/Roo-Code/pull/6167))：
+
+- **非阻塞输入**：即使在 Roo 处理之前的请求时，也可以输入和发送消息
+- **顺序处理**：消息按发送顺序排队和处理
+- **视觉反馈**：在界面中清晰显示排队的消息
+- **保持上下文**：每条消息都保持对话的正确上下文
+
+当您有多个快速问题或更正时，保持工作流程顺畅。
+
+> **📚 文档**：请参阅[消息排队指南](/features/message-queueing)获取详细信息。
+
+## read_file 工具的图像支持
+
+[`read_file`](/advanced-usage/available-tools/read-file) 工具现在支持读取和分析图像（感谢 samhvw8！)([#5172](https://github.com/RooCodeInc/Roo-Code/pull/5172))：
+
+- **多种格式**：支持 PNG、JPG、JPEG、GIF、WebP、SVG、BMP、ICO 和 TIFF
+- **OCR 功能**：从截图和扫描文档中提取文本
+- **批量处理**：读取文件夹中的多个图像并添加描述
+- **简单集成**：就像读取文本文件一样工作 - 无需特殊配置
+
+适用于分析 UI 模型、调试截图错误或从图像中提取代码。
+
+## Gemini 工具：URL 上下文和 Google 搜索
+
+Gemini 模型现在可以访问网页内容并执行 Google 搜索，以获得更准确、最新的响应（感谢 HahaBill！)([#5959](https://github.com/RooCodeInc/Roo-Code/pull/5959))：
+
+- **URL 上下文**：直接分析网页、文档和在线资源
+- **Google 搜索基础**：基于当前搜索结果获取经过事实核查的响应
+- **用户控制**：根据您的隐私偏好启用或禁用网络功能
+- **实时信息**：访问最新的文档和最佳实践
+
+非常适合研究新库、验证解决方案或获取当前 API 信息。
+
+> **📚 文档**：请参阅[Gemini 提供商指南](/providers/gemini)获取设置和使用说明。
+
+## 提升使用体验的改进
+
+这些小改变对您的日常工作流程产生了重大影响：
+
+* **Markdown 表格渲染**：表格现在以正确的格式显示，而不是原始 markdown，以提高可读性 ([#6252](https://github.com/RooCodeInc/Roo-Code/pull/6252))
+  <img src="/img/v3.25.0/v3.25.0-2.png" alt="Zoo Code 中的 Markdown 表格渲染" width="600" />
+* **模式选择器弹出窗口重新设计**：改进的布局，当您安装了许多模式时具有搜索功能 ([#6140](https://github.com/RooCodeInc/Roo-Code/pull/6140))
+  <img src="/img/v3.25.0/v3.25.0.png" alt="带搜索功能的模式选择器弹出窗口" width="600" />
+* **API 选择器弹出窗口重新设计**：更新以匹配新的模式选择器设计，改进布局 ([#6148](https://github.com/RooCodeInc/Roo-Code/pull/6148))
+  <img src="/img/v3.25.0/v3.25.0-1.png" alt="API 配置选择器重新设计" width="600" />
+* **粘性任务模式**：任务记住其最后使用的模式并自动恢复 ([#6177](https://github.com/RooCodeInc/Roo-Code/pull/6177))
+* **ESC 键支持**：使用 ESC 关闭弹出窗口，以改善键盘导航 ([#6175](https://github.com/RooCodeInc/Roo-Code/pull/6175))
+* **改进的命令高亮显示**：仅在输入字段中高亮显示有效命令 ([#6336](https://github.com/RooCodeInc/Roo-Code/pull/6336))
+
+## Bug 修复
+
+提高稳定性和兼容性的关键修复：
+
+* **多文件编辑修复**：修复了 Git diff 视图干扰文件操作的问题（感谢 hasssoncs, szermatt！)([#6350](https://github.com/RooCodeInc/Roo-Code/pull/6350))
+* **非 QWERTY 键盘支持**：修复了 Dvorak、AZERTY 和其他布局的键盘快捷键（感谢 shlgug！)([#6162](https://github.com/RooCodeInc/Roo-Code/pull/6162))
+* **模式导出/导入**：修复了自定义模式导出以正确处理 slug 更改 ([#6186](https://github.com/RooCodeInc/Roo-Code/pull/6186))
+* **隐藏目录支持**：[`list_files`](/advanced-usage/available-tools/list-files) 现在正确显示点目录的内容（感谢 MuriloFP, avtc, zhang157686！)([#5176](https://github.com/RooCodeInc/Roo-Code/pull/5176))
+* **滚动条稳定性**：修复了流式传输表格和代码块时滚动条闪烁的问题 ([#6266](https://github.com/RooCodeInc/Roo-Code/pull/6266))
+* **设置链接修复**：恢复了命令权限工具提示中"查看设置"链接的功能 ([#6253](https://github.com/RooCodeInc/Roo-Code/pull/6253))
+* **@提及解析**：修复了提及功能，使其在所有输入上下文中都能工作，包括后续问题 ([#6331](https://github.com/RooCodeInc/Roo-Code/pull/6331))
+* **调试按钮移除**：在生产版本中隐藏了测试错误边界按钮（感谢 bangjohn！)([#6216](https://github.com/RooCodeInc/Roo-Code/pull/6216))
+* **命令高亮显示修复**：修复了一致的斜杠命令高亮显示行为 ([#6325](https://github.com/RooCodeInc/Roo-Code/pull/6325))
+* **文本换行**：修复了权限 UI 中长命令模式的文本溢出问题 ([#6255](https://github.com/RooCodeInc/Roo-Code/pull/6255))
+* **跨平台模式导出**：Windows 路径分隔符现在正确转换为 Unix 系统 ([#6308](https://github.com/RooCodeInc/Roo-Code/pull/6308))
+
+## 提供商更新
+
+* **LiteLLM 的提示缓存**：通过为 Claude 3.5 Sonnet 和兼容模型提供缓存支持，降低 API 成本并提高响应时间（感谢 MuriloFP, steve-gore-snapdocs！)([#6074](https://github.com/RooCodeInc/Roo-Code/pull/6074))
+
+## 其他改进
+
+* **后台编辑（实验性功能）**：Roo 在后台编辑文件时，您仍可不受干扰地工作——不再因自动差异视图而分心 ([#6214](https://github.com/RooCodeInc/Roo-Code/pull/6214))。在您继续编码的同时，文件会静默地发生变化，诊断和错误检查功能仍保持活跃。详情请参阅[后台编辑](/features/experimental/background-editing)。
+* **安全更新**：更新了 form-data 依赖项，以修复安全漏洞 ([#6332](https://github.com/RooCodeInc/Roo-Code/pull/6332))
+* **贡献者更新**：刷新了所有本地化版本的贡献者致谢信息 ([#6302](https://github.com/RooCodeInc/Roo-Code/pull/6302))
+* **发布工程**：将发布工程师角色转换为斜杠命令，以便更轻松地进行发布 ([#6333](https://github.com/RooCodeInc/Roo-Code/pull/6333))
+* **PR 审查者改进**：使 PR 审查者模式适用于任何 GitHub 仓库 ([#6357](https://github.com/RooCodeInc/Roo-Code/pull/6357)、[#6328](https://github.com/RooCodeInc/Roo-Code/pull/6328)、[#6324](https://github.com/RooCodeInc/Roo-Code/pull/6324))```

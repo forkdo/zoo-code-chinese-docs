@@ -1,0 +1,16 @@
+---
+description: 修复 LM Studio 模型重复和终端复用问题。
+keywords:
+  - zoo code 3.25.17
+  - lm studio
+  - bug fixes
+---
+
+# Zoo Code 3.25.17 Release Notes (2025-08-18)
+
+此版本修复了 LM Studio 模型管理和终端复用逻辑的问题。
+
+## Bug Fixes
+
+* **LM Studio Models**: 通过实现不区分大小写的去重功能修复了重复模型条目，确保模型在提供程序配置中仅显示一次 ([#7185](https://github.com/RooCodeInc/Roo-Code/pull/7185))
+* **Terminal Reuse**: 修复了终端复用逻辑，以正确处理终端生命周期管理 ([#7157](https://github.com/RooCodeInc/Roo-Code/pull/7157))```

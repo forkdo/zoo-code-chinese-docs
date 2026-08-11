@@ -1,0 +1,30 @@
+---
+description: 此版本为更多提供商添加了新的 Gemini 3 Flash 预览模型，改进了 DeepSeek 工具调用功能，并修复了 token 计数显示问题。
+keywords:
+  - zoo code 3.36.10
+  - new features
+  - bug fixes
+image: /img/v3.36.10/v3.36.10.png
+---
+
+# Zoo Code 3.36.10 版本说明 (2025-12-17)
+
+此版本为更多提供商添加了 Gemini 3 Flash 预览模型，改进了 DeepSeek 推理模型在工具使用期间的“思考”行为，并修复了上下文 token 计数显示问题。
+
+<img src="/img/v3.36.10/v3.36.10.png" alt="Zoo Code v3.36.10 Release" width="600" />
+
+## Gemini 3 Flash 预览模型
+
+`gemini-3-flash-preview` 模型现已在 Zoo Code Cloud 提供商、Google Gemini、GCP Vertex AI、Requesty 和 OpenRouter 提供商中可用。这是 Google 今天早上发布的最新模型（感谢贡献者们！）([#10151](https://github.com/RooCodeInc/Roo-Code/pull/10151))。
+
+## DeepSeek 推理模型：工具使用期间交错思考
+
+DeepSeek 提供商的 `deepseek-reasoner` 模型现在支持“交错思考”和原生工具调用。在我们的内部评估中，工具调用成功率达到 100%，扩展运行得分提升至 93.4%（感谢 zbww_！）([#9969](https://github.com/RooCodeInc/Roo-Code/pull/9969), [#10141](https://github.com/RooCodeInc/Roo-Code/pull/10141))。
+
+## Bug 修复
+
+* **上下文截断 token 显示**：修复了上下文截断 UI 可能显示错误的截断前后 token 总数的问题，尤其是在工具调用频繁的对话中 ([#9961](https://github.com/RooCodeInc/Roo-Code/pull/9961))
+
+## 其他改进
+
+* **框架更新**：将 Next.js 更新至 `~15.2.8`，以提高与上游修复的兼容性 ([#10140](https://github.com/RooCodeInc/Roo-Code/pull/10140))

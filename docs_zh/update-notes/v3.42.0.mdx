@@ -1,0 +1,44 @@
+---
+description: 此版本为 OpenAI Codex 提供商添加了 ChatGPT 使用量跟踪功能，优化了提供商选项和模型选择的用户体验，并提升了提示词、导出和编辑安全性的可靠性。
+keywords:
+  - zoo code 3.42.0
+  - new features
+  - bug fixes
+image: /img/v3.42.0/v3.42.0.png
+---
+
+# Zoo Code 3.42.0 版本说明 (2026-01-22)
+
+此版本为 OpenAI Codex 提供商添加了 ChatGPT 使用量跟踪功能，优化了提供商选项和模型选择的用户体验，并提升了提示词、导出和编辑安全性的可靠性。
+
+<img src="/img/v3.42.0/v3.42.0.png" alt="Zoo Code v3.42.0 Release" width="600" />
+
+## 体验优化
+
+* 在 OpenAI Codex 提供商中添加了使用量限制仪表板，以便您可以跟踪 ChatGPT 订阅的使用情况，避免意外的速度变慢或阻塞。 ([#10813](https://github.com/RooCodeInc/Roo-Code/pull/10813))
+* 标准化了跨提供商的模型选择器 UI，减少了切换提供商或比较模型时的摩擦。 ([#10294](https://github.com/RooCodeInc/Roo-Code/pull/10294))
+* 当启用的 MCP 工具过多时发出警告，帮助您避免臃肿的提示词和意外的工具行为。 ([#10772](https://github.com/RooCodeInc/Roo-Code/pull/10772))
+* 通过将导出目标默认设置为下载文件夹，使导出文件更容易找到。 ([#10882](https://github.com/RooCodeInc/Roo-Code/pull/10882))
+* 明确了提示词中链接的 `SKILL.md` 文件应如何处理。 ([#10907](https://github.com/RooCodeInc/Roo-Code/pull/10907))
+
+## Bug 修复
+
+* 修复了切换工作区时可能暂时显示空模式选择器的问题，使确认当前模式更加困难。 ([#9674](https://github.com/RooCodeInc/Roo-Code/pull/9674))
+* 修复了上下文压缩提示词输入可能变得不一致的竞争条件，提高了压缩运行时的可靠性。 ([#10876](https://github.com/RooCodeInc/Roo-Code/pull/10876))
+* 修复了 OpenAI 原生和 Codex 处理器可能发出重复文本/推理的问题，减少了流式响应中的重复输出。 ([#10888](https://github.com/RooCodeInc/Roo-Code/pull/10888))
+* 修复了通过 IPC/桥接层恢复任务时可能意外中止的问题，提高了恢复会话的稳定性。 ([#10892](https://github.com/RooCodeInc/Roo-Code/pull/10892))
+* 修复了文件限制未在所有编辑工具中一致执行的问题，提高了使用受限工作流时的安全性。 ([#10896](https://github.com/RooCodeInc/Roo-Code/pull/10896))
+* 修复了即使不再支持“自定义压缩模型”选项也可能出现的问题，简化了压缩配置 UI。 ([#10901](https://github.com/RooCodeInc/Roo-Code/pull/10901))
+* 通过在 Webview 状态更新期间避免冗余的任务历史负载，修复了灰屏性能问题。 ([#10842](https://github.com/RooCodeInc/Roo-Code/pull/10842))
+
+## 其他改进
+
+* 通过将用户内容标签标准化为 `<user_message>` 来提高提示词格式的一致性。 ([#10723](https://github.com/RooCodeInc/Roo-Code/pull/10723))
+* 移除了遗留的 XML 工具调用支持，使新任务仅使用原生工具格式，减少了混淆并防止了跨提供商的工具格式不匹配。 ([#10841](https://github.com/RooCodeInc/Roo-Code/pull/10841))
+* 通过将上下文压缩提示词迁移到 `customSupportPrompts` 重构了内部提示词管道。 ([#10881](https://github.com/RooCodeInc/Roo-Code/pull/10881))
+
+## 提供商更新
+
+* 从提供商列表中移除了已弃用的 Claude Code 提供商。 ([#10883](https://github.com/RooCodeInc/Roo-Code/pull/10883))
+* 为 Cerebras `zai-glm-4.7` 模型启用了提示词缓存，以减少重复提示词的延迟和重复成本。 ([#10670](https://github.com/RooCodeInc/Roo-Code/pull/10670))
+* 将 Kimi K2 思维模型添加到 Vertex AI 提供商。 ([#9269](https://github.com/RooCodeInc/Roo-Code/pull/9269))```

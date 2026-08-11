@@ -1,0 +1,31 @@
+---
+description: Zoo Code 3.37.1 更新了注册流程，改进了与 OpenAI 兼容的工具调用功能，并修复了一些可靠性问题。
+keywords:
+  - zoo code 3.37.1
+  - signup
+  - openai compatible
+  - bug fixes
+image: /img/v3.37.1/v3.37.1.png
+---
+
+# Zoo Code 3.37.1 版本发布说明 (2025-12-23)
+
+此版本更新了注册流程，改进了与 OpenAI 兼容的提供商在工具调用方面的可靠性，并修复了一些聊天可靠性问题。
+
+<img src="/img/v3.37.1/v3.37.1.png" alt="Zoo Code v3.37.1 Release" width="600" />
+
+## 体验优化
+
+* 通过防止工具结果元数据（如 `environment_details`）中断工具调用序列，提高了 Zoo Code Cloud 工具调用的可靠性 ([#10301](https://github.com/RooCodeInc/Roo-Code/pull/10301))
+* 通过将尾部工具结果文本合并到最后一个工具消息中，提高了所有与 OpenAI 兼容的提供商的工具调用可靠性，减少了工具调用序列中断的情况 ([#10299](https://github.com/RooCodeInc/Roo-Code/pull/10299))
+
+## Bug 修复
+
+* 修复了在提供商返回空助手消息时 Zoo Code 可能会显示错误的问题，现在会重试一次，仅在问题重复出现时才显示错误 ([#10297](https://github.com/RooCodeInc/Roo-Code/pull/10297))
+* 修复了当自定义模型信息未明确设置工具支持时，OpenAI/与 OpenAI 兼容的聊天可能无法使用原生工具的问题，现在默认会发送原生工具定义 ([#10314](https://github.com/RooCodeInc/Roo-Code/pull/10314))
+* 修复了在转换对话历史后 Zoo Code 可能会发送格式错误的 `reasoning_details` 数据的问题，防止了提供商端错误，并提高了与 OpenAI Responses 风格推理块的兼容性 ([#10313](https://github.com/RooCodeInc/Roo-Code/pull/10313))
+* 修复了“询问”流程可能会卡住的问题，如果您的回复被排队而不是作为询问响应发送，现在对话可以可靠地继续 ([#10315](https://github.com/RooCodeInc/Roo-Code/pull/10315))
+
+## 其他改进
+
+* **以提供商为中心的注册**：通过将欢迎/注册流程默认设置为 Zoo Code 提供商（同时保留其他提供商选项），使 Zoo Code 更容易上手，让您可以更快地实现可工作的设置，减少前期选择 ([#10306](https://github.com/RooCodeInc/Roo-Code/pull/10306))```

@@ -1,0 +1,54 @@
+---
+description: Zoo Code 3.38 增加了 Agent Skills，并包含了对工具可靠性、提供商消息格式和文件读取的后续修复。
+keywords:
+  - zoo code 3.38
+  - new features
+  - bug fixes
+  - qol improvements
+image: /img/v3.38.0/v3.38.0.png
+---
+
+# Zoo Code 3.38 版本说明（综合版）
+
+Zoo Code 3.38 增加了 Agent Skills，并包含了对工具可靠性、提供商消息格式和文件读取的后续修复。
+
+<img src="/img/v3.38.0/v3.38.0.png" alt="Zoo Code v3.38 Release" width="600" />
+
+## Agent Skills
+
+Zoo Code 现在支持 Agent Skills，这是包含指令、脚本和资源的便携式技能文件夹，代理可以按需发现和加载。这让你可以一次性打包可重复的工作流程和领域知识，并在多个项目中重复使用，从而使结果更加一致和可靠。 ([#10335](https://github.com/RooCodeInc/Roo-Code/pull/10335)):
+
+> **📚 文档**: 查看 [Skills](/features/skills) 以了解设置和使用方法。
+
+## 生活质量改进
+
+* 斜杠命令可以在其 front matter 中声明目标模式，因此触发命令可以先将 Zoo Code 切换到正确的模式 ([#10344](https://github.com/RooCodeInc/Roo-Code/pull/10344))。
+* 移除传统的“简单读取文件”工具路径，使文件读取始终使用标准的 `read_file` 工具 ([#10254](https://github.com/RooCodeInc/Roo-Code/pull/10254))。
+* 通过将技能元数据验证和发现与 Agent Skills 规范对齐，Agent Skills 在跨环境中的加载更加可靠 ([#10409](https://github.com/RooCodeInc/Roo-Code/pull/10409))。
+* 添加一个可选的上下文设置，可以自动从子目录加载额外的 `.roo/rules` 和 `AGENTS.md` 文件，使你更容易在多仓库/单体仓库文件夹中工作，而无需手动切换根目录 ([#10446](https://github.com/RooCodeInc/Roo-Code/pull/10446))。
+* 在隐私政策中澄清删除 Zoo Code Cloud 账户的导航路径，以便你可以更快地找到安全设置 ([#10367](https://github.com/RooCodeInc/Roo-Code/pull/10367))。
+* 通过以与 MCP 工具相同的方式记录自定义工具，提高内部分析的一致性，这有助于工具使用和错误跟踪保持准确 ([#10364](https://github.com/RooCodeInc/Roo-Code/pull/10364))。
+
+## 错误修复
+
+* 修复了在上下文压缩后，某些 Claude Sonnet 4.5 请求可能会因 HTTP 400 错误而失败的问题 ([#10359](https://github.com/RooCodeInc/Roo-Code/pull/10359))。
+* 修复了在工具仍在运行时手动压缩上下文可能会触发提供商协议错误的问题，因此工具运行和手动压缩可以安全地重叠 ([#10379](https://github.com/RooCodeInc/Roo-Code/pull/10379))。
+* 回滚了对 OpenAI 兼容提供商的更改，以避免与工具结果后出现的文本相关的消息格式回归 ([#10381](https://github.com/RooCodeInc/Roo-Code/pull/10381))。
+* 修复了 Claude Code 用户可能被迫每天重新登录的问题，提高了会话可靠性并减少了中断 ([#10410](https://github.com/RooCodeInc/Roo-Code/pull/10410))。
+* 对 `read_file` 强制执行 `maxConcurrentFileReads` 限制，返回明确的错误，而不是静默忽略设置 ([#10363](https://github.com/RooCodeInc/Roo-Code/pull/10363))。
+* 修复了在聊天中的文本转语音 (TTS) 流程中，如果消息的 `text` 值不是字符串可能会崩溃的问题，防止聊天面板在任务中途损坏（感谢 notglossy!） ([#10431](https://github.com/RooCodeInc/Roo-Code/pull/10431))。
+* 通过明确解释问题并建议使用 `list_files` 而不是 `read_file` 来运行目录时显示的错误，改进了错误提示 ([#10371](https://github.com/RooCodeInc/Roo-Code/pull/10371))。
+* 修复了 Zoo Code 的原生 `read_file` 工具架构没有声明每次调用文件的最大数量的问题，减少了在强制执行低限制的环境中工具调用失败的情况 ([#10449](https://github.com/RooCodeInc/Roo-Code/pull/10449))。
+* 修复了 roocode.com 上的“开源”链接可能指向不存在的 GitHub 组织的问题，因此它可以可靠地打开正确的仓库（感谢 jishnuteegala!） ([#10377](https://github.com/RooCodeInc/Roo-Code/pull/10377))。
+* 修复了速率限制看起来像提供商错误的问题，因此客户端速率限制现在显示为正常的“速率限制等待”状态行，并干净地完成 ([#10389](https://github.com/RooCodeInc/Roo-Code/pull/10389))。
+* 修复了 `write_to_file` 可能会在意外截断的路径创建文件的问题，减少了意外的文件放置和清理 ([#10415](https://github.com/RooCodeInc/Roo-Code/pull/10415))。
+
+## 其他改进
+
+* 自定义工具可以导入 npm 包，并可以从同一文件夹的 `.env` 文件加载密钥 ([#10336](https://github.com/RooCodeInc/Roo-Code/pull/10336))。
+
+## 提供商更新
+
+* 移除“OpenRouter Transforms”设置，并停止在 OpenRouter 请求上发送 `transforms` 参数 ([#10341](https://github.com/RooCodeInc/Roo-Code/pull/10341))。
+* 移除 Human Relay 提供商，使其不再作为提供商中的可配置选项出现 ([#10388](https://github.com/RooCodeInc/Roo-Code/pull/10388))。
+* 将 Cerebras 默认最大完成令牌更新为 16,384，以减少过早的速率限制估计问题（感谢 sebastiand-cerebras!） ([#10387](https://github.com/RooCodeInc/Roo-Code/pull/10387))。```

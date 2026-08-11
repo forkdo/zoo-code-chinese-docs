@@ -1,0 +1,17 @@
+---
+description: 修复 Vertex AI Sonnet 4.5 配置并移除 AWS Bedrock topP 参数以提高可靠性。
+keywords:
+  - roo code 3.28.13
+  - new features
+  - bug fixes
+---
+
+# Zoo Code 3.28.13 版本说明 (2025-09-29)
+
+此补丁提高了服务提供商的可靠性：Vertex AI Sonnet 4.5 现在使用正确的模型 ID 工作，AWS Bedrock 请求通过移除 topP 参数避免冲突。
+
+
+## Bug 修复
+
+* Vertex AI：修复 Sonnet 4.5 模型配置，使请求不再返回 404 错误；设置正确的默认 ID 并通过 LiteLLM 启用 computer‑use 功能（感谢 nickcatal！）（[#8391](https://github.com/RooCodeInc/Roo-Code/pull/8391)）
+* AWS Bedrock：移除 topP 参数以避免与扩展思考功能冲突，提高流式响应和非流式响应的可靠性（感谢 ronyblum！）（[#8388](https://github.com/RooCodeInc/Roo-Code/pull/8388)）

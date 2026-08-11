@@ -1,0 +1,26 @@
+---
+description: 通过 OpenAI Responses API 实现无状态连续性，加快设置保存速度，并修复 API 配置文件、自动批准和 Issue Fixer 的关键问题。
+keywords:
+  - zoo code 3.31.2
+  - new features
+  - bug fixes
+---
+
+# Zoo Code 3.31.2 版本说明 (2025-11-13)
+
+此补丁改进了无状态对话连续性，加快了设置更新速度，并修复了 API 配置文件、Issue Fixer 和自动批准行为。
+
+## 体验优化
+
+* 批量设置更新：在设置、自动批准、命令执行和 MCP 切换中，保存应用更快，UI 闪烁更少 ([#9165](https://github.com/RooCodeInc/Roo-Code/pull/9165))
+* README 徽章：切换到 badgen.net，使徽章能够可靠渲染；安装量和评分一目了然 ([#9200](https://github.com/RooCodeInc/Roo-Code/pull/9200))
+
+## Bug 修复
+
+* API 配置文件：即使提供商/模型保持不变，也会应用更新的标头、baseUrl、服务层级和推理预算 ([#9210](https://github.com/RooCodeInc/Roo-Code/pull/9210))
+* 自动批准：包含 MCP 服务器状态，使工具自动批准按配置工作（感谢 bozoweed！） ([#9199](https://github.com/RooCodeInc/Roo-Code/pull/9199))
+* Issue Fixer：迁移到 GitHub REST + ProjectsV2，以解决同步错误并恢复可靠的分类 ([#9207](https://github.com/RooCodeInc/Roo-Code/pull/9207))
+
+## 提供商更新
+
+* 通过加密推理项实现对话连续性（OpenAI Responses API）：在本地保留上下文，同时保持请求无状态，以获得更好的隐私性和可靠性；移除 previous_response_id 复杂性 ([#9203](https://github.com/RooCodeInc/Roo-Code/pull/9203))

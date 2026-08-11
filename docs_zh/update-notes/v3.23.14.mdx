@@ -1,0 +1,15 @@
+---
+description: 此版本引入了通过 OAuth 免费访问 Gemini 的功能，修复了若干 bug，并提升了整体用户体验。
+---
+
+# Zoo Code 3.23.14 版本说明 (2025-07-17)
+
+此版本改进了内部工作流并修复了 API 任务日志记录问题。
+
+## 其他改进
+
+* **内部工作流简化**：移除了不必要的协调器模式，并将所有 GitHub 操作统一为使用 GitHub CLI 而非 MCP 工具，使内部开发流程更加高效 ([#5832](https://github.com/RooCodeInc/Roo-Code/pull/5832))
+
+## Bug 修复
+
+* **API 任务日志记录**：修复了 API 发起的任务尝试写入可能不存在的 workspace 目录日志的问题。现在日志将写入系统的临时目录 ([#5833](https://github.com/RooCodeInc/Roo-Code/pull/5833))```

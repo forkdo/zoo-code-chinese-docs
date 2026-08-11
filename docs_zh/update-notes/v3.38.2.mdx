@@ -1,0 +1,29 @@
+---
+description: 此版本改进了 Agent Skills 兼容性，明确了速率限制状态，并更新了提供商默认设置。
+keywords:
+  - zoo code 3.38.2
+  - new features
+  - bug fixes
+image: /img/v3.38.2/v3.38.2.png
+---
+
+# Zoo Code 3.38.2 版本说明 (2025-12-31)
+
+此版本改进了 Agent Skills 兼容性，明确了速率限制状态，并更新了提供商默认设置。
+
+<img src="/img/v3.38.2/v3.38.2.png" alt="Zoo Code v3.38.2 Release" width="600" />
+
+## 体验优化
+
+* **通过将技能元数据验证和发现与 Agent Skills 规范对齐，Agent Skills 现在可以在各种环境中更可靠地加载**。 ([#10409](https://github.com/RooCodeInc/Roo-Code/pull/10409))
+* **通过更新“教程和功能视频”README 部分以指向较新的上下文管理教程（包括本地化的 README），推荐的新手引导视频现在更容易找到**（感谢 SannidhyaSah！）。 ([#10375](https://github.com/RooCodeInc/Roo-Code/pull/10375))
+
+## Bug 修复
+
+* **修复了速率限制看起来像是提供商错误的问题**，现在客户端速率限制会显示为正常的“速率限制等待”状态行，并正常完成。 ([#10389](https://github.com/RooCodeInc/Roo-Code/pull/10389))
+* **修复了 `write_to_file` 可能在意外截断的路径创建文件的问题**，减少了意外的文件放置和清理。 ([#10415](https://github.com/RooCodeInc/Roo-Code/pull/10415))
+
+## 提供商更新
+
+* **移除了 Human Relay 提供商**，使其不再作为可配置选项出现在提供商中。 ([#10388](https://github.com/RooCodeInc/Roo-Code/pull/10388))
+* **将 Cerebras 默认最大完成令牌数更新为 16,384**，以减少过早的速率限制估计问题（感谢 sebastiand-cerebras！）。 ([#10387](https://github.com/RooCodeInc/Roo-Code/pull/10387))```

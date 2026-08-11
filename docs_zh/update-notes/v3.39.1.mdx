@@ -1,0 +1,16 @@
+---
+description: 此补丁版本提高了原生工具调用的可靠性，并修复了 Gemini 的任务恢复问题。
+keywords:
+  - zoo code 3.39.1
+  - bug fixes
+---
+
+# Zoo Code 3.39.1 版本说明 (2026-01-08)
+
+此补丁版本提高了原生工具调用的可靠性，并修复了 Gemini 的任务恢复问题。
+
+## Bug 修复
+
+* 修复了原生工具调用流式传输期间显示的文件路径可能不正确或被截断的问题，这使得确认 Zoo Code 正在读取或编辑哪个文件变得更加困难 ([#10555](https://github.com/RooCodeInc/Roo-Code/pull/10555))。
+* 修复了使用扩展思考的 Gemini 模型恢复任务时可能因“损坏的思考签名”/INVALID_ARGUMENT 错误而失败的问题 ([#10554](https://github.com/RooCodeInc/Roo-Code/pull/10554))。
+* 修复了由于严格的工具架构验证，`ask_followup_question` 在某些基于 Anthropic 的设置中可能失败的问题 ([#10551](https://github.com/RooCodeInc/Roo-Code/pull/10551))。```

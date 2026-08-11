@@ -1,0 +1,53 @@
+---
+description: 此补丁版本提供了关键的内存泄漏修复、新的 Gemini 2.5 Pro Preview 06-05 模型支持、改进的评估基础设施，以及多项提升使用体验和工作流程的增强功能。
+---
+
+# Zoo Code 3.19.4 版本说明 (2025-06-05)
+
+此补丁版本提供了关键的内存泄漏修复、新的 Gemini 2.5 Pro Preview 06-05 模型支持、改进的评估基础设施，以及多项提升使用体验和工作流程的增强功能。
+
+---
+
+## Gemini 2.5 Pro Preview 06-05 模型支持
+我们已添加对新发布的 Gemini 2.5 Pro Preview 06-05 模型的支持，让您可以使用 Google 的最新进展（感谢 daniel-lxs 和 shariqriazz！）。该模型可在 [Gemini](/providers/gemini)、[Vertex](/providers/vertex) 和 [OpenRouter](/providers/openrouter) 提供商中使用。
+
+---
+
+## 主要内存泄漏修复
+我们解决了扩展程序中的多个内存泄漏问题，从而提高了稳定性和性能：
+- **ChatView**：修复了由未管理的异步操作和 setTimeouts 引起的泄漏（感谢 kiwina！）
+- **WorkspaceTracker**：FileSystemWatcher 和其他可处置对象现在已正确清理（感谢 kiwina！）
+- **RooTips**：现在会清除 setTimeout，以防止在未挂载的组件上进行状态更新（感谢 kiwina！）
+- **RooIgnoreController**：通过确保始终调用 Task.dispose() 解决了 FileSystemWatcher 泄漏（感谢 kiwina！）
+- **Clipboard**：useCopyToClipboard 现在会清除 setTimeout，以避免内存泄漏（感谢 kiwina！）
+- **ClineProvider**：改进了实例清理，以防止资源残留（感谢 xyOz-dev！）
+
+---
+
+## Bug 修复
+
+*   **Mermaid 图表**：通过实施增强的捆绑策略修复了 Mermaid 图表的内容安全策略 (CSP) 错误（感谢 KJ7LNW！）
+
+---
+
+## 提供商更新
+
+*   **Bedrock**：改进了自定义 Bedrock ARN 的模型信息检测，确保更好的兼容性（感谢 adamhill！）
+
+---
+
+## 使用体验改进
+
+*   **修复 [`read_file`](/advanced-usage/available-tools/read-file) 工具中读取 PDF、DOCX 和 IPYNB 文件的问题**：确保可靠地读取这些文件类型（感谢 samhvw8！）
+
+---
+
+## 其他改进
+
+*   **OpenAI 兼容嵌入器**：添加了一个新的代码库索引嵌入器，与 OpenAI API 兼容，扩展了本地和自定义嵌入模型的选择（感谢 SannidhyaSah！）
+*   **强制 [`codebase_search`](/advanced-usage/available-tools/codebase-search) 作为主要工具**：Zoo Code 现在始终将 codebase_search 作为代码理解任务的第一步，提高了准确性和一致性（感谢 hannesrudolph！）
+*   **改进评估的 Docker 设置**：更新了 Dockerfile 和 docker-compose，以实现更好的隔离、实时监控和简化的配置
+*   **将评估移至 pnpm 工作区，从 SQLite 切换到 Postgres**：评估现在由 pnpm 工作区管理，并使用 PostgreSQL 以提高可扩展性
+*   **重构 [MCP](/features/mcp/overview) 以使用 getDefaultEnvironment 作为 stdio 客户端传输**：简化了 MCP 客户端设置并提高了可维护性（感谢 samhvw8！）
+*   **去掉名称中引用不一定是部分消息的“partial”组件**：提高了代码清晰度（感谢 wkordalski！）
+*   **改进功能请求模板**：使提交可操作的功能请求更加容易（感谢 elianiva！）

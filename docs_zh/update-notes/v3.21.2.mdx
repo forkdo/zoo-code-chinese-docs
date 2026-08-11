@@ -1,0 +1,23 @@
+---
+description: 此版本引入了 LaTeX 渲染、新的 MCP 工具切换功能，并修复了与 Marketplace、子任务和定价相关的若干错误。
+---
+
+# Zoo Code 3.21.2 版本说明 (2025-06-21)
+此版本引入了 LaTeX 渲染、新的 MCP 工具切换功能，并修复了与 Marketplace、子任务和定价相关的若干错误。
+
+## 新功能
+* **LaTeX 渲染**：您现在可以直接在聊天窗口中渲染 LaTeX 数学公式（感谢 ColbySerpa！）([#4786](https://github.com/RooCodeInc/Roo-Code/pull/4786))
+* **MCP 工具切换**：新增了一个切换开关，允许您禁用个别 MCP 服务器工具包含在提示上下文中的功能（感谢 Rexarrior！）([#3551](https://github.com/RooCodeInc/Roo-Code/pull/3551))
+* **符号链接支持**：`list_files` 工具现在支持符号链接（感谢 josh-clanton-powerschool！）([#4859](https://github.com/RooCodeInc/Roo-Code/pull/4859))
+
+## 错误修复
+* **Marketplace**：修复了 Marketplace 在填充后变为空白以及超时问题（感谢 yangbinbin48！）([#4941](https://github.com/RooCodeInc/Roo-Code/pull/4941))
+* **@mention**：修复了使用 @mention 的“添加文件夹”功能时递归目录扫描的问题（感谢 village-way！）([#4863](https://github.com/RooCodeInc/Roo-Code/pull/4863))
+* **子任务**：解决了在 API 重试期间取消任务时显示“子任务结果”的幽灵问题。([#4893](https://github.com/RooCodeInc/Roo-Code/pull/4893))
+* **定价**：更正了 Gemini 2.5 Flash 模型的定价（感谢 sr-tream！）([#4898](https://github.com/RooCodeInc/Roo-Code/pull/4898))
+* **Markdown**：修复了 Markdown 渲染中链接后跟标点符号的问题。([#4841](https://github.com/RooCodeInc/Roo-Code/pull/4841))
+
+## 体验优化
+* **引导流程**：对引导流程进行了一些调整，以更好地突出模式。([#4791](https://github.com/RooCodeInc/Roo-Code/pull/4791))
+* **任务编排**：将“回旋镖任务”重命名为“任务编排”以提高清晰度。([#4856](https://github.com/RooCodeInc/Roo-Code/pull/4856))
+* **`attempt_completion`**：`attempt_completion` 工具不再执行命令。这是一个永久性更改，实验性设置已被移除。([#4884](https://github.com/RooCodeInc/Roo-Code/pull/4884))

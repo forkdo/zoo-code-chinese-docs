@@ -1,0 +1,665 @@
+---
+description: 了解如何在 Zoo Code 中创建自定义模式，以便针对特定任务定制 AI 行为。配置工具访问权限、文件权限和专用指令。
+keywords:
+  - custom modes
+  - Zoo Code customization
+  - AI assistant configuration
+  - mode creation
+  - tool permissions
+  - file restrictions
+---
+
+# 自定义模式
+
+Zoo Code 允许您创建**自定义模式**，以便根据特定任务或工作流定制 Zoo 的行为。自定义模式可以是**全局**的（在所有项目中可用），也可以是**项目特定**的（在单个项目中定义）。
+
+<div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden' }}>
+  <iframe
+    src="https://www.youtube.com/embed/iiAv1eKOaxk?rel=0&modestbranding=1"
+    style={{
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+    }}
+    frameBorder="0"
+    allow="autoplay; encrypted-media"
+    allowFullScreen
+    title="Custom Modes Overview Video"
+  ></iframe>
+</div>
+
+<br />
+
+:::tip 粘性模型，提升工作效率
+每个模式（包括自定义模式）都具有**粘性模型**功能。这意味着 Zoo Code 会自动记住并选择您上次在特定模式下使用的模型。这样，您就可以为不同的任务分配不同的首选模型，而无需频繁重新配置，因为当您切换模式时，Zoo 会自动在模型之间切换。
+:::
+
+:::info 探索社区模式
+正在寻找现成的自定义模式？访问 [Zoo Code 市场](/features/marketplace)，一键浏览并安装社区贡献的模式。市场提供各种专用模式，如 React 开发、文档编写、测试等，均由 Zoo Code 社区创建和共享。
+:::
+
+---
+
+## 为何使用自定义模式？
+
+*   **专业化：** 创建针对特定任务优化的模式，如“文档编写员”、“测试工程师”或“重构专家”。
+*   **安全性：** 限制模式对敏感文件或命令的访问。例如，“审查模式”可以限制为只读操作。
+*   **实验性：** 安全地尝试不同的提示和配置，而不会影响其他模式。
+*   **团队协作：** 与您的团队共享自定义模式，以标准化工作流程。
+
+<img src="/img/custom-modes/custom-modes-3.png" alt="自定义模式界面概览" width="500" />
+
+    *Zoo Code 创建和管理自定义模式的界面。*
+
+---
+
+## What's Included in a Custom Mode?
+
+自定义模式由几个关键属性定义。了解这些概念将帮助您有效地定制 Zoo 的行为。
+
+| UI 字段 / YAML 属性 | 概念描述 |
+| --- | --- |
+| Slug (`slug`) | 模式的**唯一内部标识符**。Zoo Code 使用它来引用模式，特别是关联[特定模式的指令文件](#mode-specific-instructions-via-filesdirectories)。 |
+| 名称 (`name`) | 模式在 Zoo Code 用户界面中显示的**显示名称**。这应该是人类可读且描述性的。 |
+| 描述 (`description`) | 在模式选择器 UI 中显示的**简短、用户友好的模式用途摘要**。<br />- 此文本出现在重新设计的模式选择器中模式名称的下方，为用户提供对模式功能的快速理解。<br />- 保持简洁，并专注于模式为用户所做的事情。 |
+| 角色定义 (`roleDefinition`) | 定义模式的核心身份和专业知识。此文本放置在系统提示的开头。<br />- 其主要功能是定义 Zoo 在此模式激活时的个性和行为。<br />- 随着 `description` 字段的引入，`roleDefinition` 应提供对模式身份的详细描述，而 `description` 字段则处理 UI 的简短摘要。<br />- `whenToUse` 属性现在在自动化上下文（如任务编排）中优先用于摘要。 |
+| 可用工具 (`groups`) | 定义模式的**允许工具集和文件访问权限**。<br />- 在 UI 中，这对应于选择模式可以使用的工具的一般类别（如读取文件、编辑文件、浏览或执行命令）。<br />- UI 在每个模式下的“允许文件”部分显示哪些文件可以被编辑。<br />- “编辑”组的文件类型限制通常通过手动 YAML/JSON 配置或要求 Zoo 设置来管理，详见[“groups”的属性详情](#groups)。 |
+| 何时使用 (可选) (`whenToUse`) | （可选）为 Zoo 的自动化决策提供指导，特别是模式选择和任务编排。<br />- 此文本由 Zoo 使用，特别是 [`🪃 编排器`](/basic-usage/using-modes#orchestrator-mode-aka-boomerang-mode) 模式，用于[编排任务](/features/boomerang-tasks)（例如，通过 [`new_task`](/advanced-usage/available-tools/new-task) 工具）。<br />- 它还有助于 Zoo 在[切换模式](/basic-usage/using-modes#switching-between-modes)（例如，通过 [`switch_mode`](/advanced-usage/available-tools/switch-mode) 工具）时决定哪个模式合适。<br />- 此字段**不会在模式选择器 UI 中显示** - 这是由 `description` 字段处理的。 |
+| 自定义指令 (可选) (`customInstructions`) | 模式的**特定行为准则**或规则。<br />- 这些指令被添加到系统提示的末尾，以进一步细化 Zoo 的行为，超越 `roleDefinition`。<br />- 这可以直接在配置中提供，也可以通过单独的指令文件提供。 |
+
+---
+## Import/Export Modes
+
+轻松共享、备份和模板化您的自定义模式。此功能允许您导出任何模式及其关联规则，将其打包成一个可移植的 YAML 文件，您可以将其导入到任何项目中。
+
+### 主要功能
+- **可共享设置**：将模式及其规则打包到一个文件中，以便轻松与您的团队共享。
+- **轻松备份**：保存您的自定义模式配置，以免丢失。
+- **项目模板**：为不同类型的项目创建标准化的模式模板。
+- **简单迁移**：在全局设置和特定项目之间轻松移动模式。
+- **灵活的 Slug 更改**：在导出的文件中更改模式 Slug，而无需手动编辑路径。
+
+---
+
+### 使用案例
+
+**之前**：为每个新项目或团队成员手动重新创建自定义模式并复制 `.roo/rules-{slug}/` 文件夹。更改 Slug 需要在 YAML 文件中手动更新路径。
+
+**借助此功能**：只需单击一下，即可将某个模式及其所有规则导出到一个 YAML 文件中。再次单击即可导入该文件，并自动完成所有设置。现在，您可以在导出的文件中更改 slug，导入过程会自动处理所有路径更新。
+
+### 工作原理
+
+导入/导出功能通过**模式**视图进行管理。
+
+![模式导出和导入按钮](/img/custom-modes/custom-modes-5.png)
+
+#### 导出模式
+1.  导航到**模式**视图。
+2.  选择您要导出的模式。
+3.  单击**导出模式**按钮（下载图标）。
+4.  选择保存 `.yaml` 文件的位置。
+
+Zoo 会将该模式的配置以及项目 `.roo/rules-{slug}/` 目录中找到的任何规则打包到 YAML 文件中。
+
+#### 导入模式
+1.  在**模式**视图中单击**导入模式**按钮（上传图标）。
+2.  选择该模式的 YAML 文件。
+3.  在弹出的对话框中选择导入级别：
+    ![导入级别对话框](/img/custom-modes/custom-modes-6.png)
+    -   **项目**：该模式仅在当前工作区中可用。它会被添加到 `.roomodes` 文件中，其规则则保存到项目内的 `.roo/rules-{slug}/` 目录中。
+    -   **全局**：该模式在您所有的项目中都可用。它会被添加到您的全局设置中，其规则则存储在您系统的全局 Zoo 配置目录中（例如 `~/.roo/rules-{slug}/`）。
+
+**注意**：导出带有规则的模式时，所有文件路径都会被标准化为使用正斜杠，以确保跨平台兼容性。这样可以确保模式可以在使用不同操作系统的团队成员之间共享。
+
+---
+
+### 导出的 YAML 文件格式：
+
+```yaml
+customModes:
+  - slug: "my-custom-mode"
+    name: "My Custom Mode"
+    roleDefinition: "You are a helpful assistant."
+    groups: ["read", "edit"]
+    rulesFiles:
+      - relativePath: "rules-my-custom-mode/rules.md"
+        content: "These are the rules for my custom mode."
+```
+
+### 导入时更改 Slug
+
+导入模式时，您可以在导入前更改导出的 YAML 文件中的 slug：
+
+1. **导出一个模式**，其 slug 为 `original-mode`
+2. **编辑 YAML 文件**，将 slug 更改为 `new-mode`
+3. **导入该文件** - 导入过程将：
+   - 使用更新后的 slug 创建新模式
+   - 更新规则文件路径以匹配新的 slug
+
+注意：导入过程中对 slug 更改的自动处理，可确保在您更改导出的文件中模式 slug 时，规则文件路径也能得到正确更新。
+
+---
+
+### 常见问题
+
+**“如果我导入一个与现有模式具有相同 'slug' 的模式，会发生什么？”**
+- 现有模式将被导入文件中的配置覆盖。
+
+**“全局导入和项目导入的主要区别是什么？”**
+- **全局**模式可在您所有的 VS Code 项目中使用。**项目**模式则特定于导入它们的工作区，并存储在项目根目录下的 `.roomodes` 文件中。
+
+**“我可以导出 Code 或 Architect 等内置模式吗？”**
+- 可以。如果您自定义了内置模式（例如，更改了其指令），您可以将其导出以保存您的自定义设置。
+
+**“如果我在全局级别导入带有规则的模式会怎样？”**
+- 规则仍然会被保留。它们会被存储在您用户主目录下的全局 `rules-{slug}` 文件夹中（例如 `~/.roo/rules-my-custom-mode/`），而不是特定于项目的 `.roo` 文件夹中。
+
+**“slug 更改功能是如何工作的？”**
+- 当您在导入前更改导出的 YAML 文件中的 slug 时，导入过程会更新规则文件路径以匹配新的 slug。这确保了模式能与其新的身份正确配合工作。
+
+---
+
+## Mode-Specific Instructions via Files/Directories
+
+您可以通过多种方式创建和配置自定义模式：
+
+要配置模式，请打开 Zoo Code 面板，点击聊天框下方的“模式”菜单，然后点击 <Codicon name="settings-gear" />。随后，使用“编辑全局模式”打开 settings/custom_modes.yaml，或使用“编辑项目模式 (.roomodes)”打开您工作区级别的配置文件。
+
+### 1. 让 Zoo 来帮您！（推荐）
+
+您可以通过让 Zoo Code 为您执行此操作来快速创建一个基本的自定义模式。例如：
+```
+创建一个名为“文档编写者”的新模式。它应该只能读取文件和编写 Markdown 文件。
+```
+Zoo Code 将引导您完成整个过程，提示您输入[自定义模式包含哪些内容？](#whats-included-in-a-custom-mode)表格中所述属性的必要信息。Zoo 将使用首选的 YAML 格式创建该模式。如需进行微调或后续进行特定调整，您可以使用“模式”页面或手动配置。
+
+### 2. 使用“模式”页面
+
+1.  **打开“模式”页面：** 打开 Zoo Code 面板，点击聊天框下方的“模式”菜单，然后点击 <Codicon name="settings-gear" />。
+2.  **创建新模式：** 点击“模式”标题右侧的 <Codicon name="add" /> 按钮。
+3.  **填写字段：**
+
+<img src="/img/custom-modes/custom-modes-4.png" alt="“模式”页面上的自定义模式创建界面" width="600" />
+
+    *显示名称、slug、描述、保存位置、角色定义、可用工具、自定义指令字段的自定义模式创建界面。*
+
+    该界面提供了 `名称`、`Slug`、`描述`、`保存位置`、`角色定义`、`何时使用（可选）`、`可用工具` 和 `自定义指令` 字段。填写完毕后，点击“创建模式”按钮。Zoo Code 将以 YAML 格式保存新模式。
+
+*有关每个属性的概念性解释，请参阅[自定义模式包含哪些内容？](#whats-included-in-a-custom-mode)表格。可以通过让 Zoo 执行操作或通过手动 YAML/JSON 配置来为“edit”工具组添加文件类型限制。*
+
+### 3. Manual Configuration (YAML & JSON)
+
+您可以直接编辑配置文件来创建或修改自定义模式。这种方法可以让您对所有属性进行最精细的控制。Zoo Code 现在同时支持 YAML（首选）和 JSON 格式。
+
+*   **全局模式：** 编辑 `custom_modes.yaml`（首选）或 `custom_modes.json` 文件。在“模式”页面中，点击“编辑全局模式”以打开 `settings/custom_modes.yaml`。
+*   **项目模式：** 编辑项目根目录下的 `.roomodes` 文件（可以是 YAML 或 JSON 格式）。在“模式”页面中，点击“编辑项目模式 (.roomodes)”以打开或创建工作区文件。
+
+这些文件定义了一个自定义模式数组/列表。
+
+**YAML 示例 (`custom_modes.yaml` 或 `.roomodes`)：**
+```yaml
+customModes:
+  - slug: docs-writer
+    name: 📝 Documentation Writer
+    description: A specialized mode for writing and editing technical documentation.
+    roleDefinition: You are a technical writer specializing in clear documentation.
+    whenToUse: Use this mode for writing and editing documentation.
+    customInstructions: Focus on clarity and completeness in documentation.
+    groups:
+      - read
+      - - edit  # 元组的第一个元素
+        - fileRegex: \.(md|mdx)$  # 第二个元素是选项对象
+          description: Markdown files only
+      - browser
+  - slug: another-mode
+    name: Another Mode
+    # ... 其他属性
+```
+
+**JSON 替代方案 (`custom_modes.json` 或 `.roomodes`)：**
+```json
+{
+  "customModes": [
+    {
+      "slug": "docs-writer",
+      "name": "📝 Documentation Writer",
+      "description": "A specialized mode for writing and editing technical documentation.",
+      "roleDefinition": "You are a technical writer specializing in clear documentation.",
+      "whenToUse": "Use this mode for writing and editing documentation.",
+      "customInstructions": "Focus on clarity and completeness in documentation.",
+      "groups": [
+        "read",
+        ["edit", { "fileRegex": "\\.(md|mdx)$", "description": "Markdown files only" }],
+        "browser"
+      ]
+    },
+    {
+      "slug": "another-mode",
+      "name": "Another Mode"
+    }
+  ]
+}
+```
+
+### YAML/JSON 属性详细信息
+
+##### `slug`
+*   **用途：** 模式的唯一标识符。
+*   **格式：** 必须匹配正则表达式 `/^[a-zA-Z0-9-]+$/`（仅允许字母、数字和连字符）。
+*   **用法：** 用于内部标识和模式特定规则的文件/目录名称中（例如 `.roo/rules-{slug}/`）。
+*   **建议：** 保持简短且具有描述性。
+*   **注意：** `source` 属性由系统自动添加，不应手动设置。
+*   *YAML 示例：* `slug: docs-writer`
+*   *JSON 示例：* `"slug": "docs-writer"`
+
+##### `name`
+*   **用途：** 在 Zoo Code 用户界面中显示的友好名称。
+*   **格式：** 可以包含空格和适当的首字母大写。
+*   *YAML 示例：* `name: 📝 Documentation Writer`
+*   *JSON 示例：* `"name": "Documentation Writer"`
+
+##### `description`
+*   **用途：** 在模式选择器 UI 中模式名称下方显示的简短、用户友好的摘要。
+*   **格式：** 保持简洁，重点描述该模式为用户所做的事情。
+*   **UI 显示：** 此文本出现在重新设计的模式选择器中，帮助用户快速了解模式的功能。
+*   *YAML 示例：* `description: A specialized mode for writing and editing technical documentation.`
+*   *JSON 示例：* `"description": "A specialized mode for writing and editing technical documentation."`
+
+##### `roleDefinition`
+*   **用途：** 详细描述模式的角色、专业知识和个性。
+*   **位置：** 当模式激活时，此文本放置在系统提示的开头。
+*   **更新后的角色：** 随着 `description` 字段的引入，`roleDefinition` 应提供对模式身份的详细描述，而 `description` 字段则负责 UI 的简短摘要。`whenToUse` 属性现在在自动化上下文中优先用于摘要。
+*   *YAML 示例（多行）：*
+     ```yaml
+     roleDefinition: >-
+       You are a test engineer with expertise in:
+       - Writing comprehensive test suites
+       - Test-driven development
+     ```
+*   *JSON 示例：* `"roleDefinition": "You are a technical writer specializing in clear documentation."`
+
+##### `groups`
+*   **用途：** 数组/列表，定义模式可以访问哪些工具组以及任何文件限制。
+*   **可用的工具组（字符串）：** `"read"`、`"edit"`、`"browser"`、`"command"`、`"mcp"`。
+*   **结构：** `groups` 属性使用特定结构：
+    *   简单字符串表示无限制访问：`"edit"`
+    *   元组（双元素数组）表示受限访问：`["edit", { fileRegex: "pattern", description: "optional" }]`
+*   **"edit" 组的文件限制：**
+    *   要应用文件限制，"edit" 条目变为一个元组（YAML 列表或 JSON 数组），其中第一个元素是 `"edit"`，第二个元素是一个定义限制的映射/对象。
+    *   `fileRegex`：一个正则表达式字符串，用于控制模式可以编辑哪些文件。
+        *   在 YAML 中，通常对正则表达式特殊字符使用单反斜杠（例如 `\.md$`）。
+        *   在 JSON 中，反斜杠必须双转义（例如 `\\.md$`）。
+    *   `description`：一个可选字符串，描述该限制。
+    *   对于更复杂的模式，请参阅[理解自定义模式中的正则表达式](#understanding-regex-in-custom-modes)。
+*   *YAML 示例：*
+    ```yaml
+    groups:
+      - read
+      - - edit  # 元组的第一个元素
+        - fileRegex: \.(js|ts)$  # 第二个元素是选项对象
+          description: JS/TS files only
+      - command
+    ```
+*   *JSON 示例：*
+    ```json
+    "groups": [
+      "read",
+      ["edit", { "fileRegex": "\\.(js|ts)$", "description": "JS/TS files only" }],
+      "command"
+    ]
+    ```
+
+##### `whenToUse`
+*   **用途：** （可选）为 Zoo 的自动化决策提供指导，特别是模式选择和任务编排。
+*   **格式：** 一个字符串，描述此模式的理想场景或任务类型。
+*   **用法：** 此字段由 Zoo 用于自动化决策，**不会在模式选择器 UI 中显示**——这由 `description` 字段处理。如果已填充，Zoo 使用此描述进行编排和模式切换；否则，将使用 `roleDefinition` 的第一句话。
+*   *YAML 示例：* `whenToUse: This mode is best for refactoring Python code.`
+*   *JSON 示例：* `"whenToUse": "This mode is best for refactoring Python code."`
+
+##### `customInstructions`
+*   **用途：** 一个字符串，包含针对该模式的额外行为准则。
+*   **位置：** 此文本添加到系统提示的末尾附近。
+*   **补充：** 可以通过[通过文件/目录进行模式特定指令](#mode-specific-instructions-via-filesdirectories)进行补充。
+*   *YAML 示例（多行）：*
+    ```yaml
+    customInstructions: |-
+      When writing tests:
+      - Use describe/it blocks
+      - Include meaningful descriptions
+    ```
+*   *JSON 示例：* `"customInstructions": "Focus on explaining concepts and providing examples."`
+
+### YAML 格式的优势
+
+YAML 现在是定义自定义模式的推荐格式，因为它相比 JSON 具有以下几个优势：
+
+*   **可读性：** YAML 基于缩进的结构通常更易于人类阅读和理解复杂的配置。
+*   **注释：** YAML 允许添加注释（以 `#` 开头的行），这使得您可以为模式定义添加注释。
+    ```yaml
+    customModes:
+      - slug: security-review
+        name: 🔒 Security Reviewer
+        # This mode is restricted to read-only access
+        roleDefinition: You are a security specialist reviewing code for vulnerabilities.
+        whenToUse: Use for security reviews and vulnerability assessments.
+        # Only allow reading files, no editing permissions
+        groups:
+          - read
+          - browser
+    ```
+*   **多行字符串：** YAML 为多行字符串（例如 `roleDefinition` 或 `customInstructions`）提供了更清晰的语法，可以使用 `|`（字面量块）或 `>`（折叠块）。
+    ```yaml
+    customModes:
+      - slug: test-engineer
+        name: 🧪 Test Engineer
+        roleDefinition: >-
+          You are a test engineer with expertise in:
+          - Writing comprehensive test suites
+          - Test-driven development
+          - Integration testing
+          - Performance testing
+        customInstructions: |-
+          When writing tests:
+          - Use describe/it blocks
+          - Include meaningful descriptions
+          - Test edge cases
+          - Ensure proper coverage
+        # ... other properties
+    ```
+*   **更少的标点符号：** 与 JSON 相比，YAML 通常需要更少的标点符号（如逗号和大括号），从而减少语法错误。
+*   **编辑器支持：** 大多数现代代码编辑器都为 YAML 文件提供了出色的语法高亮和验证功能，进一步增强了可读性并减少了错误。
+
+虽然 JSON 仍然完全受支持且不会被弃用，但通过 UI 创建或要求 Zoo 创建的新模式将默认为 YAML 格式。`.roomodes` 文件和全局配置文件都可以是 YAML 或 JSON 格式。
+
+#### 使用 YAML 的提示
+
+手动编辑 YAML 时，请牢记以下几点：
+
+*   **缩进是关键：** YAML 使用缩进（空格，而不是制表符）来定义结构。不正确的缩进是最常见的错误来源。确保嵌套元素使用一致的间距。
+*   **键值对的冒号：** 键后面必须跟一个冒号和一个空格（例如 `slug: my-mode`）。
+*   **列表项的连字符：** 列表项以连字符和一个空格开头（例如 `- read`）。
+*   **验证您的 YAML：** 如果遇到问题，请使用在线 YAML 验证器或编辑器的内置验证功能来检查语法错误。
+
+### Migration to YAML Format
+
+*   **全局模式：** 只有在 Zoo Code 启动时，且满足以下条件时，才会自动将 `custom_modes.json` 迁移到 `custom_modes.yaml`：
+    1.  Zoo Code 启动。
+    2.  存在 `custom_modes.json` 文件。
+    3.  尚不存在 `custom_modes.yaml` 文件。
+    迁移过程会读取现有的 JSON 文件，将其转换为 YAML 格式，创建一个新的 `custom_modes.yaml` 文件，并保留原始 JSON 文件（例如，通过重命名）以便回滚。如果 `custom_modes.yaml` 已存在，则会使用它，并且不会发生 `custom_modes.json` 的自动迁移。
+
+*   **项目模式 (`.roomodes`)：**
+    *   **无启动时自动迁移：** 与全局模式不同，项目特定的 `.roomodes` 文件在 Zoo Code 启动时不会自动从 JSON 转换为 YAML。现有的 JSON `.roomodes` 文件需要手动转换。
+    *   **格式检测：** Zoo Code 可以读取 YAML 或 JSON 格式的 `.roomodes` 文件。Zoo Code 通过首先尝试将其解析为 YAML 来自动检测 `.roomodes` 文件的格式。
+    *   **通过 UI 编辑时转换：** 如果您通过 Zoo Code UI（例如，通过“模式”页面）编辑项目特定模式，且现有的 `.roomodes` 文件为 JSON 格式，Zoo Code 将以 YAML 格式保存更改。这实际上会将文件转换为 YAML。原始 JSON 内容将被 YAML 覆盖。
+    *   **手动转换：** 如果您想在不进行 UI 编辑的情况下将现有的 `.roomodes` JSON 文件转换为 YAML，则需要手动执行此操作。您可以：
+        1.  打开您现有的 JSON `.roomodes` 文件。
+        2.  将其内容转换为 YAML（您可以让 Zoo 帮助完成此操作，或使用在线转换器）。
+        3.  将 `.roomodes` 文件的内容替换为新的 YAML 内容，或重命名旧文件（例如，`.roomodes.json.bak`），然后将新内容保存到名为 `.roomodes` 的文件中。
+        确保生成的 YAML 有效。
+
+:::tip
+对于 `.roomodes` 文件的手动转换，您可以使用在线 JSON 到 YAML 转换器，或让 Zoo 帮助将特定模式配置从 JSON 重新格式化为 YAML。保存前请始终验证您的 YAML。
+:::
+---
+
+## 通过文件/目录提供模式特定指令
+
+:::info 模式特定指令文件位置
+您可以使用工作区内的专用文件或目录为自定义模式提供指令。与使用 `customInstructions` 属性相比，这可以实现更好的组织和版本控制。
+
+**首选方法：目录 (`.roo/rules-{mode-slug}/`)**
+```
+.
+├── .roo/
+│   └── rules-docs-writer/  # 例如，模式 slug 为 "docs-writer"
+│       ├── 01-style-guide.md
+│       └── 02-formatting.txt
+└── ... (其他项目文件)
+```
+
+**备选方法：单个文件 (`.roorules-{mode-slug}`)**
+```
+.
+├── .roorules-docs-writer  # 例如，模式 slug 为 "docs-writer"
+└── ... (其他项目文件)
+```
+
+**旧版备选：`.clinerules-{mode-slug}`**
+为了向后兼容，系统还会检查 `.clinerules-{mode-slug}` 文件作为额外的备选方案，但不建议新项目使用此方法。
+
+如果目录存在且包含文件，则优先使用目录方法。
+
+**规则目录范围：**
+- **全局模式：** 规则存储在 `~/.roo/rules-{slug}/` 中（注意末尾的斜杠）
+- **项目模式：** 规则存储在 `{workspace}/.roo/rules-{slug}/` 中（注意末尾的斜杠）
+::>
+
+除了 `customInstructions` 属性，您还可以通过工作区中的文件提供模式特定指令。这在以下情况下特别有用：
+
+*   将冗长或复杂的指令组织成多个易于管理的文件。
+*   使用版本控制轻松管理指令。
+*   允许非技术团队成员修改指令，而无需编辑 YAML/JSON。
+
+Zoo Code 加载这些指令有两种方式，其中更倾向于较新的基于目录的方法：
+
+**1. 首选方法：基于目录的指令 (`.roo/rules-{mode-slug}/`)**
+
+*   **结构：** 在工作区根目录创建一个名为 `.roo/rules-{mode-slug}/` 的目录。将 `{mode-slug}` 替换为您的模式的 slug（例如，`.roo/rules-docs-writer/`）。
+*   **内容：** 在此目录中放置一个或多个包含您指令的文件（例如，`.md`、`.txt`）。您可以使用子目录进一步组织指令。`.roo/rules-{mode-slug}/` 目录中的文件会递归读取，并根据文件名按字母顺序（不区分大小写）附加。
+*   **加载：** 在此目录结构中找到的所有指令文件都会被加载并应用于指定模式。系统文件（`.DS_Store`、`.swp` 等）和缓存文件会被自动排除。
+*   **高级功能：** 系统支持符号链接和循环检测，以实现高级文件组织。
+
+**2. 备选（向后兼容）：基于文件的指令 (`.roorules-{mode-slug}`)**
+
+*   **结构：** 如果 `.roo/rules-{mode-slug}/` 目录**不存在或为空**，Zoo Code 将在您的工作区根目录中查找名为 `.roorules-{mode-slug}` 的单个文件（例如，`.roorules-docs-writer`）。
+*   **加载：** 如果找到，此单个文件的内容将作为该模式的指令加载。
+
+**优先级：**
+
+*   **基于目录的方法 (`.roo/rules-{mode-slug}/`) 优先。** 如果此目录存在且包含文件，则任何相应的根级别 `.roorules-{mode-slug}` 文件都将被该模式**忽略**。
+*   这确保了迁移到新目录结构的项目行为可预测，而使用单个文件方法的旧项目保持兼容。
+
+**与 `customInstructions` 结合使用：**
+
+*   从目录或备选文件加载的指令会与在模式配置中定义的 `customInstructions` 属性结合使用。
+*   通常，来自文件/目录的内容会附加在来自 `customInstructions` 属性的内容之后。
+
+---
+
+## Configuration Precedence
+
+模式配置按以下顺序应用：
+
+1. 项目级模式配置（来自 `.roomodes` - YAML 或 JSON）
+2. 全局模式配置（来自 `custom_modes.yaml`，如果未找到 YAML 则来自 `custom_modes.json`）
+3. 默认模式配置
+
+**重要提示：** 当 `.roomodes` 和全局设置中存在相同 slug 的模式时，`.roomodes` 版本会完全覆盖全局版本。这适用于**所有**属性，而不仅仅是一些。例如，如果您有一个全局“code”模式和一个项目特定的 `.roomodes` 中的“code”模式，则在该项目中工作时将使用项目版本，并且全局版本的所有属性都将被忽略。
+
+您可以通过在全局或项目特定配置中包含具有相同 slug 的模式来覆盖任何默认模式。
+
+*   **关于指令文件的说明：** 在从文件系统加载模式特定指令时，目录 `.roo/rules-{mode-slug}/` 优先于在工作区根目录中找到的单个文件 `.roorules-{mode-slug}`。
+
+---
+
+## 覆盖默认模式
+
+您可以使用自定义版本覆盖 Zoo Code 的内置模式（如 `💻 Code`、`🪲 Debug`、`❓ Ask`、`🏗️ Architect`、`🪃 Orchestrator`）。这通过创建一个与默认模式具有相同 slug 的自定义模式来完成（例如，`code`、`debug`）。
+
+### 全局覆盖模式
+
+要在所有项目中自定义默认模式：
+
+1. **打开“模式”页面：** 打开 Zoo Code 面板，点击聊天框下的“模式”菜单，然后点击 <Codicon name="settings-gear" />。
+2. **编辑全局模式：** 点击“编辑全局模式”以打开 `settings/custom_modes.yaml`（或 `custom_modes.json`）。
+3. **添加您的覆盖：**
+
+**YAML 示例：**
+```yaml
+customModes:
+  - slug: code # 匹配默认的 'code' 模式 slug
+    name: 💻 代码（全局覆盖） # 自定义显示名称
+    roleDefinition: 你是一名具有全局特定约束的软件工程师。
+    whenToUse: 此全局覆盖的代码模式用于 JS/TS 任务。
+    customInstructions: 专注于项目特定的 JS/TS 开发。
+    groups:
+      - read
+      - - edit
+        - fileRegex: \.(js|ts)$
+          description: 仅限 JS/TS 文件
+```
+
+**JSON 替代方案：**
+```json
+{
+  "customModes": [{
+    "slug": "code",
+    "name": "💻 代码（全局覆盖）",
+    "roleDefinition": "你是一名具有全局特定约束的软件工程师",
+    "whenToUse": "此全局覆盖的代码模式用于 JS/TS 任务。",
+    "customInstructions": "专注于项目特定的 JS/TS 开发",
+    "groups": [
+      "read",
+      ["edit", { "fileRegex": "\\.(js|ts)$", "description": "仅限 JS/TS 文件" }]
+    ]
+  }]
+}
+```
+此示例将默认的 `💻 代码` 模式替换为仅限 JavaScript 和 TypeScript 文件的版本。
+
+### 项目特定模式覆盖
+
+要为单个项目覆盖默认模式：
+
+1. **打开模式页面：** 打开 Zoo Code 面板，点击聊天框下方的模式菜单，然后点击 <Codicon name="settings-gear" />。
+2. **编辑项目模式 (.roomodes)：** 点击“编辑项目模式 (.roomodes)”以打开或创建工作区文件。
+3. **添加你的覆盖：**
+
+**YAML 示例：**
+```yaml
+customModes:
+  - slug: code # 匹配默认的 'code' 模式 slug
+    name: 💻 代码（项目特定） # 自定义显示名称
+    roleDefinition: 你是一名具有此项目的项目特定约束的软件工程师。
+    whenToUse: 此项目特定的代码模式用于此项目中的 Python 任务。
+    customInstructions: 遵守 PEP8 并使用类型提示。
+    groups:
+      - read
+      - - edit
+        - fileRegex: \.py$
+          description: 仅限 Python 文件
+      - command
+```
+
+**JSON 替代方案：**
+```json
+{
+  "customModes": [{
+    "slug": "code",
+    "name": "💻 代码（项目特定）",
+    "roleDefinition": "你是一名具有此项目的项目特定约束的软件工程师。",
+    "whenToUse": "此项目特定的代码模式用于此项目中的 Python 任务。",
+    "customInstructions": "遵守 PEP8 并使用类型提示。",
+    "groups": [
+      "read",
+      ["edit", { "fileRegex": "\\.py$", "description": "仅限 Python 文件" }],
+      "command"
+    ]
+  }]
+}
+```
+项目特定的覆盖优先于全局覆盖。
+
+### 覆盖默认模式的常见用例
+* **限制文件访问：** 将模式限制为特定文件类型。
+* **专业化行为：** 为你的技术栈定制专业知识。
+* **添加自定义指令：** 集成项目标准。
+* **更改可用工具：** 移除工具以防止不需要的操作。
+
+:::tip
+覆盖默认模式时，请仔细测试。在进行重大更改之前，请考虑备份配置。
+:::
+
+---
+
+## Understanding Regex in Custom Modes
+
+正则表达式 (`fileRegex`) 提供了对文件编辑权限的细粒度控制。
+
+:::tip
+**让 Zoo 构建你的正则表达式模式**
+
+不要手动编写复杂的正则表达式，而是询问 Zoo：
+```
+创建一个匹配 JavaScript 文件但排除测试文件的正则表达式模式
+```
+Zoo 将生成该模式。请记住根据 YAML（通常是单反斜杠）或 JSON（双反斜杠）进行调整。
+:::
+
+当你指定 `fileRegex` 时，你正在创建一个文件路径必须匹配的模式。
+
+**`fileRegex` 的重要规则：**
+*   **JSON 中的转义：** 在 JSON 字符串中，反斜杠 (`\`) 必须双转义（例如，`\\.md$`）。
+*   **YAML 中的转义：** 在未加引号或单引号的 YAML 字符串中，单个反斜杠通常足以用于正则表达式特殊字符（例如，`\.md$`）。但是，加引号的 YAML 字符串中的正则表达式模式可能需要双转义，类似于 JSON。
+*   **路径匹配：** 模式匹配相对于工作区根目录的完整文件路径（例如，`src/components/button.js`）。
+*   **大小写敏感性：** 正则表达式模式默认区分大小写。
+*   **验证：** 无效的正则表达式模式将被拒绝，并显示“无效的正则表达式模式”错误消息。
+
+**常见模式示例：**
+下表中的“模式（概念性 / 类似 YAML）”列显示了模式在 YAML 中的显示方式。对于 JSON，请记住双转义反斜杠。
+
+| 模式（概念性 / 类似 YAML） | JSON `fileRegex` 值          | 匹配                                   | 不匹配                         |
+| -------------------------------- | ------------------------------- | ----------------------------------------- | ------------------------------------- |
+| `\.md$`                          | `"\\.md$"`                      | `readme.md`, `docs/guide.md`              | `script.js`, `readme.md.bak`          |
+| `^src/.*`                        | `"^src/.*"`                     | `src/app.js`, `src/components/button.tsx` | `lib/utils.js`, `test/src/mock.js`    |
+| `\.(css|scss)$`                  | "\\.(css|scss)$"             | `styles.css`, `theme.scss`                | `styles.less`, `styles.css.map`       |
+| `docs/.*\.md$`                   | `"docs/.*\\.md$"`               | `docs/guide.md`, `docs/api/reference.md`  | `guide.md`, `src/docs/notes.md`       |
+| `^(?!.*(test\|spec))\.(js\|ts)$`  | `"^(?!.*(test\|spec))\\.(js\|ts)$"` | `app.js`, `utils.ts`                      | `app.test.js`, `utils.spec.js`, `app.jsx` |
+
+
+**关键正则表达式构建块：**
+*   `\.`: 匹配字面量点。（YAML: `\.`, JSON: `\\.`）
+*   `$`: 匹配字符串的结尾。
+*   `^`: 匹配字符串的开头。
+*   `.*`: 匹配任意字符（除换行符外）零次或多次。
+*   `(a|b)`: 匹配 "a" 或 "b"。（例如，`\.(js|ts)$`）
+*   `(?!...)`: 负向前瞻。
+
+**测试你的模式：**
+1.  在示例文件路径上进行测试。在线正则表达式测试器很有帮助。
+2.  记住 JSON 与 YAML 的转义规则。
+3.  从简单开始，逐步构建复杂性。
+
+:::info 错误处理
+当模式尝试编辑与其 `fileRegex` 模式不匹配的文件时，你将看到 `FileRestrictionError`，其中包括：
+- 模式名称
+- 允许的文件模式
+- 描述（如果提供）
+- 尝试的文件路径
+- 被阻止的工具
+
+此信息帮助你了解为什么你的操作被阻止以及当前模式允许哪些文件类型。
+:::
+
+---
+
+## 附加功能
+
+### 内置模式自定义
+导出内置模式（如代码、架构师、询问、调试）时，你进行的任何自定义都包含在导出中。这允许你与他人共享内置模式的自定义版本。
+
+### 模式删除和规则
+通过 UI 删除模式时，Zoo Code 将提示你是否删除关联的规则文件夹，并在删除前显示确切路径。这有助于防止意外丢失自定义指令。
+
+### 全局规则目录
+除了特定于模式的规则目录外，还有一个通用的 `.roo/rules/` 目录（没有模式后缀），可用于所有模式共享的规则。
+
+### 故障排除
+
+**常见问题：**
+- **模式未出现：** 创建或导入模式后，你可能需要重新加载 VS Code 窗口才能使其出现在模式选择器中。
+- **无效的正则表达式模式：** 如果你的 `fileRegex` 模式无效，你将收到错误消息。在应用模式之前，请使用在线正则表达式测试器测试你的模式。
+- **优先级混淆：** 请记住，项目模式会完全覆盖具有相同 slug 的全局模式 - 不会合并任何属性。

@@ -1,0 +1,20 @@
+---
+description: Zoo Code 3.50.0 adds Gemini 3.1 Pro support with updated default model and overhauls the CLI stdin interface with a structured NDJSON protocol and new list subcommands.
+keywords:
+  - zoo code 3.50.0
+  - gemini 3.1 pro
+  - ndjson stdin
+  - cli list subcommands
+---
+
+# Zoo Code 3.50.0 Release Notes (2026-02-19)
+
+此版本为 Gemini 和 Vertex provider 新增 Gemini 3.1 Pro 支持，并通过结构化的 NDJSON 协议和新的 list 子命令对 CLI 的 stdin 接口进行了全面重构。
+
+## Gemini 3.1 Pro 支持
+
+`gemini-3.1-pro-preview` 现已在 [Gemini](/providers/gemini) 和 [Vertex AI](/providers/vertex) provider 中可用。Gemini 默认模型已从 `gemini-3-pro-preview` 更新为 `gemini-3.1-pro-preview`，因此新用户和全新配置会自动获得最新模型。Gemini provider 中还提供 `customtools` 变体（`gemini-3.1-pro-preview-customtools`）。模型元数据现在明确支持中等推理强度，因此你的 `medium` 推理强度设置会被保留，而不是静默回退到其他级别。（感谢 PeterDaveHello！）([#11608](https://github.com/RooCodeInc/Roo-Code/pull/11608))
+
+## 其他改进
+
+* **CLI NDJSON Stdin 协议**：CLI 的 stdin 接口已从原始文本行重构为结构化的 NDJSON 命令协议，包含 `start`、`message`、`cancel`、`ping` 和 `shutdown` 命令、`requestId` 关联，以及用于可靠程序化自动化的 `ack`/`done`/`error` 生命周期事件。新的 `list commands`、`list modes` 和 `list models` 子命令以 JSON 和纯文本格式提供可用资源的程序化发现。([#11597](https://github.com/RooCodeInc/Roo-Code/pull/11597))

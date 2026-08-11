@@ -1,0 +1,14 @@
+---
+description: 修复了一个可能破坏原生工具调用的 VS Code LM provider 错误。
+keywords:
+  - zoo code 3.36.16
+  - bug fixes
+---
+
+# Zoo Code 3.36.16 Release Notes (2025-12-19)
+
+此版本修复了一个 VS Code LM provider 问题，该问题在使用原生工具调用时可能出现 HTTP 400 错误。
+
+## Bug Fixes
+
+* 修复了使用 VS Code LM provider (GitHub Copilot) 时可能出现 HTTP 400 错误的问题，该错误发生在 Zoo 尝试原生工具调用时，通过将工具输入 schema 标准化为 Copilot 期望的格式来解决 ([#10221](https://github.com/RooCodeInc/Roo-Code/pull/10221))

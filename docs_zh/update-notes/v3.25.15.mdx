@@ -1,0 +1,37 @@
+---
+description: 修复了滚动条跳动、多文件夹工作区、提供商设置的问题，并进行了多项稳定性改进。
+keywords:
+  - zoo code 3.25.15
+  - scrollbar fix
+  - multi-folder workspace
+  - bug fixes
+---
+
+# Zoo Code 3.25.15 版本发布说明 (2025-08-14)
+
+此版本修复了长对话中的滚动条跳动问题，改进了多文件夹工作区支持，并包含了多项稳定性和使用体验改进。
+
+## 使用体验改进
+
+* **SEO 改进**：通过适当的元数据和社交媒体预览卡片增强了网站的可发现性（感谢 elianiva、abumalick！）（[#7096](https://github.com/RooCodeInc/Roo-Code/pull/7096)）
+* **站点地图生成**：实现了基于 TypeScript 的站点地图生成，以改善搜索引擎索引（感谢 abumalick！）（[#6206](https://github.com/RooCodeInc/Roo-Code/pull/6206)）
+* **账户按钮本地化**：账户按钮现在可在 18 种支持的语言中显示您选择的语言（感谢 zhangtony239！）（[#6978](https://github.com/RooCodeInc/Roo-Code/pull/6978)）
+* **AGENT.md 支持**：现在可识别 AGENT.md 和 AGENTS.md 文件以进行代理规则配置（感谢 Brendan-Z！）（[#6913](https://github.com/RooCodeInc/Roo-Code/pull/6913)）
+
+## Bug 修复
+
+* **滚动条跳动**：修复了超过 500 条消息的长对话中令人沮丧的滚动条跳动问题（感谢 shlgug、adambrand！）（[#7064](https://github.com/RooCodeInc/Roo-Code/pull/7064)）
+* **多文件夹工作区**：修复了多文件夹 VS Code 工作区中的工作区路径处理和“文件未找到”错误（感谢 NaccOll！）（[#6903](https://github.com/RooCodeInc/Roo-Code/pull/6903)、[#6902](https://github.com/RooCodeInc/Roo-Code/pull/6902)）
+* **任务执行稳定性**：改进了长时间运行任务的稳定性，有助于解决“灰屏”问题（感谢 catrielmuller、MuriloFP！）（[#7035](https://github.com/RooCodeInc/Roo-Code/pull/7035)）
+* **提供商设置保存按钮**：更改提供商下拉菜单和复选框时，保存按钮现在会正确启用（[#7113](https://github.com/RooCodeInc/Roo-Code/pull/7113)）
+* **XML 实体解码**：修复了 apply_diff 工具在处理包含特殊字符（如“&”）的文件时失败的问题（感谢 indiesewell！）（[#7108](https://github.com/RooCodeInc/Roo-Code/pull/7108)）
+* **设置显示**：修复了在设置 UI 中不显示“最大请求数”和“最大成本”值的问题（感谢 chrarnoldus、possible055！）（[#6925](https://github.com/RooCodeInc/Roo-Code/pull/6925)）
+* **上下文压缩指示器**：修复了切换任务时压缩指示器错误保留的问题（感谢 f14XuanLv！）（[#6922](https://github.com/RooCodeInc/Roo-Code/pull/6922)）
+* **站点地图 /evals 页面**：在站点地图生成中添加了缺失的 /evals 页面（[#7102](https://github.com/RooCodeInc/Roo-Code/pull/7102)）
+* **NPM 发布**：修复了 types 包的 npm 发布脚本（[#7093](https://github.com/RooCodeInc/Roo-Code/pull/7093)）
+
+## 提供商更新
+
+* **AWS Bedrock 1M 上下文**：添加了复选框以启用 Claude Sonnet 4 的 100 万 token 上下文窗口（[#7032](https://github.com/RooCodeInc/Roo-Code/pull/7032)）
+* **GPT-4.5 预览版移除**：从 OpenAI 提供商选项中移除了已弃用的 GPT-4.5 预览版模型（感谢 PeterDaveHello！）（[#6948](https://github.com/RooCodeInc/Roo-Code/pull/6948)）
+* **任务元数据**：改进了与 Zoo Code Cloud 服务的兼容性（[#7092](https://github.com/RooCodeInc/Roo-Code/pull/7092)）```

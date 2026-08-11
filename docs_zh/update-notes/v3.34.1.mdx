@@ -1,0 +1,23 @@
+---
+description: 此补丁版本允许在 Zoo Code Cloud 模型上运行评估任务，使图像生成提示更易读，清理了待办事项列表的更新逻辑，并修复了重复的云同步消息问题。
+keywords:
+  - zoo code 3.34.1
+  - evals zoo code cloud
+  - image generation ui
+  - todo list ui
+  - cloud sync bug fix
+---
+
+# Zoo Code 3.34.1 发布说明（2025-11-23）
+
+此补丁版本允许在 Zoo Code Cloud 模型上运行评估任务，使图像生成提示更清晰易读，优化了待办事项列表的更新逻辑，并防止重复的云同步消息。
+
+## 修复内容
+
+* **单一待办事项列表更新**：从聊天更新中移除了冗余的待办事项列表区块，确保在运行 updateTodoList 工具时仅显示一个简洁、集中的列表（[#9517](https://github.com/RooCodeInc/Roo-Code/pull/9517)，[#9522](https://github.com/RooCodeInc/Roo-Code/pull/9522)）。
+* **云消息去重**：修复了云消息同步问题，避免相同推理或助手消息的重复副本被重复同步，使任务历史记录更清晰、更易理解（[#9518](https://github.com/RooCodeInc/Roo-Code/pull/9518)，[#9522](https://github.com/RooCodeInc/Roo-Code/pull/9522)）。
+
+## 体验优化
+
+* **更清晰的图像生成提示**：图像生成的完整提示和路径现已直接显示在聊天界面中，采用更清晰的间距和排版，便于检查、调试和重用提示（[#9505](https://github.com/RooCodeInc/Roo-Code/pull/9505)，[#9522](https://github.com/RooCodeInc/Roo-Code/pull/9522)）。
+* **在 Zoo Code Cloud 上运行评估任务**：现在可直接在 Zoo Code Cloud 模型上运行评估任务，复用与常规云运行相同的托管模型和任务令牌（[#9492](https://github.com/RooCodeInc/Roo-Code/pull/9492)，[#9522](https://github.com/RooCodeInc/Roo-Code/pull/9522)）。

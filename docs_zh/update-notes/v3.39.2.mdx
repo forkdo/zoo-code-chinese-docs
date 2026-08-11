@@ -1,0 +1,39 @@
+---
+description: 添加了调试开关，改进了提供商错误消息，并修复了工具调用问题。
+keywords:
+  - zoo code 3.39.2
+  - 新功能
+  - bug 修复
+---
+
+# Zoo Code 3.39.2 发布说明 (2026-01-09)
+
+此版本在设置中添加了新的调试开关，改进了提供商错误消息，并修复了多个工具调用问题。
+
+## Bug 修复
+
+* 修复了当聊天同时包含内置工具和 MCP 工具时，Cerebras 可能因 422 错误而工具调用失败的问题，通过确保发送给 Cerebras 的工具使用一致的严格模式值（感谢 brianboysen51！）([#10589](https://github.com/RooCodeInc/Roo-Code/pull/10589))
+* 修复了 OpenAI 兼容提供商可能破坏工具调用的问题，导致模型描述工具使用而不是调用工具 ([#10575](https://github.com/RooCodeInc/Roo-Code/pull/10575))
+* 修复了由于 `edit_file` 匹配过于严格而导致文件编辑可能无法应用的情况，提高了编辑可靠性 ([#10585](https://github.com/RooCodeInc/Roo-Code/pull/10585))
+* 修复了当助手消息中的工具调用部分在文本部分之前排序时，VS Code 语言模型 (vscode-lm) 集成可能出错的问题 ([#10573](https://github.com/RooCodeInc/Roo-Code/pull/10573))
+* 修复了当助手消息仅包含工具调用时，通过 OpenRouter 的 Gemini 请求可能失败的问题 ([#10559](https://github.com/RooCodeInc/Roo-Code/pull/10559))
+* 修复了在添加反馈的同时批准工具运行可能产生重复工具结果的问题，提高了无人值守运行的可靠性（感谢 nabilfreeman！）([#10519](https://github.com/RooCodeInc/Roo-Code/pull/10519))
+* 修复了由于思维签名未正确保留，导致 Gemini 工具调用在不同轮次间表现不一致的问题 ([#10590](https://github.com/RooCodeInc/Roo-Code/pull/10590))
+
+## 提供商更新
+
+* 通过为这些提供商禁用 `edit_file` 工具来提高 Gemini 和 Vertex 模型的文件编辑可靠性，以便 Zoo Code 可以在可用时通过更合适的基于补丁的流程来路由编辑 ([#10594](https://github.com/RooCodeInc/Roo-Code/pull/10594))
+* 通过不再覆盖工具允许/拒绝列表来改进 Gemini 工具选择行为，让 Zoo Code 的路由更一致地决定 ([#10592](https://github.com/RooCodeInc/Roo-Code/pull/10592))
+
+## QOL 改进
+
+* 在 Zoo Code 设置（关于 Zoo Code）中添加了 **启用调试模式** 开关，因此您可以从扩展 UI 开启/关闭调试日志 ([#10580](https://github.com/RooCodeInc/Roo-Code/pull/10580))
+* 改进了当提供商提前终止流响应时（例如超时或速率限制）显示的错误消息，使中断来自提供商的情况更清晰 ([#10548](https://github.com/RooCodeInc/Roo-Code/pull/10548))
+
+## 其他改进
+
+* 通过将默认模型切换到 `anthropic/claude-opus-4.5` 来改进 CLI 默认设置 ([#10544](https://github.com/RooCodeInc/Roo-Code/pull/10544))
+* 更新了 Zoo Code Cloud 的服务条款（生效日期 2026-01-09）([#10568](https://github.com/RooCodeInc/Roo-Code/pull/10568))
+* 通过将更多共享类型移动到 `@roo-code/types` 来改进内部 CLI 开发和维护（感谢 cte！）([#10583](https://github.com/RooCodeInc/Roo-Code/pull/10583))
+* 通过向 `@roo-code/core` 添加新功能来改进内部 CLI 稳定性（感谢 cte！）([#10584](https://github.com/RooCodeInc/Roo-Code/pull/10584))
+* 通过为 CLI 开发添加额外的斜杠命令来改进内部 CLI 工作流程（感谢 cte！）([#10586](https://github.com/RooCodeInc/Roo-Code/pull/10586))```

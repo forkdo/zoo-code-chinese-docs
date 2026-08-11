@@ -1,0 +1,18 @@
+---
+description: 针对使用 Qdrant 进行代码搜索的可靠性修复，以及跨提供商更准确的成本/令牌使用指标。
+keywords:
+  - zoo code 3.29.5
+  - bug fixes
+  - qdrant
+  - codebase search
+---
+
+# Zoo Code 3.29.5 版本发布说明 (2025-11-01)
+
+此补丁提高了使用 Qdrant 进行代码搜索的可靠性，并确保跨提供商的使用量和成本报告准确无误。
+
+
+## Bug 修复
+
+* Qdrant codebase_search 可靠性：对 type 字段建立索引，防止在使用 Qdrant 托管实例时出现错误（感谢 rossdonald！）（[#8964](https://github.com/RooCodeInc/Roo-Code/pull/8964)）
+* 跨提供商准确的成本和令牌跟踪：确保 Zoo Code Cloud 仪表板中的使用指标和计费保持一致（[#8954](https://github.com/RooCodeInc/Roo-Code/pull/8954)）

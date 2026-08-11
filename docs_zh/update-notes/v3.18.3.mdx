@@ -1,0 +1,56 @@
+---
+description: 此版本引入了实验性的代码库索引与语义搜索功能、增强的 AI 推理能力，以及多项性能优化。
+---
+
+# Zoo Code 3.18.3 版本说明 (2025-05-24)
+
+此版本引入了实验性的代码库索引与语义搜索功能、增强的 AI 推理能力，以及多项性能优化。
+
+---
+
+## 代码库索引（实验性功能）
+我们引入了一项强大的**实验性**[代码库索引](/features/codebase-indexing)功能，可通过 AI 嵌入技术在整个项目范围内实现语义搜索。请注意，该功能**默认禁用**，需要额外设置（在设置 (⚙️) > “实验性功能” 中启用）。
+
+<img src="/img/codebase-indexing/codebase-indexing.png" alt="代码库索引设置" width="600" />
+
+核心功能：
+*   **语义代码搜索**：使用自然语言查询查找相关代码，而非精确关键词匹配
+*   **AI 驱动的理解能力**：新的 [`codebase_search`](/advanced-usage/available-tools/codebase-search) 工具可理解代码含义及其关联性
+*   **跨项目发现**：搜索整个已索引的代码库，而不仅仅是已打开的文件
+*   **灵活设置**：可选择 OpenAI 嵌入技术或本地 Ollama 处理
+*   **向量驱动搜索**：采用先进的嵌入技术，结合 Qdrant 向量数据库存储
+
+改变您在大型代码库中的导航方式——只需询问“查找身份验证逻辑”，即可获得有意义的结果，而无需在文件中逐个查找。（感谢 daniel-lxs！）
+
+有关设置说明和详细使用方法，请参阅主要的[代码库索引文档](/features/codebase-indexing)。
+
+---
+
+## 提供商更新
+
+*   **增强推理能力**：为 [`OpenRouter`](/providers/openrouter) 上的 Claude 4 和 Gemini 2.5 Flash 添加了推理支持，并修复了 o1-pro 兼容性
+*   **改进默认设置**：将默认模型从 Sonnet 3.7 更改为 Sonnet 4，以获得更佳性能
+*   **提示缓存**：为 Gemini 2.5 Flash Preview 启用了提示缓存，以降低成本并提高响应速度（感谢 shariqriazz！）
+*   **OpenRouter 设置**：选择特定的 [`OpenRouter`](/providers/openrouter) 提供商时，模型设置现在会保持不变
+*   **LiteLLM 刷新**：添加了刷新 [`LiteLLM`](/providers/litellm) 模型列表的功能，以确保模型可用性保持最新
+
+---
+
+## 生活质量改进
+
+*   **更好的工具选择**：改进了工具描述，以指导 AI 做出更好的文件编辑决策
+
+---
+
+## Bug 修复
+
+*   **上下文跟踪**：修复了上下文跟踪器中的“标记为已读”逻辑（感谢 samhvw8！）
+*   **模型清理**：从 vscode-lm 中移除了已弃用的 claude-3.7-sonnet 模型（感谢 shariqriazz！）
+*   **MCP 服务器加载**：修复了使用 npx 和 bunx 运行时 MCP 服务器的错误（感谢 devxpain！）
+
+---
+
+## 其他改进
+
+*   **构建过程**：改进了 pnpm 引导流程并添加了编译脚本（感谢 KJ7LNW！）
+*   **代码质量**：简化了对象赋值并实现了现代化代码模式（感谢 noritaka1166！）

@@ -1,0 +1,24 @@
+---
+description: This release streamlines Skills setup and onboarding, reduces startup noise, and improves tool-call reliability.
+keywords:
+  - zoo code 3.46.1
+  - new features
+  - bug fixes
+---
+
+# Zoo Code 3.46.1 Release Notes (2026-01-31)
+
+此版本简化了技能设置与首次启动引导，并提升了工具调用的可靠性。
+
+## 质量改进（QOL）
+
+* **首次启动时导入设置**：在全新安装、尚未配置 provider 之前，你可以直接在欢迎界面导入设置文件。（感谢 emeraldcheshire！）([#10994](https://github.com/RooCodeInc/Roo-Code/pull/10994))
+* **从技能 UI 更改技能的模式**：你可以使用下拉菜单设置技能所针对的模式（包括“任意模式”），而不必在模式文件夹之间手动移动文件。（感谢 SannidhyaSah！）([#11102](https://github.com/RooCodeInc/Roo-Code/pull/11102))
+
+## Bug 修复
+
+* **更可靠的工具调用历史**：修复了对话历史中 `tool_use`/`tool_result` ID 不匹配可能导致工具执行中断并抛出 `ToolResultIdMismatchError` 的问题。([#11131](https://github.com/RooCodeInc/Roo-Code/pull/11131))
+
+## 其他改进
+
+* **缺少 `.env` 文件时启动更安静**：当可选的 `.env` 文件未被使用时，避免产生嘈杂的 `[MISSING_ENV_FILE]` 控制台输出。([#11116](https://github.com/RooCodeInc/Roo-Code/pull/11116))

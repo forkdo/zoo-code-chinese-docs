@@ -1,0 +1,32 @@
+---
+description: 此版本通过 OAuth 引入免费的 Gemini 访问权限，修复了一些错误，并提升了整体用户体验。
+---
+
+# Zoo Code 3.23.9 版本发布说明 (2025-07-14)
+
+此版本为 Claude Code 添加了 Windows 支持，引入了可配置的命令超时设置，并修复了关键的工作流问题。
+
+## Windows 支持
+
+我们为 Claude Code 提供者添加了原生 Windows 支持（感谢 SannidhyaSah、kwk9892！）：（[#5615](https://github.com/RooCodeInc/Roo-Code/pull/5615)）：
+
+- **修复 Windows 兼容性**：Claude Code 提供者在 Windows 系统上不再卡住
+- **改进输入处理**：使用基于 stdin 的输入来消除命令行长度限制
+- **跨平台支持**：在 Windows、macOS 和 Linux 上均可可靠运行
+
+## 命令执行改进
+
+我们为命令执行添加了可配置的超时设置：
+
+- **超时控制**：设置 0-600 秒的超时时间，防止长时间运行的命令阻塞工作流
+- **清晰的错误消息**：超时的命令会显示有用的错误消息
+- **更好的视觉反馈**：超时错误现在以红色显示，以提高可见性
+
+## Bug 修复
+
+* **目录跟踪**：修复了命令执行目录跟踪问题 - Zoo Code 现在在执行命令时能够正确维护当前工作目录的感知，防止在使用 `cd` 命令后，后续命令在错误位置运行的问题（感谢 chris-garrett！）：（[#5667](https://github.com/RooCodeInc/Roo-Code/pull/5667)）
+* **嵌入模型切换**：修复了在不同维度的嵌入模型之间切换时的向量维度不匹配错误，允许从高维模型成功切换到低维模型（如 Google Gemini）（感谢 hubeizys！）：（[#5617](https://github.com/RooCodeInc/Roo-Code/pull/5617)）
+
+## 提供者更新
+
+* **Google Gemini**：添加了对 Google 新推出的 gemini-embedding-001 模型的支持，该模型具有改进的性能和更高维度的嵌入（3072 对比 768），可实现更好的代码库索引和搜索（感谢 daniel-lxs！）：（[#5698](https://github.com/RooCodeInc/Roo-Code/pull/5698)）```

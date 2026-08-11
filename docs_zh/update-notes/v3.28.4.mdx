@@ -1,0 +1,39 @@
+---
+description: 介绍 Supernova 模型、重新设计的消息流以及改进的自动批准 UI。
+keywords:
+  - zoo code 3.28.4
+  - supernova model
+  - message feed redesign
+  - responsive auto-approve
+image: /img/v3.28.4/v3.28.4.png
+---
+
+# Zoo Code 3.28.4 版本说明 (2025-09-19)
+
+此版本为 Zoo Code Cloud 引入了 Supernova 模型，通过重新设计的消息流增强了用户界面，并通过响应式自动批准提高了工作流效率。
+
+<img src="/img/v3.28.4/v3.28.4.png" alt="Zoo Code v3.28.4 发布" width="600" />
+
+## Supernova 模型 - 免费使用
+
+我们已将全新的 **zoo/code-supernova** 隐身模型添加到 Zoo Code Cloud 提供商中 - **在促销期间完全免费** ([#8175](https://github.com/RooCodeInc/Roo-Code/pull/8175))：
+
+- **免费使用**：无需 API 密钥，无需费用 - 通过 Zoo Code Cloud 完全免费
+- **高级功能**：强大的 AI 模型，支持**图像**处理，适用于多模态编码任务
+- **上下文窗口适中**：200,000 个 token 的上下文窗口，最大输出为 16,384 个 token
+- **隐身性能**：体验 code-supernova 变体的尖端模型性能
+- **零配置**：只需从 Zoo Code Cloud 提供商中选择即可 - 无需任何配置
+
+从 Zoo 提供商中选择**免费**的 code-supernova 模型，即可**零成本**开始使用这一强大新功能。
+
+> **文档**：有关模型选择的详细信息，请参阅 [Zoo Code Router 指南](/providers/zoo-code-router)。
+
+## 生活质量改进
+
+* **重新设计的消息流**：享受更简洁、更易读的聊天界面，改进的视觉层次结构帮助您专注于重要内容 ([#7985](https://github.com/RooCodeInc/Roo-Code/pull/7985))
+* **响应式自动批准**：自动批准下拉菜单现在可根据不同窗口大小智能调整 1-2 列布局，工具提示显示所有启用的操作而不会截断 ([#8032](https://github.com/RooCodeInc/Roo-Code/pull/8032))
+* **网络弹性**：遥测数据在网络故障时自动重试，确保在连接问题期间不会丢失分析和诊断数据 ([#7597](https://github.com/RooCodeInc/Roo-Code/pull/7597))
+
+## Bug 修复
+
+* **键盘快捷键**：修复了 Nightly 版本中的 command+y 快捷键，恢复快速将内容添加到上下文的功能 ([#8070](https://github.com/RooCodeInc/Roo-Code/pull/8070))

@@ -1,0 +1,19 @@
+---
+description: Zoo Code 3.30.1 修复了嵌入维度不匹配问题，并回退了一个有问题的取消/恢复变更，以恢复稳定性。
+keywords:
+  - zoo code 3.30.1
+  - bug fixes
+  - embeddings
+  - OpenRouter
+  - Mistral
+  - UI flicker
+---
+# Zoo Code 3.30.1 版本说明 (2025-11-04)
+
+此补丁通过修复嵌入维度不匹配问题并恢复稳定的取消/恢复行为来提高可靠性。
+
+
+## Bug 修复
+
+* 将 OpenRouter Mistral 嵌入维度修正为 1536，以防止向量大小错误；现有的 Qdrant 集合将以正确的大小重新创建，以确保相似性搜索的一致性 ([#9028](https://github.com/RooCodeInc/Roo-Code/pull/9028))
+* 回退最近导致 UI 闪烁和恢复不可靠的取消/恢复变更，恢复之前的稳定行为，同时准备更安全的修复方案 ([#9032](https://github.com/RooCodeInc/Roo-Code/pull/9032))

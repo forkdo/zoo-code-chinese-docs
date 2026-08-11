@@ -1,0 +1,19 @@
+---
+description: 修复了任务委派期间并行工具调用的错误，并改进了错误日志记录。
+keywords:
+  - zoo code 3.35.1
+  - bug fixes
+  - error logging
+---
+
+# Zoo Code v3.35.1 版本说明 (2025-12-01)
+
+此补丁版本修复了任务委派期间并行工具调用的问题，并改进了错误诊断。
+
+## Bug 修复
+
+* **并行工具调用修复**：修复了在使用原生工具协议进行并行工具调用（例如 `update_todo_list` + `new_task`）时出现的 400 错误。现在任务委派前会正确刷新待处理的工具结果 ([#9726](https://github.com/RooCodeInc/Roo-Code/pull/9726))
+
+## 其他改进
+
+* **更好的 IPC 错误日志记录**：错误日志现在显示详细的结构化数据，而不是无用的 `[object Object]` 消息，使扩展问题调试更加容易 ([#9727](https://github.com/RooCodeInc/Roo-Code/pull/9727))

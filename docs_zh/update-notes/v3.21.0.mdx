@@ -1,0 +1,65 @@
+---
+description: Zoo Code v3.21.0 通过自动将活动文件添加到对话历史记录中，增强了工作空间上下文感知能力。此版本还停止了在任务完成后自动聚焦到聊天输入框，简化了用户工作流程并提高了可用性。
+---
+
+# Zoo Code 3.21.0 版本说明 (2025-06-17)
+
+此版本推出了 Zoo Marketplace，增加了对最新 Gemini 2.5 模型的支持，并引入了 Excel 文件支持以及众多改进和修复。
+
+## [Zoo Marketplace 上线](/features/marketplace)
+
+我们很高兴地宣布 [Zoo Marketplace](/features/marketplace) 正式上线 ([#4788](https://github.com/RooCodeInc/Roo-Code/pull/4788))：
+
+- **发现优秀的 MCP 和模式**：直接在 Zoo Code 中浏览并安装社区创建的 Model Context Protocol 服务器和自定义模式
+- **无缝集成**：Marketplace 现已对所有用户开放，无需启用实验性功能
+- **轻松安装**：只需点击几下即可找到并安装所需工具
+
+Zoo Marketplace 让您可以轻松扩展 Zoo Code 的功能，使用我们充满活力的社区创建的强大集成。
+
+## [Gemini 2.5 模型支持](https://blog.google/products/gemini/gemini-2-5-model-family-expands/)
+
+我们增加了对 [Google 最新 Gemini 2.5 模型](https://blog.google/products/gemini/gemini-2-5-model-family-expands/) 的支持（感谢 @daniel-lxs！）（[#4762](https://github.com/RooCodeInc/Roo-Code/pull/4762)、[#4770](https://github.com/RooCodeInc/Roo-Code/pull/4770)、[#4767](https://github.com/RooCodeInc/Roo-Code/pull/4767)）：
+
+- **Gemini 2.5 Pro**：增强复杂编码任务的能力
+- **Gemini 2.5 Flash**：性能提升的快速模型
+- **Gemini 2.5 Flash Lite**：轻量级模型，非常适合快速任务
+
+这些新模型在各种编码任务中带来了更强的推理能力和更好的性能。
+
+## Excel 文件支持
+
+在工具中增加了对读取 Excel (.xlsx) 文件的支持（感谢 @chrarnoldus！）（[#4751](https://github.com/RooCodeInc/Roo-Code/pull/4751)）。现在您可以：
+
+- **读取 Excel 文件**：直接分析并使用 Excel 电子表格
+- **提取数据**：访问单元格值、公式和工作表信息
+- **无缝集成**：与所有现有 Zoo Code 工具和特性配合使用
+
+## 生活质量改进
+
+* **OpenAI 兼容最大令牌数**：在 OpenAI 兼容提供程序设置中添加了最大令牌数的复选框选项（感谢 @AlexandruSmirnov！）（[#4600](https://github.com/RooCodeInc/Roo-Code/pull/4600)、[#4623](https://github.com/RooCodeInc/Roo-Code/pull/4623)）
+* **提供程序更新**：更新了 Groq 和 Mistral 的模型列表和定价（感谢 @KanTakahiro！）（[#4798](https://github.com/RooCodeInc/Roo-Code/pull/4798)、[#4797](https://github.com/RooCodeInc/Roo-Code/pull/4797)）
+* **终端详情**：现在包含当前工作目录，以提供更好的上下文感知（[#4783](https://github.com/RooCodeInc/Roo-Code/pull/4783)）
+* **多文件差异**：鼓励使用 start_line 参数以匹配传统差异行为（[#4777](https://github.com/RooCodeInc/Roo-Code/pull/4777)）
+
+## 用户界面/用户体验改进
+
+* **Marketplace 品牌**：更新为显示“Zoo Marketplace”以保持品牌一致性（感谢 @SannidhyaSah！）（[#4718](https://github.com/RooCodeInc/Roo-Code/pull/4718)）
+* **历史记录界面**：重构为更一致和现代的界面（感谢 @elianiva！）（[#4598](https://github.com/RooCodeInc/Roo-Code/pull/4598)）
+* **上下文菜单**：调整位置，使其靠近 GitHub Copilot，以便更轻松地访问（[#4306](https://github.com/RooCodeInc/Roo-Code/pull/4306)）
+* **面板聚焦**：点击时始终聚焦面板，以确保菜单按钮可见（感谢 @hassoncs！）（[#4312](https://github.com/RooCodeInc/Roo-Code/pull/4312)）
+
+## 错误修复
+
+* **API 对话历史记录**：为对话历史记录问题添加了适当的错误处理（感谢 @KJ7LNW！）（[#4741](https://github.com/RooCodeInc/Roo-Code/pull/4741)、[#4738](https://github.com/RooCodeInc/Roo-Code/pull/4738)）
+* **模型 ID 错误**：修复了模糊的模型 ID 错误消息（感谢 @elianiva！）（[#4709](https://github.com/RooCodeInc/Roo-Code/pull/4709)、[#4710](https://github.com/RooCodeInc/Roo-Code/pull/4710)）
+* **提示设置**：修复了提示设置的保存/放弃/还原流程（感谢 @hassoncs！）（[#4623](https://github.com/RooCodeInc/Roo-Code/pull/4623)、[#4312](https://github.com/RooCodeInc/Roo-Code/pull/4312)）
+* **代码库索引**：修复了与 list-files 隐藏目录过滤的对齐问题（感谢 @daniel-lxs！）（[#4684](https://github.com/RooCodeInc/Roo-Code/pull/4684)）
+* **子任务完成**：修复了子任务和整体任务完成之间的不匹配问题（感谢 @feifei325！）（[#4656](https://github.com/RooCodeInc/Roo-Code/pull/4656)）
+* **Windows MCP 配置**：修复了 Windows 上 MCP 变量注入中的路径规范化问题（感谢 @daniel-lxs！）（[#4607](https://github.com/RooCodeInc/Roo-Code/pull/4607)）
+
+## 其他改进
+
+* **测试模式更新**：更新了测试模式以支持 Vitest 测试框架（[#4778](https://github.com/RooCodeInc/Roo-Code/pull/4778)）
+* **工作目录警告**：移除了关于工作目录更改的不必要警告（[#4795](https://github.com/RooCodeInc/Roo-Code/pull/4795)）
+* **遥测**：添加了 Marketplace 标签页视图和安装点击跟踪（[#4781](https://github.com/RooCodeInc/Roo-Code/pull/4781)）
+* **Windows Docker**：更新了 evals Docker 设置以在 Windows 上运行（感谢 @StevenTCramer！）（[#4467](https://github.com/RooCodeInc/Roo-Code/pull/4467)）

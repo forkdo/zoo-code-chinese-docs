@@ -1,0 +1,25 @@
+---
+description: 新增 OpenRouter 嵌入模型提供商路由功能，更新 CloudView 用户界面，并提升提供商兼容性。
+keywords:
+  - zoo code 3.35.5
+  - openrouter embeddings
+  - provider routing
+  - cloudview
+---
+
+# Zoo Code v3.35.5 版本说明 (2025-12-03)
+
+此版本为 OpenRouter 嵌入模型添加了提供商路由选择功能，更新了 CloudView 界面，并提升了提供商兼容性。
+
+## 功能
+
+* **OpenRouter 嵌入模型提供商路由**：在代码索引设置中选择特定的 OpenRouter 嵌入模型路由提供商，由于相同嵌入模型的价格可能因提供商而异（价格差异可达 4-5 倍），因此可实现成本优化（感谢 SannidhyaSah！）（[#9693](https://github.com/RooCodeInc/Roo-Code/pull/9693)）
+
+## 体验优化
+
+* **CloudView 界面更新**：更简洁的 UI，采用全新的营销文案，按钮样式更新为圆角设计，呈现更现代的视觉效果（[#9776](https://github.com/RooCodeInc/Roo-Code/pull/9776)）
+
+## 提供商更新
+
+* **Zoo Provider 工具兼容性**：改进了与 OpenAI 兼容 API 端点的工具转换，确保工具能够正确处理 OpenAI 风格的请求格式（[#9769](https://github.com/RooCodeInc/Roo-Code/pull/9769)）
+* **MiniMax M2 免费层级默认设置**：使用 OpenRouter 时，MiniMax M2 模型现在默认使用免费层级（[#9778](https://github.com/RooCodeInc/Roo-Code/pull/9778)）

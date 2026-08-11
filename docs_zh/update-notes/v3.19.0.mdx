@@ -1,0 +1,66 @@
+---
+description: 此版本专注于通过默认启用的智能上下文压缩、改进的模式组织、增强的文件保护以及众多提升用户体验的改进来简化用户界面。
+---
+
+# Zoo Code 3.19.0 版本说明 (2025-05-30)
+
+此版本专注于通过默认启用的智能上下文压缩、改进的模式组织、增强的文件保护以及众多提升用户体验的改进来简化用户界面。
+
+---
+
+## 智能上下文压缩现已默认启用
+我们已默认启用智能上下文压缩，并重新定位了压缩按钮以便于访问：
+
+<img src="/img/intelligent-context-condensing/intelligent-context-condensing-2.png" alt="聊天中的上下文压缩消息" width="600" />
+
+- **默认激活**：智能上下文压缩现已为所有用户开箱即用
+- **改进的按钮位置**：将压缩按钮移出扩展任务菜单，以便更快访问
+- **智能错误处理**：如果上下文在压缩过程中增长，系统现在会跳过压缩并显示清晰的错误消息
+
+<img src="/img/intelligent-context-condensing/intelligent-context-condensing.png" alt="智能上下文压缩设置" width="600" />
+*智能上下文压缩配置选项：自动触发开关、阈值滑块、API配置选择以及自定义提示定制。*
+
+---
+
+## 简化的模式组织
+我们重新组织了界面，以实现更好的工作流组织：
+
+- **模式选项卡**：将提示选项卡转换为专用的模式选项卡，以实现更清晰的导航
+- **设置重新定位**：将支持提示移至设置，以实现更好的组织
+- **更简洁的界面**：通过更逻辑地分组相关功能来简化主界面
+
+更直观地在不同模式和提示之间导航。
+
+---
+
+## 用户体验改进
+
+*   **增强的侧边栏兼容性**：将 Zoo 移动到主侧边栏和辅助侧边栏时，菜单功能现在保持稳定（感谢 chrarnoldus！）
+
+---
+
+## 错误修复
+
+*   **目录提及保护**：修复了 [`@directory`](/basic-usage/context-mentions) 不遵守 [`.rooignore`](/features/rooignore) 文件的问题（感谢 xyOz-dev！）
+*   **工具文件保护**：为 `insert_content` 和 `search_and_replace` 工具添加了 [`rooignore`](/features/rooignore) 检查
+*   **内存泄漏修复**：通过稳定回调属性解决了 ChatView 中的内存泄漏问题（感谢 samhvw8！）
+*   **空文件创建**：修复了 [`write_to_file`](/advanced-usage/available-tools/write-to-file) 在内容为空时正确创建空文件的问题（感谢 Ruakij！）
+*   **聊天输入稳定性**：修复了运行任务期间聊天输入被清除的问题（感谢 xyOz-dev！）
+
+---
+
+## 提供商更新
+
+*   **DeepSeek R1 0528**：为 [Chutes 提供商](/providers/chutes) 添加 DeepSeek R1 0528 模型支持（感谢 zeozeozeo！）
+*   **AWS 区域**：更新了 AWS 区域，包括西班牙和海得拉巴
+
+---
+
+## 其他改进
+
+*   **MCP 环境变量**：为整个 MCP 配置添加环境变量注入支持（感谢 NamesMT！）
+*   **Shell 兼容性**：改进预推送钩子中的 POSIX shell 兼容性（感谢 PeterDaveHello 和 chrarnoldus！）
+*   **Windows 终端**：更新 Windows 兼容终端中的 PAGER 环境变量（感谢 SmartManoj！）
+*   **搜索清晰度**：更新代码库搜索描述，以强调英语查询要求（感谢 ChuKhaLi！）
+
+感谢所有贡献者，让 Zoo Code 在每次发布中变得更好！

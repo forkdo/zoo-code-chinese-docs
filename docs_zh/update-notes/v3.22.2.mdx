@@ -1,0 +1,22 @@
+---
+description: 此版本修复了导致扩展在某些环境中无法加载的错误，并包含其他小幅改进。
+---
+
+---
+description: 此版本通过 OAuth 引入免费的 Gemini 访问权限，修复了一些错误，并改进了整体用户体验。
+---
+
+# Zoo Code 3.22.2 版本说明 (2025-06-27)
+
+此版本包含重要的安全修复、错误修复和改进，以确保更可靠和安全的体验。
+
+## 安全修复
+
+* **代码显示**：消除了代码块渲染中的 XSS 漏洞，以增强安全性（感谢 KJ7LNW！）（[#5157](https://github.com/RooCodeInc/Roo-Code/pull/5157)）
+
+## 错误修复
+
+* **检查点菜单**：修复了点击时检查点弹出窗口无法打开的问题，恢复了检查点功能的访问（感谢 daniel-lxs、aprpure！）（[#5192](https://github.com/RooCodeInc/Roo-Code/pull/5192)）
+* **终端集成**：修复了将终端内容添加到上下文时的键盘快捷键错误（感谢 MuriloFP、iamhenry！）（[#5161](https://github.com/RooCodeInc/Roo-Code/pull/5161)）
+* **Gemini CLI**：更正了所有支持语言的错误消息翻译路径（感谢 daniel-lxs！）（[#5194](https://github.com/RooCodeInc/Roo-Code/pull/5194)）
+* **代码索引**：修复了更新配置设置时 Qdrant 服务连接的可靠性问题 - 服务现在在配置更改时自动重新创建（感谢 catrielmuller！）（[#5152](https://github.com/RooCodeInc/Roo-Code/pull/5152)）

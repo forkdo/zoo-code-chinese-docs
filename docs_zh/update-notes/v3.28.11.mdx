@@ -1,0 +1,18 @@
+---
+description: 修复 AWS Bedrock 和 OpenRouter 的 Claude Sonnet 4.5 模型标识符，防止出现模型 ID 错误。
+keywords:
+  - roo code 3.28.11
+  - bug fixes
+  - bedrock
+  - claude sonnet 4.5
+  - openrouter
+---
+
+# Zoo Code 3.28.11 版本说明 (2025-09-29)
+
+此补丁修复了 AWS Bedrock 和 OpenRouter 的 Claude Sonnet 4.5 模型标识符问题，确保提示词能够可靠运行，避免出现 ID 或选择错误。
+
+## Bug 修复
+
+* AWS Bedrock：使用正确的 Claude Sonnet 4.5 模型 ID，避免出现“找不到模型”错误（感谢 sunhyung！）（[#8372](https://github.com/RooCodeInc/Roo-Code/pull/8372)）
+* OpenRouter：修正 Claude Sonnet 4.5 模型 ID 格式，使其符合命名规范，防止出现选择/API 不匹配问题（[#8373](https://github.com/RooCodeInc/Roo-Code/pull/8373)）

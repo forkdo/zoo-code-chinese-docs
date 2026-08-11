@@ -1,0 +1,214 @@
+---
+description: Zoo Code 3.23 将代码库索引功能提升至稳定版本，引入任务待办清单、命令拒绝列表，并为 Claude Code 添加 Windows 支持。
+keywords:
+  - Zoo Code 3.23
+  - release notes
+  - codebase indexing
+  - todo list
+  - command denylist
+  - Claude Code Windows
+---
+
+import Codicon from '@site/src/components/Codicon';
+
+# Zoo Code 3.23 版本说明
+
+此版本将代码库索引功能提升至稳定功能，引入了强大的新待办清单来管理复杂任务，并包含关键的性能改进和错误修复！
+
+## 代码库索引：始终开启，随时就绪
+
+代码库索引已从实验性功能毕业，现已成为 Zoo Code 的核心功能，可直接从聊天输入中使用。一旦配置完成，索引器将在后台自动运行，确保 Roo 始终对您的项目保持最新的语义理解。要免费开始使用，请参阅[代码库索引快速入门指南](/features/codebase-indexing#quick-start-guide)。
+
+<img src="/img/v3.23/v3.23-1.png" alt="Codebase Indexing Status Icon" width="600" />
+
+感谢 MuriloFP、OleynikAleksandr、sxueck、CW-B-W、WAcry、bughaver、daniel-lxs、SannidhyaSah、ChuKhaLi、HahaBill、koberghe、sfz009900、tmchow、rxpjd、buck-0x 和 BenWilles 帮助此功能顺利上线！ ([#5378](https://github.com/RooCodeInc/Roo-Code/pull/5378), [#5377](https://github.com/RooCodeInc/Roo-Code/pull/5377), [#5383](https://github.com/RooCodeInc/Roo-Code/pull/5383), [#5483](https://github.com/RooCodeInc/Roo-Code/pull/5483), [#5481](https://github.com/RooCodeInc/Roo-Code/pull/5481), [#5228](https://github.com/RooCodeInc/Roo-Code/pull/5228), [#5214](https://github.com/RooCodeInc/Roo-Code/pull/5214), [#5158](https://github.com/RooCodeInc/Roo-Code/pull/5158), [#5402](https://github.com/RooCodeInc/Roo-Code/pull/5402), [#5451](https://github.com/RooCodeInc/Roo-Code/pull/5451), [#5352](https://github.com/RooCodeInc/Roo-Code/pull/5352), [#5403](https://github.com/RooCodeInc/Roo-Code/pull/5403), [#5785](https://github.com/RooCodeInc/Roo-Code/pull/5785))
+
+## 新功能：任务待办清单
+
+此版本引入了一项新的待办清单功能，帮助您跟踪复杂任务。Zoo Code 现在会为您的任务显示一个步骤清单，确保不会遗漏任何步骤。您可以直接在聊天界面中查看和管理待办清单。
+
+<img src="/img/task-todo-list/task-todo-list-3.png" alt="Task Todo List overview showing interactive checklist in Zoo Code" width="600" />
+
+感谢 qdaxb 提供此功能！ ([#5182](https://github.com/RooCodeInc/Roo-Code/pull/5182), [#5472](https://github.com/RooCodeInc/Roo-Code/pull/5472), [#5473](https://github.com/RooCodeInc/Roo-Code/pull/5473), [#5482](https://github.com/RooCodeInc/Roo-Code/pull/5482))
+
+## 新功能：命令拒绝列表
+
+我们添加了自动拒绝工作流中不需要的命令的功能：
+
+- **始终拒绝**：将命令标记为“始终拒绝”，以防止意外执行
+- **节省时间**：无需重复手动拒绝相同的命令
+- **工作流控制**：通过“始终拒绝”选项补充现有的自动批准功能
+
+这为您在自动化工作流中的命令执行提供了更好的控制。
+
+## Zoo Code Cloud 等候名单
+
+我们很高兴宣布 Zoo Code Cloud 的早期访问注册！（感谢 brunobergher！）
+
+- **网站注册**：网站标题中新增行动号召按钮，方便注册等候名单
+- **扩展内访问**：完成 3 个以上任务的用户将直接在扩展中看到等候名单注册选项
+- **早期访问**：成为首批体验 Zoo Code Cloud 强大功能的用户
+
+立即加入等候名单，抢先体验云端功能！
+
+## Claude Code 的 Windows 支持
+
+我们为 Claude Code 提供程序添加了原生 Windows 支持（感谢 SannidhyaSah、kwk9892！）（[#5615](https://github.com/RooCodeInc/Roo-Code/pull/5615)）：
+
+- **修复 Windows 兼容性**：Claude Code 提供程序在 Windows 系统上不再卡住
+- **改进输入处理**：使用基于 stdin 的输入，消除命令行长度限制
+- **跨平台**：在 Windows、macOS 和 Linux 上稳定运行
+
+## 生活质量改进
+
+- **更智能的命令验证**：改进的命令验证逻辑，仅在子 shell 命令包含被拒绝的前缀时才自动拒绝，使系统在允许哪些命令方面更加智能
+- **多行命令支持**：现在可以正确解析包含换行符的命令，使跨不同操作系统（Unix、Windows 和旧 Mac 格式）使用多行命令更加容易
+- **简化的提示历史记录**：当光标位于输入字段开头时，仅使用上下箭头键即可导航提示历史记录 ([#5467](https://github.com/RooCodeInc/Roo-Code/pull/5467))
+- **API 提供程序搜索**：现在您可以在设置中搜索和筛选 API 提供程序列表（感谢 GOODBOY008！）（[#5278](https://github.com/RooCodeInc/Roo-Code/pull/5278)）
+<img src="/img/v3.23.0/v3.23.0-1.png" alt="API Provider Search interface showing search and filter functionality" width="400" />
+
+- **复制提示按钮**：在任务操作中添加“复制提示”按钮（感谢 Juice10、vultrnerd！）（[#5392](https://github.com/RooCodeInc/Roo-Code/pull/5392)）
+<img src="/img/v3.23.0/v3.23.0.png" alt="Copy Prompt button in task actions interface" width="400" />
+
+- **聊天界面**：修复了聊天视图中的多个 UI 不一致和布局偏移问题，从而打造了更稳定、更精美的用户体验（感谢 seedlord！）（[#5237](https://github.com/RooCodeInc/Roo-Code/pull/5237)）
+- **模型搜索下拉菜单**：修复了模型搜索输入框会预先填充当前模型的问题，现在搜索字段初始为空（感谢 kevinvandijk！）（[#5449](https://github.com/RooCodeInc/Roo-Code/pull/5449)）
+- **聊天界面优化**：为相机图标添加了适当的间距，并使占位符文本不可选中，防止意外高亮（感谢 MuriloFP！）（[#5477](https://github.com/RooCodeInc/Roo-Code/pull/5477)）
+- **彻底删除自定义模式**：删除自定义模式时，现在也会删除其对应的 `.roo/rules-{mode}` 文件夹（[#5317](https://github.com/RooCodeInc/Roo-Code/pull/5317)）
+- **文件列表性能**：优化了禁用工作区文件列表时大型仓库中的文件列表性能，解决了初始请求缓慢的问题（感谢 daniel-lxs、jcaplan！）（[#5421](https://github.com/RooCodeInc/Roo-Code/pull/5421)）
+- **`insert_content` 工具**：`insert_content` 工具现在可以在文件开头或结尾插入内容时创建新文件（感谢 Ruakij、KJ7LNW！）（[#4382](https://github.com/RooCodeInc/Roo-Code/pull/4382)）
+- **索引状态**：代码索引指示器现在在聊天区域始终可见，便于跟踪索引进度（[#5505](https://github.com/RooCodeInc/Roo-Code/pull/5505)）
+- **聊天界面**：移除了过时的功能公告，使聊天体验更简洁（[#5510](https://github.com/RooCodeInc/Roo-Code/pull/5510)）
+- **聊天界面**：改进了聊天界面按钮的工具提示一致性，提升了整体体验（感谢 daniel-lxs！）（[#5528](https://github.com/RooCodeInc/Roo-Code/pull/5528)）
+- **界面组织**：清理了 Zoo Code 视图标题，减少了视觉干扰——将不常用的操作移至 VS Code 的溢出菜单中（感谢 dlab-anton！）（[#3060](https://github.com/RooCodeInc/Roo-Code/pull/3060)）
+- **命令组织**：更好地组织了 VS Code 扩展界面，将命令正确分组到溢出菜单中（[#5525](https://github.com/RooCodeInc/Roo-Code/pull/5525)）
+- **索引状态**：改进了索引状态指示器的视觉对齐和一致性（[#5523](https://github.com/RooCodeInc/Roo-Code/pull/5523)）
+- **界面图标**：整个界面使用了更一致、更清晰的图标，以便更好地显示代码库索引状态（[#5520](https://github.com/RooCodeInc/Roo-Code/pull/5520)）
+- **账户访问**：账户功能现在更易于访问——账户标签现在在主导航中可见，而不是隐藏在溢出菜单中（[#5534](https://github.com/RooCodeInc/Roo-Code/pull/5534)）
+- **User-Agent 标头**：所有 API 请求现在都包含标准的 User-Agent 标头，以改进工具识别和合规性（[#5492](https://github.com/RooCodeInc/Roo-Code/pull/5492)）
+- **代码库索引开关**：在设置中添加了代码库索引的启用/禁用复选框，并在会话之间保持状态（感谢 daniel-lxs、elasticdotventures！）（[#5599](https://github.com/RooCodeInc/Roo-Code/pull/5599)）
+- **聊天界面**：改进了聊天布局，组织更合理，任务历史可见性更高（3 个任务而不是 2 个）（[#5643](https://github.com/RooCodeInc/Roo-Code/pull/5643)）
+- **命令消息**：当命令前缀被拒绝时，消息更清晰——用户现在可以看到拒绝是由于他们的设置，而不是系统自动行为（[#5637](https://github.com/RooCodeInc/Roo-Code/pull/5637)）
+- **历史导航**：在 HistoryPreview 组件中添加了“查看全部历史”链接，当历史标签隐藏时，可以更轻松地访问完整的任务历史（[#5630](https://github.com/RooCodeInc/Roo-Code/pull/5630)）
+- **Marketplace 访问**：在 MCP 和模式标签中都添加了 Marketplace 按钮，便于发现和访问（[#5580](https://github.com/RooCodeInc/Roo-Code/pull/5580)）
+- **MCP 界面**：改进了 MCP UI，使用切换开关而不是眼睛按钮来启用/禁用工具和服务器，提供更清晰的视觉反馈（[#5576](https://github.com/RooCodeInc/Roo-Code/pull/5576)）
+- **代码库搜索**：代码库搜索结果更简洁、更易读，视觉样式得到改进，国际化支持更好（[#5571](https://github.com/RooCodeInc/Roo-Code/pull/5571)）
+- **错误消息**：当 API 配置配置文件与组织设置不兼容时，错误消息更友好（[#5561](https://github.com/RooCodeInc/Roo-Code/pull/5561)）
+- **Architect 模式**：智能选择最适合上下文发现的工具，包括语义搜索（如果可用）（[#5607](https://github.com/RooCodeInc/Roo-Code/pull/5607)）
+- **模型选择界面**：改进了代码索引模型选择界面的视觉外观和间距，提升了可用性（[#5706](https://github.com/RooCodeInc/Roo-Code/pull/5706)）
+- **模式导航**：添加了双向模式循环功能，使用 Cmd+Shift+. 快捷键切换到上一个模式，当您越过目标模式时，模式导航更高效（感谢 mkdir700！）（[#5695](https://github.com/RooCodeInc/Roo-Code/pull/5695)）
+- **Ollama 超时**：将 API 超时从 10 秒/5 秒增加到 60 秒/30 秒，以防止较慢的模型出现失败（感谢 daniel-lxs、danntee、vshvedov！）（[#5778](https://github.com/RooCodeInc/Roo-Code/pull/5778)）
+- **Ollama UI**：更新为使用文本输入而不是下拉菜单进行模型选择，与其他提供商保持一致（感谢 daniel-lxs！）（[#5818](https://github.com/RooCodeInc/Roo-Code/pull/5818)）
+- **设置组织**：将不常用的提供商设置移至“高级设置”下拉菜单中，使 UI 更简洁（[#5762](https://github.com/RooCodeInc/Roo-Code/pull/5762)）
+- **错误控制**：添加了可配置的“错误和重复限制”设置，用于控制在何时显示“Roo 遇到问题”对话框，并可以选择完全禁用它们（感谢 MuriloFP、anojndr！）（[#5752](https://github.com/RooCodeInc/Roo-Code/pull/5752)）
+- **检查点效率**：从检查点中排除 Terraform 和 Terragrunt 缓存目录，将存储使用量减少了多达 10 倍（感谢 MuriloFP、ijin！）（[#5750](https://github.com/RooCodeInc/Roo-Code/pull/5750)）
+- **消息编辑**：使用自定义模态框和改进的工作流彻底修改了消息编辑/删除界面（感谢 liwilliam2021！）（[#5538](https://github.com/RooCodeInc/Roo-Code/pull/5538)）
+- **任务安全**：新设置可防止意外完成包含未完成待办事项的任务
+- **Go 诊断**：可配置的延迟可防止关于未使用导入的错误报告（感谢 mmhobi7！）
+- **Marketplace 访问**：Marketplace 图标移至顶部导航，便于访问
+- **自定义模式**：为自定义模式添加了有用的描述和使用指南（感谢 RandalSchwartz！）
+- **YouTube 页脚**：从网站快速访问 Zoo Code 的 YouTube 频道（感谢 thill2323！）
+- **PR 模板**：issue-fixer 模式现在使用官方的 Zoo Code PR 模板（感谢 MuriloFP！）
+- **跳转到新文件**：为新创建的文件添加了跳转图标，与已编辑文件的体验相匹配（感谢 mkdir700！）
+- **应用差异错误消息**：在 apply_diff 失败时添加了区分大小写提醒，帮助用户理解匹配要求（感谢 maskelihileci！）
+- **上下文压缩提示位置**：移至“提示”部分，便于发现并保持持久可见性（感谢 SannidhyaSah、notadamking！）
+- **待办事项列表工具控制**：在提供商设置中添加了复选框，用于启用/禁用待办事项列表工具
+- **MCP 内容优化**：当没有配置服务器时，自动省略与 MCP 相关的提示
+- **Git 安装检查**：当 Git 未安装用于检查点功能时，显示带有下载链接的清晰警告（感谢 MuriloFP！）
+- **可配置的评估超时**：添加了滑块，用于将评估超时设置在 5-10 分钟之间
+
+## Bug 修复
+
+- **待办清单切换**：修复了高级设置中无法正常工作的待办清单切换功能（感谢 chrarnoldus！）
+- **命令解析**：修复了在运行包含特殊语法（如算术表达式和数组变量）的复杂 bash 命令时发生的崩溃问题，使用户能够创建高级 GitHub CLI 别名和其他复杂的 shell 脚本（感谢 daniel-lxs、KJ7LNW！）
+- **错误处理**：添加了错误边界，防止在发生错误时整个 Zoo Code 界面崩溃。用户现在可以看到包含调试信息的有用错误消息，而不是空白屏幕，从而可以继续使用扩展的其他部分（感谢 KJ7LNW、elianiva！）
+- **`apply_diff` 工具**：修复了 `apply_diff` 工具在出错时无限期挂起的问题（感谢 lhish！）([#5391](https://github.com/RooCodeInc/Roo-Code/pull/5391))
+- **聊天焦点**：防止在自动化工作流期间聊天失去焦点，避免用户输入被意外重定向到 Roo 正在编辑的文件（感谢 ColbySerpa！）([#5349](https://github.com/RooCodeInc/Roo-Code/pull/5349))
+- **架构师模式文件限制**：修复了架构师模式未正确强制执行文件限制的问题（感谢 shanemmattner！）([#5447](https://github.com/RooCodeInc/Roo-Code/pull/5447))
+- **斜杠命令描述**：标准化了斜杠命令中的模式描述，提供更一致的用户体验 ([#5388](https://github.com/RooCodeInc/Roo-Code/pull/5388))
+- **后续问题计时器**：修复了后续问题的自动批准计时器即使用户已响应仍继续运行的问题（感谢 liwilliam2021！）([#5368](https://github.com/RooCodeInc/Roo-Code/pull/5368))
+- **TypeScript 监视路径**：修复了监视模式下 TypeScript 编译器错误无法正确链接回源文件的问题（感谢 bbenshalom、KJ7LNW！）([#5155](https://github.com/RooCodeInc/Roo-Code/pull/5155))
+- **完成音效**：防止在重新打开已完成任务时出现烦人的重复完成音效，使完成通知更有意义且不那么扰人（感谢 SannidhyaSah！）([#5249](https://github.com/RooCodeInc/Roo-Code/pull/5249))
+- **新任务流式传输**：修复了在创建包含大量说明的新任务时导致 UI 显示冻结的问题 ([#5432](https://github.com/RooCodeInc/Roo-Code/pull/5432))
+- **MCP 图像资源**：修复了 MCP 图像资源处理，以支持不使用标准 data URI 格式的服务器，使用户能够成功处理来自更广泛 MCP 服务器的图像（感谢 s97712！）([#5254](https://github.com/RooCodeInc/Roo-Code/pull/5254))
+- **`create_mode` 说明**：`create_mode` 说明现在包含 `description` 字段 ([#5433](https://github.com/RooCodeInc/Roo-Code/pull/5433))
+- **OpenRouter**：修复了 OpenRouter 模型预留令牌数量显示不正确的问题（感谢 shariqriazz！）([#5240](https://github.com/RooCodeInc/Roo-Code/pull/5240))
+- **自动批准**：修复了在使用 `update_todo_list` 后，即使启用了自动批准，后续工具仍需要手动批准的问题（感谢 daniel-lxs！）([#5508](https://github.com/RooCodeInc/Roo-Code/pull/5508))
+- **自定义模式**：修复了自定义模式配置文件为空或包含 null 内容时发生的崩溃问题（感谢 daniel-lxs！）([#5526](https://github.com/RooCodeInc/Roo-Code/pull/5526))
+- **文件列表**：修复了 [`list_files`](/advanced-usage/available-tools/list-files) 工具错误显示应根据 .gitignore 模式忽略的目录的问题（感谢 X9VoiD！）([#5394](https://github.com/RooCodeInc/Roo-Code/pull/5394))
+- **错误消息**：修复了嵌入提供程序错误消息中原始翻译键的显示问题，现在显示正确本地化的消息（感谢 daniel-lxs！）([#5535](https://github.com/RooCodeInc/Roo-Code/pull/5535))
+- **文件打开**：修复了打开名称中包含特殊字符（如括号）的文件和文件夹的功能（感谢 vivekfyi、nielpattin！）([#5504](https://github.com/RooCodeInc/Roo-Code/pull/5504))
+- **MDM 安全**：修复了用户可以通过在新标签页/窗口中打开扩展来绕过组织 MDM 策略的安全漏洞（感谢 liwilliam2021！）([#5540](https://github.com/RooCodeInc/Roo-Code/pull/5540))
+- **上下文令牌显示**：通过从计算中排除缓存令牌，修复了夸大的上下文令牌计数显示，显示准确的上下文窗口使用情况（感谢 daniel-lxs！）([#5603](https://github.com/RooCodeInc/Roo-Code/pull/5603))
+- **代码库索引错误**：修复了在配置代码库索引时出现的神秘错误消息，用户现在看到清晰、可理解的错误消息，而不是翻译键（感谢 daniel-lxs、nikhil-swamix！）([#5574](https://github.com/RooCodeInc/Roo-Code/pull/5574))
+- **嵌入模型切换**：修复了在不同向量维度的嵌入模型之间切换时的问题，允许使用超过 1536 维度的模型，如 Google Gemini 的 text-embedding-004（感谢 daniel-lxs、mkdir700！）([#5565](https://github.com/RooCodeInc/Roo-Code/pull/5565))
+- **Mermaid 图表**：通过防止常见语法错误，修复了架构师模式下 Mermaid 图表渲染问题（感谢 MuriloFP、joshmouch！）([#5530](https://github.com/RooCodeInc/Roo-Code/pull/5530))
+- **UI 按钮重叠**：修复了增强和文本转语音按钮重叠的问题，在启用文本转语音时使两个功能都可访问（感谢 sensei-woo！）([#5586](https://github.com/RooCodeInc/Roo-Code/pull/5586))
+- **目录跟踪**：修复了命令执行目录跟踪 - Zoo Code 现在在执行命令时正确保持对当前工作目录的认知，防止在使用 `cd` 命令后后续命令在错误位置运行的问题（感谢 chris-garrett！）([#5667](https://github.com/RooCodeInc/Roo-Code/pull/5667))
+- **嵌入模型切换**：修复了在不同维度的嵌入模型之间切换时的向量维度不匹配错误，允许从高维模型成功过渡到低维模型，如 Google Gemini（感谢 hubeizys！）([#5617](https://github.com/RooCodeInc/Roo-Code/pull/5617))
+- **代码索引**：修复了代码索引以使用最佳模型维度，提高索引可靠性和性能（感谢 daniel-lxs！）([#5705](https://github.com/RooCodeInc/Roo-Code/pull/5705))
+- **自定义模式名称**：修复了清除自定义模式名称会破坏 YAML 文件并使所有自定义模式消失的问题（感谢 daniel-lxs、kfxmvp！）([#5794](https://github.com/RooCodeInc/Roo-Code/pull/5794))
+- **自动批准复选框**：解决了令人困惑的复选框状态，其中可能显示为选中但选择了“无”，或未选中但选择了选项 ([#5602](https://github.com/RooCodeInc/Roo-Code/pull/5602))
+- **日期格式清晰度**：将日期格式更改为 ISO 8601，防止 LLM 将 7/11/2025 等日期误解为 11 月 7 日而不是 7 月 11 日（感谢 chrarnoldus！）([#5793](https://github.com/RooCodeInc/Roo-Code/pull/5793))
+- **设置保存问题**：修复了打开 OpenRouter 提供程序设置时需要放弃不存在更改的错误 ([#5779](https://github.com/RooCodeInc/Roo-Code/pull/5779))
+- **LiteLLM URL 处理**：修复了包含路径时的 baseURL 处理，确保请求发送到正确的端点（感谢 ChuKhaLi！）([#5697](https://github.com/RooCodeInc/Roo-Code/pull/5697))
+- **项目分析**：修复了 list-files 工具，确保在分析大型项目时可以看到完整的目录结构（感谢 qdaxb！）([#5303](https://github.com/RooCodeInc/Roo-Code/pull/5303))
+- **API 任务日志记录**：修复了 API 启动的任务尝试写入可能不存在的 workspace 目录日志的问题。日志现在写入系统的临时目录 ([#5833](https://github.com/RooCodeInc/Roo-Code/pull/5833))
+
+- **Claude 模型检测**：修复了通过 Google Vertex AI 等替代提供商使用 Claude 模型时的上下文长度错误（感谢 daniel-lxs、TheFynx！）
+- **开发环境**：通过改用 5433 端口（PostgreSQL）和 6380 端口（Redis）替代默认端口，修复了评估服务的 Docker 端口冲突问题（感谢 roomote！）
+- **终端输出限制**：修复了因终端命令输出极长行而导致的严重崩溃问题。现可正确限制输出，防止上下文爆炸（感谢 robottwo！）
+- **API 错误消息**：修复了所有 API 失败均显示为“API 请求已取消”的问题。现在会显示正确的错误消息，便于更好地排查问题（感谢 MDean-Slalom、daniel-lxs！）
+- **AWS Bedrock 令牌计数**：修复了 Bedrock 用户令牌计数不准确及上下文窗口误报错误的问题（感谢 daniel-lxs、fedorbass！）
+- **API 操作期间导出**：恢复了 API 运行时导出、共享和复制内容的功能（感谢 MuriloFP、KJ7LNW！）
+- **符号链接规则文件**：修复了符号链接规则文件的排序问题，现使用符号链接名称进行排序，支持通过数字前缀实现正确排序（感谢 dsent！）
+- **全局模式导出**：修复了导出全局模式时不包含关联规则文件的问题
+- **Vitest 命令**：添加了缺失的 run 参数，防止测试在监视模式下挂起（感谢 KJ7LNW！）
+- **评估系统**：修复了先前更新中损坏的评估超时处理逻辑
+- **云端会话处理**：改进了会话错误处理机制，防止服务问题期间不必要的登出
+
+## 提供商更新
+
+- **xAI Grok-4**：新增对 Grok-4 模型的支持，具备 256K 上下文窗口、图像支持和提示缓存支持 ([#5559](https://github.com/RooCodeInc/Roo-Code/pull/5559))
+- **Mistral Devstral Medium**：新增对 Mistral Devstral Medium 模型的支持，具备 131,000 令牌上下文窗口和图像支持能力
+- **Claude Code**：为复杂代码生成任务添加了可配置的最大输出令牌设置（8,000-64,000 令牌）
+- **Vertex AI**：扩展了区域配置，包含所有可用的 GCP Vertex AI 区域，以更好地支持合规性并访问 Anthropic Claude 等第三方模型（感谢 shubhamgupta731！）([#5557](https://github.com/RooCodeInc/Roo-Code/pull/5557))
+- **Google Gemini**：新增对 Google 新型 gemini-embedding-001 模型的支持，性能更优，嵌入维度更高（3072 维 vs 768 维），可提升代码库索引和搜索效果（感谢 daniel-lxs！）([#5698](https://github.com/RooCodeInc/Roo-Code/pull/5698))
+- **Groq Kimi K2**：为 Groq 用户新增 Kimi K2 模型选项，针对最大令牌数与上下文窗口相等的模型，提升了令牌处理可靠性
+- **Claude Code + Vertex AI**：新增在使用 Claude Code 提供商时对 Vertex AI 模型名称格式化的支持（感谢 janaki-sasidhar！）([#5728](https://github.com/RooCodeInc/Roo-Code/pull/5728))
+- **Mistral 嵌入提供商**：代码库索引功能迎来重大升级，Mistral 作为新的嵌入提供商，性能卓越且完全免费。只需在嵌入设置中选择 Mistral 的 codestral-embed 模型，即可获得更优的代码理解能力和更准确的 AI 响应（感谢 SannidhyaSah、shariqriazz！）
+- **Qwen3-235B 模型**：新增对 Qwen3-235B-A22B-Instruct-2507 的支持，在 Chutes AI 上具备高达 262K 令牌的上下文窗口（感谢 apple-techie！）
+- **Moonshot AI**：新增 Moonshot 作为 AI 提供商选项（感谢 CellenLee！）
+- **Llama 4 Maverick**：在 Google Vertex AI 的美东 5（US-EAST5）区域新增 Llama 4 Maverick 模型（128K 上下文）（感谢 MuriloFP、konstantinosbotonakis！）
+
+## 其他改进
+
+- **进程终止**：Zoo Code 现在能更可靠地终止无响应进程，防止挂起的命令阻塞您的工作流
+- **代码索引**：添加了内存安全的批处理限制，防止扫描大型代码库时发生溢出（感谢 daniel-lxs！）
+- **API 速率限制**：为 OpenAI 兼容的嵌入接口实现了全局速率限制和指数退避机制，防止 API 过载并提升可靠性（感谢 daniel-lxs！）
+- **发布工程**：增强了发布说明生成功能，包含问题编号和报告者信息，以便更好地进行归属（感谢 roomote！）
+- **仓库统计**：从 GitHub 语言统计中排除非英语翻译文件，以更准确地反映代码库构成（感谢 roomote！）
+- **错误遥测**：改进了调试能力，提升了可靠性并加快了问题解决速度，同时通过哈希文件路径增强了隐私保护（感谢 daniel-lxs！）([#5595](https://github.com/RooCodeInc/Roo-Code/pull/5595))
+- **类型定义**：更新了内部类型定义，提升了兼容性和开发体验
+- **GitHub Actions**：通过从 CI/CD 配置中移除无效参数，修复了 GitHub Actions 工作流警告（感谢 hamirmahal！）([#5676](https://github.com/RooCodeInc/Roo-Code/pull/5676))
+- **令牌处理**：通过集中化的最大令牌计算逻辑，提升了跨 API 提供商的令牌处理一致性，增强了可靠性
+- **遥测**：新增待办事项列表统计跟踪 ([#5746](https://github.com/RooCodeInc/Roo-Code/pull/5746))
+- **文档**：更新了评估仓库链接 ([#5758](https://github.com/RooCodeInc/Roo-Code/pull/5758))
+- **内部工作流简化**：移除了不必要的协调器模式，并将所有 GitHub 操作统一为使用 GitHub CLI 而非 MCP 工具，使内部开发流程更高效 ([#5832](https://github.com/RooCodeInc/Roo-Code/pull/5832))
+- **内部模式**：新增问题调查员（Issue Investigator）模式，并增强了问题编写员（Issue Writer）模式，用于内部 GitHub 工作流 ([#5913](https://github.com/RooCodeInc/Roo-Code/pull/5913))
+- **命令执行改进**：添加了可配置的超时设置（0-600 秒），并提供清晰的错误消息、可视化反馈和 API 任务控制 ([#5825](https://github.com/RooCodeInc/Roo-Code/pull/5825))
+- **命令超时白名单**：新增可将特定命令排除在超时限制之外的功能，适用于构建和部署等长时间运行的任务
+- **合并解析器模式**：新增智能合并冲突解决模式，通过分析提交历史来智能决定保留哪些更改（感谢 daniel-lxs！）
+- **令牌回退逻辑**：改进了滑动窗口机制，采用一致的 8192 令牌回退，使上下文处理更可预测
+- **待办事项列表说明**：更新了文档，明确待办事项列表工具适用于复杂任务，而不仅限于多步骤任务
+
+## 文档更新
+
+- **拼写错误修复**：改进了多个文件中文档和代码注释的准确性和清晰度（感谢 noritaka1166！）([#5569](https://github.com/RooCodeInc/Roo-Code/pull/5569))
+
+## 仓库级更新
+
+- **问题修复协调器**：针对 GitHub 问题解决工作流的内部模式改进（感谢 MuriloFP！）([#5379](https://github.com/RooCodeInc/Roo-Code/pull/5379)、[#5366](https://github.com/RooCodeInc/Roo-Code/pull/5366))
+- **PR 修复协调器**：增强了内部 PR 修复工作流，提升了安全性和用户控制能力（感谢 MuriloFP！）([#5407](https://github.com/RooCodeInc/Roo-Code/pull/5407))
+- **PR 审查协调器**：改进了内部代码审查委派机制，将其分配给专门的模式（感谢 MuriloFP！）([#5406](https://github.com/RooCodeInc/Roo-Code/pull/5406))
+- **测试指南**：在项目规则文档中添加了清晰简洁的测试指南（感谢 daniel-lxs！）([#5353](https://github.com/RooCodeInc/Roo-Code/pull/5353))
+- **`docs-extractor` 模式**：改进了 `docs-extractor` 模式，使文档生成更可靠 ([#5381](https://github.com/RooCodeInc/Roo-Code/pull/5381))```

@@ -1,0 +1,28 @@
+---
+description: 此版本引入了通过 OAuth 免费访问 Gemini 的功能，修复了一些错误，并提升了整体用户体验。
+---
+
+# Zoo Code 3.22.1 版本说明 (2025-06-27)
+
+此版本引入了通过 OAuth 免费访问 Gemini 的功能，修复了一些错误，并提升了整体用户体验。
+
+## Gemini CLI 提供商（免费访问）
+
+我们新增了一个 Gemini CLI 提供商，无需 API 密钥即可免费访问 Google 的 Gemini 模型 ([#5137](https://github.com/RooCodeInc/Roo-Code/pull/5137))：
+
+- **OAuth 身份验证**：使用您的 Google 账户登录，即可免费访问 Gemini 模型
+- **自动项目发现**：无缝连接到您的 Google Cloud 项目
+- **流式响应**：实时响应流式传输，提升交互体验
+- **完整集成**：提供完整的 UI 支持和全面的设置指导
+
+这为您提供了除本地模型和其他免费提供商之外的另一个强大免费选项。
+
+## Bug 修复
+
+* **MCP 服务器显示**：修复了 HTTP SSE MCP 服务器（如 Figma MCP）在系统提示中显示“undefined”文本的问题 ([#5107](https://github.com/RooCodeInc/Roo-Code/pull/5107))
+* **Groq 模型限制**：将 Qwen3-32B 模型的最大 token 限制从 131,072 修正为 40,960，防止 API 错误（感谢 KanTakahiro、Maxxoto！） ([#5138](https://github.com/RooCodeInc/Roo-Code/pull/5138))
+
+## 用户体验改进
+
+* **一致的提示框**：将整个应用程序的提示框延迟标准化为 300ms，确保行为流畅且可预测 ([#5098](https://github.com/RooCodeInc/Roo-Code/pull/5098))
+* **成本透明度**：使用官方上游成本提高了 OpenRouter BYOK 成本计算的准确性，并恢复了缓存 token 数量的可见性 ([#5145](https://github.com/RooCodeInc/Roo-Code/pull/5145))

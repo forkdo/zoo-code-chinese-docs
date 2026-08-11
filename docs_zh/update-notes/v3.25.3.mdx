@@ -1,0 +1,30 @@
+---
+description: Zoo Code 3.25.3 提升了 Claude Code 的输出上限，改进了用户界面元素，并修复了聊天交互问题。
+keywords:
+  - zoo code 3.25.3
+  - claude code tokens
+  - image queueing
+  - ui improvements
+---
+
+# Zoo Code 3.25.3 发布说明（2025-07-30）
+
+本次发布提升了 Claude Code 的输出容量，改进了用户界面元素，并修复了聊天交互问题。
+
+## 质量改进（QOL Improvements）
+
+* **更简洁的欢迎界面**：Gemini 复选框现已在欢迎屏幕上隐藏，以提供更简洁的界面（[#6415](https://github.com/RooCodeInc/Roo-Code/pull/6415)）
+* **斜杠命令文档**：新增了直达斜杠命令文档的链接，便于访问（[#6409](https://github.com/RooCodeInc/Roo-Code/pull/6409)）
+* **文档更新**：澄清了 apply_diff 工具的描述，以突出其精准编辑能力（[#6278](https://github.com/RooCodeInc/Roo-Code/pull/6278)）
+
+## 问题修复（Bug Fixes）
+
+* **聊天输入保留**：修复了点击聊天按钮时会清除已输入消息的问题（感谢 hassoncs！）（[#6222](https://github.com/RooCodeInc/Roo-Code/pull/6222)）
+* **图像队列功能**：修复了图像队列功能无法正常工作的问题（[#6414](https://github.com/RooCodeInc/Roo-Code/pull/6414)）
+* **Claude Code 输出 Token**：通过将默认最大输出 Token 从 8k 提升至 16k，修复了响应被截断的问题（感谢 bpeterson1991！）（[#6312](https://github.com/RooCodeInc/Roo-Code/pull/6312)）
+
+## 其他改进（Misc Improvements）
+
+* **扩展标题更新**：从所有语言的扩展标题中移除了 "(prev Roo Cline)"（[#6426](https://github.com/RooCodeInc/Roo-Code/pull/6426)）
+* **翻译改进**：更新了自动翻译提示，并新增了翻译检查操作（[#6430](https://github.com/RooCodeInc/Roo-Code/pull/6430)，[#6393](https://github.com/RooCodeInc/Roo-Code/pull/6393)）
+* **模式配置**：更新了 PR 审阅者规则和模式配置（[#6391](https://github.com/RooCodeInc/Roo-Code/pull/6391)，[#6428](https://github.com/RooCodeInc/Roo-Code/pull/6428)）```

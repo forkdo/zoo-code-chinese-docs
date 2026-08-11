@@ -1,0 +1,37 @@
+---
+description: 此版本提高了代码库索引的可靠性，增加了新的提供商选项，并增强了用户界面。
+---
+
+# Zoo Code 3.23.7 发布说明 (2025-07-12)
+
+此版本提高了代码库索引的可靠性，增加了新的提供商选项，并增强了用户界面。
+
+## Provider 更新
+
+* **Devstral Medium**: 添加了对 Mistral 的 Devstral Medium 模型的支持，具有 131,000 个 token 上下文窗口和图像支持功能
+* **Claude Code**: 添加了可配置的最大输出 token 设置（8,000-64,000 个 token），用于复杂的代码生成任务
+* **Vertex AI**: 扩展了区域配置，包含所有可用的 GCP Vertex AI 区域，以更好地满足合规性要求并访问第三方模型，如 Anthropic Claude（感谢 shubhamgupta731！）([#5557](https://github.com/RooCodeInc/Roo-Code/pull/5557))
+
+## Bug 修复
+
+* **上下文 Token 显示**: 通过在计算中排除缓存 token 来修复膨胀的上下文 token 计数显示，显示准确的上下文窗口使用情况（感谢 daniel-lxs！）([#5603](https://github.com/RooCodeInc/Roo-Code/pull/5603))
+* **代码库索引错误**: 修复了配置代码库索引时的神秘错误消息 - 用户现在看到清晰、易懂的错误消息，而不是翻译键（感谢 daniel-lxs, nikhil-swamix！）([#5574](https://github.com/RooCodeInc/Roo-Code/pull/5574))
+* **嵌入模型切换**: 修复了在具有不同向量维度的嵌入模型之间切换时的问题，允许使用超过 1536 维度的模型，如 Google Gemini 的 text-embedding-004（感谢 daniel-lxs, mkdir700！）([#5565](https://github.com/RooCodeInc/Roo-Code/pull/5565))
+* **Mermaid 图表**: 通过防止常见语法错误修复了 architect 模式下的 Mermaid 图表渲染问题（感谢 MuriloFP, joshmouch！）([#5530](https://github.com/RooCodeInc/Roo-Code/pull/5530))
+* **UI 按钮重叠**: 修复了增强和文本转语音按钮的重叠问题，在启用文本转语音时使两个功能都可访问（感谢 sensei-woo！）([#5586](https://github.com/RooCodeInc/Roo-Code/pull/5586))
+
+## 生活质量改进
+
+* **市场访问**: 在 MCP 和模式选项卡中添加了市场按钮，以便更容易发现和访问
+* **MCP 界面**: 使用切换开关代替眼睛按钮改进了 MCP UI，用于启用/禁用工具和服务器，提供更清晰的视觉反馈
+* **代码库搜索**: 更清晰、更易读的代码库搜索结果，具有改进的视觉样式和更好的国际化
+* **错误消息**: 当 API 配置文件与组织设置不兼容时，提供更友好的错误消息
+* **Architect 模式**: 智能选择上下文发现的最佳可用工具，包括可用时的语义搜索
+
+## 其他改进
+
+* **错误遥测**: 通过哈希文件路径改进了调试功能，以实现更好的可靠性和更快的问题解决，同时增强隐私保护（感谢 daniel-lxs！）([#5595](https://github.com/RooCodeInc/Roo-Code/pull/5595))
+
+## 文档更新
+
+* **拼写错误修复**: 提高了多个文件中文档和代码注释的准确性和清晰度（感谢 noritaka1166！）([#5569](https://github.com/RooCodeInc/Roo-Code/pull/5569))```

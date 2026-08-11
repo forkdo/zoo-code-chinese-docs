@@ -1,0 +1,22 @@
+---
+description: Zoo Code 3.48.1 fixes the Bedrock Claude Sonnet 4.6 model ID, MCP server initialization, and IPC queue handling.
+keywords:
+  - zoo code 3.48.1
+  - bedrock claude sonnet 4.6
+  - mcp fix
+  - bug fixes
+---
+
+# Zoo Code 3.48.1 Release Notes (2026-02-18)
+
+此版本修复了 Bedrock 上的 Claude Sonnet 4.6 模型 ID、首次任务轮次 MCP 工具不可用问题，并修补了 IPC 队列处理。
+
+## Bug 修复
+
+* **首次轮次 MCP 工具不可用**：修复了通过 IPC 启动任务时，在首次 API 调用中系统提示缺少 MCP 工具的问题。MCP 服务器管理器现在会在返回 hub 之前等待所有服务器连接，因此工具从一开始就能正确显示。([#11518](https://github.com/RooCodeInc/Roo-Code/pull/11518))
+* **IPC 队列消息删除**：修复了从 Zoo Code Cloud 队列中删除的消息仍被扩展内部处理的问题。IPC 协议现在支持真正的 `DeleteQueuedMessage` 命令，使已删除的消息被完全丢弃，而不是在出队时被静默重新处理。([#11464](https://github.com/RooCodeInc/Roo-Code/pull/11464))
+* **包元数据版本回退**：修复了被之前的 revert 错误回退的内部包元数据版本，该问题会导致下一次 `@roo-code/types` 的 npm 发布失败。([#11588](https://github.com/RooCodeInc/Roo-Code/pull/11588))
+
+## Provider 更新
+
+* **Bedrock Claude Sonnet 4.6 模型 ID**：修复了 Amazon Bedrock 上 Claude Sonnet 4.6 的错误模型 ID（`anthropic.claude-sonnet-4-6-20260114-v1:0` → `anthropic.claude-sonnet-4-6`），包括同样受影响的 1M 上下文和全局推理变体。（感谢 PeterDaveHello！）([#11569](https://github.com/RooCodeInc/Roo-Code/pull/11569))

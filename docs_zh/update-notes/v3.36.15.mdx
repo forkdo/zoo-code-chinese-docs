@@ -1,0 +1,36 @@
+---
+description: Zoo Code 3.36.15 为 Vertex AI 上的 Claude Sonnet 4.5 添加了 1M 上下文窗口选项，改进了聊天错误排查功能，并扩展了对原生工具调用的支持。
+keywords:
+  - zoo code 3.36.15
+  - vertex ai
+  - 1m context
+  - native tool calling
+  - error diagnostics
+  - bug fixes
+image: /img/v3.36.15/v3.36.15.png
+---
+
+# Zoo Code 3.36.15 版本说明（2025-12-19）
+
+此版本为 Vertex AI 上的 Claude Sonnet 4.5 添加了 1M 上下文窗口选项，改进了聊天错误排查功能，并扩展了对原生工具调用的支持。
+
+<img src="/img/v3.36.15/v3.36.15.png" alt="Zoo Code v3.36.15 Release" width="600" />
+
+## Vertex AI：为 Claude Sonnet 4.5 提供 1M 上下文窗口
+
+当您使用 **Vertex AI** 上的 **Claude Sonnet 4.5** 时，现在可以为支持的模型启用 **1M 上下文窗口** 选项 ([#10209](https://github.com/RooCodeInc/Roo-Code/pull/10209))。
+
+## 聊天错误排查改进
+
+聊天错误状态现在更容易理解问题所在，并且在提交错误报告时更容易分享正确的详细信息：
+
+* **更清晰的错误可见性**：错误行现在通过更明显的 **查看详情** 功能更一致地显示完整的错误详细信息（包括状态码） ([#10204](https://github.com/RooCodeInc/Roo-Code/pull/10204))
+* **可下载的诊断信息**：您可以从聊天错误生成一个本地诊断文件（包括错误元数据和 API 对话历史），以便您可以查看/编辑并将其与问题报告共享 ([#10188](https://github.com/RooCodeInc/Roo-Code/pull/10188))
+
+## Bug 修复
+
+* **为 LM Studio 和 Qwen-Code 提供原生工具调用支持**：修复了这些提供商缺少 OpenAI 风格原生工具调用支持的问题，这可能导致工具使用相比其他提供商不可靠 ([#10208](https://github.com/RooCodeInc/Roo-Code/pull/10208))
+* **为 OpenAI 兼容提供商提供更可靠的工具默认值**：通过应用原生工具默认值（除非您明确覆盖它们），修复了除非您手动调整自定义模型信息否则工具调用可能不一致的情况 ([#10213](https://github.com/RooCodeInc/Roo-Code/pull/10213))
+* **启用 Requesty 原生工具调用**：修复了 Requesty 提供商的原生工具调用默认值（并统一了 Unbound 的行为），使工具使用更加一致，尤其是在模型元数据被缓存时 ([#10211](https://github.com/RooCodeInc/Roo-Code/pull/10211))
+* **严格的 JSON Schema 兼容性**：修复了某些 MCP 工具模式由于对象模式上缺少 `additionalProperties: false` 而无法通过严格验证的问题 ([#10210](https://github.com/RooCodeInc/Roo-Code/pull/10210))
+* **刷新模型缓存可靠性**：修复了 **刷新模型** 可能无法完全刷新某些提供商的缓存模型列表的问题，并改进了开始新任务时初始模型选择的正确性 ([#9870](https://github.com/RooCodeInc/Roo-Code/pull/9870))

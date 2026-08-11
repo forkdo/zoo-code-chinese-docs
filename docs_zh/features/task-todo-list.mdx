@@ -1,0 +1,180 @@
+---
+description: 了解如何使用 Zoo Code 的任务待办列表功能来跟踪复杂任务的进度、管理子任务并保持井然有序。
+keywords:
+  - todo list
+  - task management
+  - progress tracking
+  - subtasks
+  - project organization
+---
+
+# 任务待办列表
+
+通过集成的待办事项管理功能，让你的任务保持正轨，帮助你保持井然有序并专注于开发目标。任务待办列表提供了交互式、持久的清单，可直接在聊天界面中跟踪你在复杂多步骤工作流程中的进度。
+
+<img src="/img/task-todo-list/task-todo-list-3.png" alt="Zoo Code 中显示交互式清单的任务待办列表概览" width="600" />
+
+:::tip 待办列表触发条件
+待办列表会在遇到复杂任务、多步骤工作流程或使用 Architect 模式时自动创建。你也可以通过要求 Zoo "使用 update_todo_list 工具" 或 "创建待办列表" 来手动触发。
+
+有关自动和手动触发的详细信息，请参阅[何时创建待办列表](#when-zoo-creates-todo-lists)。
+::>
+
+<div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden' }}>
+  <iframe
+    src="https://www.youtube.com/embed/6h5vB9PpoPk?rel=0&modestbranding=1"
+    style={{
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+    }}
+    frameBorder="0"
+    allow="autoplay; encrypted-media"
+    allowFullScreen
+  ></iframe>
+</div>
+
+<br />
+
+---
+
+## 使用场景
+
+**之前**：在头脑中或单独的笔记文件中手动跟踪复杂任务的步骤，很容易丢失进度和下一步骤的跟踪。
+
+**使用任务待办列表后**：Zoo Code 会自动创建并管理嵌入对话中的结构化清单。你可以看到每个项目的状态，观察 AI 标记项目完成的情况，并在 Zoo 提交更新供批准时提供反馈。
+
+---
+
+## 工作原理
+
+任务待办列表功能由 [`update_todo_list`](/advanced-usage/available-tools/update-todo-list) 工具提供支持，该工具可在聊天界面中实现动态任务管理。
+
+### When Zoo Creates Todo Lists
+
+Zoo 会通过自动检测和手动请求两种方式创建待办列表：
+
+- **检测到任务复杂性** - 在你的请求中识别出多个步骤、阶段或依赖关系
+- **在 Architect 模式下工作** - 始终创建待办列表作为构建工作的主要规划工具
+- **直接工具请求** - 说 "使用 update_todo_list 工具" 或 "请使用 update_todo_list"
+
+记住：即使手动触发，Zoo 也会保持对待办列表内容和工作流程的控制。你可以在批准对话框中提供反馈，但 Zoo 会根据任务需求管理列表。
+
+### 显示和交互
+
+待办列表会出现在多个位置：
+
+1. **任务标题摘要**：通过 `TodoListDisplay` 组件显示一个紧凑的只读视图，展示进度和下一个重要项目
+
+   <img src="/img/task-todo-list/task-todo-list-1.png" alt="显示待办列表进度的任务标题摘要" width="600" />
+
+2. **交互式工具块**：通过聊天界面中的 `UpdateTodoListToolBlock` 组件提供的界面，允许你：
+   - 查看所有待办项目及其当前状态
+   - 点击"编辑"按钮进入编辑模式，你可以：
+     - 直接修改任务描述
+     - 使用下拉选择器更改任务状态
+     - 使用 × 按钮删除任务
+     - 使用底部的 "+ 添加待办" 按钮添加新任务
+   - 暂存更改，这些更改会在 Zoo 下次更新列表时应用
+   - 查看 Zoo 管理待办工作流程的进展情况
+
+   <img src="/img/task-todo-list/task-todo-list-2.png" alt="聊天中的交互式待办列表工具块" width="600" />
+
+3. **环境详情**：待办列表会作为"提醒"表格出现在 environment_details 部分，让 AI 能够持续访问当前待办状态。注意：如果 `todoListEnabled` 设置被禁用，提醒部分将不会出现在环境详情中。
+
+### 展开的待办视图
+
+当你点击任务标题中折叠的待办摘要时，会出现一个具有增强功能的浮动面板：
+- **背景覆盖层**：点击面板外部即可关闭
+- **完整待办列表显示**：显示所有待办事项及其当前状态指示器
+- **自动滚动**：自动滚动到当前进行中的任务
+- **流畅动画**：折叠和展开过渡效果，提供更好的用户体验
+- **持久状态**：重新打开时保持你的滚动位置
+
+### 理解任务状态
+
+Zoo Code 会根据任务进度自动管理状态进展。每个待办项目都有以下三种状态之一：
+
+**待处理**：显示带边框的空圆圈，表示任务尚未开始
+![带空圆圈的待处理待办项目](../../static/img/task-todo-list/task-todo-list-4.png)
+
+**进行中**：显示填充的黄色圆圈，表示任务当前正在进行
+![带黄色圆圈的进行中待办项目](../../static/img/task-todo-list/task-todo-list-5.png)
+
+**已完成**：显示填充的绿色圆圈，确认任务已完全完成
+![带绿色圆圈的已完成待办项目](../../static/img/task-todo-list/task-todo-list-6.png)
+
+### 在批准期间编辑待办列表
+
+当 Zoo 提交待办列表更新供批准时，你可以通过编辑模式完全控制：
+
+1. **点击"编辑"**进入编辑模式
+2. **进行更改**：
+   - 内联编辑任务描述
+   - 使用下拉菜单更改状态（待处理/进行中/已完成）
+   - 使用 × 按钮删除任务
+   - 使用底部的 "+ 添加待办" 按钮添加新任务
+3. **保存或取消**你的更改
+4. **批准或拒绝**整体更新
+
+注意：你的编辑会被暂存，只有在 Zoo 处理下一个待办列表更新时才会应用。这既保持了 Zoo 对工作流程的控制，又让你能够对任务细节提供输入。
+
+---
+
+## 常见问题
+
+**"我可以创建自己的待办列表吗？"**
+可以，你可以通过要求 Zoo "使用 update_todo_list 工具" 或 "创建待办列表" 来手动触发待办列表创建。但是，Zoo 会保持对待办列表内容和工作流程的控制 - 你可以在批准对话框中提供反馈，但 Zoo 会根据任务需求管理列表。
+
+**"我可以为简单任务使用待办列表吗？"**
+Zoo Code 通常只为复杂的多步骤任务创建待办列表，在这些任务中它们能提供明确的价值。对于简单任务，列表管理的开销是不必要的。
+
+**"为什么我不能直接控制待办列表？"**
+这是一个架构设计决策，Zoo Code 保持对任务管理的权威。你提供指导和反馈，但 Zoo 控制工作流程以确保一致的任务进展和准确的状态跟踪。
+
+---
+
+## 配置
+
+### 待办列表设置
+
+Zoo Code 提供了用于控制待办列表行为的 VS Code 设置。这些设置可在你的 VS Code `settings.json` 文件中进行配置（`Ctrl/Cmd + Shift + P` → "Preferences: Open User Settings (JSON)"）。
+
+#### Require Todo Lists for New Tasks
+
+**设置**：`roo-cline.newTaskRequireTodos`
+- **类型**：布尔值
+- **默认值**：`false`
+
+启用时，此设置要求通过 [boomerang](/features/boomerang-tasks) 或子任务委派创建新任务时提供待办列表。这通过强制新任务包含待完成步骤的检查清单，来确保复杂工作的结构化规划。
+
+**配置示例**：
+```json
+{
+  "roo-cline.newTaskRequireTodos": true
+}
+```
+
+#### Prevent Completion with Open Todos
+
+**设置**：`roo-cline.preventCompletionWithOpenTodos`
+- **类型**：布尔值
+- **默认值**：`false`
+
+启用时，此设置在存在未完成的待办项目时阻止任务完成。如果待办列表中仍有待处理项，Zoo Code 将不允许你将任务标记为完成，从而确保所有计划的工作在关闭任务之前都已完成。
+
+**配置示例**：
+```json
+{
+  "roo-cline.preventCompletionWithOpenTodos": true
+}
+```
+
+### 禁用待办列表
+
+你可以通过 `todoListEnabled` 设置完全禁待办列表。禁用时：
+- Zoo 不会为任何任务创建待办列表
+- 提醒部分不会出现在环境详情中
+- 现有的待办列表会保持可见，但不会被更新

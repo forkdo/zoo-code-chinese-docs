@@ -1,0 +1,51 @@
+---
+description: This release improves worktree workflows, adds MCP configuration flexibility, and fixes context condensing and provider issues.
+keywords:
+  - zoo code 3.44
+  - new features
+  - bug fixes
+image: /img/v3.44.0/v3.44.0.png
+---
+
+# Zoo Code 3.44 Release Notes (2026-01-27)
+
+此版本改进了 worktree 工作流，增加了 MCP 配置灵活性，并修复了上下文压缩及 provider 相关问题。
+
+<img src="/img/v3.44.0/v3.44.0.png" alt="Zoo Code v3.44 Release" width="600" />
+
+## Worktrees
+
+在聊天中使用 worktree 变得更加轻松。Worktree 选择器更加醒目，创建 worktree 的步骤更少，而且创建流程更清晰（包含原生文件夹选择器），因此你可以更快地启动隔离的分支/工作区，并在工作过程中在多个 worktree 之间切换。([#10940](https://github.com/RooCodeInc/Roo-Code/pull/10940))
+
+> **📚 文档**：详见 [Worktrees](/features/worktrees) 了解具体用法。
+
+## 并行工具调用（实验性）
+
+重新启用了并行工具调用（增加了 new_task 隔离保护），因此你可以再次使用实验性的“并行工具调用”设置，而不会破坏任务委派工作流。([#11006](https://github.com/RooCodeInc/Roo-Code/pull/11006))
+
+## 质量改进（QOL）
+
+* 通过改进 History 和 Chat 中的父子任务可见性（包括更清晰的“返回父任务”导航），使子任务更容易查找和浏览，从而可以更快地在相关任务之间切换。([#10864](https://github.com/RooCodeInc/Roo-Code/pull/10864))
+* 允许使用 `alwaysAllow: ["*"]` 来自动批准来自受信任 MCP 服务器的所有工具，不必再逐一列出每个工具名称。([#10948](https://github.com/RooCodeInc/Roo-Code/pull/10948))
+* 通过从内部指令中移除重复的 MCP 服务器/工具段落，减少提示词中的 token 开销，为你的对话上下文留出更多空间。([#10895](https://github.com/RooCodeInc/Roo-Code/pull/10895))
+* 改进了繁体中文（zh-TW）UI 文本，使其更清晰一致。（感谢 PeterDaveHello！）([#10953](https://github.com/RooCodeInc/Roo-Code/pull/10953))
+
+## Bug 修复
+
+* 修复了上下文压缩可能意外引入之前已压缩内容的问题，该问题会降低长对话摘要的效果。([#10985](https://github.com/RooCodeInc/Roo-Code/pull/10985))
+* 修复了当 token 计数在活动请求之外返回 0 时，VS Code LM API 用户的自动上下文压缩可能静默失败的问题，该问题可能导致非预期的上下文限制错误。（感谢 srulyt！）([#10983](https://github.com/RooCodeInc/Roo-Code/pull/10983))
+* 修复了 Zoo 在压缩失败时未记录成功的截断回退，导致压缩错误后 Rewind 恢复不可靠的问题。([#10984](https://github.com/RooCodeInc/Roo-Code/pull/10984))
+* 修复了名称中带连字符的 MCP 工具在原生工具调用中可能无法解析的问题（例如当某个 provider/模型将 `-` 重写为 `_` 时）。（感谢 hori-so！）([#10775](https://github.com/RooCodeInc/Roo-Code/pull/10775))
+* 修复了当 `toolUseId` 超过 Bedrock 64 字符限制时，工具调用可能通过 AWS Bedrock 校验失败的问题，提升了较长且工具密集会话的可靠性。([#10902](https://github.com/RooCodeInc/Roo-Code/pull/10902))
+* 修复了设置项分区标题在滚动时可能呈现透明的问题，恢复了不透明背景，使 UI 保持清晰可读。([#10951](https://github.com/RooCodeInc/Roo-Code/pull/10951))
+* 通过移除不支持的模型工具字段，修复了 Fireworks provider 的类型不匹配问题，保持 provider 模型元数据一致并避免因架构变更导致功能损坏。([#10937](https://github.com/RooCodeInc/Roo-Code/pull/10937))
+* 修复了 `new_task` 工具在交接前可能遗漏创建检查点的问题，使任务状态更一致、更可恢复。([#10982](https://github.com/RooCodeInc/Roo-Code/pull/10982))
+* 修复了残留的 Power Steering 实验引用可能在 UI 中显示原始翻译键的问题。([#10980](https://github.com/RooCodeInc/Roo-Code/pull/10980))
+* 修复了 Zoo 可能无法为存储在隐藏目录中的 worktree（例如 `~/.roo/worktrees/`）内的代码建立索引的问题，该问题会导致这些 worktree 中的搜索和其他代码库功能失效。([#11009](https://github.com/RooCodeInc/Roo-Code/pull/11009))
+## Provider 更新
+
+* 将最新的 Fireworks 模型添加到 Fireworks provider 的模型列表中。（感谢 ThanhNguyxn！）([#10679](https://github.com/RooCodeInc/Roo-Code/pull/10679))
+* 修复了当使用 LiteLLM 作为 Amazon Bedrock 的代理时，由于 Bedrock 工具调用 ID 校验限制，启用工具的聊天可能失败的问题。([#10990](https://github.com/RooCodeInc/Roo-Code/pull/10990))
+* 为 Cerebras 的 `zai-glm-4.7` 模型设置默认采样参数（temperature 和 top_p），使输出在不额外配置的情况下更一致。（感谢 sebastiand-cerebras！）([#10945](https://github.com/RooCodeInc/Roo-Code/pull/10945))
+* 修复了本地 Ollama 模型可能因针对空路由模型列表进行校验而被错误标记为不可用的问题。([#10893](https://github.com/RooCodeInc/Roo-Code/pull/10893))
+* 修复了使用基于 OpenAI Responses API 的 provider 时工具可能重复出现的问题，减少了重复的工具输出，使结果更易跟进。([#11008](https://github.com/RooCodeInc/Roo-Code/pull/11008))

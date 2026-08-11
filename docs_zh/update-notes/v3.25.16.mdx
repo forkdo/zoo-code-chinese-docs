@@ -1,0 +1,38 @@
+---
+description: 改进了 Ollama 集成，增加 GPT-5 聊天支持，并修复了多个 UI 和稳定性问题。
+keywords:
+  - zoo code 3.25.16
+  - ollama native api
+  - gpt-5 chat
+  - bug fixes
+---
+
+# Zoo Code 3.25.16 版本说明 (2025-08-17)
+
+此版本改进了与原生 Ollama API 和 GPT-5 聊天模型的提供商集成，增强了任务历史处理功能，并修复了多个 UI 和稳定性问题。
+
+## 提供商更新
+
+* **原生 Ollama API**：修复了 Ollama 模型使用原生 API 而非 OpenAI 兼容层，以提高性能和可靠性 ([#7137](https://github.com/RooCodeInc/Roo-Code/pull/7137))
+* **OpenAI GPT-5 聊天**：新增对 gpt-5-chat-latest 模型的支持，该模型针对对话式 AI 和非推理任务进行了优化 ([#7058](https://github.com/RooCodeInc/Roo-Code/pull/7058))
+
+## 用户体验改进
+
+* **增强的任务历史**：将“使用任务历史增强”默认设置为 true，以便在对话中更好地保留上下文 (感谢 liwilliam2021!) ([#7140](https://github.com/RooCodeInc/Roo-Code/pull/7140))
+* **改进的滚动条**：通过移除 500 条消息限制，修复了长对话中滚动条跳动的问题 ([#7064](https://github.com/RooCodeInc/Roo-Code/pull/7064))
+
+## Bug 修复
+
+* **设置 UI**：修复了 allowedMaxRequests 和 allowedMaxCost 值无法正确显示的问题 (感谢 chrarnoldus!) ([#6925](https://github.com/RooCodeInc/Roo-Code/pull/6925))
+* **提供商设置**：修复了提供商下拉菜单和复选框更改时保存按钮无法启用的问题 ([#7113](https://github.com/RooCodeInc/Roo-Code/pull/7113))
+* **XML 实体处理**：修复了 diff 工具中的 XML 实体解码问题，该问题导致内容不匹配 ([#7108](https://github.com/RooCodeInc/Roo-Code/pull/7108))
+* **压缩状态**：修复了任务切换时压缩状态无法重置的问题 (感谢 f14XuanLv!) ([#6922](https://github.com/RooCodeInc/Roo-Code/pull/6922))
+* **工作区路径**：修复了代码库搜索工具中的工作区路径解析问题 (感谢 NaccOll!) ([#6902](https://github.com/RooCodeInc/Roo-Code/pull/6902))
+* **多文件夹工作区**：修复了多文件夹工作区配置中的检查点处理问题 (感谢 NaccOll!) ([#6903](https://github.com/RooCodeInc/Roo-Code/pull/6903))
+* **Diff 处理**：添加了类型检查以防止处理 diff 内容时出错 ([#6906](https://github.com/RooCodeInc/Roo-Code/pull/6906))
+
+## 其他改进
+
+* **任务系统**：添加了恢复任务的 API，改进了事件处理，并增强了元数据支持 ([#7122](https://github.com/RooCodeInc/Roo-Code/pull/7122), [#7128](https://github.com/RooCodeInc/Roo-Code/pull/7128), [#7117](https://github.com/RooCodeInc/Roo-Code/pull/7117), [#7092](https://github.com/RooCodeInc/Roo-Code/pull/7092))
+* **Web 基础设施**：改进了站点地图生成和 SEO 元数据 (感谢 elianiva, abumalick!) ([#7102](https://github.com/RooCodeInc/Roo-Code/pull/7102), [#7096](https://github.com/RooCodeInc/Roo-Code/pull/7096), [#6206](https://github.com/RooCodeInc/Roo-Code/pull/6206))
+* **任务执行**：重构了任务执行系统以更好地管理调用堆栈 (感谢 catrielmuller!) ([#7035](https://github.com/RooCodeInc/Roo-Code/pull/7035))```

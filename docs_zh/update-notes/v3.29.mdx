@@ -1,0 +1,66 @@
+---
+description: 3.29 版本周期的综合说明。重点包括 MiniMax 提供商、大型仓库 @ 文件搜索改进、UI/UX 优化以及稳定性修复。
+keywords:
+  - zoo code 3.29
+  - release notes
+  - combined
+---
+
+# Zoo Code 3.29 版本说明（2025-10-31）
+
+本综合摘要涵盖了 3.29.x 版本。引入了 MiniMax 提供商，改进了大型项目中的 @ 文件搜索功能，明确了“日志”标签页和 VS Code LM 指南，并包含了多项稳定性修复。
+
+## 功能亮点
+
+* Cloud Agent：PR 审查器，可即时进行高质量代码审查（了解更多：https://roocode.com/reviewer）
+* 智能文件读取功能，具备 token 预算管理，并为超大文件提供 100 KB 预览 ([#8789](https://github.com/RooCodeInc/Roo-Code/pull/8789))
+* MiniMax 提供商，支持编码和推理，对中文语言支持良好，且价格具有竞争力（感谢 Maosghoul！）([#8820](https://github.com/RooCodeInc/Roo-Code/pull/8820))
+* 在大型仓库中实现更快、更可靠的 @ 文件搜索，支持可配置索引限制，并遵循 VS Code 忽略设置（感谢 Naituw！）([#8805](https://github.com/RooCodeInc/Roo-Code/pull/8805))
+* MCP 标签页重命名为“日志”，以匹配混合级别消息（感谢 hannesrudolph！）([#8894](https://github.com/RooCodeInc/Roo-Code/pull/8894))
+
+## 体验优化
+
+* 改进大型项目的 @ 文件搜索功能；添加 roo-cline.maximumIndexedFilesForFileSearch 设置，并提供内存权衡指导 ([#8805](https://github.com/RooCodeInc/Roo-Code/pull/8805))
+* 将 MCP “错误”标签页重命名为“日志”，以匹配信息/警告/错误消息；更清晰的空状态提示（“暂无日志”）([#8894](https://github.com/RooCodeInc/Roo-Code/pull/8894))
+* 自定义模式从配置的存储路径加载，并在重启后保持持久化（感谢 elianiva！）([#8499](https://github.com/RooCodeInc/Roo-Code/pull/8499))
+* 在设置中明确 VS Code LM API 集成警告，以减少“模型不受支持”错误 ([#8493](https://github.com/RooCodeInc/Roo-Code/pull/8493))
+* 键盘快捷键：“添加到上下文”已移动，以避免与重做（Redo）冲突；恢复标准重做功能 ([#8653](https://github.com/RooCodeInc/Roo-Code/pull/8653))
+* 自动批准按钮响应性得到改善 ([#8798](https://github.com/RooCodeInc/Roo-Code/pull/8798))
+* 执行“添加到上下文”后，输入框自动聚焦并插入两个换行符，以便立即继续输入 ([#8877](https://github.com/RooCodeInc/Roo-Code/pull/8877))
+
+## Bug 修复
+
+* 推理努力选择功能会在需要时自动启用推理，确保 UI 和行为保持同步 ([#8890](https://github.com/RooCodeInc/Roo-Code/pull/8890))
+* 抑制 cloud-agent 的嘈杂异常，以获得更清晰的日志 ([#8577](https://github.com/RooCodeInc/Roo-Code/pull/8577))
+* 切换 MCP 工具的“始终允许”时，防止 MCP 服务器重启 ([#8633](https://github.com/RooCodeInc/Roo-Code/pull/8633))
+* 中断后重用现有的 Qdrant 索引，避免完全重新索引，缩短重启时间 ([#8588](https://github.com/RooCodeInc/Roo-Code/pull/8588))
+* 使代码索引初始化在激活时非阻塞，避免启动时卡顿 ([#8933](https://github.com/RooCodeInc/Roo-Code/pull/8933))
+* 在代码定义列表和文件读取中遵守 maxReadFileLine 限制，防止上下文溢出 ([#8509](https://github.com/RooCodeInc/Roo-Code/pull/8509))
+* 防止在自动重试期间取消时出现无限重试循环 ([#8902](https://github.com/RooCodeInc/Roo-Code/pull/8902))
+* 将基于身份验证的 Zoo 模型刷新限制为仅针对活动提供商，以减少后台工作 ([#8915](https://github.com/RooCodeInc/Roo-Code/pull/8915))
+* search_files 现在默认遵守 .gitignore（包括嵌套）；必要时可覆盖 ([#8804](https://github.com/RooCodeInc/Roo-Code/pull/8804))
+* apply_diff 导出保留尾部换行符（修复 stripLineNumbers）([#8227](https://github.com/RooCodeInc/Roo-Code/pull/8227))
+* 修复提供商模型加载竞态条件，减少超时和间歇性错误 ([#8836](https://github.com/RooCodeInc/Roo-Code/pull/8836))
+* 速率限制现在使用单调时钟并强制执行硬性上限，避免长时间锁定 ([#8456](https://github.com/RooCodeInc/Roo-Code/pull/8456))
+* 在上下文压缩期间输入的消息，一旦压缩完成将自动发送；每个任务队列不再交叉耗尽 ([#8478](https://github.com/RooCodeInc/Roo-Code/pull/8478))
+* 检查点菜单弹出窗口不再截断长选项文本；项目保持完全可见 ([#8867](https://github.com/RooCodeInc/Roo-Code/pull/8867))
+
+## 提供商更新
+
+* 新增 MiniMax 提供商（MiniMax-M2），支持在 UI 中进行 API 密钥设置和模型选择 ([#8820](https://github.com/RooCodeInc/Roo-Code/pull/8820))
+* Cerebras：添加 zai-glm-4.6，并将默认模型更改为 gpt-oss-120b；弃用 qwen-3-coder 模型 ([#8920](https://github.com/RooCodeInc/Roo-Code/pull/8920))
+* Zoo Code Cloud：在模型选择器中实现动态模型加载，具备缓存和优雅降级功能 ([#8728](https://github.com/RooCodeInc/Roo-Code/pull/8728))
+* Chutes AI：LongCat-Flash-Thinking-FP8 模型（200K、128K），适用于更长的编码会话 ([#8426](https://github.com/RooCodeInc/Roo-Code/pull/8426))
+* OpenRouter：在支持提示缓存的模型中添加 Anthropic Claude Haiku 4.5 ([#8764](https://github.com/RooCodeInc/Roo-Code/pull/8764))
+* Z.ai (GLM-4.5/4.6)：在 UI 中添加“启用推理”深度思考切换 ([#8872](https://github.com/RooCodeInc/Roo-Code/pull/8872))
+* Zoo 提供商：推理努力控制，可选择更深层次的思考或更快/更便宜的方式 ([#8874](https://github.com/RooCodeInc/Roo-Code/pull/8874))
+* OpenAI 兼容：集中设置约 20% 的 maxTokens 上限，防止上下文溢出 ([#8822](https://github.com/RooCodeInc/Roo-Code/pull/8822))
+* Gemini：更新模型列表和“最新”别名，便于选择 ([#8486](https://github.com/RooCodeInc/Roo-Code/pull/8486))
+
+## 文档更新
+
+* 新增：[MiniMax 提供商](/providers/minimax)
+* 更新：VS Code LM 指南 [VS Code LM](/providers/vscode-lm)
+* 更新：自定义模式路径和持久化 [自定义模式](/features/custom-modes)
+* 更新：工具截断行为 [list_code_definition_names](/advanced-usage/available-tools/list-code-definition-names) 和 [read_file](/advanced-usage/available-tools/read-file)
+* 更新：MCP UI 措辞更改为“日志” [在 Zoo 中使用 MCP](/features/mcp/using-mcp-in-Roo)

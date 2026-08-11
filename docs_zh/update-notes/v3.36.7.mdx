@@ -1,0 +1,39 @@
+---
+description: Zoo Code 3.36.7 简化了自动批准设置，改进了通过 OpenRouter 使用 OpenAI 模型的行为，并扩展了 Amazon Bedrock 的选项。
+keywords:
+  - zoo code 3.36.7
+  - auto-approve
+  - openrouter
+  - bedrock
+  - bug fixes
+---
+
+# Zoo Code 3.36.7 版本发布说明 (2025-12-15)
+
+此版本简化了自动批准设置，改进了通过 OpenRouter 使用 OpenAI 模型的行为，并扩展了 Amazon Bedrock 的选项。
+
+## 通过 OpenRouter 使用 OpenAI 模型时的工具支持
+
+当您通过 **OpenRouter 使用 OpenAI 模型**时，Zoo Code 现在通过显式启用 `apply_patch` 并避免使用在该上下文中不受支持的文件写入工具，使工具使用更加可预测 ([#10082](https://github.com/RooCodeInc/Roo-Code/pull/10082))。
+
+这减少了不同提供商/模型之间工具可用性差异带来的摩擦，并有助于在编辑过程中避免意外中断。
+
+## 简化的自动批准设置
+
+自动批准不再为 **重试失败的请求** 和 **更新待办事项列表** 设置单独的开关——启用自动批准后，重试和待办事项更新将自动运行 ([#10062](https://github.com/RooCodeInc/Roo-Code/pull/10062))。
+
+如果您依赖这些单独的开关，这将减少配置开销，并使自动批准行为更易于理解。
+
+## Bug 修复
+
+* **模式工具验证更加一致**：通过将模式工具可用性检查整合到一处，提高了可靠性 ([#10089](https://github.com/RooCodeInc/Roo-Code/pull/10089))
+
+## 提供商更新
+
+* **更详细的 OpenRouter 错误报告**：捕获更多特定于提供商的错误元数据，使故障更易于诊断 ([#10073](https://github.com/RooCodeInc/Roo-Code/pull/10073))
+* **AWS Bedrock 服务层级支持**：为支持的模型添加了 Bedrock **服务层级**选项（标准/灵活/优先）（感谢 Smartsheet-JB-Brown！） ([#9955](https://github.com/RooCodeInc/Roo-Code/pull/9955))
+* **Bedrock 中的 Amazon Nova 2 Lite**：将 Nova 2 Lite 模型添加到 Bedrock 提供商的模型列表中（感谢 Smartsheet-JB-Brown！） ([#9830](https://github.com/RooCodeInc/Roo-Code/pull/9830))
+
+## 其他改进
+
+* **改进的 Web 评估运行日志**：通过改进运行日志和格式化，使评估运行更易于检查 ([#10081](https://github.com/RooCodeInc/Roo-Code/pull/10081))```

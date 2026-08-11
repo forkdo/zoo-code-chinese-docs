@@ -1,0 +1,43 @@
+---
+description: This release adds parallel tool calling, overhauls file reading and terminal output handling, begins a shift toward the AI SDK, and adds a Settings UI for managing Skills.
+keywords:
+  - zoo code 3.46.0
+  - new features
+  - bug fixes
+image: /img/v3.46.0/v3.46.0.png
+---
+
+# Zoo Code 3.46.0 Release Notes (2026-01-30)
+
+这是一个重大更新！此版本新增了并行工具调用，对 Zoo 读取文件和终端输出的处理方式进行了全面重构，并开始将核心底层大规模重构为使用 AI SDK，以显著提升可靠性。这些改动以实质性的方式改变了 Zoo 管理上下文和执行多步骤工作流的方式！另外，我们还为技能（Skills）管理添加了 UI 界面！！
+
+<img src="/img/v3.46.0/v3.46.0.png" alt="Zoo Code v3.46.0 Release" width="600" />
+
+## 并行工具调用
+
+当工作流受益时，Zoo 现在可以在一次响应中运行多个工具。这让模型可以更自由地批处理相互独立的步骤（读取、搜索、编辑等），而不必为每个工具单独发起一次 API 调用。这减少了多步骤任务中来回往返的轮次数，这类任务通常需要多次独立工具调用后才能提出或应用变更。([#11031](https://github.com/RooCodeInc/Roo-Code/pull/11031), [#11046](https://github.com/RooCodeInc/Roo-Code/pull/11046))
+
+## read_file 工具全面重构
+
+Zoo 现在默认限制文件读取行数（2000 行）以避免上下文溢出，并可根据需要对更大文件进行分页读取。当 Zoo 需要某行周围的上下文（例如堆栈跟踪指向第 42 行）时，它也可以请求包含该行所在的*整个*函数或类，而不是任意的“第 40–60 行”切片。在底层，`read_file` 现在有两种明确模式：**slice**（`offset`/`limit`）用于分块读取，**indentation**（以目标行为锚点）用于语义化提取。（感谢 pwilkin！）([#10981](https://github.com/RooCodeInc/Roo-Code/pull/10981))
+
+## 终端处理重构
+
+当命令产生大量输出时，Zoo 现在会限制其纳入模型上下文的输出量。被省略的部分会作为工件（artifact）保存。Zoo 随后可以按需对完整输出进行分页或搜索，这样大型构建和测试运行依然可调试，而无需将整个日志塞入每次请求中。([#10944](https://github.com/RooCodeInc/Roo-Code/pull/10944), [#11056](https://github.com/RooCodeInc/Roo-Code/pull/11056))
+
+## 设置中的技能管理
+
+你现在可以在设置面板中创建、编辑和删除技能，并带有内联校验和删除确认。编辑技能会在 VS Code 中打开 `SKILL.md` 文件。技能仍然以磁盘文件形式存储，但这让日常维护更快——尤其当你同时维护**全局**技能和**项目**技能时。（感谢 SannidhyaSah！）([#10844](https://github.com/RooCodeInc/Roo-Code/pull/10844))
+
+## Provider 迁移至 AI SDK
+
+我们已开始将各 provider 迁移到统一的 Vercel AI SDK 基础之上，使流式输出、工具调用和结构化输出在各 provider 之间表现更一致。在此版本中，该迁移包含共享的 AI SDK 工具，以及针对 Moonshot/OpenAI 兼容、DeepSeek、Cerebras、Groq 和 Fireworks 的 provider 迁移，同时还改进了 provider 错误（如速率限制）的呈现方式。([#11047](https://github.com/RooCodeInc/Roo-Code/pull/11047), [#11063](https://github.com/RooCodeInc/Roo-Code/pull/11063), [#11079](https://github.com/RooCodeInc/Roo-Code/pull/11079), [#11086](https://github.com/RooCodeInc/Roo-Code/pull/11086), [#11088](https://github.com/RooCodeInc/Roo-Code/pull/11088), [#11118](https://github.com/RooCodeInc/Roo-Code/pull/11118))
+
+## 杂项
+
+* 折叠的任务头部上下文百分比现在反映实际输入用量（已计入预留的输出 token），因此它是你距离上下文限制更可靠的指标。([#11034](https://github.com/RooCodeInc/Roo-Code/pull/11034), [#11054](https://github.com/RooCodeInc/Roo-Code/pull/11054))
+* 通过启用 React Compiler 优化提升了 webview UI 的响应速度，无需手动 memo 即可减少不必要的重渲染。（感谢 In-line！）([#9565](https://github.com/RooCodeInc/Roo-Code/pull/9565))
+* 新增 `pnpm serve` / `pnpm serve:rebuild` 命令，用于在基于 Web 的 VS Code 环境（通过 code-server）中构建并运行 Zoo Code 扩展，使维护者和贡献者更容易复现并验证 Web 特定行为，更可靠地交付修复。([#10964](https://github.com/RooCodeInc/Roo-Code/pull/10964))
+* 使 Zoo Code Web 应用与最新的 Next.js 版本及相关依赖/配置更新保持同步，有助于减少构建和 lint 摩擦，并提升网站与评估工具的兼容性和性能。([#11108](https://github.com/RooCodeInc/Roo-Code/pull/11108))
+* 通过改用 shadcn/Radix Navigation Menu 组件，改进了 Zoo Code 网站头部导航的下拉菜单，提供更流畅的开关动画、更可靠的键盘导航，以及过渡期间更稳定的下拉尺寸。([#11117](https://github.com/RooCodeInc/Roo-Code/pull/11117))
+* 用统一的 `skill` 工具系统替换了旧的指指令加载流程，使 Zoo 能按需加载专门的指令（如创建 MCP 服务器或自定义模式）；同时移除了旧的 MCP“启用 MCP 服务器创建”开关。([#11084](https://github.com/RooCodeInc/Roo-Code/pull/11084))

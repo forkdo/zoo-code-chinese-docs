@@ -1,0 +1,26 @@
+---
+description: 此版本解决了竞态条件问题，增强了自动批准逻辑，并增加了印尼语翻译支持。
+---
+
+# Zoo Code 3.20.3 版本说明 (2025-06-14)
+
+此版本解决了竞态条件问题，增强了自动批准逻辑，并增加了印尼语翻译支持。
+
+## Bug 修复
+
+*   **差异编辑器**：解决多显示器设置下的差异编辑器竞态条件问题（感谢 daniel-lxs！）（[#4578](https://github.com/RooCodeInc/Roo-Code/pull/4578)）
+*   **自动批准**：
+    *   防止自动批准配置文件编辑（感谢 mrubens！）（[#4667](https://github.com/RooCodeInc/Roo-Code/pull/4667)）
+    *   调整工作区外搜索以遵循自动批准复选框设置（感谢 mrubens！）（[#4670](https://github.com/RooCodeInc/Roo-Code/pull/4670)）
+    *   使列出工具在工作区外遵循自动批准设置（感谢 mrubens！）（[#4682](https://github.com/RooCodeInc/Roo-Code/pull/4682)）
+*   **文件读取**：修复错误的 `maxReadFileLine` 默认值（感谢 mrubens！）（[#4683](https://github.com/RooCodeInc/Roo-Code/pull/4683)）
+*   **多文件差异**：修复多文件差异错误处理和 UI 反馈（感谢 daniel-lxs！）（[#4674](https://github.com/RooCodeInc/Roo-Code/pull/4674)）
+*   **提示历史**：改进提示历史导航，避免干扰文本编辑（感谢 daniel-lxs！）（[#4677](https://github.com/RooCodeInc/Roo-Code/pull/4677)）
+
+## 其他改进
+
+*   **本地化**：
+    *   添加印尼语翻译支持（感谢 chrarnoldus！）（[#4672](https://github.com/RooCodeInc/Roo-Code/pull/4672)）
+    *   更新聊天和设置的印尼语区域文件（感谢 daniel-lxs！）（[#4675](https://github.com/RooCodeInc/Roo-Code/pull/4675)）
+    *   修复 markdown 文件 i18n 中的不一致问题（感谢 mrubens！）（[#4681](https://github.com/RooCodeInc/Roo-Code/pull/4681)）
+*   **类型**：将市场类型移至 `@roo-code/types`（感谢 jr！）（[#4671](https://github.com/RooCodeInc/Roo-Code/pull/4671)）

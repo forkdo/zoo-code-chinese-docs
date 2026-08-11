@@ -1,0 +1,50 @@
+---
+description: 此版本引入了通过 OAuth 免费访问 Gemini 的功能，修复了若干 bug，并提升了整体用户体验。
+---
+
+# Zoo Code 3.22.6 版本说明 (2025-07-02)
+
+此补丁版本引入了自动批准功能、模式导入/导出功能、改进的搜索控件，以及对 AWS Bedrock、API 重试逻辑和 UI 组件的各种 bug 修复。
+
+## 新功能
+
+### 基于计时器的后续问题自动批准
+
+我们为后续问题引入了基于计时器的自动批准功能，以简化您的工作流程。现在，Zoo Code 可以在可配置的延迟后自动继续执行，减少手动干预（[了解更多](/features/auto-approving-actions#follow-up-questions)）。（感谢 liwilliam2021！）([#5296](https://github.com/RooCodeInc/Roo-Code/pull/5296))
+
+### 导入和导出自定义模式
+
+您现在可以导入和导出自定义模式，从而更轻松地跨不同项目和安装共享、备份和同步您的模式（[了解更多](/features/custom-modes#importexport-modes)）。([#5074](https://github.com/RooCodeInc/Roo-Code/pull/5074))
+
+### 增强的搜索和索引控制
+
+- **可配置的搜索分数阈值**：设置中新增了一个滑块，允许您微调语义搜索的敏感度，从而更好地控制搜索结果的相关性（[了解更多](/features/codebase-indexing#advanced-configuration-fields)）。([#5041](https://github.com/RooCodeInc/Roo-Code/pull/5041))
+
+## 生活质量改进
+
+* **持久版本指示器**：Zoo Code 版本现在在聊天屏幕上始终可见，提供了一种便捷的方式来检查您的版本并访问版本说明，而无需导航到设置。([#5128](https://github.com/RooCodeInc/Roo-Code/pull/5128))
+* **自动配置导入**：您现在可以通过在 VSCode 设置中的指定路径放置配置文件，在启动时自动导入 Zoo Code 配置。这消除了通过 GUI 手动导入配置的需要（[了解更多](/features/settings-management#automatic-configuration-import)）。（感谢 takakoutso！）([#4848](https://github.com/RooCodeInc/Roo-Code/pull/4848))
+* **架构师模式增强**：为了鼓励更好的项目规划，架构师模式现在是新安装的默认模式。该模式还进行了改进，不再提供时间估计，确保其计划专注于可操作的步骤，而不是可能产生误导的时间线 ([#5289](https://github.com/RooCodeInc/Roo-Code/pull/5289), [#5295](https://github.com/RooCodeInc/Roo-Code/pull/5295))。
+* **Mermaid 图表增强**：Mermaid 图表现在具有更清晰、更一致的外观。工具栏按钮现在在浅色模式下清晰可见，并且在无效图表上将不再呈现令人分心的错误消息，从而在创建和查看图表时提供更流畅的体验。（感谢 chrarnoldus！）([#5342](https://github.com/RooCodeInc/Roo-Code/pull/5342), [#5308](https://github.com/RooCodeInc/Roo-Code/pull/5308))
+* **改进的模型行为**：模型现在提供更可靠和一致的响应。以前，令牌使用信息会无意中发送给模型，这可能导致其停止任务或缩短其答案。现在不再发送此信息，确保模型根据您的要求完成任务，而不是其感知的令牌限制（感谢 SannidhyaSah！）([#5312](https://github.com/RooCodeInc/Roo-Code/pull/5312))
+* **增强的文件保护**：`.vscode` 目录现在被写保护，以防止对编辑器配置进行意外更改 ([#5347](https://github.com/RooCodeInc/Roo-Code/pull/5347))
+* **Qdrant 配置**：通过防止 URL 字段自动填充默认值，改进了配置自定义 Qdrant 服务器的用户体验。（感谢 SannidhyaSah！）([#5217](https://github.com/RooCodeInc/Roo-Code/pull/5217))
+
+## Bug 修复
+
+* **不一致的取消消息**：修复了取消任务时显示误导性“API 流式传输失败”错误的问题。现在，在任务的任何阶段取消都会正确显示“API 请求已取消”消息 ([#4904](https://github.com/RooCodeInc/Roo-Code/pull/4904))
+* **无效的 Bedrock 模型标识符**：修复了使用 AWS Bedrock 进行跨区域推理时导致“无效模型标识符”错误的问题。用户现在可以可靠地连接到不同区域的 Bedrock 模型。（感谢 KevinZhao, zenithfull！）([#4973](https://github.com/RooCodeInc/Roo-Code/pull/4973))
+* **URL 加载超时**：修复了引用带有 @ 的 URL 可能导致“导航超时”错误的问题，使得从较慢的网站引用内容更加可靠。（感谢 MuriloFP, mrw1986！）([#5160](https://github.com/RooCodeInc/Roo-Code/pull/5160))
+* **过度的 API 重试延迟**：修复了失败 API 请求的自动重试延迟可能变得过长的问题。现在延迟上限为 10 分钟，防止任务长时间卡住。（感谢 MuriloFP, piisawheel！）([#5171](https://github.com/RooCodeInc/Roo-Code/pull/5171))
+* **上下文压缩阈值**：修复了上下文压缩阈值未正确应用于单个配置文件的问题。现在，上下文将按每个配置文件指定的阈值进行压缩，正如预期的那样。（感谢 PaperBoardOfficial！）([#5230](https://github.com/RooCodeInc/Roo-Code/pull/5230))
+* **`apply_diff` 工具文档**：更新了 `apply_diff` 工具的文档，以正确反映其能够在单个操作中对多个文件应用编辑的能力。（感谢 KJ7LNW！）([#5232](https://github.com/RooCodeInc/Roo-Code/pull/5232))
+* **系统提示中的缓存文件**：修复了在使用自定义模式规则时将缓存文件（如 macOS 上的 `.DS_Store`）包含在系统提示中的问题。这提高了提示质量并减少了不必要的干扰。（感谢 MuriloFP, juliettefournier-econ！）([#5283](https://github.com/RooCodeInc/Roo-Code/pull/5283))
+
+## 提供商更新
+
+* **AWS Bedrock**：更新了跨区域推理配置文件映射，以改进区域支持（感谢 KevinZhao！）([#4973](https://github.com/RooCodeInc/Roo-Code/pull/4973))
+* **LiteLLM**：为 litellm fetcher 添加了默认标头和测试，增强了兼容性（感谢 andrewshu2000！）([#5242](https://github.com/RooCodeInc/Roo-Code/pull/5242))
+
+## 其他改进
+
+* **安装体验**：简化了开发人员测试 Zoo Code 扩展本地构建的过程。新的 `pnpm install:vsix` 命令现在可以自动执行卸载、构建和安装开发版本，使贡献更快、更容易（感谢 devxpain！）([#4284](https://github.com/RooCodeInc/Roo-Code/pull/4284))

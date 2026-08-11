@@ -1,0 +1,20 @@
+---
+description: 此版本专注于通过修复焦点行为、禁用冲突功能以及改进测试标准来提升用户体验。
+---
+
+# Zoo Code 3.19.7 版本说明 (2025-06-11)
+
+此版本专注于通过修复焦点行为、禁用冲突功能以及改进测试标准来提升用户体验。
+
+## Bug 修复
+
+*   **McpHub 侧边栏焦点**：我们修复了 McpHub 侧边栏意外获取焦点的问题，从而提供更流畅的导航体验。 ([#4548](https://github.com/RooCodeInc/Roo-Code/pull/4548))
+*   **检查点**：当检测到嵌套的 git 仓库时，我们已禁用检查点功能以防止冲突。 ([#4509](https://github.com/RooCodeInc/Roo-Code/pull/4509))
+
+## 其他改进
+
+*   **Storybook**：我们移除了未使用的 Storybook 组件和依赖项以减小包体积。 ([#4517](https://github.com/RooCodeInc/Roo-Code/pull/4517))
+*   **ESLint**：我们添加了 `data-testid` ESLint 规则以改进我们的测试标准（感谢 elianiva！）。 ([#4505](https://github.com/RooCodeInc/Roo-Code/pull/4505))
+*   **依赖项**：我们更新了开发依赖项，包括 eslint、knip、@types/node、i18next、fast-xml-parser 和 @google/genai。
+*   **CI**：我们通过 GitHub Actions 和 Blacksmith 运行器迁移改进了 CI 基础设施。 ([#4472](https://github.com/RooCodeInc/Roo-Code/pull/4472), [#4507](https://github.com/RooCodeInc/Roo-Code/pull/4507))
+*   **Gemini**：我们通过 Requesty 添加了控制 Gemini 模型思考预算的功能（感谢 dtrugman！）。 ([#4486](https://github.com/RooCodeInc/Roo-Code/pull/4486))

@@ -1,0 +1,95 @@
+---
+description: 此版本引入了全面的上下文压缩改进、自定义模式的 YAML 支持、新的 AI 模型集成，以及众多提升使用体验的改进和错误修复。
+---
+
+# Zoo Code 3.18.0 版本说明 (2025-05-21)
+
+此版本引入了全面的上下文压缩改进、自定义模式的 YAML 支持、新的 AI 模型集成，以及众多提升使用体验的改进和错误修复。
+
+---
+
+## 上下文压缩升级
+我们的智能上下文压缩功能获得了显著增强，提供了更好的控制和清晰度。**注意**：从 3.19.0 版本开始，此功能默认启用。
+
+观看快速概览：
+<div style={{width: '50%', margin: 'auto'}}>
+  <div style={{position: 'relative', paddingBottom: '177.77%', height: 0, overflow: 'hidden'}}>
+    <iframe
+      src="https://www.youtube.com/embed/o5xgO9N8vVU?rel=0&modestbranding=1"
+      title="YouTube Short"
+      frameBorder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowFullScreen
+      style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%'}}
+    ></iframe>
+  </div>
+</div>
+主要更新：
+*   **可调节的压缩阈值和手动控制**：微调自动压缩或手动触发压缩。[了解更多](/features/intelligent-context-condensing#controlling-context-condensing)。
+*   **清晰的 UI 指示器**：在压缩过程中提供更好的视觉反馈。[详情](/features/intelligent-context-condensing#understanding-context-condensing-activity)。
+*   **准确的令牌计数**：提高了上下文和成本计算的准确性。[更多信息](/features/intelligent-context-condensing#token-counting)。
+
+有关完整详细信息，请参阅主要的[智能上下文压缩文档](/features/intelligent-context-condensing)。
+
+---
+
+## 自定义模式：YAML 支持
+
+自定义模式配置现在通过**YAML 支持**得到了显著改进，适用于全局和项目级 (`.roomodes`) 定义。YAML 现在是新的默认格式，提供了更清晰的语法、支持注释 (`#`) 以及更简单的多行字符串管理，从而带来卓越的易读性。虽然为了向后兼容性，JSON 仍然受支持，但 YAML 简化了模式的创建、共享和版本控制。
+
+有关 YAML 优势、语法以及迁移现有 JSON 配置的全面详细信息，请参阅我们更新的[自定义模式文档](/features/custom-modes#migration-to-yaml-format)。（感谢 R-omk！同时感谢 GreatScottyMac 的 YAML 灵感！）
+
+---
+
+## API 成本控制：请求限制
+为了增强 API 成本管理，您现在可以为自动批准的操作设置**最大请求数**限制。这可以防止 Zoo Code 在未经您重新批准的情况下进行过多连续的 API 调用。
+
+<img src="/img/v3.18.0/v3.18.0.png" alt="在 Zoo Code 设置中为自动批准的操作设置最大请求数限制。" width="600" />
+*为自动批准的操作设置“最大请求数”。*
+
+<img src="/img/v3.18.0/v3.18.0-1.png" alt="指示已达到自动批准请求限制的警告消息。" width="600" />
+*当达到自动批准请求限制时的通知。*
+
+在我们的[速率限制和成本文档](/advanced-usage/rate-limits-costs#limiting-auto-approved-requests)中了解有关配置此保护措施的更多信息。（灵感来自 Cline，感谢 hassoncs！）
+
+---
+
+## 新模型版本：Gemini 2.5 Flash 预览版 (2025 年 5 月)
+访问最新的 `gemini-2.5-flash-preview-05-20` 模型，包括其思考变体。这一前沿新增功能可通过通用的 [Gemini 提供商](/providers/gemini) 和 [Vertex 提供商](/providers/vertex) 获得，进一步扩展了您的 AI 模型选项。（感谢 shariqriazz、daniel-lxs！）
+
+---
+
+## 使用体验改进
+
+*   **可调整大小的提示文本区域**：恢复了提示输入文本区域（角色定义、自定义指令、支持提示）的垂直调整大小功能，以便更轻松地查看和编辑较长的提示。
+*   **设置导入**：如果导入失败，现在会提供多种语言的错误消息。（感谢 ChuKhaLi！）
+
+---
+
+## 错误修复
+
+*   **VSCode 命令执行**：命令执行现在是类型安全的，减少了潜在的错误。
+*   **设置导入**：系统现在可以优雅地处理导入文件中缺少 `globalSettings` 的情况。（感谢 ChuKhaLi！）
+*   **差异视图滚动**：差异视图在内容更新期间不再不必要地滚动。（感谢 qdaxb！）
+*   **语法高亮**：改进了文件列表、代码定义和错误消息中的语法高亮一致性。（感谢 KJ7LNW！）
+*   **灰屏问题**：通过优雅地处理关闭差异视图时的错误，实现了对“灰屏”问题的修复，防止了内存泄漏。（感谢 xyOz-dev！）
+*   **设置导入错误消息**：`settings_import_failed` 消息现在被正确地归类为错误。（感谢 ChuKhaLi！）
+*   **指向第 0 行的文件链接**：指向第 0 行的文件链接现在可以正确地打开到第一行，防止错误。（感谢 RSO！）
+*   **打包 `tiktoken.wasm`**：修复了打包以包含正确的 `tiktoken/lite/tiktoken_bg.wasm` 文件，以实现准确的令牌计数。（感谢 vagadiya！）
+*   **音频播放**：将音频播放移至 Webview，以确保跨平台兼容性和通知及声音的可靠性。（感谢 SmartManoj、samhvw8！）
+
+---
+
+## 提供商更新
+
+*   **LM Studio 和 Ollama 令牌跟踪**：现在为 [LM Studio](/providers/lmstudio) 和 [Ollama](/providers/ollama) 提供商跟踪令牌使用情况。（感谢 xyOz-dev！）
+*   **LM Studio 推理支持**：添加了对解析 [LM Studio](/providers/lmstudio) 响应中“思考”标签的支持，以增强对 AI 过程的透明度。（感谢 avtc！）
+*   **Chutes 的 Qwen3 模型系列**：向 [Chutes 提供商](/providers/chutes) 添加了新 Qwen3 模型（例如，`Qwen/Qwen3-235B-A22B`）。（感谢 zeozeozeo！）
+*   **Unbound 提供商模型刷新**：为 [Unbound](/providers/unbound) 模型添加了刷新按钮，以轻松更新可用模型列表并立即获得 API 密钥有效性的反馈。（感谢 pugazhendhi-m！）
+
+---
+
+## 其他
+
+*   **开发模式下的自动重新加载**：核心文件更改现在在开发模式下会自动触发窗口重新加载，以实现更快的工作流程。（感谢 hassoncs！）
+*   **简化的循环语法**：重构了多个组件中的循环结构，使用 `for...of` 循环以提高可读性。（感谢 noritaka1166！）

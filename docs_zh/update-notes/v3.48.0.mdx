@@ -1,0 +1,68 @@
+---
+description: Zoo Code 3.48.0 adds API config locking, Claude Sonnet 4.6 support, and a recursive subtask history tree, while removing browser automation, nine low-usage providers, built-in skills, and file-based system prompt overrides.
+keywords:
+  - zoo code 3.48.0
+  - api config lock
+  - claude sonnet 4.6
+  - subtask history tree
+  - browser removal
+  - provider removal
+---
+
+# Zoo Code 3.48.0 Release Notes (2026-02-17)
+
+此版本新增了 API 配置锁定、主要 provider 的 Claude Sonnet 4.6 支持，以及递归子任务历史树，同时大幅移除了浏览器自动化、九个低使用量 provider、内置技能和基于文件的系统提示覆盖。
+
+## Claude Sonnet 4.6 支持
+
+Claude Sonnet 4.6（`claude-sonnet-4-6`）现已在 Anthropic、Amazon Bedrock、Google Vertex、OpenRouter 和 Vercel AI Gateway 中可用，拥有 1M token 上下文窗口和 64K 最大输出 token。（感谢 PeterDaveHello！）([#11509](https://github.com/RooCodeInc/Roo-Code/pull/11509))
+
+## API 配置锁定
+
+API 配置选择器中新增了一个锁定图标，让你可以将当前工作区中所有模式切换的活跃 provider 和模型固定下来。锁定后，切换模式不再替换你的 API 配置——无论切换到哪种模式，相同的 provider 和模型都会保持活跃。可随时解锁以恢复正常的按模式配置行为。锁定状态按工作区存储，不会影响其他项目。([#11295](https://github.com/RooCodeInc/Roo-Code/pull/11295))
+
+## 递归子任务历史树
+
+历史视图现在将完整的嵌套子任务层级渲染为可展开树。每一层嵌套都独立缩进，并可展开或折叠，便于浏览深度的编排器任务链，并在任意深度下钻到任何分支。此前只能看到扁平或单级子任务分组。([#11299](https://github.com/RooCodeInc/Roo-Code/pull/11299))
+
+## 质量改进（QOL）
+
+* **Chat 中的批量工具调用**：连续的 `list_files`、`read_file` 和文件编辑操作现在会折叠为单个分组块，而不是以多个相同的头部堆叠。文件编辑组包含批量“全部保存”/“全部拒绝”按钮，减少了多文件任务期间的聊天杂乱。([#11245](https://github.com/RooCodeInc/Roo-Code/pull/11245))
+* **`edit` 工具**：`search_and_replace` 工具已重命名为 `edit`，并采用更扁平的参数模型（`file_path`、`old_string`、`new_string`、`replace_all`）。每次调用一次替换，默认强制唯一性。`search_and_replace` 作为向后兼容的别名保留。([#11296](https://github.com/RooCodeInc/Roo-Code/pull/11296))
+* **`disabledTools` 设置**：管理员可以通过新的 `disabledTools` 扩展或组织设置全局禁用特定的原生工具。被禁用的工具会从 API 请求中剥离，并在执行时阻止，面向需要受限工具访问的企业部署。([#11277](https://github.com/RooCodeInc/Roo-Code/pull/11277))
+* **九个 Provider 退役**：Cerebras、Chutes、DeepInfra、Doubao、Featherless、Groq、Hugging Face、IO Intelligence 和 Unbound 已被移除。已有的保存配置会在设置中显示退役消息，而非损坏的配置表单；你的凭据会保留，直到你显式删除它们。([#11297](https://github.com/RooCodeInc/Roo-Code/pull/11297))
+* **浏览器工具移除**：内置的基于 Puppeteer 的 `browser_action` 工具已被移除，相关设置、浏览器会话面板以及 `puppeteer-core` 依赖一并移除。请迁移到 [Playwright MCP](https://github.com/microsoft/playwright-mcp) 或其他基于 MCP 的浏览器工具。([#11392](https://github.com/RooCodeInc/Roo-Code/pull/11392))
+* **内置技能移除**：捆绑的 `create-mcp-server` 和 `create-mode` 技能以及所有内置技能基础设施已被移除。技能现在仅来自你的全局（`~/.roo/skills/`）和工作区（`.roo/skills/`）目录。所有技能现在都有编辑和删除按钮。可在 [skills.sh](https://skills.sh) 找到社区贡献的技能。([#11414](https://github.com/RooCodeInc/Roo-Code/pull/11414))
+* **基于文件的系统提示覆盖移除**：`.roo/system-prompt-{mode}` 文件覆盖机制已被移除，同时移除了聊天内警告横幅和模式设置中的“高级：覆盖系统提示”披露项。请迁移到自定义指令或模式级提示定制。([#11387](https://github.com/RooCodeInc/Roo-Code/pull/11387))
+* **Cloud UI 中的 Linear 集成**：云功能网格中的 Roomote Control 磁贴已替换为 Linear 集成磁贴。([#11280](https://github.com/RooCodeInc/Roo-Code/pull/11280))
+
+## Bug 修复
+
+* **编排器委派可靠性**：修复了编排器式多任务工作流中的一系列竞态条件和状态丢失 bug，其中父任务可能在委派给子任务后丢失历史、变得无法恢复，或保留过时的“活跃”状态。（感谢 SannidhyaSah、0xMink！）([#11281](https://github.com/RooCodeInc/Roo-Code/pull/11281), [#11331](https://github.com/RooCodeInc/Roo-Code/pull/11331), [#11335](https://github.com/RooCodeInc/Roo-Code/pull/11335), [#11302](https://github.com/RooCodeInc/Roo-Code/pull/11302))
+* **导航期间聊天历史丢失**：修复了在活跃流式任务期间导航到 Cloud 或设置页面时，聊天历史消息在视觉上消失的问题。（感谢 SannidhyaSah！）([#11372](https://github.com/RooCodeInc/Roo-Code/pull/11372))
+* **恢复时压缩摘要丢失**：修复了任务完成后执行的上下文压缩在通过新消息恢复任务时被静默撤销，导致后续每次请求 token 成本递增的问题。（感谢 SannidhyaSah！）([#11488](https://github.com/RooCodeInc/Roo-Code/pull/11488))
+* **远程 VS Code 编辑崩溃**：修复了 WSL 和 SSH 远程环境中“Tab close: Invalid tab not found!”（标签页关闭：找不到无效的标签页！）错误在 diff 视图中导致整个编辑操作中断的偶发崩溃。（感谢 0xMink！）([#11363](https://github.com/RooCodeInc/Roo-Code/pull/11363))
+* **Windows 检查点路径不匹配**：修复了 Windows 上的检查点失败（“检查点只能在原始工作区中使用”），原因是 git 的正斜杠路径与 VS Code 的反斜杠路径之间的格式差异。（感谢 0xMink！）([#11346](https://github.com/RooCodeInc/Roo-Code/pull/11346))
+* **Gemini 空流错误**：修复了受限推理级别（如 `gemini-3-pro-preview`）的 Gemini 模型出现的“No output generated”（未生成输出）错误，其原因是转发自其他模型的过时推理强度值。([#11303](https://github.com/RooCodeInc/Roo-Code/pull/11303))
+* **自动批准倒计时未取消**：修复了在倒计时计时器活动时关闭自动批准会停止视觉倒计时、但在后台继续执行自动提交的问题。（感谢 SannidhyaSah！）([#11439](https://github.com/RooCodeInc/Roo-Code/pull/11439))
+* **`ask_followup_question` 校验**：修复了 AI 模型在 `ask_followup_question` 调用中省略 `follow_up` 参数时崩溃的问题，用一个可操作的重试提示替换了晦涩的 `TypeError`。（感谢 rossdonald！）([#11484](https://github.com/RooCodeInc/Roo-Code/pull/11484))
+* **面板关闭时 Webview 崩溃**：修复了在任务运行时关闭或重新加载 Zoo Code 面板时，VS Code 开发者控制台中未处理的 promise 拒绝错误。（感谢 0xMink！）([#11313](https://github.com/RooCodeInc/Roo-Code/pull/11313))
+* **虚假的“未保存更改”提示**：修复了切换模式或 API 配置后打开设置时，即使没有任何编辑也会错误显示未保存更改警告的问题。（感谢 robertjmcintyre！）([#11334](https://github.com/RooCodeInc/Roo-Code/pull/11334))
+* **双重通知声音**：修复了由 React StrictMode 在开发期间的双重调用行为导致的通知声音播放两次的问题。([#11283](https://github.com/RooCodeInc/Roo-Code/pull/11283))
+* **滚动锚定竞态条件**：修复了聊天视图中的滚动锚定问题，包括启动新任务时底部锚点漂移、代码块抖动，以及流式输出期间粘性跟随模式中断。([#11385](https://github.com/RooCodeInc/Roo-Code/pull/11385))
+* **聊天期间粘贴的图像被清除**：修复了在 Zoo 正在回复时，粘贴的图像从聊天输入框中被移除的问题。([#11375](https://github.com/RooCodeInc/Roo-Code/pull/11375))
+* **zsh 进程替换误报**：修复了 shell 命令安全检查器错误标记变量赋值中有效 zsh 进程替换语法的问题。([#11365](https://github.com/RooCodeInc/Roo-Code/pull/11365))
+* **命令自动批准 JS 误报**：修复了命令自动批准安全检查错误匹配其他安全的 shell 命令中内联 JavaScript 模式的问题。([#11382](https://github.com/RooCodeInc/Roo-Code/pull/11382))
+* **API 模块中的任务恢复**：修复了使用 API 模块时的任务恢复问题。([#11369](https://github.com/RooCodeInc/Roo-Code/pull/11369))
+* **静默温度覆盖**：修复了当模型从 `getModelParams` 返回 `undefined` 时 `defaultTemperature` 被静默忽略，导致某些 provider 出现非预期温度值的问题。([#11218](https://github.com/RooCodeInc/Roo-Code/pull/11218))
+
+## CLI 更新
+
+* **stdin 流模式**：CLI 现在接受来自 stdin 的输入，支持完全自动化的脚本工作流，例如 `echo "task" | roo`。([#11476](https://github.com/RooCodeInc/Roo-Code/pull/11476))
+* **默认自动批准**：自动批准现在是默认的 CLI 行为。使用新的 `-a` / `--require-approval` 标志可选择加入手动批准提示。旧的 `--yes` 和 `--dangerously-skip-permissions` 标志已被移除。([#11424](https://github.com/RooCodeInc/Roo-Code/pull/11424))
+* **linux-arm64 支持**：每个版本现在随附原生 `roo-cli-linux-arm64.tar.gz` 二进制文件，适用于 AWS Graviton、Raspberry Pi 和其他 ARM64 Linux 环境。([#11314](https://github.com/RooCodeInc/Roo-Code/pull/11314))
+* **默认模型更新为 Claude Opus 4.6**：CLI 默认模型已从 Claude Opus 4.5 更新为 Claude Opus 4.6。([#11273](https://github.com/RooCodeInc/Roo-Code/pull/11273))
+
+## Provider 更新
+
+* **Z.ai 的 GLM-5**：GLM-5 现已在 Z.ai provider 中可用，拥有约 200K token 上下文窗口（202,752 token）、16,384 最大输出 token、提示缓存，以及支持禁用/中等推理强度的思考模式。([#11440](https://github.com/RooCodeInc/Roo-Code/pull/11440))

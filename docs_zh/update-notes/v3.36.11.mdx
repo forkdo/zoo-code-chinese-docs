@@ -1,0 +1,29 @@
+---
+description: 现在，Claude Code、Z.ai 和 OpenAI 兼容提供商默认启用原生工具调用，并修复了多个 Bedrock 和 MCP 兼容性问题。
+keywords:
+  - zoo code 3.36.11
+  - native tool calling
+  - claude code provider
+  - z.ai
+  - openai compatible
+  - bedrock fixes
+image: /img/v3.36.11/v3.36.11.png
+---
+
+# Zoo Code 3.36.11 版本发布说明 (2025-12-17)
+
+此版本为更多提供商默认启用了原生工具调用，并修复了 Bedrock 和 MCP 工具的多个兼容性问题。
+
+<img src="/img/v3.36.11/v3.36.11.png" alt="Zoo Code v3.36.11 Release" width="600" />
+
+## 原生工具调用增强
+
+现在，原生工具调用默认对三个额外的提供商启用：Claude Code、Z.ai 模型（GLM-4.5 系列、GLM-4.6 等）和 OpenAI 兼容提供商。这为这些模型提供了更直接、更高效的通信方式，提高了使用工具时的可靠性和性能 ([#10077](https://github.com/RooCodeInc/Roo-Code/pull/10077)、[#10158](https://github.com/RooCodeInc/Roo-Code/pull/10158)、[#10159](https://github.com/RooCodeInc/Roo-Code/pull/10159))。
+
+## Bug 修复
+
+* **MCP 工具 Schema 规范化**：通过规范化 JSON Schema 格式，修复了 MCP 工具 Schema 在与 Amazon Bedrock 或 OpenAI 严格模式一起使用时可能无法通过验证的问题 ([#10148](https://github.com/RooCodeInc/Roo-Code/pull/10148))
+* **Bedrock 中使用带有点号或冒号的 MCP 工具名称**：修复了在与 Amazon Bedrock 一起使用名称中包含点号或冒号的 MCP 服务器（如 `awslabs.aws-documentation-mcp-server`）时的验证错误 ([#10152](https://github.com/RooCodeInc/Roo-Code/pull/10152))
+* **Bedrock 任务恢复**：修复了在使用 Amazon Bedrock 且禁用原生工具时恢复任务时的错误，用户会遇到 `The toolConfig field must be defined` 错误 ([#10155](https://github.com/RooCodeInc/Roo-Code/pull/10155))
+* **Zoo Code Cloud 模型刷新**：修复了登录 Zoo Code Cloud 后，需要身份验证的模型（如 `google/gemini-3-flash`）不会立即出现的问题 ([#10156](https://github.com/RooCodeInc/Roo-Code/pull/10156))
+* **AWS GovCloud 和中国区域支持**：修复了 AWS GovCloud 和中国区域的用户无法将自定义 ARN 与 Bedrock 提供商一起使用的问题（感谢 wisestmumbler！） ([#10157](https://github.com/RooCodeInc/Roo-Code/pull/10157))

@@ -1,0 +1,22 @@
+---
+description: Zoo Code 3.38.3 添加了可选的递归规则加载功能，以支持多文件夹配置，并修复了多个可靠性问题。
+keywords:
+  - zoo code 3.38.3
+  - rules
+  - agents.md
+  - bug fixes
+---
+
+# Zoo Code 3.38.3 发行说明（2026-01-03）
+
+此版本新增了递归加载子文件夹中项目规则的选项，并修复了多个可靠性问题。
+
+## 体验优化
+
+* **可选的递归子文件夹规则加载**：新增一项 Context 设置，可自动从子目录中加载额外的 `.roo/rules` 和 `AGENTS.md` 文件，使在多仓库或单体仓库文件夹中工作时无需手动切换根目录（[#10446](https://github.com/RooCodeInc/Roo-Code/pull/10446)）
+
+## 问题修复
+
+* 修复了 Claude Code 用户可能每天被迫重新登录的问题，提升了会话可靠性并减少了中断情况（[#10410](https://github.com/RooCodeInc/Roo-Code/pull/10410)）
+* 修复了当消息的 `text` 值不是字符串时，聊天内文本转语音（TTS）流程可能崩溃的问题，避免了任务中途聊天面板中断（感谢 notglossy！）（[#10431](https://github.com/RooCodeInc/Roo-Code/pull/10431)）
+* 修复了 Zoo Code 原生 `read_file` 工具模式未声明每次调用支持的最大文件数量的问题，减少了在限制较严格的环境中工具调用失败的情况（[#10449](https://github.com/RooCodeInc/Roo-Code/pull/10449)）```

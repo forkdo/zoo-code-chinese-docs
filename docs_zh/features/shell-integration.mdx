@@ -1,0 +1,537 @@
+---
+description: 了解 Zoo Code 如何与你的 shell 集成以执行命令。终端问题与 shell 配置的故障排除指南。
+keywords:
+  - shell 集成
+  - 终端命令
+  - 命令执行
+  - shell 配置
+  - 故障排除
+---
+import Codicon from '@site/src/components/Codicon';
+
+# 终端 Shell 集成
+
+终端 Shell 集成是 Zoo Code 的一个关键特性，它让 Zoo Code 能够在你的终端中执行命令并智能地处理它们的输出。这种 AI 与你的开发环境之间的双向通信释放了自动化能力。
+
+<div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden' }}>
+  <iframe
+    src="https://www.youtube.com/embed/rkWBHeG9A-4?rel=0&modestbranding=1"
+    style={{
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+    }}
+    frameBorder="0"
+    allow="autoplay; encrypted-media"
+    allowFullScreen
+    title="终端集成教程"
+  ></iframe>
+</div>
+
+<br />
+
+---
+
+## 什么是 Shell 集成？
+
+Shell 集成在 Zoo Code 中自动启用，并直接连接到你终端的命令执行生命周期，无需你进行任何设置。这个内置特性让 Zoo 能够：
+
+- 通过 [`execute_command`](/advanced-usage/available-tools/execute-command) 工具代表你执行命令
+- 实时读取命令输出，无需手动复制粘贴
+- 自动检测并修复正在运行的应用程序中的错误
+- 观察命令的退出码以确定成功或失败
+- 在你浏览项目时跟踪工作目录的变化
+- 无需用户干预，根据终端输出做出智能反应
+- 使用命令执行消息旁边出现的停止按钮，直接从聊天界面停止正在运行的命令。
+
+<img src="/img/v3.15/v3.15.png" alt="聊天界面中的停止命令按钮" width="600" />
+
+当你让 Zoo 执行诸如安装依赖、启动开发服务器或分析构建错误等任务时，shell 集成会在后台工作，使这些交互变得流畅而高效。
+
+---
+
+## 终端集成设置
+
+Zoo Code 提供了用于微调其与终端交互方式的设置。要访问这些设置：
+1. 点击 Zoo Code 侧边栏右上角的 <Codicon name="gear" /> 图标。
+2. 在打开的设置面板中，从左侧菜单中选择 "Terminal"（终端）分组。
+
+### 命令执行超时设置
+
+你可以通过 VS Code 设置来配置命令执行超时。这些设置可在你的 `settings.json` 文件（`Ctrl/Cmd + Shift + P` → "Preferences: Open User Settings (JSON)"）中访问。
+
+#### `roo-cline.commandExecutionTimeout`
+- **类型**：数字（秒）
+- **默认值**：`0`
+- **范围**：0-600
+- **描述**：命令执行的超时时间（秒）。当设置为大于 0 的值时，运行时间超过该时长的命令将被终止。值为 0 表示无超时（命令可以无限期运行）。
+
+**配置示例**：
+```json
+{
+  "roo-cline.commandExecutionTimeout": 300
+}
+```
+
+此示例为所有命令设置了 5 分钟的超时。
+
+#### `roo-cline.commandTimeoutAllowlist`
+- **类型**：字符串数组
+- **默认值**：`[]`
+- **描述**：免于执行超时的命令。匹配此列表中条目的命令将不受 `commandExecutionTimeout` 限制，允许它们在无时间限制的情况下运行。对于已知的长时运行操作（如构建过程或部署脚本）非常有用。
+
+**配置示例**：
+```json
+{
+  "roo-cline.commandExecutionTimeout": 300,
+  "roo-cline.commandTimeoutAllowlist": ["npm run build", "docker build", "npm test"]
+}
+```
+
+此示例设置了 5 分钟的超时，但将构建和测试命令排除在超时之外。
+
+### 基本设置
+
+#### 终端输出行数限制
+<img src="/img/shell-integration/shell-integration-13.png" alt="终端输出行数限制滑块设置为 500" width="600" />
+按行数截断。Zoo 保留开头和结尾，并丢弃中间部分，插入 "[...省略 N 行...]" 标记以保持在限制范围内。机制：保留允许行预算约 20% 的头部和 80% 的尾部，并插入省略标记，同时在尾部前保留一个空行以提高可读性。当命令打印大量行（例如长日志）而你主要关注头部和最终结果时使用。当重要细节位于中间时避免使用。默认值：500 行。
+
+#### 终端字符数限制
+<img src="/img/shell-integration/shell-integration-15.png" alt="终端字符数限制设置" width="600" />
+对输出总大小（字符数）的硬性上限。Zoo 保留开头和结尾，并省略中间部分，插入 "[...省略 N 个字符...]" 标记。机制：优先于行数限制；保留字符预算约 20% 的头部和约 80% 的尾部，覆盖行数限制以防止由超长行引起的内存问题。当命令打印极长的行或巨大的数据块时使用。当你需要确切的完整内容时避免使用。
+
+#### 压缩进度条输出
+<img src="/img/shell-integration/shell-integration-14.png" alt="压缩进度条输出复选框" width="600" />
+开启：通过处理回车符（\r）和退格符（\b）来折叠进度条/旋转图标，只保留最终状态，然后应用游程编码来折叠重复的行。关闭：精确保留每次打印的更新。当你不需要中间旋转图标状态时（建议开启）。仅在你需要逐步调试进度行为时才禁用。
+
+### 高级设置
+
+除非另有说明，这些设置仅在 "Use Inline Terminal (recommended)"（使用内联终端，推荐）关闭（即使用 VS Code 终端）时生效。
+
+:::info 重要
+**这些设置需要重启终端才会生效**
+
+对高级终端设置的更改只有在重启终端后才会生效。要重启终端：
+
+1. 点击终端面板中的垃圾桶图标以关闭当前终端
+2. 使用 Terminal → New Terminal 或 <kbd>Ctrl</kbd>+<kbd>`</kbd>（反引号）打开一个新终端
+
+更改任何这些设置后，请务必重启所有已打开的终端。
+:::
+
+<a id="use-inline-terminal-recommended"></a>
+<a id="disable-terminal-shell-integration"></a>
+#### Use Inline Terminal (recommended)
+<img src="/img/shell-integration/shell-integration-16.png" alt="使用内联终端（推荐）开关" width="600" />
+控制 Zoo Code 执行终端命令的方式。
+
+- 开启（使用内联终端）：使用内联终端（在聊天中）运行命令，绕过 shell 配置文件和 VS Code shell 集成，以提高可靠性并加快启动速度。机制：使用后台 "execa" 提供程序并直接流式传输输出（无 VS Code OSC 633/133 标记）。
+
+    <img src="/img/shell-integration/shell-integration-12.png" alt="当“使用内联终端（推荐）”开启时的 Zoo Code 内联终端" width="600" />
+    *内联终端处于活动状态（使用内联终端已开启）。*
+
+- 关闭（使用 VS Code 终端）：使用 VS Code 集成终端和你的 shell 配置文件；可能需要 shell 集成，并且更可能遇到 "Shell Integration Unavailable"（shell 集成不可用）问题。仅当你特别需要终端 UI 功能或交互式配置文件行为时才使用此选项。
+
+#### 决策指南：内联终端开启还是关闭
+- 当你需要可靠性、更快的启动，或者你的 shell 配置文件导致问题时，使用开启。
+- 当你需要终端 UI 功能或需要运行你的 shell 提示符自定义时使用关闭。
+- 提示：如果终端命令失败或卡住，切换到开启并重试。
+
+:::info 运行时环境
+在 macOS（以及可能的其他操作系统）上，提供给 VS Code 进而提供给 Zoo Code 的环境可能因 VS Code 的启动方式而异。
+
+如果通过命令行使用 `code` 命令启动，VS Code 和 Zoo Code 会继承启动它的 shell 的环境。
+
+如果通过 Finder、Dock 或 Spotlight 启动，从 `.zshrc` 或 `.zprofile` 导出的环境很可能会缺失。
+
+如果你依赖这些文件中的环境变量，而它们在 VS Code 中缺失，请将它们移动到 `.zshenv`，然后注销并重新登录，以便窗口管理器获取新的设置。
+:::
+
+以下高级设置仅在此项为关闭时（即使用 VS Code 终端时）生效：
+
+#### 继承环境变量
+<img src="/img/shell-integration/shell-integration-17.png" alt="继承环境变量复选框" width="600" />
+仅限 VS Code 终端。控制 VS Code 集成终端是否从父 VS Code 进程继承环境变量。镜像 VS Code 设置 [`terminal.integrated.inheritEnv`](https://code.visualstudio.com/docs/editor/integrated-terminal#_inherit-environment-variables)。注意：内联终端（"Use Inline Terminal (recommended)" 开启）作为后台进程运行，始终使用扩展的 Node 进程环境；此设置不影响它。如果你依赖 VS Code 提供的 PATH/代理/认证变量，请保持启用（VS Code 默认值）。仅在需要干净、可复现的集成终端会话或调试环境冲突时禁用。
+
+#### 终端 shell 集成超时
+<img src="/img/shell-integration/shell-integration-18.png" alt="终端 shell 集成超时滑块设置为 15 秒" width="600" />
+Zoo 等待 VS Code shell 集成初始化以及集成流开始的时间。如果在超时时间内未准备就绪，将发出 "no shell integration"（无 shell 集成）事件，并且在重试时执行将回退到内联终端。当你的 shell/配置文件启动时间较长或你看到 "Shell Integration Unavailable" 错误时使用。当你使用内联终端时（那里不适用）避免增加此值。默认值：15 秒。仅在使用 VS Code 终端时适用。
+
+#### 终端命令延迟
+<img src="/img/shell-integration/shell-integration-19.png" alt="终端命令延迟滑块设置为 0 毫秒" width="600" />
+在每个命令之后添加一个小的延迟，以帮助 VS Code 终端刷新所有输出。机制：为 bash/zsh 设置 `PROMPT_COMMAND='sleep N'`，并为 PowerShell 追加 `start-sleep -milliseconds N`。当你看到尾部输出被截断/丢失或提示符竞态时使用。当输出捕获看起来正确时避免使用。设置为 0 以禁用。默认值：0 毫秒。
+
+#### 启用 PowerShell 计数器变通方案
+<img src="/img/shell-integration/shell-integration-20.png" alt="启用 PowerShell 计数器变通方案复选框" width="600" />
+开启：在每个命令后追加 `; "(Roo/PS Workaround: N)" > $null`，以强制产生可靠的执行后信号，并避免在某些配置上出现输出丢失或重复的情况。当你使用 Windows PowerShell 且输出不完整或重复，或者连续两次运行同一命令失败时，使用此选项。关闭：原样运行 PowerShell 命令。
+
+#### 清除 ZSH 行尾标记
+<img src="/img/shell-integration/shell-integration-21.png" alt="清除 ZSH 行尾标记复选框" width="600" />
+开启：省略 Zsh 的行尾标记（%），以便正确解析输出。机制：设置 `PROMPT_EOL_MARK=""`。当捕获的输出以多余的 % 结尾或解析看起来有误时使用。关闭：保留默认的行尾标记（在某些配置上可能会混淆解析）。
+
+#### 启用 Oh My Zsh 集成
+<img src="/img/shell-integration/shell-integration-22.png" alt="启用 Oh My Zsh 集成复选框" width="600" />
+适用于使用流行的 Oh My Zsh 框架的 Zsh 用户。如果你使用 Oh My Zsh 并遇到终端命令执行或输出渲染的一般问题，且这些问题无法通过其他设置解决，请启用此项。这通过设置 `ITERM_SHELL_INTEGRATION_INSTALLED=Yes` 来帮助 Zoo Code 与 Oh My Zsh 特定的 shell 集成机制保持一致。可能需要重启 IDE。
+
+#### 启用 Powerlevel10k 集成
+<img src="/img/shell-integration/shell-integration-23.png" alt="启用 Powerlevel10k 集成复选框" width="600" />
+适用于使用 Powerlevel10k 主题（用于 Zsh）的用户。如果你的 Powerlevel10k 提示符（可能相当复杂）似乎干扰了 Zoo Code 正确检测命令边界、解析输出或跟踪当前工作目录的能力，请启用此项。这会设置 `POWERLEVEL9K_TERM_SHELL_INTEGRATION=true`。
+
+#### 启用 ZDOTDIR 处理
+<img src="/img/shell-integration/shell-integration-24.png" alt="启用 ZDOTDIR 处理复选框" width="600" />
+开启：使用临时 ZDOTDIR，以便 VS Code shell 集成在保留你的配置的同时与 zsh 一起工作。机制：创建一个带有 `.zshrc` 的临时目录，该文件引用 VS Code 的 shell 集成脚本，然后重新引用你原始的 zsh 文件并重置 ZDOTDIR；临时目录在初始化后被清理。当 zsh shell 集成失败或与你的 dotfiles 冲突时使用。关闭：使用你正常的 ZDOTDIR。
+
+---
+
+## Shell 集成的工作原理
+
+Shell 集成将 Zoo 实时连接到你终端的命令执行过程：
+
+1. **连接**：当你打开终端时，VS Code 与你的 shell 建立特殊连接。
+
+2. **命令跟踪**：VS Code 通过检测以下内容来监控你的终端活动：
+   - 何时出现新的提示符
+   - 何时输入命令
+   - 命令何时开始运行
+   - 命令何时完成（以及它是成功还是失败）
+   - 你当前所在的目录
+
+3. **不同的 shell，相同的结果**：每种 shell 类型（Bash、Zsh、PowerShell、Fish）在后台的实现方式略有不同，但它们都向 Zoo 提供相同的功能。
+
+4. **信息收集**：Zoo 可以看到哪些命令正在运行、它们在何处运行、运行了多长时间、是否成功以及它们的完整输出——所有这些都无需你复制和粘贴任何内容。
+
+---
+
+## Shell 集成故障排除
+
+#### 快速修复
+1. 将 VS Code/Cursor 更新到最新版本（需要 VS Code 1.93+）。
+2. 命令面板（Ctrl+Shift+P / Cmd+Shift+P）→ "Terminal: Select Default Profile" → 选择 bash、zsh、PowerShell 或 fish。
+3. Windows PowerShell：运行 `Set-ExecutionPolicy RemoteSigned -Scope CurrentUser`，然后重启 VS Code。
+4. WSL（bash）：将 `. "$(code --locate-shell-integration-path bash)"` 添加到 `~/.bashrc`。
+
+#### PowerShell 执行策略（Windows）
+
+PowerShell 默认限制脚本执行。要配置：
+
+1. 以管理员身份打开 PowerShell
+2. 检查当前策略：`Get-ExecutionPolicy`
+3. 设置适当的策略：`Set-ExecutionPolicy RemoteSigned -Scope CurrentUser`
+
+常见策略：
+- `Restricted`：不允许任何脚本（默认）
+- `RemoteSigned`：本地脚本可以运行；下载的脚本需要签名
+- `Unrestricted`：所有脚本均可运行，并带有警告
+- `AllSigned`：所有脚本都必须签名
+
+#### 手动安装 Shell 集成
+
+如果自动集成失败，请将相应的行添加到你的 shell 配置中：
+
+**Bash**（`~/.bashrc`）：
+```bash
+[[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path bash)"
+```
+
+**Zsh**（`~/.zshrc`）：
+```bash
+[[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
+```
+
+**PowerShell**（`$Profile`）：
+```powershell
+if ($env:TERM_PROGRAM -eq "vscode") { . "$(code --locate-shell-integration-path pwsh)" }
+```
+
+**Fish**（`~/.config/fish/config.fish`）：
+```fish
+string match -q "$TERM_PROGRAM" "vscode"; and . (code --locate-shell-integration-path fish)
+```
+
+#### 终端自定义问题
+
+如果你使用终端自定义工具：
+
+**Powerlevel10k**：
+```bash
+# 在 ~/.zshrc 中引用 powerlevel10k 之前添加
+typeset -g POWERLEVEL9K_TERM_SHELL_INTEGRATION=true
+```
+
+**替代方案**：在 Zoo Code 中启用 Powerlevel10k 集成设置。
+
+#### 验证 Shell 集成状态
+
+使用以下命令确认 shell 集成处于活动状态：
+
+**Bash**：
+```bash
+set | grep -i '[16]33;'
+echo "$PROMPT_COMMAND" | grep vsc
+trap -p DEBUG | grep vsc
+```
+
+**Zsh**：
+```zsh
+functions | grep -i vsc
+typeset -p precmd_functions preexec_functions
+```
+
+**PowerShell**：
+```powershell
+Get-Command -Name "*VSC*" -CommandType Function
+Get-Content Function:\Prompt | Select-String "VSCode"
+```
+
+**Fish**：
+```fish
+functions | grep -i vsc
+functions fish_prompt | grep -i vsc
+```
+
+shell 集成处于活动状态的视觉指示：
+1. 终端标题栏中的 shell 集成指示器
+2. 命令检测高亮
+3. 终端标题中的工作目录更新
+4. 命令时长和退出码报告
+
+---
+
+#### WSL：最佳实践设置
+
+使用 Windows Subsystem for Linux（WSL）时，有两种不同的方式将 VS Code 与 WSL 结合使用，每种方式对 shell 集成都有不同的影响：
+
+#### 方法 1：VS Code Windows 配合 WSL 终端
+
+在此设置中：
+- VS Code 原生运行在 Windows 上
+- 你使用 VS Code 中的 WSL 终端集成功能
+- shell 命令通过 WSL 桥接执行
+- 由于 Windows-WSL 通信，可能会遇到额外的延迟
+- shell 集成标记可能会受到 WSL-Windows 边界的影响：你必须确保在 WSL 环境中为你的 shell 加载了 `source "$(code --locate-shell-integration-path <shell>)"`，因为它可能不会自动加载；请参阅上文。
+
+#### 方法 2：在 WSL 中运行 VS Code
+
+在此设置中：
+- 你使用 `code .` 直接从内部启动 VS Code
+- VS Code 服务器原生运行在 Linux 环境中
+- 直接访问 Linux 文件系统和工具
+- shell 集成的性能和可靠性更好
+- 由于 VS Code 原生运行在 Linux 环境中，shell 集成自动加载
+- WSL 开发的推荐方法
+
+为了获得最佳的 WSL shell 集成，我们建议：
+1. 打开你的 WSL 发行版
+2. 导航到你的项目目录
+3. 使用 `code .` 启动 VS Code
+4. 使用 VS Code 内的集成终端
+
+---
+
+#### Cygwin（bash、zsh）
+
+Cygwin 在 Windows 系统上提供类 Unix 环境。要将 Cygwin 配置为 VS Code 中的终端：
+
+1. 从 [https://www.cygwin.com/](https://www.cygwin.com/) 安装 Cygwin
+
+2. 打开 VS Code 设置：
+   - 选择 File > Preferences > Settings
+   - 点击右上角的 "Open Settings (JSON)" 图标
+   
+3. 将以下配置添加到你的 `settings.json`（位于顶级花括号 `{}` 内）：
+   ```json
+   {
+     "terminal.integrated.profiles.windows": {
+       "Cygwin": {
+         "path": "C:\\cygwin64\\bin\\bash.exe",
+         "args": ["--login"],
+         "env": {"CHERE_INVOKING": "1"}
+       }
+     },
+     "terminal.integrated.defaultProfile.windows": "Cygwin"
+   }
+   ```
+
+   > 注意：如果你安装的是 32 位 Cygwin，请使用 `"C:\\cygwin\\bin\\bash.exe"` 作为路径。
+
+4. 理解配置：
+   - `path`：指向你 Cygwin 安装中的 Bash 可执行文件
+   - `args`：`--login` 标志确保 shell 读取配置文件
+   - `env`：`CHERE_INVOKING` 环境变量告诉 Cygwin 使用当前目录作为工作目录
+   - `terminal.integrated.defaultProfile.windows`：将 Cygwin 设置为默认终端配置文件
+
+5. 打开一个新的 Cygwin 终端：
+   - 按 Ctrl+Shift+（反引号）打开一个新终端，或
+   - 按 `F1`，输入 "Terminal: Create New Terminal (with Profile)"，然后选择 "Cygwin"
+
+虽然我们的测试表明这开箱即用，但如果你遇到 Cygwin 的 shell 集成问题，请确保已按照 "手动安装 Shell 集成" 部分所述将适当的 shell 集成钩子添加到你的 Cygwin bash 配置文件中。
+
+#### VS Code 在 Windows 上针对 Fish + Cygwin 的 Shell 集成
+
+对于在 Cygwin 环境中运行 Fish 终端的 Windows 用户，以下是 VS Code 的 shell 集成工作方式：
+
+1.  **（可选）定位 Shell 集成脚本：**
+    在 VS Code *内部*打开你的 Fish 终端并运行以下命令：
+    ```bash
+    code --locate-shell-integration-path fish
+    ```
+    这将输出 `shellIntegration.fish` 脚本的路径。记下此路径。
+
+2.  **更新你的 Fish 配置：**
+    编辑你的 `config.fish` 文件（通常位于 Cygwin 主目录中的 `~/.config/fish/config.fish`）。添加以下行，最好放在 `if status is-interactive` 块内或文件的最末尾：
+
+    ```fish
+    # 示例 config.fish 结构
+    if status is-interactive
+        # 你的其他交互式 shell 配置...
+        # 自动定位集成脚本：
+        string match -q "$TERM_PROGRAM" "vscode"; and . (code --locate-shell-integration-path fish)
+
+        # 或者如果上述方法对你无效：
+        # 引用 VS Code shell 集成脚本
+        # 重要：将下面的示例路径替换为你第 1 步中找到的实际路径。
+        # 确保路径是 Cygwin 可以理解的格式（例如，使用 /cygdrive/c/...）。
+        # source "/cygdrive/c/Users/YourUser/.vscode/extensions/..../shellIntegration.fish"
+    end
+    ```
+    *请记住将示例路径替换为第 1 步中的实际路径，并正确格式化为 Cygwin 可识别的形式。*
+
+3.  **配置 VS Code 终端配置文件：**
+    打开你的 VS Code `settings.json` 文件（Ctrl+Shift+P -> "Preferences: Open User Settings (JSON)"）。在 `terminal.integrated.profiles.windows` 下更新或添加 Fish 配置文件，如下所示：
+
+    ```json
+    {
+      // ... 其他设置 ...
+
+      "terminal.integrated.profiles.windows": {
+        // ... 其他配置文件 ...
+
+        // 推荐：使用 bash.exe 以登录 shell 方式启动 fish
+        "fish": {
+          "path": "C:\\cygwin64\\bin\\bash.exe", // 或你的 Cygwin bash 路径
+          "args": [
+            "--login",
+            "-i",
+            "-c",
+            "exec fish"
+          ],
+          "icon": "terminal-bash" // 可选：使用可识别的图标
+        },
+
+        // 替代方案（如果上述方法失败）：直接启动 fish
+        "fish-direct": {
+          "path": "C:\\cygwin64\\bin\\fish.exe", // 确保它在你的 Windows PATH 中或提供完整路径
+          // 在此处使用 'options' 而不是 'args'；否则，你可能会遇到错误 "terminal process terminated exit code 1"。
+          "options": ["-l", "-c"], // 示例：登录和交互标志。
+          "icon": "terminal-fish" // 可选：使用 fish 图标
+        }
+      },
+
+      // 可选：如果需要，将 fish 设置为默认
+      // "terminal.integrated.defaultProfile.windows": "fish", // 或 "fish-direct"，取决于你使用的配置。
+
+      // ... 其他设置 ...
+    }
+    ```
+    *注意：在 Cygwin 环境中，使用 `bash.exe --login -i -c "exec fish"` 通常更可靠，以确保在 `fish` 启动之前正确设置环境。但是，如果该方法不起作用，请尝试 `fish-direct` 配置文件。*
+
+4.  **重启 VS Code：**
+    完全关闭并重新打开 Visual Studio Code 以应用更改。
+
+5.  **验证：**
+    在 VS Code 中打开一个新的 Fish 终端。shell 集成特性（如命令装饰、更好的命令历史导航等）现在应该处于活动状态。你可以通过运行简单的命令（如 `echo "Hello from integrated Fish!"`）来测试基本功能。 <img src="/img/shell-integration/shell-integration-8.png" alt="Fish Cygwin 集成示例" width="600" />
+
+此设置在 Windows 系统上使用 Cygwin、Fish 和 Starship 提示符时可靠运行，应能帮助具有类似配置的用户。
+
+#### Ctrl+C 行为
+
+**问题**：如果在 Zoo 尝试运行命令时终端中已经输入了文本，Zoo 会先按下 Ctrl+C 来清除该行，这可能会中断正在运行的进程。
+
+**变通方案**：在让 Zoo 执行终端命令之前，确保你的终端提示符为空（没有输入部分命令）。
+
+#### 多行命令问题
+
+**问题**：跨越多行的命令会让 Zoo 感到困惑，并可能显示来自先前命令的输出与当前输出混合在一起。
+
+**变通方案**：不要使用多行命令，而是使用 `&&` 进行命令链接，将所有内容保持在一行上（例如，`echo a && echo b`，而不是将每个命令分别输入到单独的行上）。
+
+#### PowerShell 特定问题
+
+1. **过早完成**：PowerShell 有时会在所有输出显示之前告诉 Zoo 命令已完成。
+2. **重复命令**：PowerShell 可能拒绝连续两次运行同一命令。
+
+**变通方案**：启用 "PowerShell counter workaround"（PowerShell 计数器变通方案）设置，并在设置中将终端命令延迟设置为 150 毫秒，以便为命令提供更多完成时间。
+
+#### 终端输出不完整
+
+**问题**：有时 VS Code 不会显示或捕获命令的所有输出。
+
+**变通方案**：如果你注意到输出缺失，请尝试关闭并重新打开终端选项卡，然后再次运行命令。这会刷新终端连接。
+
+#### Python 虚拟环境（venv）问题
+
+**问题**：禁用 shell 集成将禁用 venv；venv 由 VS Code 管理，Zoo 对其一无所知，因为禁用 shell 集成使用了完全不同的机制来运行命令（execa）。
+
+**变通方案**：如果你需要在 Zoo Code 中使用 Python 虚拟环境，你可以：
+
+```bash
+killall code # 关闭所有 VS Code 窗口！
+. venv/bin/activate
+code
+```
+
+这样，环境在 code 启动之前就已配置好，因此 Zoo 应该能够继承它。
+
+#### 检查调试日志
+当发生 shell 集成问题时，请检查调试日志：
+1. 打开 Help → Toggle Developer Tools → Console
+2. 设置 "Show All Levels" 以查看所有日志消息
+3. 查找包含 `[Terminal Process]` 的消息
+4. 检查错误消息中的 `preOutput` 内容：
+   - 空的 preOutput（`''`）意味着 VS Code 没有发送任何数据
+   - 这表明可能存在 VS Code shell 集成问题，或超出我们控制范围的上游 bug
+   - shell 集成标记的缺失可能需要调整设置，以绕过可能与 shell 初始化和 VS Code 加载特殊 shell 集成钩子相关的潜在上游 bug 或本地工作站配置问题
+
+#### 使用 VS Code 终端集成测试扩展
+[VS Code Terminal Integration Test Extension](https://github.com/KJ7LNW/vsce-test-terminal-integration) 通过测试不同的设置组合来帮助诊断 shell 集成问题：
+
+1. **当命令卡住时**：
+   - 如果你看到 "command already running"（命令已在运行）警告，请点击 "Reset Stats" 以重置终端状态
+   - 这些警告表明 shell 集成不工作
+   - 尝试不同的设置组合，直到找到有效的组合
+   - 如果真的卡住了，通过关闭窗口并按 F5 来重启扩展
+
+2. **测试设置**：
+   - 系统地尝试以下不同组合：
+     * 终端命令延迟
+     * Shell 集成设置
+   - 记录哪些组合成功或失败
+   - 这有助于识别 shell 集成问题中的模式
+
+3. **报告问题**：
+   - 一旦你找到了有问题的配置
+   - 记录确切的设置组合
+   - 注意你的环境（操作系统、VS Code 版本、shell 以及任何 shell 提示符自定义）
+   - 打开一个包含这些详细信息的 issue，以帮助改进 shell 集成
+
+---
+
+## 常见问题解答
+
+- 为什么 Zoo 要先按 Ctrl+C？
+  - 为了清除任何已部分输入的命令，以便它能够可靠地运行而不会中断你的进程。
+
+- 我可以运行多行命令吗？
+  - 最好使用 && 进行链接，以避免输出混合（例如，`echo a && echo b`）。
+
+- 如何在内联终端中使用 Python venv？
+  - 关闭 VS Code，在 shell 中激活 venv，然后启动 VS Code，以便 Zoo 继承它。
+
+<a id="command-execution-fallback"></a>
+- “Command Execution Fallback”（命令执行回退）是什么意思？
+  - Zoo 在没有完整 shell 集成的情况下运行了命令。工作方式：如果 VS Code 终端集成无法连接，Zoo 会在后台进程中运行命令。
+  - 你会看到：一个聊天通知，提示实时流式传输和退出码检测可能受限。
+  - 修复方法：开启 [Use Inline Terminal (recommended)](#use-inline-terminal-recommended) 或按照上面的故障排除步骤恢复 VS Code shell 集成。
+  <img src="/img/v3.15.0/v3.15.0.png" alt="命令执行回退通知示例" width="600" />

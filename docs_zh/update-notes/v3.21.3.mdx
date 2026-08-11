@@ -1,0 +1,16 @@
+---
+description: 此版本增加了针对特定配置文件的上下文压缩阈值设置，并修复了与上下文长度和错误处理相关的若干问题。
+---
+
+# Zoo Code 3.21.3 版本说明 (2025-06-21)
+
+此版本增加了针对特定配置文件的上下文压缩阈值设置，并修复了与上下文长度和错误处理相关的若干问题。
+
+## 体验优化
+
+*   **配置文件专属上下文阈值**：您现在可以为每个 API 配置档案设置不同的智能上下文压缩阈值。这能让您更精细地控制上下文管理，尤其是在使用多个具有不同上下文窗口大小的模型时非常有用（感谢 SannidhyaSah、SirBadfish！）（[#4456](https://github.com/RooCodeInc/Roo-Code/pull/4456)）。
+
+## Bug 修复
+
+*   **Ollama 和 LM Studio 上下文长度**：现在可以自动检测并正确显示由 Ollama 和 LM Studio 提供服务的模型的上下文长度，您无需再进行手动配置（感谢 thecolorblue、Fade78！）（[#4314](https://github.com/RooCodeInc/Roo-Code/pull/4314)）。
+*   **MCP 工具 UI**：解决了 MCP 工具的“眼睛”图标显示错误状态以及在不应显示的聊天上下文中可见的问题（感谢 daniel-lxs！）（[#4994](https://github.com/RooCodeInc/Roo-Code/pull/4994)）。

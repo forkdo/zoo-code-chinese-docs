@@ -1,0 +1,33 @@
+---
+description: 引入对 GPT-5 模型的支持，包含详细程度控制，并修复了 XML 解析和 MCP 错误显示问题。
+keywords:
+  - zoo code 3.25.10
+  - gpt-5
+  - openai models
+  - verbosity controls
+  - bug fixes
+---
+
+# Zoo Code 3.25.10 发布说明 (2025-08-07)
+
+此版本引入了对 OpenAI GPT-5 模型的支持，包含详细程度控制，并修复了 XML 解析和错误消息显示中的重要 bug。
+
+## GPT-5 模型支持
+
+我们添加了对 OpenAI 最新 GPT-5 模型系列的支持 ([#6819](https://github.com/RooCodeInc/Roo-Code/pull/6819))：
+
+- **GPT-5 模型**: 现在提供三种新模型变体：
+  - `gpt-5-2025-08-07`: 完整的 GPT-5 模型，现在设置为 OpenAI Native provider 的默认模型
+  - `gpt-5-mini-2025-08-07`: 一种更小、更快的变体，用于快速响应
+  - `gpt-5-nano-2025-08-07`: 最紧凑的版本，适用于资源受限的场景
+
+- **详细程度控制**: 新设置可控制模型输出的详细程度（低、中、高），允许您根据需要微调响应长度和详细程度
+
+所有 GPT-5 模型都支持流式响应以实现实时交互。
+
+> **📚 文档**: 请参阅 [OpenAI Provider 指南](/providers/openai) 获取有关 GPT-5 模型和详细程度设置的详细信息。
+
+## Bug 修复
+
+* **XML 解析**: 通过实现适当的 CDATA 部分，修复了在使用 apply_diff 工具处理包含特殊字符的复杂 XML 文件时出现的错误 ([#6811](https://github.com/RooCodeInc/Roo-Code/pull/6811))
+* **MCP 错误消息**: 修复了 MCP 服务器错误显示原始翻译键而不是正确错误消息的问题 ([#6821](https://github.com/RooCodeInc/Roo-Code/pull/6821))```

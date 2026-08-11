@@ -1,0 +1,25 @@
+---
+description: 补丁版本增加了 Gemini 原生工具调用、扩展内 Zoo Code Cloud 积分可见性、更清晰的免费模型定价，以及原生工具可靠性修复。
+keywords:
+  - zoo code 3.33.2
+  - new features
+  - bug fixes
+  - performance improvements
+  - gemini provider
+  - zoo code cloud
+---
+
+# Zoo Code 3.33.2 版本说明 (2025-11-20)
+
+此补丁版本主要关注 Gemini 原生工具调用，使 Zoo Code Cloud 使用情况更加可见，明确哪些模型是免费的，并提高原生工具的可靠性和性能。
+
+## 生活质量改进
+
+* **Gemini 原生工具调用（实验性，仅限 Google Gemini 提供商）**：为 Google Gemini 提供商添加一个实验性选项，通过原生工具协议调用工具（默认关闭），这样依赖工具的基于 Gemini 的工作流可以更类似于其他原生工具提供商，而无需通过 XML 转换。 ([#9343](https://github.com/RooCodeInc/Roo-Code/pull/9343))
+* **扩展中的 Zoo Code Cloud 积分余额**：登录后，直接在 Zoo 提供商设置中显示您的 Zoo Code Cloud RCC 积分余额，帮助您跟踪使用情况并避免意外中断。 ([#9386](https://github.com/RooCodeInc/Roo-Code/pull/9386))
+* **免费模型的明确 0 定价**：在定价 UI 中为免费模型的输入和输出令牌显示 0 价格，这样就能明显看出哪些选项是免费的，而不是留空价格。 ([#9419](https://github.com/RooCodeInc/Roo-Code/pull/9419))
+
+## Bug 修复
+
+* **保留原生工具调用结果中的图像**：确保附加到消息的图像在原生工具调用中得以保留并传递给模型，这样后续推理仍然可以使用重要的视觉上下文，而不是仅以纯文本形式丢失。 ([#9401](https://github.com/RooCodeInc/Roo-Code/pull/9401))
+* **更快的路由器模型元数据加载**：减少冗余的 getModel() 调用，并为基于路由器的提供商添加磁盘缓存回退，使能力元数据在启动时可用，并减少加载模型信息时的延迟和不稳定性。 ([#9410](https://github.com/RooCodeInc/Roo-Code/pull/9410))

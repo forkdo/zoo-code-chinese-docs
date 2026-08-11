@@ -1,0 +1,37 @@
+---
+description: 添加了 Agent Skills，改进了斜杠命令行为，并简化了提供者和文件读取。
+keywords:
+  - zoo code 3.38.0
+  - 新功能
+  - bug 修复
+image: /img/v3.38.0/v3.38.0.png
+---
+
+# Zoo Code 3.38.0 发布说明 (2025-12-27)
+
+此版本添加了 Agent Skills，改进了斜杠命令行为，并简化了提供者和文件读取。
+
+<img src="/img/v3.38.0/v3.38.0.png" alt="Zoo Code v3.38.0 Release" width="600" />
+
+## Agent Skills
+
+Zoo Code 现在支持 Agent Skills，这些是包含指令、脚本和资源的可移植技能文件夹，agent 可以发现并按需加载。这使您能够将可重复的工作流程和领域知识打包一次，并在项目间重用，以使结果更加一致和可靠。([#10335](https://github.com/RooCodeInc/Roo-Code/pull/10335)):
+
+> **📚 文档**: 请参阅 [Skills](/features/skills) 了解设置和使用方法。
+
+## QOL 改进
+
+* 斜杠命令可以在其 front matter 中声明目标模式，因此触发命令时可以先将 Zoo Code 切换到正确的模式 ([#10344](https://github.com/RooCodeInc/Roo-Code/pull/10344))。
+* 移除了旧的"简单读取文件"工具路径，文件读取现在统一使用标准的 `read_file` 工具 ([#10254](https://github.com/RooCodeInc/Roo-Code/pull/10254))。
+
+## Bug 修复
+
+* 修复了在上下文压缩后，某些 Claude Sonnet 4.5 请求可能会出现 HTTP 400 错误的问题 ([#10359](https://github.com/RooCodeInc/Roo-Code/pull/10359))。
+
+## 其他改进
+
+* 自定义工具可以导入 npm 包，并可以从同文件夹的 `.env` 文件中加载密钥 ([#10336](https://github.com/RooCodeInc/Roo-Code/pull/10336))。
+
+## 提供者更新
+
+* 移除了"OpenRouter Transforms"设置，并停止在 OpenRouter 请求中发送 `transforms` 参数 ([#10341](https://github.com/RooCodeInc/Roo-Code/pull/10341))。```

@@ -1,0 +1,24 @@
+---
+description: 此版本引入了新的 Claude Code 提供商以实现本地 CLI 集成，并修复了若干关键问题。
+---
+
+# Zoo Code 3.21.4 版本说明 (2025-06-23)
+
+此版本引入了新的 Claude Code 提供商以实现本地 CLI 集成，并修复了若干关键问题。
+
+## 在 Zoo Code 中使用您的 Claude Max 订阅
+
+您现在可以通过我们全新的 Claude Code 提供商（感谢 Cline！）直接在 Zoo Code 中使用您的 Claude Max 订阅 ([#4864](https://github.com/RooCodeInc/Roo-Code/pull/4864), [#5038](https://github.com/RooCodeInc/Roo-Code/pull/5038))：
+
+- **充分利用现有订阅**：通过 Claude CLI 将您的 Claude Max 计划连接至 Zoo Code
+- **无需额外 API 费用**：使用订阅权益，而非按 token 付费的 API 费率
+- **访问高级模型**：使用您的计划中包含的 Claude Sonnet 4、Opus 4 及其他先进模型
+- **零配置复杂度**：在初始设置期间选择 Claude Code 作为您的提供商——无需 API 密钥
+- **高级推理支持**：完全访问 Claude 的思维模式和推理能力
+
+非常适合希望在编程时最大化订阅价值的 Claude Max 订阅用户。
+
+## Bug 修复
+
+* **应用差异准确性**：修复了应用多个文件差异时起始行参数无法正常工作的问题（感谢 samhvw8！）（[#5019](https://github.com/RooCodeInc/Roo-Code/pull/5019)）
+* **Ollama 兼容性**：解决了导致 Ollama 无法与某些模型配合使用的验证错误（感谢 daniel-lxs、MartinHarding1998！）（[#5014](https://github.com/RooCodeInc/Roo-Code/pull/5014)）

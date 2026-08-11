@@ -1,0 +1,32 @@
+---
+description: 通过 OAuth 订阅添加了对 OpenAI Codex 的访问，扩展了 OpenAI 模型选项，并修复了稳定性问题。
+keywords:
+  - zoo code 3.41.0
+  - new features
+  - bug fixes
+image: /img/v3.41.0/v3.41.0.png
+---
+
+# Zoo Code 3.41.0 发布说明（2026-01-15）
+
+此次发布通过 OAuth 订阅添加了对 OpenAI Codex 的访问，扩展了 OpenAI 模型选择，并提升了稳定性。
+
+<img src="/img/v3.41.0/v3.41.0.png" alt="Zoo Code v3.41.0 Release" width="600" />
+
+## 支持通过 OAuth 订阅访问的 OpenAI Codex 提供方
+
+新增 OpenAI Codex 提供方，支持基于订阅的 OAuth 登录，您可连接 ChatGPT Plus/Pro 账户以使用 Codex 模型，无需 API 密钥或按 token 计费。只需在提供方设置中选择 `OpenAI - ChatGPT Plus/Pro` 即可！([#10736](https://github.com/RooCodeInc/Roo-Code/pull/10736))
+
+## OpenAI（原生）提供方新增 GPT-5.2-Codex 模型选项
+
+为 OpenAI（原生）提供方新增 GPT-5.2-Codex 模型，您可选择此代码优化模型，并利用其扩展的上下文窗口和推理努力控制功能。([#10731](https://github.com/RooCodeInc/Roo-Code/pull/10731))
+
+## 修复的缺陷
+
+* **切换提供方后 Gemini 会话不再失败**：修复了流式传输错误，此前在任务中途切换模型时，LiteLLM Gemini 工具调用可能因思维签名损坏而失败。([#10743](https://github.com/RooCodeInc/Roo-Code/pull/10743))
+* **长时间终端运行不再导致内存泄漏**：修复了内存泄漏问题，此前大型命令输出在完成后仍会持续增长缓冲区，导致长时间会话中出现灰屏。([#7666](https://github.com/RooCodeInc/Roo-Code/pull/7666))
+
+## 其他改进
+
+* **端到端测试再次可靠运行**：恢复了 MCP 和子任务覆盖率，并修复了易出错的工具测试，使贡献者可在本地运行类似 CI 的检查并更早发现回归问题。（感谢 ArchimedesCrypto、dcbartlett！）([#10720](https://github.com/RooCodeInc/Roo-Code/pull/10720))
+* **自动化测试不再在工具审批时挂起**：修复了 MCP 端到端测试可能因手动审批提示而挂起的问题，现已自动批准时间服务器工具。（感谢 ArchimedesCrypto！）([#10733](https://github.com/RooCodeInc/Roo-Code/pull/10733))```

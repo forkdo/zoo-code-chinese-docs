@@ -1,0 +1,205 @@
+---
+description: Zoo Code 3.36 引入了非破坏性上下文管理、新的调试和 UI 控件，以及持续的可靠性修复和提供商改进。
+keywords:
+  - zoo code 3.36
+  - release notes
+  - new features
+  - bug fixes
+  - provider updates
+image: /img/v3.36.0/v3.36.0.png
+---
+
+# Zoo Code 3.36 版本说明（综合）
+
+Zoo Code 3.36 引入了非破坏性上下文管理、新的调试和 UI 控件，以及持续的可靠性修复和提供商改进。
+
+<img src="/img/v3.36.0/v3.36.0.png" alt="Zoo Code v3.36 Release" width="600" />
+
+## 非破坏性上下文管理
+
+上下文压缩和滑动窗口截断现在会在内部保留原始消息，而不是删除它们 ([#9665](https://github.com/RooCodeInc/Roo-Code/pull/9665))。当您回退到较早的检查点时，完整的对话历史记录会自动恢复。
+
+## GPT-5.1 Codex Max 支持
+
+Zoo Code 支持 GPT-5.1 Codex Max，OpenAI 的长期编码模型，包括 gpt-5.1 / gpt-5 / gpt-5-mini 变体的模型默认值 ([#9848](https://github.com/RooCodeInc/Roo-Code/pull/9848))。
+
+## 浏览器截图保存
+
+浏览器工具现在可以通过新的 `screenshot` 操作将截图保存到指定文件路径，以便在浏览器自动化任务期间捕获视觉状态 ([#9963](https://github.com/RooCodeInc/Roo-Code/pull/9963))。
+
+## 超高推理强度
+
+如果您将 gpt-5.1-codex-max 与 OpenAI 提供商一起使用，现在可以选择“超高”推理强度级别，以在复杂任务上获得最大推理深度 ([#9900](https://github.com/RooCodeInc/Roo-Code/pull/9900))。
+
+## OpenRouter 原生工具默认
+
+支持原生工具的 OpenRouter 模型现在默认使用原生工具调用，无需手动配置即可提高工具调用的可靠性 ([#9878](https://github.com/RooCodeInc/Roo-Code/pull/9878))。
+
+## 错误详情模态框
+
+悬停在错误行上可显示一个信息图标，点击后会打开一个包含完整错误详情和复制按钮的模态框 ([#9985](https://github.com/RooCodeInc/Roo-Code/pull/9985))。
+
+## GPT-5.2 模型支持
+
+GPT-5.2 在 OpenAI 提供商中可用，并设置为默认模型 ([#10024](https://github.com/RooCodeInc/Roo-Code/pull/10024))。
+
+## Enter 键行为切换
+
+您现在可以配置聊天输入中 Enter 键的行为，使其更好地适应多行提示和不同的输入方法 ([#10002](https://github.com/RooCodeInc/Roo-Code/pull/10002))。
+
+## Gemini 3 Flash 预览模型
+
+`gemini-3-flash-preview` 模型现在在 Zoo Code Cloud 提供商、Google Gemini、GCP Vertex AI、Requesty 和 OpenRouter 提供商中可用。这是 Google 发布的最新模型（感谢贡献者！）（[#10151](https://github.com/RooCodeInc/Roo-Code/pull/10151)）。
+
+## DeepSeek reasoner：工具使用期间的交错思考
+
+DeepSeek 提供商的 `deepseek-reasoner` 模型现在支持“交错思考”和原生工具调用。在我们的内部评估中，工具调用成功率为 100%，扩展运行得分提高到 93.4%（感谢 zbww_！）（[#9969](https://github.com/RooCodeInc/Roo-Code/pull/9969)，[#10141](https://github.com/RooCodeInc/Roo-Code/pull/10141)）。
+
+## 原生工具协议默认
+
+支持原生工具调用的模型现在默认使用原生协议而不是 XML。XML 协议仍在提供商设置中可用 ([#10186](https://github.com/RooCodeInc/Roo-Code/pull/10186))。
+
+## Vertex AI：Claude Sonnet 4.5 的 1M 上下文窗口
+
+当您在 **Vertex AI** 上使用 **Claude Sonnet 4.5** 时，可以为支持的模型启用 **1M 上下文窗口** 选项 ([#10209](https://github.com/RooCodeInc/Roo-Code/pull/10209))。
+
+## 聊天错误故障排除改进
+
+聊天错误状态现在更容易理解出错原因，并在提交错误报告时更容易分享正确的详细信息：
+
+* **更清晰的错误可见性**：错误行通过更明显的 **查看详情** 操作更一致地显示完整错误详情（包括状态代码） ([#10204](https://github.com/RooCodeInc/Roo-Code/pull/10204))
+* **可下载的诊断信息**：您可以从聊天错误生成本地诊断文件（包括错误元数据和 API 对话历史记录），以便审查/编辑并与问题报告共享 ([#10188](https://github.com/RooCodeInc/Roo-Code/pull/10188))
+
+## 生活质量改进
+
+* **斜杠命令的符号链接支持**：使用单个文件或目录的符号链接在项目之间共享和组织命令，命令名称派生自符号链接名称 ([#9838](https://github.com/RooCodeInc/Roo-Code/pull/9838))
+* **更流畅的聊天滚动**：聊天视图在流式传输期间更可靠地保持滚动位置 ([#8999](https://github.com/RooCodeInc/Roo-Code/pull/8999))
+* **更清晰的错误消息**：更具操作性的错误，并直接链接到文档 ([#9777](https://github.com/RooCodeInc/Roo-Code/pull/9777))
+* **Enter 键行为切换**：配置 Enter 键是在聊天输入中发送消息还是插入换行符 ([#10002](https://github.com/RooCodeInc/Roo-Code/pull/10002))
+* **统一的上下文管理用户体验**：截断通知和压缩摘要的实时反馈 ([#9795](https://github.com/RooCodeInc/Roo-Code/pull/9795))
+* **更好的 OpenAI 错误消息**：从 API 错误中提取更多详细信息，以便更轻松地进行故障排除 ([#9639](https://github.com/RooCodeInc/Roo-Code/pull/9639))
+* **Token 计数优化**：移除用于 token 计数的单独 API 调用以提高性能 ([#9884](https://github.com/RooCodeInc/Roo-Code/pull/9884))
+* **工具说明与系统提示解耦**：特定工具的指导包含在工具描述中 ([#9784](https://github.com/RooCodeInc/Roo-Code/pull/9784))
+* **后续建议中更清晰的自动批准时间**：使自动批准倒计时更不容易错过 ([#10048](https://github.com/RooCodeInc/Roo-Code/pull/10048))
+* **简化的自动批准设置**：移除重试和待办事项更新的单独切换，减少配置开销 ([#10062](https://github.com/RooCodeInc/Roo-Code/pull/10062))
+* **更丰富的错误详情对话框**：在错误详情对话框中添加额外上下文（扩展版本、提供商/模型、时间戳等），以便更快地进行调试和报告问题 ([#10050](https://github.com/RooCodeInc/Roo-Code/pull/10050))
+* **减少大文件的 read_file 失败**：通过增量读取直到 token 预算并在需要时返回更清晰的截断来改进大文件读取 ([#10052](https://github.com/RooCodeInc/Roo-Code/pull/10052))
+* **使用 Gemini 模型改进文件编辑**：新的 edit_file 工具使 Gemini 模型在编辑文件时更有效 ([#9983](https://github.com/RooCodeInc/Roo-Code/pull/9983))
+* **VS Code LM 原生工具**：原生工具调用现在适用于 VS Code 内置的 Copilot 模型 ([#10191](https://github.com/RooCodeInc/Roo-Code/pull/10191))
+* **Gemini 和 OpenAI 更智能的工具默认值**：Gemini 和 OpenAI 模型现在使用更好的默认工具进行文件编辑，开箱即用地提高可靠性。 ([#10170](https://github.com/RooCodeInc/Roo-Code/pull/10170))
+* **工具错误的宽限期重试**：当模型无法使用工具时，Zoo Code 现在会在显示错误之前静默重试。只有在连续失败后才会出现更清晰的“模型响应不完整”消息 ([#10196](https://github.com/RooCodeInc/Roo-Code/pull/10196))
+
+## Bug 修复
+
+* **编写工具验证**：避免 `write_to_file` 对包含内联代码注释（如 `# NEW:` 或 `// Step 1:`）的完整 Markdown 文件产生误报 ([#9787](https://github.com/RooCodeInc/Roo-Code/pull/9787))
+* **上下文截断令牌显示**：修复上下文截断 UI 中可能显示错误的截断前后令牌总数的问题，尤其是在工具调用频繁的对话中 ([#9961](https://github.com/RooCodeInc/Roo-Code/pull/9961))
+* **下载计数显示**：修复主页下载计数在百万级数字下的精度问题 ([#9807](https://github.com/RooCodeInc/Roo-Code/pull/9807))
+* **扩展冻结预防**：防止模型尝试调用不存在的工具时导致扩展冻结 ([#9834](https://github.com/RooCodeInc/Roo-Code/pull/9834))
+* **检查点恢复可靠性**：重做操作期间消息历史记录处理保持一致 ([#9842](https://github.com/RooCodeInc/Roo-Code/pull/9842))
+* **上下文截断修复**：通过仅截断可见消息防止级联截断循环 ([#9844](https://github.com/RooCodeInc/Roo-Code/pull/9844))
+* **推理模型**：需要推理的模型始终接收有效的推理努力值 ([#9836](https://github.com/RooCodeInc/Roo-Code/pull/9836))
+* **终端输入处理**：内联终端在命令需要用户输入时不再挂起 ([#9827](https://github.com/RooCodeInc/Roo-Code/pull/9827))
+* **大文件安全性**：大文件读取更安全地处理令牌预算 ([#9843](https://github.com/RooCodeInc/Roo-Code/pull/9843))
+* **后续按钮样式**：修复后续建议按钮过度圆角的问题 ([#9829](https://github.com/RooCodeInc/Roo-Code/pull/9829))
+* **Chutes 提供商修复**：通过使可选字段的架构验证更健壮来解决模型获取错误 ([#9854](https://github.com/RooCodeInc/Roo-Code/pull/9854))
+* **工具协议选择器**：始终为 OpenAI 兼容提供商显示工具协议选择器 ([#9966](https://github.com/RooCodeInc/Roo-Code/pull/9966))
+* **apply_diff 过滤**：在禁用 diff 时正确将 apply_diff 从原生工具中排除 ([#9920](https://github.com/RooCodeInc/Roo-Code/pull/9920))
+* **API 超时处理**：修复被禁用的超时（设置为 0）导致请求立即失败的问题 ([#9960](https://github.com/RooCodeInc/Roo-Code/pull/9960))
+* **推理努力下拉菜单**：遵守显式的 supportsReasoningEffort 值并修复禁用处理 ([#9970](https://github.com/RooCodeInc/Roo-Code/pull/9970), [#9930](https://github.com/RooCodeInc/Roo-Code/pull/9930))
+* **重试时显示实际错误消息**：显示提供商的错误详情而非通用文本 ([#9954](https://github.com/RooCodeInc/Roo-Code/pull/9954))
+* **流挂起修复**：确保 finish_reason 为多个提供商触发 tool_call_end 事件 ([#9927](https://github.com/RooCodeInc/Roo-Code/pull/9927), [#9929](https://github.com/RooCodeInc/Roo-Code/pull/9929))
+* **tool_result ID 验证**：在请求前验证并修复 tool_result ID 以防止提供商拒绝 ([#9952](https://github.com/RooCodeInc/Roo-Code/pull/9952))
+* **抑制的内部错误**：修复内部“ask promise was ignored”错误泄漏到对话中的问题 ([#9914](https://github.com/RooCodeInc/Roo-Code/pull/9914))
+* **提供商清理**：修复使用已删除/无效 API 提供商时的无限循环问题 ([#9869](https://github.com/RooCodeInc/Roo-Code/pull/9869))
+* **上下文图标主题**：上下文管理图标现在使用前景色以匹配 VS Code 主题 ([#9912](https://github.com/RooCodeInc/Roo-Code/pull/9912))
+* **评估运行删除**：修复阻止评估运行删除的外键约束 ([#9909](https://github.com/RooCodeInc/Roo-Code/pull/9909))
+* **OpenAI 兼容超时可靠性**：添加超时处理以防止无限期挂起 ([#9898](https://github.com/RooCodeInc/Roo-Code/pull/9898))
+* **MCP 工具流式传输**：修复 MCP 工具因过早清除内部流式数据而出现“未知工具”错误的问题 ([#9993](https://github.com/RooCodeInc/Roo-Code/pull/9993))
+* **TODO 列表显示顺序**：TODO 项按执行顺序显示，而非按状态分组 ([#9991](https://github.com/RooCodeInc/Roo-Code/pull/9991))
+* **遥测改进**：从 API 错误遥测中过滤掉 429 速率限制错误以获得更清晰的指标 ([#9987](https://github.com/RooCodeInc/Roo-Code/pull/9987))
+* **Gemini 稳定性**：修复推理循环和空响应错误 ([#10007](https://github.com/RooCodeInc/Roo-Code/pull/10007))
+* **并行工具执行**：修复并行工具使用期间“Expected toolResult blocks at messages”错误 ([#10015](https://github.com/RooCodeInc/Roo-Code/pull/10015))
+* **tool_result ID 不匹配**：修复历史记录中存在孤立 tool_result 块时的 ToolResultIdMismatchError ([#10027](https://github.com/RooCodeInc/Roo-Code/pull/10027))
+* **并行工具调用修复**：在上下文压缩期间保留 tool_use 块以避免并行工具调用时的 API 错误 ([#9714](https://github.com/RooCodeInc/Roo-Code/pull/9714))
+* **导航按钮换行**：防止导航按钮在小屏幕上换行 ([#9721](https://github.com/RooCodeInc/Roo-Code/pull/9721))
+* **任务委派工具刷新**：在将任务委派给其他代理之前确保刷新待处理的工具结果，以避免提供商 400 错误 ([#9726](https://github.com/RooCodeInc/Roo-Code/pull/9726))
+* **畸形工具调用处理**：通过验证并报告缺失参数，防止扩展在畸形工具调用时无限期挂起 ([#9758](https://github.com/RooCodeInc/Roo-Code/pull/9758))
+* **开始输入时自动批准停止**：修复在您开始编写响应后自动批准计时器仍可能触发的问题 ([#9937](https://github.com/RooCodeInc/Roo-Code/pull/9937))
+* **更实用的 OpenRouter 错误消息**：在可用时显示上游错误详情 ([#10039](https://github.com/RooCodeInc/Roo-Code/pull/10039))
+* **LiteLLM 工具协议下拉菜单始终显示**：即使模型元数据尚不可用，也会在高级设置中恢复工具协议下拉菜单 ([#10053](https://github.com/RooCodeInc/Roo-Code/pull/10053))
+* **MCP 工具调用适用于更严格的提供商**：通过清理名称并使用明确的 `mcp--server--tool` ID 格式，避免 MCP 服务器/工具名称中的特殊字符导致的失败 ([#10054](https://github.com/RooCodeInc/Roo-Code/pull/10054))
+* **模式工具验证更一致**：通过在一个位置整合模式工具可用性检查来提高可靠性 ([#10089](https://github.com/RooCodeInc/Roo-Code/pull/10089))
+* **跨提供商工具调用 ID 兼容性**：修复通过 OpenRouter 路由到对工具调用 ID 要求更严格的提供商/模型时工具调用可能失败的问题 ([#10102](https://github.com/RooCodeInc/Roo-Code/pull/10102))
+* **MCP 嵌套架构兼容性**：通过确保嵌套工具架构设置 `additionalProperties: false`，修复 MCP 工具在更严格的架构验证下可能失败的问题 ([#10109](https://github.com/RooCodeInc/Roo-Code/pull/10109))
+* **更可靠的委派恢复**：修复委派后恢复父任务时因工具结果 ID 不匹配而失败的问题 ([#10135](https://github.com/RooCodeInc/Roo-Code/pull/10135))
+* **VS Code LM 工具架构兼容性**：通过将工具输入架构标准化为 Copilot 期望的格式，修复使用 VS Code LM 提供商（GitHub Copilot）时 Zoo Code 尝试原生工具调用可能导致 HTTP 400 错误的问题 ([#10221](https://github.com/RooCodeInc/Roo-Code/pull/10221))
+* **避免删除错误的 API 消息**：修复删除用户消息时可能删除早期助手 API 消息的竞争条件，尤其是在流式传输/工具使用期间 ([#10113](https://github.com/RooCodeInc/Roo-Code/pull/10113))
+
+* **跨配置去重 MCP 工具**：修复当同一 MCP 服务器同时存在于全局配置和项目配置时出现的“工具已定义”错误 ([#10096](https://github.com/RooCodeInc/Roo-Code/pull/10096))
+* **修复供应商定价页面链接**：修复损坏的路由，使供应商定价链接跳转到正确的目标页面 ([#10107](https://github.com/RooCodeInc/Roo-Code/pull/10107))
+* **MCP 工具 Schema 标准化**：通过标准化 JSON Schema 格式，修复在严格模式下使用 Amazon Bedrock 或 OpenAI 时 MCP 工具 schema 可能无法通过验证的问题 ([#10148](https://github.com/RooCodeInc/Roo-Code/pull/10148))
+* **Bedrock 中带点的 MCP 工具名称**：修复在 Amazon Bedrock 中使用名称包含点或冒号的 MCP 服务器（如 `awslabs.aws-documentation-mcp-server`）时的验证错误 ([#10152](https://github.com/RooCodeInc/Roo-Code/pull/10152))
+* **Bedrock 任务恢复**：修复在禁用原生工具时恢复 Amazon Bedrock 任务时出现的错误，用户此前会遇到 `The toolConfig field must be defined` 错误 ([#10155](https://github.com/RooCodeInc/Roo-Code/pull/10155))
+* **Zoo Code Cloud 模型刷新**：修复登录 Zoo Code Cloud 后，需要身份验证的模型（如 `google/gemini-3-flash`）无法立即显示的问题 ([#10156](https://github.com/RooCodeInc/Roo-Code/pull/10156))
+* **LiteLLM 工具协议下拉菜单**：原生/XML 协议选择器现在可正确显示于 LiteLLM 模型 ([#10187](https://github.com/RooCodeInc/Roo-Code/pull/10187))
+* **任务恢复**：更改原生工具调用设置后恢复任务时不再中断 ([#10192](https://github.com/RooCodeInc/Roo-Code/pull/10192))
+* **Bedrock 嵌入器 CloudTrail 修复**：使用代码库索引时，AWS Bedrock 用户现在可在 CloudTrail 日志中看到 Zoo Code 的标识（感谢 jackrein！）（[#10166](https://github.com/RooCodeInc/Roo-Code/pull/10166)）
+* **MCP 与 OpenAI 供应商的兼容性**：修复在工具 schema 中使用 `format: "uri"` 的 MCP 服务器无法与 OpenAI 供应商配合使用的问题 ([#10198](https://github.com/RooCodeInc/Roo-Code/pull/10198))
+* **为 LM Studio 和 Qwen-Code 启用原生工具调用支持**：修复这些供应商缺少 OpenAI 风格原生工具调用支持的问题，此前可能导致工具使用相较于其他供应商不可靠 ([#10208](https://github.com/RooCodeInc/Roo-Code/pull/10208))
+* **为 OpenAI 兼容供应商提供更可靠的工具默认值**：通过应用原生工具默认值（除非用户明确覆盖），修复除非手动调整自定义模型信息否则工具调用可能不一致的情况 ([#10213](https://github.com/RooCodeInc/Roo-Code/pull/10213))
+* **启用 Requesty 原生工具调用**：修复 Requesty 供应商的原生工具调用默认值（并统一 Unbound 的行为），使工具使用更加一致，尤其是在模型元数据被缓存时 ([#10211](https://github.com/RooCodeInc/Roo-Code/pull/10211))
+* **MCP 工具 schema 支持更严格的验证**：修复部分 MCP 工具 schema 因对象 schema 缺少 `additionalProperties: false` 而无法通过严格验证的问题 ([#10210](https://github.com/RooCodeInc/Roo-Code/pull/10210))
+* **刷新模型缓存可靠性**：修复**刷新模型**可能无法完全清除/刷新部分供应商缓存模型列表的问题，并改进启动新任务时初始模型选择的准确性 ([#9870](https://github.com/RooCodeInc/Roo-Code/pull/9870))
+
+## 其他改进
+
+* **评估 UI 增强**：添加更好的筛选功能、批量删除操作、工具列整合以及运行备注 ([#9837](https://github.com/RooCodeInc/Roo-Code/pull/9837))
+* **框架更新**：将 Next.js 升级至 `~15.2.8`，以提升与上游修复的兼容性 ([#10140](https://github.com/RooCodeInc/Roo-Code/pull/10140))
+* **多模型评估启动**：跨多个模型启动相同测试运行，并自动错开执行 ([#9845](https://github.com/RooCodeInc/Roo-Code/pull/9845))
+* **新定价页面**：更新网站定价页面，提供更清晰的功能说明 ([#9821](https://github.com/RooCodeInc/Roo-Code/pull/9821))
+* **公告 UI 更新**：通过更新的社交图标和 GitHub stars 行动号召，改进公告视觉效果 ([#9945](https://github.com/RooCodeInc/Roo-Code/pull/9945))
+* **改进的错误日志记录**：为 parseToolCall 异常和云作业错误添加更好的上下文信息 ([#9857](https://github.com/RooCodeInc/Roo-Code/pull/9857)、[#9924](https://github.com/RooCodeInc/Roo-Code/pull/9924))
+* **search_replace 原生工具**：添加用于单替换文件操作的工具，通过唯一文本匹配实现精确定位 ([#9918](https://github.com/RooCodeInc/Roo-Code/pull/9918))
+* **版本化设置支持**：为模型设置的 API 端版本控制添加内部基础设施，并设置最低插件版本门槛 ([#9934](https://github.com/RooCodeInc/Roo-Code/pull/9934))
+* **OpenRouter 遥测**：添加 API 错误遥测以改进诊断 ([#9953](https://github.com/RooCodeInc/Roo-Code/pull/9953))
+* **评估流式统计**：工具使用统计实时流式传输，并对 token 使用进行限流 ([#9926](https://github.com/RooCodeInc/Roo-Code/pull/9926))
+* **工具整合**：移除已弃用的 `insert_content` 工具（请使用 apply_diff 或 write_to_file） ([#9751](https://github.com/RooCodeInc/Roo-Code/pull/9751))
+* **实验性设置**：暂时禁用并行工具调用实验，以待改进完成 ([#9798](https://github.com/RooCodeInc/Roo-Code/pull/9798))
+* **基础设施**：更新 Web 应用程序的 Next.js 依赖项 ([#9799](https://github.com/RooCodeInc/Roo-Code/pull/9799))
+* **移除已弃用工具**：移除已弃用的 `list_code_definition_names` 工具 ([#10005](https://github.com/RooCodeInc/Roo-Code/pull/10005))
+* **模型特定工具命名的工具别名**：添加对替代工具名称的支持，使不同模型可使用其期望的命名调用同一工具 ([#9989](https://github.com/RooCodeInc/Roo-Code/pull/9989))
+* **组织的工作区任务可见性控制**：添加组织级设置，控制 Zoo Code Cloud “扩展任务” 在工作区中的可见程度 ([#10020](https://github.com/RooCodeInc/Roo-Code/pull/10020))
+* **改进的 Web 评估运行日志**：通过改进运行日志和格式化，使评估运行更易于检查 ([#10081](https://github.com/RooCodeInc/Roo-Code/pull/10081))
+* **控制公共任务共享**：添加组织级设置以禁用公共任务共享链接 ([#10105](https://github.com/RooCodeInc/Roo-Code/pull/10105))
+* **评估 UI：更清晰的工具分组 + 持续时间修复**：通过分组相关工具并修复运行持续时间可能缺失或不正确的情况，改进评估 UI ([#10133](https://github.com/RooCodeInc/Roo-Code/pull/10133))
+* **错误监控**：改进连续错误追踪 ([#10193](https://github.com/RooCodeInc/Roo-Code/pull/10193))
+* **更好的错误分组**：改进错误追踪以加快问题解决速度 ([#10163](https://github.com/RooCodeInc/Roo-Code/pull/10163))
+
+## 供应商更新
+
+* **推理详情支持（Zoo Code provider）**：显示来自受支持模型的推理详情 ([#9796](https://github.com/RooCodeInc/Roo-Code/pull/9796))
+* **原生工具默认（Zoo Code provider）**：Zoo Code provider 模型默认使用原生工具协议 ([#9811](https://github.com/RooCodeInc/Roo-Code/pull/9811))
+* **MiniMax search_and_replace**：MiniMax M2 使用 search_and_replace 实现更可靠文件编辑 ([#9780](https://github.com/RooCodeInc/Roo-Code/pull/9780))
+* **Cerebras token 优化**：防止过早触发速率限制并清理已弃用模型 ([#9804](https://github.com/RooCodeInc/Roo-Code/pull/9804))
+* **Vercel AI Gateway**：在定价数据不完整时提供更可靠的模型获取 ([#9791](https://github.com/RooCodeInc/Roo-Code/pull/9791))
+* **动态模型设置（Zoo Code provider）**：Zoo Code 模型从 API 动态接收配置 ([#9852](https://github.com/RooCodeInc/Roo-Code/pull/9852))
+* **优化的 GPT-5 工具配置**：GPT-5.x、GPT-5.1.x 和 GPT-4.1 仅使用 apply_patch 进行文件编辑 ([#9853](https://github.com/RooCodeInc/Roo-Code/pull/9853))
+* **DeepSeek V3.2**：更新至 V3.2，价格下调，默认使用原生工具，最大输出 8K ([#9962](https://github.com/RooCodeInc/Roo-Code/pull/9962))
+* **xAI 模型目录**：修正上下文窗口，为 grok-3/grok-3-mini 添加图像支持，并移除已弃用模型 ([#9872](https://github.com/RooCodeInc/Roo-Code/pull/9872))
+* **xAI 工具偏好**：配置 xAI 模型使用 search_replace 以获得更好的文件编辑兼容性 ([#9923](https://github.com/RooCodeInc/Roo-Code/pull/9923))
+* **DeepSeek V3.2 for Baseten**：添加 DeepSeek V3.2 模型支持 ([#9861](https://github.com/RooCodeInc/Roo-Code/pull/9861))
+* **Baseten 模型调整**：改进 maxTokens 限制和原生工具支持以提升稳定性 ([#9866](https://github.com/RooCodeInc/Roo-Code/pull/9866))
+* **Bedrock 模型**：添加 Kimi、MiniMax 和 Qwen 模型配置 ([#9905](https://github.com/RooCodeInc/Roo-Code/pull/9905))
+* **Z.ai 端点选项**：为使用 API 计费而非 Coding 计划的用户添加端点选项 ([#9894](https://github.com/RooCodeInc/Roo-Code/pull/9894))
+* **更详细的 OpenRouter 错误报告**：捕获更多 provider 特定的错误元数据，便于诊断故障 ([#10073](https://github.com/RooCodeInc/Roo-Code/pull/10073))
+* **OpenRouter 对 OpenAI 模型的工具支持**：通过显式启用 `apply_patch` 并避免使用不支持的文件写入工具，使工具使用更可预测 ([#10082](https://github.com/RooCodeInc/Roo-Code/pull/10082))
+* **AWS Bedrock 服务层级支持**：为受支持模型添加 Bedrock 服务层级选项（标准/灵活/优先） ([#9955](https://github.com/RooCodeInc/Roo-Code/pull/9955))
+* **Amazon Nova 2 Lite in Bedrock**：将 Nova 2 Lite 模型添加至 Bedrock provider 模型列表 ([#9830](https://github.com/RooCodeInc/Roo-Code/pull/9830))
+* **原生工具默认（更多 providers）**：更多 providers 默认使用原生工具协议，以在 providers 之间实现更一致的工具调用 ([#10059](https://github.com/RooCodeInc/Roo-Code/pull/10059), [#10021](https://github.com/RooCodeInc/Roo-Code/pull/10021))
+* **Bedrock 自定义 ARN 限制更少**：移除过于严格的 ARN 验证，避免阻止有效的 AWS Bedrock 自定义 ARN，同时保留非阻塞的区域不匹配警告 ([#10110](https://github.com/RooCodeInc/Roo-Code/pull/10110))
+* **更简洁的 Bedrock 服务层级 UI**：移除 Bedrock 服务层级选择器下方的额外描述文本，使 UI 更易于浏览 ([#10118](https://github.com/RooCodeInc/Roo-Code/pull/10118))
+* **Claude Code Provider 原生工具调用**：Claude Code provider 现在支持原生工具调用，实现与 Claude 更直接高效的通信 ([#10077](https://github.com/RooCodeInc/Roo-Code/pull/10077))
+* **Z.ai 原生工具调用**：Z.ai 模型（GLM-4.5 系列、GLM-4.6 等）现在默认使用原生工具调用 ([#10158](https://github.com/RooCodeInc/Roo-Code/pull/10158))
+* **OpenAI 兼容原生工具**：OpenAI 兼容 providers 现在默认使用原生工具调用 ([#10159](https://github.com/RooCodeInc/Roo-Code/pull/10159))
+* **AWS GovCloud 和中国区域支持**：AWS GovCloud 和中国区域的用户现在可以使用 Bedrock provider 的自定义 ARN（感谢 wisestmumbler！） ([#10157](https://github.com/RooCodeInc/Roo-Code/pull/10157))
+* **Vertex AI 上的 Claude 原生工具调用**：Vertex AI 上的所有 Claude 模型现在默认使用原生工具调用，与直接访问 Anthropic API 的行为保持一致 ([#10197](https://github.com/RooCodeInc/Roo-Code/pull/10197))```

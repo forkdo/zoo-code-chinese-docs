@@ -1,0 +1,40 @@
+---
+description: 此版本包含对 MCP 服务器连接性的改进、提供商增强、UI 优化以及若干错误修复和安全更新。
+---
+
+# Zoo Code 3.19.2 版本说明 (2025-06-01)
+
+此版本包含对 MCP 服务器连接性的改进、提供商增强、UI 优化以及若干错误修复和安全更新。
+
+---
+
+## 生活质量改进
+
+*   **MCP 服务器的流式 HTTP 传输**: 添加了对使用基于流式 HTTP 传输的 MCP 服务器的支持（感谢 taylorwilsdon！）([#3260](https://github.com/RooCodeInc/Roo-Code/pull/3260))
+*   **MCP 服务器指令支持**: 添加了对 MCP 配置中服务器指令的支持（感谢 qingyuan1109！）([#4210](https://github.com/RooCodeInc/Roo-Code/pull/4210))
+*   **优化聊天布局和样式**: 微调了聊天消息的布局和样式，以提高可读性（感谢 zhangtony239！）([#4205](https://github.com/RooCodeInc/Roo-Code/pull/4205))
+
+---
+
+## 提供商更新
+
+*   **增强的 LiteLLM 提供商**: 在统计信息和成本计算中添加了缓存的读取和写入令牌（感谢 mollux！）([#4206](https://github.com/RooCodeInc/Roo-Code/pull/4206))
+
+---
+
+## 错误修复
+
+*   **防止用户编辑时转储整个文件**: 解决了在保存建议的修改之前编辑文件可能会将整个文件内容转储到上下文中的问题。此修复可防止上下文膨胀、保持模型专注并降低成本 ([#4219](https://github.com/RooCodeInc/Roo-Code/pull/4219), [#3654](https://github.com/RooCodeInc/Roo-Code/pull/3654))（感谢 KJ7LNW！）。
+*   **更正 OpenAI 兼容 API 密钥标签**: 设置中 OpenAI 兼容 API 密钥的标签现在正确显示为“API 密钥”而不是“OpenAI API 密钥”，以提高清晰度 ([#4191](https://github.com/RooCodeInc/Roo-Code/pull/4191))。
+*   **防止在 `apply_diff` REPLACE 中出现无效标记**: 添加了验证以确保 `:start_line:` 和 `:end_line:` 标记不会错误地包含在 `apply_diff` 操作的 `REPLACE` 部分中，从而提高鲁棒性 ([#4015](https://github.com/RooCodeInc/Roo-Code/pull/4015))（感谢 KJ7LNW！）。
+*   **修复 Virtuoso 页脚重新渲染**: 解决了 Virtuoso 组件的页脚会持续重新渲染的问题，从而提高了 UI 性能 ([#4209](https://github.com/RooCodeInc/Roo-Code/pull/4209))（感谢 kiwina！）。
+*   **在 `apply_diff` 中释放内存**: 通过在 `apply_diff` 工具使用后显式释放原始内容缓冲区来优化内存使用，有助于防止潜在的内存泄漏 ([#4193](https://github.com/RooCodeInc/Roo-Code/pull/4193))（感谢 xyOz-dev！）。
+*   **修复 Markdown 中的目录链接处理**: 增强了对 Markdown 中目录链接（例如 `[some/directory/](some/directory/)`）的处理，确保它们正确在资源管理器视图中打开 ([#3690](https://github.com/RooCodeInc/Roo-Code/pull/3690))（感谢 KJ7LNW！）。
+*   **错别字修复**: 更正了注释和工具使用提示中的各种错别字 ([#4220](https://github.com/RooCodeInc/Roo-Code/pull/4220), [#4095](https://github.com/RooCodeInc/Roo-Code/pull/4095))（感谢 mrubens, noritaka1166！）。
+
+---
+
+## 其他改进
+
+*   **统一历史记录项 UI**: 重构了历史记录项 UI 组件以提高代码一致性（感谢 daniel-lxs！）([#4151](https://github.com/RooCodeInc/Roo-Code/pull/4151))
+*   **Node.js 升级**: 将 Node.js 升级至 `v20.19.2` 以纳入最新的安全增强功能并确保更安全的环境（感谢 PeterDaveHello！）([#4212](https://github.com/RooCodeInc/Roo-Code/pull/4212))

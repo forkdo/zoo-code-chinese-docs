@@ -1,0 +1,60 @@
+---
+description: Zoo Code 3.19 专注于用户界面改进，默认启用智能上下文压缩、增强文件保护以及实验性的多文件读取功能。
+keywords:
+  - Zoo Code 3.19
+  - release notes
+  - context condensing
+  - multi-file reading
+  - UI improvements
+---
+
+# Zoo Code 3.19 版本说明 (2025-06-09)
+
+此版本系列专注于简化用户界面，默认启用智能上下文压缩、改进模式组织、增强文件保护、实验性多文件读取功能，以及众多提升使用体验的改进。
+
+---
+
+## 提供商更新
+
+*   **OpenRouter 延迟**：通过 OpenRouter 为 Gemini 模型替换显式缓存为隐式缓存，显著降低延迟 ([#4488](https://github.com/RooCodeInc/Roo-Code/pull/4488))
+
+*   **Bedrock**：改进了对自定义 Bedrock ARN 的模型信息检测，确保更好的兼容性 (感谢 adamhill!)
+
+---
+
+## 使用体验改进
+
+*   **修复 [`read_file`](/advanced-usage/available-tools/read-file) 工具中读取 PDF、DOCX 和 IPYNB 文件的问题**：确保这些文件类型的可靠读取 (感谢 samhvw8!)
+*   **历史记录预览**：历史记录预览中的按钮在没有交互时会逐渐淡出，提供更简洁的 UI (感谢 samhvw8!) ([#4458](https://github.com/RooCodeInc/Roo-Code/pull/4458))
+
+---
+
+## Bug 修复
+
+*   **Mermaid 图表**：通过实施增强的捆绑策略修复了 Mermaid 图表的内容安全策略 (CSP) 错误 (感谢 KJ7LNW!)
+*   **LiteLLM 提供商**：修复了当 LiteLLM 提供商 URL 包含尾随斜杠时导致错误的问题 (感谢 kcwhite!) ([#4275](https://github.com/RooCodeInc/Roo-Code/pull/4275))
+*   **复制按钮**：修复了复制按钮逻辑的问题 (感谢 samhvw8!) ([#4458](https://github.com/RooCodeInc/Roo-Code/pull/4458))
+*   **MCP 服务器管理**：修复了 MCP 服务器列表在更改（如添加或删除服务器）后无法正确更新的问题，无需完全重新加载扩展。手动刷新按钮和配置更改时的自动刷新现在可以可靠工作。(感谢 taylorwilsdon!) ([#4267](https://github.com/RooCodeInc/Roo-Code/pull/4267))
+*   **McpHub 侧边栏焦点**：我们修复了 McpHub 侧边栏意外获取焦点的问题，提供更流畅的导航体验。 ([#4548](https://github.com/RooCodeInc/Roo-Code/pull/4548))
+*   **检查点**：当检测到嵌套的 git 仓库时，我们禁用了检查点功能以防止冲突。 ([#4509](https://github.com/RooCodeInc/Roo-Code/pull/4509))
+
+---
+
+## 文档更新
+
+*   **并发文件读取**：澄清了默认的并发文件读取限制是 15，而不是最大值 (感谢 olearycrew!) ([#4474](https://github.com/RooCodeInc/Roo-Code/pull/4474))
+
+---
+
+## 其他改进
+
+*   **OpenAI 兼容嵌入器**：添加了一个新的代码库索引嵌入器，兼容 OpenAI API，扩展了本地和自定义嵌入模型的选择 (感谢 SannidhyaSah!)
+*   **强制 [`codebase_search`](/advanced-usage/available-tools/codebase-search) 作为主要工具**：Zoo Code 现在在代码理解任务中始终使用 codebase_search 作为第一步，提高准确性和一致性 (感谢 hannesrudolph!)
+*   **构建脚本**：从一些 npm 脚本中移除了不必要的 `npx` 使用 (感谢 user202729!) ([#4003](https://github.com/RooCodeInc/Roo-Code/pull/4003))
+*   **Storybook**：我们移除了未使用的 Storybook 组件和依赖项以减少包大小。 ([#4517](https://github.com/RooCodeInc/Roo-Code/pull/4517))
+*   **ESLint**：我们添加了一个 `data-testid` ESLint 规则以提高我们的测试标准 (感谢 elianiva!)。 ([#4505](https://github.com/RooCodeInc/Roo-Code/pull/4505))
+*   **依赖项**：我们更新了开发依赖项，包括 eslint、knip、@types/node、i18next、fast-xml-parser 和 @google/genai。
+*   **CI**：我们通过 GitHub Actions 和 Blacksmith 运行器迁移改进了 CI 基础设施。 ([#4472](https://github.com/RooCodeInc/Roo-Code/pull/4472), [#4507](https://github.com/RooCodeInc/Roo-Code/pull/4507))
+*   **Gemini**：我们通过 Requesty 添加了控制 Gemini 模型思考预算的功能 (感谢 dtrugman!)。 ([#4486](https://github.com/RooCodeInc/Roo-Code/pull/4486))
+
+感谢所有贡献者，让 Zoo Code 在每次发布中变得更好！

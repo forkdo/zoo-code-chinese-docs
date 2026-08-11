@@ -1,0 +1,165 @@
+---
+description: 使用 Git worktrees 和 Zoo Code 同时在多个分支上工作，每个分支都在独立的 VS Code 窗口中。
+keywords:
+  - worktrees
+  - git worktrees
+  - multiple branches
+  - parallel development
+  - branch management
+  - agentic coding
+---
+
+# Worktrees
+
+Git worktrees 允许您通过将同一仓库的不同分支保存在不同目录中，从而同时处理多个分支。每个 worktree 都会获得一个带有 Zoo Code 的独立 VS Code 窗口，无需切换分支即可实现并行开发。
+
+这对于智能编码工作流特别有用，例如：
+
+- 并行测试不同的实现方法
+- 在不中断当前工作的情况下审查拉取请求
+- 同时在不同的分支上运行多个任务
+- 为开发和调试维护独立的环境
+
+<div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden' }}>
+  <iframe title="Worktrees Tutorial Video"
+    src="https://www.youtube.com/embed/BRrhcYYSh9M?rel=0&modestbranding=1"
+    style={{
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+    }}
+    frameBorder="0"
+    allow="autoplay; encrypted-media"
+    allowFullScreen
+  ></iframe>
+</div>
+
+<div style={{ marginTop: '20px' }}></div>
+
+:::note 要求
+- 系统必须安装 Git
+- 您的工作区必须是 Git 仓库
+- 不支持多根工作区
+- 工作区必须在仓库根目录（不能是子文件夹）
+:::
+
+---
+
+## 开始使用
+
+### 访问 Worktrees
+
+您可以通过两种方式访问 worktrees 功能：
+
+1. **主屏幕**：当您有多个 worktrees 时，聊天界面顶部会出现一个 worktree 选择器
+   - 点击选择器查看所有 worktrees
+   - 点击任意 worktree 切换到该分支
+   - 点击 `+` 按钮创建新的 worktree
+   - 点击 ⚙️ 管理 worktrees
+
+2. **设置面板**：通过上述最后一个选项或设置（⚙️）→ Worktrees 进入
+   - 查看和管理所有 worktrees
+   - 创建新的 worktrees
+   - 删除现有的 worktrees
+   - 配置 `.worktreeinclude` 设置
+   - 选择是否在主屏幕显示选择器
+
+### 创建您的第一个 Worktree
+
+1. 点击齿轮图标打开 Zoo Code 设置
+2. 导航到“Worktrees”部分
+3. 点击“Create worktree”按钮
+4. 填写必填字段：
+   - **Base Branch**：创建新分支的基准分支（通常是 `main` 或 `develop`）
+   - **Branch Name**：新分支的名称（例如 `worktree/feature-name`）
+   - **Worktree Path**：worktree 的创建位置
+5. 点击“Create”
+6. 选择是在新窗口中打开新的 worktree，还是留在当前窗口
+
+Worktree 将使用基准分支的所有文件创建，您可以立即开始处理它。
+
+---
+
+## 核心功能
+
+### 在 Worktrees 之间切换
+
+一旦您有多个 worktrees，它们之间的切换将变得无缝：
+
+**从主屏幕**：
+- 点击聊天顶部的 worktree 选择器
+- 选择要切换到的 worktree
+- 选择是在当前窗口切换，还是在新窗口中打开
+
+**从设置**：
+- 导航到设置 → Worktrees
+- 点击任意 worktree 在当前窗口中切换到它
+- 点击图标在新窗口中打开
+
+:::tip 多窗口
+在新窗口中打开 worktrees 可以让您并行运行多个任务，每个任务都在独立的工作区中。这对于比较不同的方法或同时处理多个功能非常理想。
+:::
+
+### 管理 Worktrees
+
+**查看您的 Worktrees**：
+Worktrees 列表显示：
+- 分支名称（如果不在分支上则显示“Detached HEAD”）
+- 文件系统上的 worktree 路径
+- 状态指示器（主分支、锁定）
+- 当前 worktree 会被高亮显示
+
+**删除 Worktrees**：
+1. 导航到设置 → Worktrees
+2. 点击要删除的 worktree 旁边的垃圾桶图标 <Codicon name="trash" />
+
+### 使用 .worktreeinclude 复制文件
+
+默认情况下，Git worktrees 只包含 Git 跟踪的文件。`node_modules`、`.env` 或构建产物等未跟踪的文件不会被复制。`.worktreeinclude` 功能解决了这个问题。
+
+**工作原理**：
+- 在仓库根目录创建 `.worktreeinclude` 文件
+- 添加要复制的文件/目录的模式（使用 `.gitignore` 语法）
+- 文件也必须在 `.gitignore` 中才能被复制（两个文件的交集）
+- 创建新 worktree 时，匹配的文件会自动复制
+
+**设置 .worktreeinclude**：
+
+1. 导航到设置 → Worktrees
+2. 如果您没有 `.worktreeinclude` 文件，底部会显示一条消息
+3. 点击“Create from .gitignore”根据您的 `.gitignore` 自动创建一个
+4. 编辑文件，只包含您要复制的模式（例如 `node_modules`、`.env.local`）
+
+**.worktreeinclude 示例**：
+```
+node_modules
+.env.local
+.cache
+dist
+```
+
+:::tip 复制的内容
+只有同时匹配 `.worktreeinclude` 和 `.gitignore` 模式的文件才会被复制。这确保您只复制有意要在 worktrees 之间复制的未跟踪文件。
+:::
+
+### 主屏幕集成
+
+可以从主屏幕显示或隐藏 worktree 选择器：
+
+1. 导航到设置 → Worktrees
+2. 切换“Show worktrees in home screen”
+3. 启用后，当您有多个 worktrees 时，选择器会出现在聊天顶部
+4. 禁用后，您仍然可以从设置管理 worktrees
+
+---
+
+## 提示
+
+- **有组织的路径**：为所有 worktrees 使用一致的路径，如 `~/.roo/worktrees/`
+- **描述性分支名称**：使用清晰的命名，如 `worktree/feature-name`，以便稍后识别 worktree 分支
+- **定期清理**：删除不再使用的 worktrees 以节省磁盘空间
+- **删除前提交**：在删除 worktree 之前，始终提交并推送重要更改
+- **使用 .worktreeinclude**：设置一次 `.worktreeinclude` 文件，以后所有 worktrees 都能受益
+- **新窗口并行工作**：当您想同时处理多个分支时，在新窗口中打开 worktrees
