@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkdocs_new=globalThis.webpackChunkdocs_new||[]).push([[19174],{5332(s){s.exports=JSON.parse('{"tags":[{"label":"tools","permalink":"/tags/tools","count":1}]}')}}]);

@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-update-notes/v3.25" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.9.2">
+<title data-rh="true">Zoo Code 3.25 发布说明 | Zoo Code Documentation</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" property="og:image" content="https://docs.zoocode.dev/img/social-share.png"><meta data-rh="true" name="twitter:image" content="https://docs.zoocode.dev/img/social-share.png"><meta data-rh="true" property="og:url" content="https://docs.zoocode.dev/update-notes/v3.25"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" name="twitter:site" content="@roocode"><meta data-rh="true" name="twitter:creator" content="@roocode"><meta data-rh="true" property="og:type" content="website"><meta data-rh="true" property="og:locale" content="en_US"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Zoo Code 3.25 发布说明 | Zoo Code Documentation"><meta data-rh="true" name="description" content="Zoo Code 3.25 引入了 Sonic 隐形模型（262K 上下文）、自定义斜杠命令、Gemini 网络工具、图像支持、消息排队、Cerebras AI 提供商、成本限制、Vertex AI 接地、子任务待办列表以及许多生活质量改进。"><meta data-rh="true" property="og:description" content="Zoo Code 3.25 引入了 Sonic 隐形模型（262K 上下文）、自定义斜杠命令、Gemini 网络工具、图像支持、消息排队、Cerebras AI 提供商、成本限制、Vertex AI 接地、子任务待办列表以及许多生活质量改进。"><meta data-rh="true" name="keywords" content="roo code 3.25,sonic model,custom slash commands,gemini tools,image support,message queueing,cerebras provider,cost limits,vertex ai grounding,subtask todos"><link data-rh="true" rel="icon" href="/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://docs.zoocode.dev/update-notes/v3.25"><link data-rh="true" rel="alternate" href="https://docs.zoocode.dev/update-notes/v3.25" hreflang="en"><link data-rh="true" rel="alternate" href="https://docs.zoocode.dev/update-notes/v3.25" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"3.25 Combined","item":"https://docs.zoocode.dev/update-notes/v3.25"}]}</script><link rel="stylesheet" href="/assets/css/styles.d75f8086.css">
+<script src="/assets/js/runtime~main.281b71a8.js" defer="defer"></script>
+<script src="/assets/js/main.f1209e1a.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||"dark"),document.documentElement.setAttribute("data-theme-choice",t||"dark")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/img/zoo-code-logo-dark.png"><link rel="preload" as="image" href="/img/zoo-code-logo-white.png"><link rel="preload" as="image" href="/img/v3.25.21/v3.25.21.png"><link rel="preload" as="image" href="/img/slash-commands/slash-commands-4.png"><link rel="preload" as="image" href="/img/v3.25.5/v3.25.5.png"><link rel="preload" as="image" href="/img/v3.25.0/v3.25.0-2.png"><link rel="preload" as="image" href="/img/v3.25.0/v3.25.0.png"><link rel="preload" as="image" href="/img/v3.25.0/v3.25.0-1.png"><div role="region" aria-label="Skip to main content"><a class="skipToContent_vbO8" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/"><div class="navbar__logo"><img src="/img/zoo-code-logo-dark.png" alt="Zoo Code Logo" class="themedComponent_Gb2o themedComponent--light_uHUl"><img src="/img/zoo-code-logo-white.png" alt="Zoo Code Logo" class="themedComponent_Gb2o themedComponent--dark_tuAW"></div><b class="navbar__title text--truncate">Zoo Code</b></a></div><div class="navbar__items navbar__items--center"><div class="navbarSearchContainer_dCNk"><div class="navbar__search searchBarContainer_oGYq" dir="ltr"><input placeholder="Search" aria-label="Search" class="navbar__search-input searchInput_cBjj" value=""><div class="searchBarLoadingRing_e962"></div></div></div></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><div class="socialIcons_HJHc"><a href="https://www.reddit.com/r/ZooCode/" target="_blank" rel="noopener noreferrer" class="socialLink_raBN" title="Reddit" aria-label="Reddit"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M0 256C0 114.6 114.6 0 256 0S512 114.6 512 256s-114.6 256-256 256L37.1 512c-13.7 0-20.5-16.5-10.9-26.2L75 437C28.7 390.7 0 326.7 0 256zM349.6 153.6c23.6 0 42.7-19.1 42.7-42.7s-19.1-42.7-42.7-42.7c-20.6 0-37.8 14.6-41.8 34c-34.5 3.7-61.4 33-61.4 68.4l0 .2c-37.5 1.6-71.8 12.3-99 29.1c-10.1-7.8-22.8-12.5-36.5-12.5c-33 0-59.8 26.8-59.8 59.8c0 24 14.1 44.6 34.4 54.1c2 69.4 77.6 125.2 170.6 125.2s168.7-55.9 170.6-125.3c20.2-9.6 34.1-30.2 34.1-54c0-33-26.8-59.8-59.8-59.8c-13.7 0-26.3 4.6-36.4 12.4c-27.4-17-62.1-27.7-100-29.1l0-.2c0-25.4 18.9-46.5 43.4-49.9l0 0c4.4 18.8 21.3 32.8 41.5 32.8zM177.1 246.9c16.7 0 29.5 17.6 28.5 39.3s-13.5 29.6-30.3 29.6s-31.4-8.8-30.4-30.5s15.4-38.3 32.1-38.3zm190.1 38.3c1 21.7-13.7 30.5-30.4 30.5s-29.3-7.9-30.3-29.6c-1-21.7 11.8-39.3 28.5-39.3s31.2 16.6 32.1 38.3zm-48.1 56.7c-10.3 24.6-34.6 41.9-63 41.9s-52.7-17.3-63-41.9c-1.2-2.9 .8-6.2 3.9-6.5c18.4-1.9 38.3-2.9 59.1-2.9s40.7 1 59.1 2.9c3.1 .3 5.1 3.6 3.9 6.5z"></path></svg></a><a href="https://discord.gg/SfHYG44NUA" target="_blank" rel="noopener noreferrer" class="socialLink_raBN" title="Discord" aria-label="Discord"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 640 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M524.531,69.836a1.5,1.5,0,0,0-.764-.7A485.065,485.065,0,0,0,404.081,32.03a1.816,1.816,0,0,0-1.923.91,337.461,337.461,0,0,0-14.9,30.6,447.848,447.848,0,0,0-134.426,0,309.541,309.541,0,0,0-15.135-30.6,1.89,1.89,0,0,0-1.924-.91A483.689,483.689,0,0,0,116.085,69.137a1.712,1.712,0,0,0-.788.676C39.068,183.651,18.186,294.69,28.43,404.354a2.016,2.016,0,0,0,.765,1.375A487.666,487.666,0,0,0,176.02,479.918a1.9,1.9,0,0,0,2.063-.676A348.2,348.2,0,0,0,208.12,430.4a1.86,1.86,0,0,0-1.019-2.588,321.173,321.173,0,0,1-45.868-21.853,1.885,1.885,0,0,1-.185-3.126c3.082-2.309,6.166-4.711,9.109-7.137a1.819,1.819,0,0,1,1.9-.256c96.229,43.917,200.41,43.917,295.5,0a1.812,1.812,0,0,1,1.924.233c2.944,2.426,6.027,4.851,9.132,7.16a1.884,1.884,0,0,1-.162,3.126,301.407,301.407,0,0,1-45.89,21.83,1.875,1.875,0,0,0-1,2.611,391.055,391.055,0,0,0,30.014,48.815,1.864,1.864,0,0,0,2.063.7A486.048,486.048,0,0,0,610.7,405.729a1.882,1.882,0,0,0,.765-1.352C623.729,277.594,590.933,167.465,524.531,69.836ZM222.491,337.58c-28.972,0-52.844-26.587-52.844-59.239S193.056,219.1,222.491,219.1c29.665,0,53.306,26.82,52.843,59.239C275.334,310.993,251.924,337.58,222.491,337.58Zm195.38,0c-28.971,0-52.843-26.587-52.843-59.239S388.437,219.1,417.871,219.1c29.667,0,53.307,26.82,52.844,59.239C470.715,310.993,447.538,337.58,417.871,337.58Z"></path></svg></a></div><div class="container_MBB3"><a href="https://github.com/Zoo-Code-Org/Zoo-Code" target="_blank" rel="noopener noreferrer" class="githubButton_m6zQ" title="GitHub Repository"><svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 15 15" class="icon_I806" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.49933 0.25C3.49635 0.25 0.25 3.49593 0.25 7.50024C0.25 10.703 2.32715 13.4206 5.2081 14.3797C5.57084 14.446 5.70302 14.2222 5.70302 14.0299C5.70302 13.8576 5.69679 13.4019 5.69323 12.797C3.67661 13.235 3.25112 11.825 3.25112 11.825C2.92132 10.9874 2.44599 10.7644 2.44599 10.7644C1.78773 10.3149 2.49584 10.3238 2.49584 10.3238C3.22353 10.375 3.60629 11.0711 3.60629 11.0711C4.25298 12.1788 5.30335 11.8588 5.71638 11.6732C5.78225 11.205 5.96962 10.8854 6.17658 10.7043C4.56675 10.5209 2.87415 9.89918 2.87415 7.12104C2.87415 6.32925 3.15677 5.68257 3.62053 5.17563C3.54576 4.99226 3.29697 4.25521 3.69174 3.25691C3.69174 3.25691 4.30015 3.06196 5.68522 3.99973C6.26337 3.83906 6.8838 3.75895 7.50022 3.75583C8.1162 3.75895 8.73619 3.83906 9.31523 3.99973C10.6994 3.06196 11.3069 3.25691 11.3069 3.25691C11.7026 4.25521 11.4538 4.99226 11.3795 5.17563C11.8441 5.68257 12.1245 6.32925 12.1245 7.12104C12.1245 9.9063 10.4292 10.5192 8.81452 10.6985C9.07444 10.9224 9.30633 11.3648 9.30633 12.0413C9.30633 13.0102 9.29742 13.7922 9.29742 14.0299C9.29742 14.2239 9.42828 14.4496 9.79591 14.3788C12.6746 13.4179 14.75 10.7025 14.75 7.50024C14.75 3.49593 11.5036 0.25 7.49933 0.25Z" fill="currentColor"></path></svg></a><a href="https://marketplace.visualstudio.com/items?itemName=ZooCodeOrganization.zoo-code" target="_blank" rel="noopener noreferrer" class="installButton_U1Rr" title="Install VS Code Extension"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" class="icon_I806" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M10.8634 13.9195C10.6568 14.0195 10.4233 14.0246 10.2185 13.9444C10.1162 13.9044 10.021 13.843 9.93997 13.7614L4.81616 9.06268L2.58433 10.7656C2.37657 10.9241 2.08597 10.9111 1.89301 10.7347L1.17719 10.0802C0.941168 9.86437 0.940898 9.49112 1.17661 9.27496L3.11213 7.5L1.17661 5.72504C0.940898 5.50888 0.941168 5.13563 1.17719 4.91982L1.89301 4.2653C2.08597 4.08887 2.37657 4.07588 2.58433 4.2344L4.81616 5.93732L9.93997 1.23855C9.97037 1.20797 10.0028 1.18023 10.0368 1.15538C10.2748 0.981429 10.5922 0.949298 10.8634 1.08048L13.5399 2.37507C13.8212 2.5111 14 2.79721 14 3.11109V8H10.752V4.53356L6.86419 7.5L10.752 10.4664V8H14V11.8889C14 12.2028 13.8211 12.4889 13.5399 12.625L10.8634 13.9195Z"></path></svg><span>Install <span class="separator_XjHL">·</span></span></a></div><button class="themeToggle_Agwr colorModeToggle_x44X" aria-label="Toggle theme" title="Toggle theme"><svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 15 15" class="icon_DZW4" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 0C7.77614 0 8 0.223858 8 0.5V2.5C8 2.77614 7.77614 3 7.5 3C7.22386 3 7 2.77614 7 2.5V0.5C7 0.223858 7.22386 0 7.5 0ZM2.1967 2.1967C2.39196 2.00144 2.70854 2.00144 2.90381 2.1967L4.31802 3.61091C4.51328 3.80617 4.51328 4.12276 4.31802 4.31802C4.12276 4.51328 3.80617 4.51328 3.61091 4.31802L2.1967 2.90381C2.00144 2.70854 2.00144 2.39196 2.1967 2.1967ZM0.5 7C0.223858 7 0 7.22386 0 7.5C0 7.77614 0.223858 8 0.5 8H2.5C2.77614 8 3 7.77614 3 7.5C3 7.22386 2.77614 7 2.5 7H0.5ZM2.1967 12.8033C2.00144 12.608 2.00144 12.2915 2.1967 12.0962L3.61091 10.682C3.80617 10.4867 4.12276 10.4867 4.31802 10.682C4.51328 10.8772 4.51328 11.1938 4.31802 11.3891L2.90381 12.8033C2.70854 12.9986 2.39196 12.9986 2.1967 12.8033ZM12.5 7C12.2239 7 12 7.22386 12 7.5C12 7.77614 12.2239 8 12.5 8H14.5C14.7761 8 15 7.77614 15 7.5C15 7.22386 14.7761 7 14.5 7H12.5ZM10.682 4.31802C10.4867 4.12276 10.4867 3.80617 10.682 3.61091L12.0962 2.1967C12.2915 2.00144 12.608 2.00144 12.8033 2.1967C12.9986 2.39196 12.9986 2.70854 12.8033 2.90381L11.3891 4.31802C11.1938 4.51328 10.8772 4.51328 10.682 4.31802ZM8 12.5C8 12.2239 7.77614 12 7.5 12C7.22386 12 7 12.2239 7 12.5V14.5C7 14.7761 7.22386 15 7.5 15C7.77614 15 8 14.7761 8 14.5V12.5ZM10.682 10.682C10.8772 10.4867 11.1938 10.4867 11.3891 10.682L12.8033 12.0962C12.9986 12.2915 12.9986 12.608 12.8033 12.8033C12.608 12.9986 12.2915 12.9986 12.0962 12.8033L10.682 11.3891C10.4867 11.1938 10.4867 10.8772 10.682 10.682ZM5.5 7.5C5.5 6.39543 6.39543 5.5 7.5 5.5C8.60457 5.5 9.5 6.39543 9.5 7.5C9.5 8.60457 8.60457 9.5 7.5 9.5C6.39543 9.5 5.5 8.60457 5.5 7.5ZM7.5 4.5C5.84315 4.5 4.5 5.84315 4.5 7.5C4.5 9.15685 5.84315 10.5 7.5 10.5C9.15685 10.5 10.5 9.15685 10.5 7.5C10.5 5.84315 9.15685 4.5 7.5 4.5Z" fill="currentColor"></path></svg></button></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_oKNl"><div class="docsWrapper_AUqv"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_cQKZ" type="button"></button><div class="docRoot_dHN8"><aside class="theme-doc-sidebar-container docSidebarContainer_AHa_"><div class="sidebarViewport_VdRF"><div class="sidebar_vQ0w"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_xAVJ"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/"><span title="欢迎" class="linkLabel_s4D6">欢迎</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/roo-to-zoo-migration"><span title="从 Roo 迁移到 Zoo" class="linkLabel_s4D6">从 Roo 迁移到 Zoo</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/getting-started/installing"><span title="Zoo Code VSCode Extension" class="categoryLinkLabel_hbpU">Zoo Code VSCode Extension</span></a></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/tutorial-videos"><span title="Tutorial Videos" class="linkLabel_s4D6">Tutorial Videos</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/providers"><span title="Model Providers" class="categoryLinkLabel_hbpU">Model Providers</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" href="/update-notes"><span title="Extension Release Notes" class="categoryLinkLabel_hbpU">Extension Release Notes</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/update-notes"><span title="扩展发布说明" class="linkLabel_s4D6">扩展发布说明</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.50.0"><span title="3.50" class="categoryLinkLabel_hbpU">3.50</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.49.0"><span title="3.49" class="categoryLinkLabel_hbpU">3.49</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.48.1"><span title="3.48" class="categoryLinkLabel_hbpU">3.48</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.47.0"><span title="3.47" class="categoryLinkLabel_hbpU">3.47</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.46"><span title="3.46" class="categoryLinkLabel_hbpU">3.46</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.45.0"><span title="3.45" class="categoryLinkLabel_hbpU">3.45</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.44"><span title="3.44" class="categoryLinkLabel_hbpU">3.44</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.43.0"><span title="3.43" class="categoryLinkLabel_hbpU">3.43</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.42.0"><span title="3.42" class="categoryLinkLabel_hbpU">3.42</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.41.2"><span title="3.41" class="categoryLinkLabel_hbpU">3.41</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.40"><span title="3.40" class="categoryLinkLabel_hbpU">3.40</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.39"><span title="3.39" class="categoryLinkLabel_hbpU">3.39</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.38"><span title="3.38" class="categoryLinkLabel_hbpU">3.38</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.37"><span title="3.37" class="categoryLinkLabel_hbpU">3.37</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.36"><span title="3.36" class="categoryLinkLabel_hbpU">3.36</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.35"><span title="3.35" class="categoryLinkLabel_hbpU">3.35</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.34"><span title="3.34" class="categoryLinkLabel_hbpU">3.34</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.33"><span title="3.33" class="categoryLinkLabel_hbpU">3.33</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.32"><span title="3.32" class="categoryLinkLabel_hbpU">3.32</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.31"><span title="3.31" class="categoryLinkLabel_hbpU">3.31</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.30"><span title="3.30" class="categoryLinkLabel_hbpU">3.30</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.29"><span title="3.29" class="categoryLinkLabel_hbpU">3.29</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.28"><span title="3.28" class="categoryLinkLabel_hbpU">3.28</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.27.0"><span title="3.27" class="categoryLinkLabel_hbpU">3.27</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.26"><span title="3.26" class="categoryLinkLabel_hbpU">3.26</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" tabindex="0" href="/update-notes/v3.25"><span title="3.25" class="categoryLinkLabel_hbpU">3.25</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/update-notes/v3.25"><span title="3.25 Combined" class="linkLabel_s4D6">3.25 Combined</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/update-notes/v3.25.23"><span title="3.25.23" class="linkLabel_s4D6">3.25.23</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/update-notes/v3.25.22"><span title="3.25.22" class="linkLabel_s4D6">3.25.22</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/update-notes/v3.25.21"><span title="3.25.21" class="linkLabel_s4D6">3.25.21</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/update-notes/v3.25.20"><span title="3.25.20" class="linkLabel_s4D6">3.25.20</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/update-notes/v3.25.19"><span title="3.25.19" class="linkLabel_s4D6">3.25.19</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/update-notes/v3.25.18"><span title="3.25.18" class="linkLabel_s4D6">3.25.18</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/update-notes/v3.25.17"><span title="3.25.17" class="linkLabel_s4D6">3.25.17</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/update-notes/v3.25.16"><span title="3.25.16" class="linkLabel_s4D6">3.25.16</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/update-notes/v3.25.15"><span title="3.25.15" class="linkLabel_s4D6">3.25.15</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/update-notes/v3.25.14"><span title="3.25.14" class="linkLabel_s4D6">3.25.14</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/update-notes/v3.25.13"><span title="3.25.13" class="linkLabel_s4D6">3.25.13</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/update-notes/v3.25.12"><span title="3.25.12" class="linkLabel_s4D6">3.25.12</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/update-notes/v3.25.11"><span title="3.25.11" class="linkLabel_s4D6">3.25.11</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/update-notes/v3.25.10"><span title="3.25.10" class="linkLabel_s4D6">3.25.10</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/update-notes/v3.25.9"><span title="3.25.9" class="linkLabel_s4D6">3.25.9</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/update-notes/v3.25.8"><span title="3.25.8" class="linkLabel_s4D6">3.25.8</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/update-notes/v3.25.7"><span title="3.25.7" class="linkLabel_s4D6">3.25.7</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/update-notes/v3.25.6"><span title="3.25.6" class="linkLabel_s4D6">3.25.6</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/update-notes/v3.25.5"><span title="3.25.5" class="linkLabel_s4D6">3.25.5</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/update-notes/v3.25.4"><span title="3.25.4" class="linkLabel_s4D6">3.25.4</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/update-notes/v3.25.3"><span title="3.25.3" class="linkLabel_s4D6">3.25.3</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/update-notes/v3.25.2"><span title="3.25.2" class="linkLabel_s4D6">3.25.2</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/update-notes/v3.25.1"><span title="3.25.1" class="linkLabel_s4D6">3.25.1</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/update-notes/v3.25.0"><span title="3.25.0" class="linkLabel_s4D6">3.25.0</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.24.0"><span title="3.24" class="categoryLinkLabel_hbpU">3.24</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.23"><span title="3.23" class="categoryLinkLabel_hbpU">3.23</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.22.6"><span title="3.22" class="categoryLinkLabel_hbpU">3.22</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.21"><span title="3.21" class="categoryLinkLabel_hbpU">3.21</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.20"><span title="3.20" class="categoryLinkLabel_hbpU">3.20</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.19"><span title="3.19" class="categoryLinkLabel_hbpU">3.19</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.18"><span title="3.18" class="categoryLinkLabel_hbpU">3.18</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.17"><span title="3.17" class="categoryLinkLabel_hbpU">3.17</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.16"><span title="3.16" class="categoryLinkLabel_hbpU">3.16</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.15"><span title="3.15" class="categoryLinkLabel_hbpU">3.15</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.14"><span title="3.14" class="categoryLinkLabel_hbpU">3.14</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.13"><span title="3.13" class="categoryLinkLabel_hbpU">3.13</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.12"><span title="3.12" class="categoryLinkLabel_hbpU">3.12</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.11"><span title="3.11" class="categoryLinkLabel_hbpU">3.11</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.10"><span title="3.10" class="categoryLinkLabel_hbpU">3.10</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.9"><span title="3.9" class="categoryLinkLabel_hbpU">3.9</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.8"><span title="3.8" class="categoryLinkLabel_hbpU">3.8</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.7"><span title="3.7" class="categoryLinkLabel_hbpU">3.7</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.3"><span title="3.3" class="categoryLinkLabel_hbpU">3.3</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.1"><span title="3.1" class="categoryLinkLabel_hbpU">3.1</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.0"><span title="3.0" class="categoryLinkLabel_hbpU">3.0</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v3.2"><span title="3.2" class="categoryLinkLabel_hbpU">3.2</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v2.2"><span title="2.2" class="categoryLinkLabel_hbpU">2.2</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_GdjE menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/update-notes/v2.1"><span title="2.1" class="categoryLinkLabel_hbpU">2.1</span></a></div></li></ul></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/faq"><span title="FAQ" class="linkLabel_s4D6">FAQ</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a href="https://github.com/Zoo-Code-Org/Zoo-Code/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener noreferrer" class="menu__link menuExternalLink_eVDn"><span title="Contributing (GitHub)" class="linkLabel_s4D6">Contributing (GitHub)</span><svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_U8Gc"><use href="#theme-svg-external-link"></use></svg></a></li></ul></nav></div></div></aside><main class="docMainContainer_WDAS"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_ev0j"><div class="docItemContainer_jW0t"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Alpn" aria-label="Breadcrumbs"><div class="breadcrumbsWrapper_NBHK"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_xK9p"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">Extension Release Notes</span></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">3.25</span></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">3.25 Combined</span></li></ul><button class="copyButton_NdLO copy-button" title="Copy page content" aria-label="Copy page content to clipboard"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" class="icon_iRRv" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M208 0L332.1 0c12.7 0 24.9 5.1 33.9 14.1l67.9 67.9c9 9 14.1 21.2 14.1 33.9L448 336c0 26.5-21.5 48-48 48l-192 0c-26.5 0-48-21.5-48-48l0-288c0-26.5 21.5-48 48-48zM48 128l80 0 0 64-64 0 0 256 192 0 0-32 64 0 0 48c0 26.5-21.5 48-48 48L48 512c-26.5 0-48-21.5-48-48L0 176c0-26.5 21.5-48 48-48z"></path></svg></button></div></nav><div class="tocCollapsible_Nt4P theme-doc-toc-mobile tocMobile_LEOb"><button type="button" class="clean-btn tocCollapsibleButton_z5hw">On this page</button></div><div class="theme-doc-markdown markdown doc-container"><header><h1>Zoo Code 3.25 发布说明</h1></header>
+<p>此版本为 Zoo Code 带来了强大的新功能，包括具有 262,144-token 上下文和 72 小时免费访问的 Sonic 隐形模型、用于工作流自动化的自定义斜杠命令、具有网络访问功能的增强 Gemini 模型、全面的图像支持、用于不间断对话的无缝消息排队、新的 Cerebras AI 提供商、用于预算控制的自动批准成本限制、Vertex AI 接地功能以及子任务待办列表支持。</p>
+<h3 class="anchor anchorTargetStickyNavbar_sDfD" id="vertex-ai-接地功能">Vertex AI 接地功能<a href="#vertex-ai-接地功能" class="hash-link" aria-label="Direct link to Vertex AI 接地功能" title="Direct link to Vertex AI 接地功能" translate="no">​</a></h3>
+<p>Vertex AI 用户现在可以访问之前仅限于 Gemini 提供商的强大接地功能（感谢 anguslees！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/6777" target="_blank" rel="noopener noreferrer" class="">#6777</a>)：</p>
+<ul>
+<li class=""><strong>Google 搜索接地</strong>：直接在 AI 响应中获取来自网络搜索的实时信息</li>
+<li class=""><strong>URL 上下文</strong>：提供特定网页作为上下文，以获得更准确、最新的响应</li>
+<li class=""><strong>增强准确性</strong>：将 AI 功能与当前网络信息结合，获得更好的结果</li>
+</ul>
+<p>这些功能使 Vertex AI 在接地功能方面与 Gemini 达到功能对等。</p>
+<blockquote>
+<p><strong>📚 文档</strong>：查看 <a class="" href="/providers/vertex">Vertex AI Provider</a> 了解配置详情。</p>
+</blockquote>
+<h3 class="anchor anchorTargetStickyNavbar_sDfD" id="子任务待办列表">子任务待办列表<a href="#子任务待办列表" class="hash-link" aria-label="Direct link to 子任务待办列表" title="Direct link to 子任务待办列表" translate="no">​</a></h3>
+<p>通过新的子任务可选待办列表参数简化层次任务规划 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6775" target="_blank" rel="noopener noreferrer" class="">#6775</a>)：</p>
+<ul>
+<li class=""><strong>传递待办列表</strong>：创建子任务时包含预定义的待办列表</li>
+<li class=""><strong>维护上下文</strong>：以待办列表的形式将上下文传递给子任务</li>
+<li class=""><strong>可选强制执行</strong>：VS Code 中的&quot;新任务需要待办事项&quot;设置可以根据需要强制所有新子任务使用待办列表</li>
+</ul>
+<img src="/img/v3.25.21/v3.25.21.png" alt="VS Code 设置中的子任务待办列表配置" width="600">
+<p>此功能开箱即用，您可以选择性地配置 VS Code 设置以要求所有新任务使用待办事项。</p>
+<blockquote>
+<p><strong>📚 文档</strong>：查看 <a class="" href="/features/task-todo-list">Task Todo List</a> 了解待办列表管理的详细信息。</p>
+</blockquote>
+<h3 class="anchor anchorTargetStickyNavbar_sDfD" id="自定义斜杠命令">自定义斜杠命令<a href="#自定义斜杠命令" class="hash-link" aria-label="Direct link to 自定义斜杠命令" title="Direct link to 自定义斜杠命令" translate="no">​</a></h3>
+<p>创建自己的斜杠命令来自动化重复性工作流 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6263" target="_blank" rel="noopener noreferrer" class="">#6263</a>, <a href="https://github.com/RooCodeInc/Roo-Code/pull/6286" target="_blank" rel="noopener noreferrer" class="">#6286</a>, <a href="https://github.com/RooCodeInc/Roo-Code/pull/6333" target="_blank" rel="noopener noreferrer" class="">#6333</a>, <a href="https://github.com/RooCodeInc/Roo-Code/pull/6336" target="_blank" rel="noopener noreferrer" class="">#6336</a>, <a href="https://github.com/RooCodeInc/Roo-Code/pull/6327" target="_blank" rel="noopener noreferrer" class="">#6327</a>)：</p>
+<ul>
+<li class=""><strong>基于文件的命令</strong>：将 markdown 文件放置在 <code>.roo/commands/</code> 中以即时创建自定义命令</li>
+<li class=""><strong>管理界面</strong>：用于创建、编辑和删除命令的新界面，内置模糊搜索</li>
+<li class=""><strong>参数提示</strong>：命令在您输入时显示有关必需参数的有用提示</li>
+<li class=""><strong>丰富描述</strong>：添加元数据和描述以使命令自文档化</li>
+</ul>
+<img src="/img/slash-commands/slash-commands-4.png" alt="显示可用命令的斜杠命令菜单" width="600">
+<p>将复杂工作流转换为简单的命令，如 <code>/deploy</code> 或 <code>/review</code>，以加快开发速度。</p>
+<blockquote>
+<p><strong>📚 文档</strong>：查看 <a class="" href="/features/slash-commands">Slash Commands Guide</a> 了解详细的使用说明。</p>
+</blockquote>
+<h3 class="anchor anchorTargetStickyNavbar_sDfD" id="消息排队">消息排队<a href="#消息排队" class="hash-link" aria-label="Direct link to 消息排队" title="Direct link to 消息排队" translate="no">​</a></h3>
+<p>通过新的消息排队系统在 Zoo 处理您的请求时继续输入 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6167" target="_blank" rel="noopener noreferrer" class="">#6167</a>)：</p>
+<ul>
+<li class=""><strong>非阻塞输入</strong>：即使在 Zoo 处理先前请求时也可以输入和发送消息</li>
+<li class=""><strong>顺序处理</strong>：消息按发送顺序排队和处理</li>
+<li class=""><strong>视觉反馈</strong>：在界面中清楚显示排队的消息</li>
+<li class=""><strong>维护上下文</strong>：每条消息都保持对话的适当上下文</li>
+</ul>
+<p>当您有多个快速问题或更正时，保持工作流顺畅。</p>
+<blockquote>
+<p><strong>📚 文档</strong>：查看 <a class="" href="/features/message-queueing">Message Queueing Guide</a> 了解详细信息。</p>
+</blockquote>
+<h3 class="anchor anchorTargetStickyNavbar_sDfD" id="read_file-tool-的图像支持">read_file Tool 的图像支持<a href="#read_file-tool-的图像支持" class="hash-link" aria-label="Direct link to read_file Tool 的图像支持" title="Direct link to read_file Tool 的图像支持" translate="no">​</a></h3>
+<p><a class="" href="/advanced-usage/available-tools/read-file"><code>read_file</code></a> tool 现在支持读取和分析图像（感谢 samhvw8！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/5172" target="_blank" rel="noopener noreferrer" class="">#5172</a>)：</p>
+<ul>
+<li class=""><strong>多种格式</strong>：支持 PNG、JPG、JPEG、GIF、WebP、SVG、BMP、ICO 和 TIFF</li>
+<li class=""><strong>OCR 功能</strong>：从屏幕截图和扫描文档中提取文本</li>
+<li class=""><strong>批量处理</strong>：从文件夹中读取多张图像并附带描述</li>
+<li class=""><strong>简单集成</strong>：就像读取文本文件一样工作 - 无需特殊配置</li>
+</ul>
+<p>对于分析 UI 原型、调试屏幕截图错误或从图像中提取代码很有用。</p>
+<h3 class="anchor anchorTargetStickyNavbar_sDfD" id="gemini-toolsurl-上下文和-google-搜索">Gemini Tools：URL 上下文和 Google 搜索<a href="#gemini-toolsurl-上下文和-google-搜索" class="hash-link" aria-label="Direct link to Gemini Tools：URL 上下文和 Google 搜索" title="Direct link to Gemini Tools：URL 上下文和 Google 搜索" translate="no">​</a></h3>
+<p>Gemini 模型现在可以访问网络内容并执行 Google 搜索，以获得更准确、最新的响应（感谢 HahaBill！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/5959" target="_blank" rel="noopener noreferrer" class="">#5959</a>)：</p>
+<ul>
+<li class=""><strong>URL 上下文</strong>：直接分析网页、文档和在线资源</li>
+<li class=""><strong>Google 搜索接地</strong>：基于当前搜索结果获得事实核查的响应</li>
+<li class=""><strong>用户控制</strong>：根据您的隐私偏好启用或禁用网络功能</li>
+<li class=""><strong>实时信息</strong>：访问最新的文档和最佳实践</li>
+</ul>
+<p>非常适合研究新库、验证解决方案或获取当前 API 信息。</p>
+<blockquote>
+<p><strong>📚 文档</strong>：查看 <a class="" href="/providers/gemini">Gemini Provider Guide</a> 了解设置和使用说明。</p>
+</blockquote>
+<h3 class="anchor anchorTargetStickyNavbar_sDfD" id="上下文感知提示增强">上下文感知提示增强<a href="#上下文感知提示增强" class="hash-link" aria-label="Direct link to 上下文感知提示增强" title="Direct link to 上下文感知提示增强" translate="no">​</a></h3>
+<p>提示增强现在使用您的对话历史来获得更好的建议（感谢 liwilliam2021！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/6343" target="_blank" rel="noopener noreferrer" class="">#6343</a>)：</p>
+<ul>
+<li class=""><strong>更智能的建议</strong>：增强考虑您最近的 10 条消息以生成更相关的提示</li>
+<li class=""><strong>减少幻觉</strong>：上下文感知防止 AI 提出无根据的建议</li>
+<li class=""><strong>灵活配置</strong>：为增强操作使用单独的 API 配置</li>
+<li class=""><strong>切换控制</strong>：根据您的需要启用或禁用任务历史包含</li>
+</ul>
+<p>要启用此功能：设置 → 提示标签 → 选择&quot;ENHANCE&quot; → 勾选&quot;在增强中包含任务历史&quot;以获得更好的上下文。</p>
+<blockquote>
+<p><strong>📚 文档</strong>：查看 <a class="" href="/features/enhance-prompt">Prompt Enhancement Guide</a> 了解配置选项。</p>
+</blockquote>
+<h3 class="anchor anchorTargetStickyNavbar_sDfD" id="自动批准成本限制">自动批准成本限制<a href="#自动批准成本限制" class="hash-link" aria-label="Direct link to 自动批准成本限制" title="Direct link to 自动批准成本限制" translate="no">​</a></h3>
+<p>我们在自动批准设置中引入了一个新的成本控制功能，以帮助管理 API 支出：</p>
+<ul>
+<li class=""><strong>预算保护</strong>：在您的自动批准设置中设置最大成本限制以控制总 API 支出</li>
+<li class=""><strong>自动提示</strong>：当接近您的成本限制时，Zoo Code 将提示批准</li>
+<li class=""><strong>补充请求限制</strong>：与现有的请求计数限制一起工作，实现全面控制</li>
+</ul>
+<img src="/img/v3.25.5/v3.25.5.png" alt="自动批准设置显示新的最大成本字段" width="600">
+<p>此功能在使用昂贵模型或运行长时间会话时为您提供安心，确保您保持在预算范围内。您可以在自动批准配置面板中的现有&quot;最大计数&quot;旁边找到这个新的&quot;最大成本&quot;设置。</p>
+<h3 class="anchor anchorTargetStickyNavbar_sDfD" id="生活质量改进">生活质量改进<a href="#生活质量改进" class="hash-link" aria-label="Direct link to 生活质量改进" title="Direct link to 生活质量改进" translate="no">​</a></h3>
+<p>在您的日常工作流中产生重大影响的小改动：</p>
+<ul>
+<li class="">
+<p><strong>Groq 上 Kimi K2 的 Prompt Caching</strong>：为 Groq 上的 Kimi K2 模型添加了 prompt caching 支持，对缓存的输入 token 提供 50% 折扣，提高成本效率 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/7324" target="_blank" rel="noopener noreferrer" class="">#7324</a>)</p>
+</li>
+<li class="">
+<p><strong>全局自定义指令文档</strong>：在 UI 中添加了有用的文档链接，使全局自定义指令更容易被发现和理解 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/7114" target="_blank" rel="noopener noreferrer" class="">#7114</a>)</p>
+</li>
+<li class="">
+<p><strong>上下文窗口错误处理</strong>：改进了在达到上下文限制时的错误检测和自动恢复 - 系统现在可以检测来自多个提供商（OpenAI、Anthropic、Cerebras）的错误，并在重试前自动截断 25% 的上下文（最多 3 次尝试）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/6967" target="_blank" rel="noopener noreferrer" class="">#6967</a>)</p>
+</li>
+<li class="">
+<p><strong>市场过滤器</strong>：新增&quot;仅显示已安装&quot;复选框，轻松查看和管理您已安装的 MCPs 和 modes（感谢 semidark！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/7007" target="_blank" rel="noopener noreferrer" class="">#7007</a>)</p>
+</li>
+<li class="">
+<p><strong>DeepSeek 上下文</strong>：更新 DeepSeek 模型以支持 128k 上下文窗口 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/7269" target="_blank" rel="noopener noreferrer" class="">#7269</a>)</p>
+</li>
+<li class="">
+<p><strong>Sonnet 1M 上下文支持</strong>：在使用 AWS Bedrock 时为 Claude 3.5 Sonnet 和 Claude Sonnet 4 启用 1M token 上下文窗口，允许您处理更大的文档和进行更长的对话 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/7032" target="_blank" rel="noopener noreferrer" class="">#7032</a>)</p>
+</li>
+<li class="">
+<p><strong>国际化</strong>：账户按钮现在以您选择的语言显示，而不是始终显示英文（感谢 zhangtony239！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/6978" target="_blank" rel="noopener noreferrer" class="">#6978</a>)</p>
+</li>
+<li class="">
+<p><strong>Agent 文件灵活性</strong>：Zoo Code 现在识别 AGENT.md 和 AGENTS.md 文件作为 agent 规则，优先检查 AGENTS.md 以确保兼容性（感谢 Brendan-Z！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/6913" target="_blank" rel="noopener noreferrer" class="">#6913</a>)</p>
+</li>
+<li class="">
+<p><strong>SEO 改进</strong>：通过适当的元数据和社交媒体预览卡片增强网站可发现性（感谢 elianiva, abumalick！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/7096" target="_blank" rel="noopener noreferrer" class="">#7096</a>)</p>
+</li>
+<li class="">
+<p><strong>站点地图生成</strong>：实现基于 TypeScript 的站点地图生成，以获得更好的搜索引擎索引（感谢 abumalick！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/6206" target="_blank" rel="noopener noreferrer" class="">#6206</a>)</p>
+</li>
+<li class="">
+<p><strong>聊天输入焦点</strong>：通过 + 按钮创建新聊天时，聊天输入现在会自动获得焦点，允许您立即开始输入 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6689" target="_blank" rel="noopener noreferrer" class="">#6689</a>)</p>
+</li>
+<li class="">
+<p><strong>Gemini 2.5 Pro 思考预算灵活性</strong>：最小思考预算从 1024 降低到 128 tokens，非常适合需要快速、专注响应而无需广泛推理的任务。您需要在设置中手动将思考预算调整为 128 才能利用此功能。(<a href="https://github.com/RooCodeInc/Roo-Code/pull/6588" target="_blank" rel="noopener noreferrer" class="">#6588</a>)</p>
+</li>
+<li class="">
+<p><strong>多文件夹工作区支持</strong>：代码索引现在在多文件夹工作区的所有文件夹中正确工作（感谢 NaccOll！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/6204" target="_blank" rel="noopener noreferrer" class="">#6204</a>)</p>
+</li>
+<li class="">
+<p><strong>检查点时机</strong>：检查点现在在文件更改之前保存，允许轻松撤销不需要的修改（感谢 NaccOll！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/6359" target="_blank" rel="noopener noreferrer" class="">#6359</a>)</p>
+</li>
+<li class="">
+<p><strong>重新设计任务标题</strong>：更简洁、更直观的界面，具有改进的视觉层次结构（感谢 brunobergher！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/6561" target="_blank" rel="noopener noreferrer" class="">#6561</a>)</p>
+</li>
+<li class="">
+<p><strong>一致的检查点术语</strong>：移除&quot;初始检查点&quot;术语以获得更好的一致性 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6643" target="_blank" rel="noopener noreferrer" class="">#6643</a>)</p>
+</li>
+<li class="">
+<p><strong>响应式 Mode 下拉菜单</strong>：Mode 选择下拉菜单现在会随窗口正确调整大小（感谢 AyazKaan！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/6422" target="_blank" rel="noopener noreferrer" class="">#6422</a>)</p>
+</li>
+<li class="">
+<p><strong>性能提升</strong>：显著改进处理长 AI 响应时的性能（感谢 qdaxb！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/5341" target="_blank" rel="noopener noreferrer" class="">#5341</a>)</p>
+</li>
+<li class="">
+<p><strong>更简洁的命令批准 UI</strong>：简化界面，仅显示唯一命令模式 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6623" target="_blank" rel="noopener noreferrer" class="">#6623</a>)</p>
+</li>
+<li class="">
+<p><strong>智能 Todo 列表提醒</strong>：Todo 列表提醒现在遵循配置设置（感谢 NaccOll！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/6411" target="_blank" rel="noopener noreferrer" class="">#6411</a>)</p>
+</li>
+<li class="">
+<p><strong>更简洁的任务历史</strong>：改进任务历史显示，显示更多内容（3 行），预览最多 5 个任务，并简化页脚 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6687" target="_blank" rel="noopener noreferrer" class="">#6687</a>)</p>
+</li>
+<li class="">
+<p><strong>Markdown 表格渲染</strong>：表格现在以正确格式显示，而不是原始 markdown，以获得更好的可读性 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6252" target="_blank" rel="noopener noreferrer" class="">#6252</a>)</p>
+<img src="/img/v3.25.0/v3.25.0-2.png" alt="Markdown table rendering in Zoo Code" width="600">
+</li>
+<li class="">
+<p><strong>Mode 选择器弹出窗口重新设计</strong>：改进布局，在您安装了许多 modes 时提供搜索功能 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6140" target="_blank" rel="noopener noreferrer" class="">#6140</a>)</p>
+<img src="/img/v3.25.0/v3.25.0.png" alt="Mode Selector Popover with Search" width="600">
+</li>
+<li class="">
+<p><strong>API 选择器弹出窗口重新设计</strong>：更新以匹配新的 mode 选择器设计，具有改进的布局 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6148" target="_blank" rel="noopener noreferrer" class="">#6148</a>)</p>
+<img src="/img/v3.25.0/v3.25.0-1.png" alt="API Configuration Selector Redesign" width="600">
+</li>
+<li class="">
+<p><strong>自动批准 UI</strong>：更简洁流畅的界面，具有改进的本地化 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6538" target="_blank" rel="noopener noreferrer" class="">#6538</a>)</p>
+</li>
+<li class="">
+<p><strong>粘性任务 Modes</strong>：任务记住其最后使用的 mode 并自动恢复 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6177" target="_blank" rel="noopener noreferrer" class="">#6177</a>)</p>
+</li>
+<li class="">
+<p><strong>ESC 键支持</strong>：使用 ESC 关闭弹出窗口，以获得更好的键盘导航 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6175" target="_blank" rel="noopener noreferrer" class="">#6175</a>)</p>
+</li>
+<li class="">
+<p><strong>改进的命令高亮</strong>：仅在输入字段中高亮显示有效命令 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6336" target="_blank" rel="noopener noreferrer" class="">#6336</a>)</p>
+</li>
+<li class="">
+<p><strong>命令验证</strong>：更好地处理后台执行（<code>&amp;</code>）和子 shell 模式，如 <code>(cmd1; cmd2)</code> (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6486" target="_blank" rel="noopener noreferrer" class="">#6486</a>)</p>
+</li>
+<li class="">
+<p><strong>子 shell 验证</strong>：改进对具有子 shell 的复杂 shell 命令的处理和验证，在使用命令替换模式时防止潜在错误 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6379" target="_blank" rel="noopener noreferrer" class="">#6379</a>)</p>
+</li>
+<li class="">
+<p><strong>斜杠命令图标悬停状态</strong>：修复斜杠命令图标的悬停状态，以在交互期间提供更好的视觉反馈 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6388" target="_blank" rel="noopener noreferrer" class="">#6388</a>)</p>
+</li>
+<li class="">
+<p><strong>更简洁的欢迎视图</strong>：欢迎屏幕上现在隐藏 Gemini 复选框，以获得更简洁的界面 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6415" target="_blank" rel="noopener noreferrer" class="">#6415</a>)</p>
+</li>
+<li class="">
+<p><strong>斜杠命令文档</strong>：添加斜杠命令文档的直接链接，以便更容易访问 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6409" target="_blank" rel="noopener noreferrer" class="">#6409</a>)</p>
+</li>
+<li class="">
+<p><strong>文档更新</strong>：澄清 apply_diff 工具描述，强调精确编辑 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6278" target="_blank" rel="noopener noreferrer" class="">#6278</a>)</p>
+</li>
+<li class="">
+<p><strong>任务恢复消息</strong>：通过移除关于恢复任务的误导性消息来改进 LLM 指令（感谢 KJ7LNW！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/5851" target="_blank" rel="noopener noreferrer" class="">#5851</a>)</p>
+</li>
+<li class="">
+<p><strong>AGENTS.md 支持</strong>：为 AGENTS.md 文件加载添加符号链接支持 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6326" target="_blank" rel="noopener noreferrer" class="">#6326</a>)</p>
+</li>
+<li class="">
+<p><strong>市场更新</strong>：当组织设置更改时自动刷新市场数据 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6446" target="_blank" rel="noopener noreferrer" class="">#6446</a>)</p>
+</li>
+<li class="">
+<p><strong><code>codebase_search</code> 工具</strong>：澄清 <code>path</code> 参数是可选的，默认情况下工具会搜索整个工作区 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6877" target="_blank" rel="noopener noreferrer" class="">#6877</a>)</p>
+</li>
+<li class="">
+<p><strong>Token 使用报告</strong>：修复了 token 使用量和成本被低估的问题，提供更准确的成本跟踪（感谢 chrarnoldus！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/6122" target="_blank" rel="noopener noreferrer" class="">#6122</a>)</p>
+</li>
+<li class="">
+<p><strong>增强任务历史</strong>：将&quot;使用任务历史增强&quot;默认设置为 true，以在对话中更好地保留上下文（感谢 liwilliam2021！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/7140" target="_blank" rel="noopener noreferrer" class="">#7140</a>)</p>
+</li>
+<li class="">
+<p><strong>改进的滚动条</strong>：通过移除 500 条消息限制来修复长对话中的滚动条跳动问题 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/7064" target="_blank" rel="noopener noreferrer" class="">#7064</a>)</p>
+</li>
+<li class="">
+<p><strong>Sonic Model 公告</strong>：添加了公告以通知用户 Sonic 模型的可用性，使用户更容易发现新的模型选项（感谢 mrubens！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/7244" target="_blank" rel="noopener noreferrer" class="">#7244</a>)</p>
+</li>
+<li class="">
+<p><strong>发布管理</strong>：为 v3.25.20 添加了 changeset 以确保正确的版本管理（感谢 mrubens！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/7245" target="_blank" rel="noopener noreferrer" class="">#7245</a>)</p>
+</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_sDfD" id="bug-修复">Bug 修复<a href="#bug-修复" class="hash-link" aria-label="Direct link to Bug 修复" title="Direct link to Bug 修复" translate="no">​</a></h3>
+<p>关键修复，提升稳定性和兼容性：</p>
+<ul>
+<li class="">
+<p><strong>OpenAI 响应</strong>: 修复了 GPT-5 子任务结果在 OpenAI 响应 API 中未正确提供 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/7305" target="_blank" rel="noopener noreferrer" class="">#7305</a>)</p>
+</li>
+<li class="">
+<p><strong>温度处理</strong>: 修复了 OpenAI 兼容提供者的温度参数问题 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/7188" target="_blank" rel="noopener noreferrer" class="">#7188</a>)</p>
+</li>
+<li class="">
+<p><strong>提供者验证</strong>: 将 &#x27;roo&#x27; 提供者添加到密钥验证函数中 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/7239" target="_blank" rel="noopener noreferrer" class="">#7239</a>)</p>
+</li>
+<li class="">
+<p><strong>UI 稳定性</strong>: 修复了处理空/未定义令牌值时上下文压缩 UI 崩溃的问题 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6916" target="_blank" rel="noopener noreferrer" class="">#6916</a>)</p>
+</li>
+<li class="">
+<p><strong>存储检查</strong>: 改进了文件系统检查以更好地处理存储（感谢 elianiva！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/7164" target="_blank" rel="noopener noreferrer" class="">#7164</a>)</p>
+</li>
+<li class="">
+<p><strong>滚动条跳动</strong>: 修复了超过 500 条消息的长对话中的烦人滚动条跳动问题（感谢 shlgug, adambrand！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/7064" target="_blank" rel="noopener noreferrer" class="">#7064</a>)</p>
+</li>
+<li class="">
+<p><strong>多文件夹工作区</strong>: 修复了多文件夹 VS Code 工作区中的工作区路径处理和&quot;文件未找到&quot;错误（感谢 NaccOll！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/6903" target="_blank" rel="noopener noreferrer" class="">#6903</a>, <a href="https://github.com/RooCodeInc/Roo-Code/pull/6902" target="_blank" rel="noopener noreferrer" class="">#6902</a>)</p>
+</li>
+<li class="">
+<p><strong>任务执行稳定性</strong>: 改进了长时间运行任务期间的稳定性，有助于解决&quot;灰色屏幕&quot;问题（感谢 catrielmuller, MuriloFP！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/7035" target="_blank" rel="noopener noreferrer" class="">#7035</a>)</p>
+</li>
+<li class="">
+<p><strong>提供者设置保存按钮</strong>: 保存按钮现在在更改提供者下拉菜单和复选框时正确启用 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/7113" target="_blank" rel="noopener noreferrer" class="">#7113</a>)</p>
+</li>
+<li class="">
+<p><strong>XML 实体解码</strong>: 修复了处理包含特殊字符（如&quot;&amp;&quot;）的文件时 apply_diff 工具失败的问题（感谢 indiesewell！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/7108" target="_blank" rel="noopener noreferrer" class="">#7108</a>)</p>
+</li>
+<li class="">
+<p><strong>设置显示</strong>: 修复了设置 UI 中 Max Requests 和 Max Cost 值不显示的问题（感谢 chrarnoldus, possible055！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/6925" target="_blank" rel="noopener noreferrer" class="">#6925</a>)</p>
+</li>
+<li class="">
+<p><strong>上下文压缩指示器</strong>: 修复了切换任务时压缩指示器错误持续存在的问题（感谢 f14XuanLv！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/6922" target="_blank" rel="noopener noreferrer" class="">#6922</a>)</p>
+</li>
+<li class="">
+<p><strong>令牌计算</strong>: 修复了舍入错误，通过确保最大输出令牌正确向上舍入，使 GLM-4.5 等特定模型能够正常工作（感谢 markp018！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/6808" target="_blank" rel="noopener noreferrer" class="">#6808</a>)</p>
+</li>
+<li class="">
+<p><strong>XML 解析</strong>: 通过实现适当的 CDATA 部分，修复了在使用包含特殊字符的复杂 XML 文件时使用 apply_diff 工具的错误 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6811" target="_blank" rel="noopener noreferrer" class="">#6811</a>)</p>
+</li>
+<li class="">
+<p><strong>MCP 错误消息</strong>: 修复了 MCP 服务器错误显示原始翻译键而不是正确错误消息的问题 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6821" target="_blank" rel="noopener noreferrer" class="">#6821</a>)</p>
+</li>
+<li class="">
+<p><strong>内存泄漏修复</strong>: 解决了长对话中的关键内存泄漏问题，该问题导致内存使用过多和灰色屏幕。虚拟滚动现在限制视口渲染并优化缓存，以确保无论对话长度如何都能稳定性能。（感谢 xyOz-dev！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/6697" target="_blank" rel="noopener noreferrer" class="">#6697</a>)</p>
+</li>
+<li class="">
+<p><strong>禁用的 MCP 服务器</strong>: 修复了禁用的 MCP 服务器仍在启动进程并消耗资源的问题。禁用的服务器现在真正保持禁用状态，并在全局禁用 MCP 时显示清晰的状态指示器和立即清理。（<a href="https://github.com/RooCodeInc/Roo-Code/pull/6084" target="_blank" rel="noopener noreferrer" class="">#6084</a>）</p>
+</li>
+<li class="">
+<p><strong>MCP 服务器刷新</strong>: 设置更改不再触发不必要的 MCP 服务器刷新 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6779" target="_blank" rel="noopener noreferrer" class="">#6779</a>)</p>
+</li>
+<li class="">
+<p><strong>代码库搜索</strong>: 该工具现在在使用&quot;.&quot;作为路径时正确搜索整个工作区 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6517" target="_blank" rel="noopener noreferrer" class="">#6517</a>)</p>
+</li>
+<li class="">
+<p><strong>Swift 文件支持</strong>: 修复了索引包含 Swift 文件的项目时 VS Code 崩溃的问题（感谢 niteshbalusu11, sealad886！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/6724" target="_blank" rel="noopener noreferrer" class="">#6724</a>)</p>
+</li>
+<li class="">
+<p><strong>上下文管理</strong>: 模型最大令牌现在智能限制为上下文窗口的 20%，以防止过度压缩 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6761" target="_blank" rel="noopener noreferrer" class="">#6761</a>)</p>
+</li>
+<li class="">
+<p><strong>OpenAI 配置</strong>: 基础 URL 中的额外空白不再破坏模型检测（感谢 vauhochzett！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/6560" target="_blank" rel="noopener noreferrer" class="">#6560</a>)</p>
+</li>
+<li class="">
+<p><strong>URL 获取</strong>: 从 URL 获取内容时更好的错误恢复（感谢 QuinsZouls！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/6635" target="_blank" rel="noopener noreferrer" class="">#6635</a>)</p>
+</li>
+<li class="">
+<p><strong>Qdrant 恢复</strong>: Qdrant 在启动错误后可用时代码索引自动恢复 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6661" target="_blank" rel="noopener noreferrer" class="">#6661</a>)</p>
+</li>
+<li class="">
+<p><strong>聊天滚动</strong>: 消除了消息流式传输期间的滚动抖动 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6780" target="_blank" rel="noopener noreferrer" class="">#6780</a>)</p>
+</li>
+<li class="">
+<p><strong>模式名称验证</strong>: 防止空模式名称导致 YAML 解析错误（感谢 kfxmvp！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/5767" target="_blank" rel="noopener noreferrer" class="">#5767</a>)</p>
+</li>
+<li class="">
+<p><strong>文本高亮对齐</strong>: 修复了聊天输入区域高亮的错位问题（感谢 NaccOll！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/6648" target="_blank" rel="noopener noreferrer" class="">#6648</a>)</p>
+</li>
+<li class="">
+<p><strong>MCP 服务器设置</strong>: 正确遵循&quot;启用 MCP 服务器创建&quot;设置（感谢 characharm！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/6613" target="_blank" rel="noopener noreferrer" class="">#6613</a>)</p>
+</li>
+<li class="">
+<p><strong>VB.NET 索引</strong>: 现在使用回退分块在大型单体仓库中正确索引文件（感谢 JensvanZutphen！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/6552" target="_blank" rel="noopener noreferrer" class="">#6552</a>)</p>
+</li>
+<li class="">
+<p><strong>消息发送</strong>: 恢复了单击保存按钮时的功能 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6487" target="_blank" rel="noopener noreferrer" class="">#6487</a>)</p>
+</li>
+<li class="">
+<p><strong>搜索/替换容错</strong>: 对包含额外 <code>&gt;</code> 字符的 AI 生成差异更加宽容 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6537" target="_blank" rel="noopener noreferrer" class="">#6537</a>)</p>
+</li>
+<li class="">
+<p><strong>Qdrant 删除</strong>: 优雅处理删除错误以防止索引中断 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6296" target="_blank" rel="noopener noreferrer" class="">#6296</a>)</p>
+</li>
+<li class="">
+<p><strong>LM Studio 上下文长度</strong>: 模型现在正确显示其实际上下文长度而不是&quot;1&quot;（感谢 pwilkin, Angular-Angel！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/6183" target="_blank" rel="noopener noreferrer" class="">#6183</a>)</p>
+</li>
+<li class="">
+<p><strong>Claude 代码错误</strong>: ENOENT 错误现在显示有用的安装指导（感谢 JamieJ1！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/5867" target="_blank" rel="noopener noreferrer" class="">#5867</a>)</p>
+</li>
+<li class="">
+<p><strong>Claude 代码错误处理</strong>: 修复了使用 Claude Code 提供者时的&quot;spawn claude ENOENT&quot;错误，现在提供更好的错误处理和安装指导（感谢 JamieJ1！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/6565" target="_blank" rel="noopener noreferrer" class="">#6565</a>)</p>
+</li>
+<li class="">
+<p><strong>多文件编辑修复</strong>: 修复了 Git diff 视图干扰文件操作的问题（感谢 hassoncs, szermatt！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/6350" target="_blank" rel="noopener noreferrer" class="">#6350</a>)</p>
+</li>
+<li class="">
+<p><strong>非 QWERTY 键盘支持</strong>: 修复了 Dvorak、AZERTY 和其他布局的键盘快捷键（感谢 shlgug！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/6162" target="_blank" rel="noopener noreferrer" class="">#6162</a>)</p>
+</li>
+<li class="">
+<p><strong>模式导出/导入</strong>: 修复了自定义模式导出以正确处理 slug 更改 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6186" target="_blank" rel="noopener noreferrer" class="">#6186</a>)</p>
+</li>
+<li class="">
+<p><strong>隐藏目录支持</strong>: <a class="" href="/advanced-usage/available-tools/list-files"><code>list_files</code></a> 现在正确显示点目录的内容（感谢 MuriloFP, avtc, zhang157686！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/5176" target="_blank" rel="noopener noreferrer" class="">#5176</a>)</p>
+</li>
+<li class="">
+<p><strong>滚动条稳定性</strong>: 修复了流式传输表格和代码块时的滚动条闪烁 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6266" target="_blank" rel="noopener noreferrer" class="">#6266</a>)</p>
+</li>
+<li class="">
+<p><strong>设置链接修复</strong>: 恢复了命令权限工具提示中工作的&quot;查看设置&quot;链接 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6253" target="_blank" rel="noopener noreferrer" class="">#6253</a>)</p>
+</li>
+<li class="">
+<p><strong>@提及解析</strong>: 修复了提及功能，使其在所有输入上下文中工作，包括后续问题 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6331" target="_blank" rel="noopener noreferrer" class="">#6331</a>)</p>
+</li>
+<li class="">
+<p><strong>调试按钮移除</strong>: 在生产构建中隐藏测试错误边界按钮（感谢 bangjohn！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/6216" target="_blank" rel="noopener noreferrer" class="">#6216</a>)</p>
+</li>
+<li class="">
+<p><strong>命令高亮修复</strong>: 修复了斜杠命令高亮行为不一致的问题 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6325" target="_blank" rel="noopener noreferrer" class="">#6325</a>)</p>
+</li>
+<li class="">
+<p><strong>文本换行</strong>: 修复了权限 UI 中长命令模式的文本溢出 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6255" target="_blank" rel="noopener noreferrer" class="">#6255</a>)</p>
+</li>
+<li class="">
+<p><strong>跨平台模式导出</strong>：Windows 路径分隔符现在可以正确转换为 Unix 系统 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6308" target="_blank" rel="noopener noreferrer" class="">#6308</a>)</p>
+</li>
+<li class="">
+<p><strong>差异视图显示</strong>：修复了在禁用后台编辑时，差异视图在批准前不显示的问题 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6386" target="_blank" rel="noopener noreferrer" class="">#6386</a>)</p>
+</li>
+<li class="">
+<p><strong>聊天输入保留</strong>：修复了点击聊天按钮会清除已输入消息的问题（感谢 hassoncs！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/6222" target="_blank" rel="noopener noreferrer" class="">#6222</a>)</p>
+</li>
+<li class="">
+<p><strong>图像队列</strong>：修复了图像队列功能无法正常工作的问题 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6414" target="_blank" rel="noopener noreferrer" class="">#6414</a>)</p>
+</li>
+<li class="">
+<p><strong>Claude 代码输出 Token</strong>：通过将默认最大输出 Token 从 8k 增加到 16k 来修复截断的响应（感谢 bpeterson1991！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/6312" target="_blank" rel="noopener noreferrer" class="">#6312</a>)</p>
+</li>
+<li class="">
+<p><strong>执行命令终止按钮</strong>：修复了 execute_command 工具的终止按钮功能 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6457" target="_blank" rel="noopener noreferrer" class="">#6457</a>)</p>
+</li>
+<li class="">
+<p><strong>Token 计数</strong>：通过使用 VSCode LM API 从消息中提取文本来修复准确性问题（感谢 NaccOll！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/6424" target="_blank" rel="noopener noreferrer" class="">#6424</a>)</p>
+</li>
+<li class="">
+<p><strong>工具重复检测器</strong>：修复了将&quot;错误和重复限制&quot;设置为 1 时会错误阻止第一次工具调用的 bug（感谢 NaccOll！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/6836" target="_blank" rel="noopener noreferrer" class="">#6836</a>)</p>
+</li>
+<li class="">
+<p><strong><code>max_tokens</code> 计算</strong>：修复了具有非常大上下文窗口的模型的错误，这些错误由于最大输出 Token 计算不正确而导致请求失败（感谢 markp018！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/6808" target="_blank" rel="noopener noreferrer" class="">#6808</a>)</p>
+</li>
+<li class="">
+<p><strong>AWS Bedrock 连接</strong>：修复了使用 LiteLLM 时 AWS Bedrock 的连接问题 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6778" target="_blank" rel="noopener noreferrer" class="">#6778</a>)</p>
+</li>
+<li class="">
+<p><strong>搜索工具可靠性</strong>：修复了 search_files 工具在遇到权限被拒绝的文件时失败的问题 - 现在会继续工作并返回可访问文件的结果（感谢 R-omk！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/6757" target="_blank" rel="noopener noreferrer" class="">#6757</a>)</p>
+</li>
+<li class="">
+<p><strong>原生 Ollama API</strong>：修复了 Ollama 模型以使用原生 API 而非 OpenAI 兼容层，以提高性能和可靠性 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/7137" target="_blank" rel="noopener noreferrer" class="">#7137</a>)</p>
+</li>
+<li class="">
+<p><strong>终端复用</strong>：修复了终端复用逻辑以正确处理终端生命周期管理 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/7157" target="_blank" rel="noopener noreferrer" class="">#7157</a>)</p>
+</li>
+<li class="">
+<p><strong>LM Studio 模型</strong>：通过实现不区分大小写的去重来修复重复模型条目，确保模型在提供程序配置中只出现一次（感谢 fbuechler！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/7185" target="_blank" rel="noopener noreferrer" class="">#7185</a>)</p>
+</li>
+<li class="">
+<p><strong>推理使用</strong>：修复了 enableReasoningEffort 设置在确定推理使用时未被遵守的问题，避免了意外的推理费用（感谢 ikbencasdoei！）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/7049" target="_blank" rel="noopener noreferrer" class="">#7049</a>)</p>
+</li>
+<li class="">
+<p><strong>欢迎界面</strong>：修复了 Zoo Code Cloud 提供程序的&quot;开始使用&quot;按钮无法工作的问题 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/7239" target="_blank" rel="noopener noreferrer" class="">#7239</a>)</p>
+</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_sDfD" id="提供程序更新">提供程序更新<a href="#提供程序更新" class="hash-link" aria-label="Direct link to 提供程序更新" title="Direct link to 提供程序更新" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>Requesty Provider</strong>: 新增对自定义基础 URL 的支持，允许您连接到自托管或替代的 Requesty 端点 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/7337" target="_blank" rel="noopener noreferrer" class="">#7337</a>)</li>
+<li class=""><strong>Chutes AI</strong>: 新增 DeepSeek V3.1 模型支持，扩展了 Chutes AI 用户可用的模型选项 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/7295" target="_blank" rel="noopener noreferrer" class="">#7295</a>)</li>
+<li class=""><strong>Featherless Provider</strong>: 通过新的 Featherless AI 平台访问广泛的开源模型（感谢 DarinVerheijke!） (<a href="https://github.com/RooCodeInc/Roo-Code/pull/7235" target="_blank" rel="noopener noreferrer" class="">#7235</a>)</li>
+<li class=""><strong>Sonic 模型集成</strong>: 通过 Zoo Code Cloud provider 新增对 Sonic 隐形模型的支持 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/7207" target="_blank" rel="noopener noreferrer" class="">#7207</a>, <a href="https://github.com/RooCodeInc/Roo-Code/pull/7212" target="_blank" rel="noopener noreferrer" class="">#7212</a>, <a href="https://github.com/RooCodeInc/Roo-Code/pull/7218" target="_blank" rel="noopener noreferrer" class="">#7218</a>):<!-- -->
+<ul>
+<li class="">262,144-token 上下文窗口，用于处理大型文档和代码库</li>
+<li class="">免费 72 小时访问期用于评估</li>
+<li class="">思考 token 控制，用于管理推理预算</li>
+<li class="">最大输出 token 增加到 16,384，支持更长的响应</li>
+</ul>
+</li>
+<li class=""><strong>GPT-5 模型支持</strong>: 新增对 OpenAI 最新 GPT-5 模型系列的支持 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6819" target="_blank" rel="noopener noreferrer" class="">#6819</a>):<!-- -->
+<ul>
+<li class=""><code>gpt-5-2025-08-07</code>: 完整的 GPT-5 模型，现在设置为 OpenAI Native provider 的默认模型</li>
+<li class=""><code>gpt-5-mini-2025-08-07</code>: 更小、更快的变体，用于快速响应</li>
+<li class=""><code>gpt-5-nano-2025-08-07</code>: 最紧凑的版本，适用于资源受限的场景</li>
+<li class=""><code>gpt-5-chat-latest</code>: 针对对话式 AI 和非推理任务优化 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/7058" target="_blank" rel="noopener noreferrer" class="">#7058</a>)</li>
+</ul>
+</li>
+<li class=""><strong>GPT-5 详细度控制</strong>: 新增控制模型输出详细程度的设置（低、中、高），允许您根据需要微调响应长度和详细程度 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6819" target="_blank" rel="noopener noreferrer" class="">#6819</a>)</li>
+<li class=""><strong>Fireworks AI 模型</strong>: 新增 GLM-4.5 系列模型（355B 和 106B 参数，128K 上下文）和 OpenAI gpt-oss 模型（20b 用于边缘部署，120b 用于生产使用），扩展模型选择选项（感谢 alexfarlander!） (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6784" target="_blank" rel="noopener noreferrer" class="">#6784</a>)</li>
+<li class=""><strong>Claude Opus 4.1 支持</strong>: 在 Anthropic、Claude Code、Bedrock、Vertex AI 和 LiteLLM providers 中新增对新 Claude Opus 4.1 模型的支持，具有 8192 最大 token、推理预算支持和提示缓存 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6728" target="_blank" rel="noopener noreferrer" class="">#6728</a>)</li>
+<li class=""><strong>Z AI Provider</strong>: Z AI（前身为 Zhipu AI）现已可用，提供 GLM-4.5 系列模型，为国际和中国大陆用户提供双区域支持（感谢 jues!） (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6657" target="_blank" rel="noopener noreferrer" class="">#6657</a>)</li>
+<li class=""><strong>Fireworks AI Provider</strong>: 新 provider，提供 Kimi 和 Qwen 等流行的开源模型的托管版本（感谢 ershang-fireworks!） (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6652" target="_blank" rel="noopener noreferrer" class="">#6652</a>)</li>
+<li class=""><strong>Groq GPT-OSS 模型</strong>: 新增 GPT-OSS-120b 和 GPT-OSS-20b 模型，具有 131K 上下文窗口，支持工具使用、浏览器搜索、代码执行和 JSON 对象模式 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6732" target="_blank" rel="noopener noreferrer" class="">#6732</a>)</li>
+<li class=""><strong>Cerebras GPT-OSS-120b</strong>: 新增 OpenAI 的 GPT-OSS-120b 模型 - 免费使用，64K 上下文，约 2800 tokens/秒 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6734" target="_blank" rel="noopener noreferrer" class="">#6734</a>)</li>
+<li class=""><strong>Cerebras Provider</strong>: 新增对 Cerebras 作为新 AI provider 的支持，提供 Qwen 3 Coder 模型，具有免费和付费层级选项，支持自动思考 token 过滤（感谢 kevint-cerebras!） (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6392" target="_blank" rel="noopener noreferrer" class="">#6392</a>, <a href="https://github.com/RooCodeInc/Roo-Code/pull/6562" target="_blank" rel="noopener noreferrer" class="">#6562</a>)</li>
+<li class=""><strong>LiteLLM 的提示缓存</strong>: 通过 Claude 3.5 Sonnet 和兼容模型的缓存支持，降低 API 成本并提高响应时间（感谢 MuriloFP, steve-gore-snapdocs!） (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6074" target="_blank" rel="noopener noreferrer" class="">#6074</a>)</li>
+<li class=""><strong>Chutes AI - GLM-4.5-Air 模型</strong>: 在 Chutes AI provider 中新增对 GLM-4.5-Air 模型的支持，具有 151K token 上下文窗口，用于复杂推理任务和大型代码库分析 - 完全免费使用（感谢 matbgn!） (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6377" target="_blank" rel="noopener noreferrer" class="">#6377</a>)</li>
+<li class=""><strong>Doubao Provider</strong>: 新增对字节跳动 AI 模型 provider 的支持，包括完整的 API 处理集成（感谢 AntiMoron!） (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6345" target="_blank" rel="noopener noreferrer" class="">#6345</a>)</li>
+<li class=""><strong>SambaNova Provider</strong>: 集成 SambaNova 作为新的 LLM provider，提供高速推理和更广泛的模型选择（感谢 snova-jorgep!） (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6188" target="_blank" rel="noopener noreferrer" class="">#6188</a>)</li>
+<li class=""><strong>Chutes AI</strong>: 新增 zai-org/GLM-4.5-FP8 模型支持 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6441" target="_blank" rel="noopener noreferrer" class="">#6441</a>)</li>
+<li class=""><strong>OpenRouter</strong>: 将 horizon-alpha 模型最大 token 设置为 32k (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6470" target="_blank" rel="noopener noreferrer" class="">#6470</a>)</li>
+<li class=""><strong>通过 OpenRouter 的 Horizon Beta 隐形模型</strong>: 优化对 OpenRouter 新隐形模型 Horizon Beta 的支持，32k 最大 token，响应时间更佳。感谢 OpenRouter 提供这个免费的、改进版的 Horizon Alpha! (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6577" target="_blank" rel="noopener noreferrer" class="">#6577</a>)</li>
+<li class=""><strong>类型定义</strong>: 更新 @roo-code/types 至 v1.41.0，支持最新类型兼容性 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6568" target="_blank" rel="noopener noreferrer" class="">#6568</a>)</li>
+<li class=""><strong>Databricks</strong>: 新增对 /invocations 端点模式的支持（感谢 adambrand!） (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6317" target="_blank" rel="noopener noreferrer" class="">#6317</a>)</li>
+<li class=""><strong>Codex Mini 模型支持</strong>: 在 OpenAI Native provider 中新增对 <code>codex-mini-latest</code> 模型的支持（感谢 KJ7LNW!） (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6931" target="_blank" rel="noopener noreferrer" class="">#6931</a>)</li>
+<li class=""><strong>IO Intelligence Provider</strong>: 新增 IO Intelligence 作为新 provider，为用户提供广泛的 AI 模型访问 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6875" target="_blank" rel="noopener noreferrer" class="">#6875</a>)</li>
+<li class=""><strong>OpenAI</strong>: 从可用选项中移除已弃用的 GPT-4.5 Preview 模型，因为它已从 OpenAI API 中移除（感谢 PeterDaveHello!） (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6948" target="_blank" rel="noopener noreferrer" class="">#6948</a>)</li>
+<li class=""><strong>任务元数据</strong>: 改进与 Zoo Code Cloud 服务的兼容性 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/7092" target="_blank" rel="noopener noreferrer" class="">#7092</a>)</li>
+<li class=""><strong>Sonic 模型支持</strong>: 在 provider 系统中新增对 Sonic 模型的支持（感谢 mrubens!） (<a href="https://github.com/RooCodeInc/Roo-Code/pull/7246" target="_blank" rel="noopener noreferrer" class="">#7246</a>)</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_sDfD" id="其他改进">其他改进<a href="#其他改进" class="hash-link" aria-label="Direct link to 其他改进" title="Direct link to 其他改进" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>MDM 认证</strong>：当组织的 MDM 策略要求认证时提供清晰反馈 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/7291" target="_blank" rel="noopener noreferrer" class="">#7291</a>)</li>
+<li class=""><strong>安全更新</strong>：更新 mermaid 依赖到 v11.10.0 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/7231" target="_blank" rel="noopener noreferrer" class="">#7231</a>) 和 tmp 依赖到 v0.2.4 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6762" target="_blank" rel="noopener noreferrer" class="">#6762</a>)</li>
+<li class=""><strong>任务跟踪</strong>：在 Zoo 提供商请求头中传递任务 ID (<a href="https://github.com/RooCodeInc/Roo-Code/pull/7303" target="_blank" rel="noopener noreferrer" class="">#7303</a>)</li>
+<li class=""><strong>错误处理</strong>：从 RooHandler 构造函数中移除了异常 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/7302" target="_blank" rel="noopener noreferrer" class="">#7302</a>)</li>
+<li class=""><strong>云服务</strong>：云服务的各种内部改进 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/7299" target="_blank" rel="noopener noreferrer" class="">#7299</a>, <a href="https://github.com/RooCodeInc/Roo-Code/pull/7258" target="_blank" rel="noopener noreferrer" class="">#7258</a>)</li>
+<li class=""><strong>构建优化</strong>：将非英文包文件标记为 linguist-generated (<a href="https://github.com/RooCodeInc/Roo-Code/pull/7271" target="_blank" rel="noopener noreferrer" class="">#7271</a>)</li>
+<li class=""><strong>云集成</strong>：回退到使用 @roo-code/cloud 的 npm 包版本以提高构建稳定性和维护性 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6795" target="_blank" rel="noopener noreferrer" class="">#6795</a>)</li>
+<li class=""><strong>斜杠命令插值</strong>：跳过对不存在命令的插值 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6475" target="_blank" rel="noopener noreferrer" class="">#6475</a>)</li>
+<li class=""><strong>代码检查覆盖</strong>：应用于 locale README 文件（感谢 liwilliam2021!）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/6477" target="_blank" rel="noopener noreferrer" class="">#6477</a>)</li>
+<li class=""><strong>云服务事件</strong>：从回调迁移到基于事件的架构 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6519" target="_blank" rel="noopener noreferrer" class="">#6519</a>)</li>
+<li class=""><strong>网站更新</strong>：第 1 阶段改进（感谢 thill2323!）(<a href="https://github.com/RooCodeInc/Roo-Code/pull/6085" target="_blank" rel="noopener noreferrer" class="">#6085</a>)</li>
+<li class=""><strong>后台编辑（实验性）</strong>：在 Zoo 在后台编辑文件时不间断工作——不再因自动差异视图而失去焦点 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6214" target="_blank" rel="noopener noreferrer" class="">#6214</a>)。文件在您继续编码时静默更改，诊断和错误检查仍然活跃。详情请参见 <a class="" href="/features/experimental/background-editing">后台编辑</a>。</li>
+<li class=""><strong>安全更新</strong>：更新 form-data 依赖以解决安全漏洞 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6332" target="_blank" rel="noopener noreferrer" class="">#6332</a>)</li>
+<li class=""><strong>贡献者更新</strong>：刷新了所有本地化的贡献者致谢 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6302" target="_blank" rel="noopener noreferrer" class="">#6302</a>)</li>
+<li class=""><strong>发布工程</strong>：将发布工程师角色转换为斜杠命令以简化发布 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6333" target="_blank" rel="noopener noreferrer" class="">#6333</a>)</li>
+<li class=""><strong>PR 审查者改进</strong>：使 PR 审查者模式通用化以适用于任何 GitHub 仓库 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6357" target="_blank" rel="noopener noreferrer" class="">#6357</a>, <a href="https://github.com/RooCodeInc/Roo-Code/pull/6328" target="_blank" rel="noopener noreferrer" class="">#6328</a>, <a href="https://github.com/RooCodeInc/Roo-Code/pull/6324" target="_blank" rel="noopener noreferrer" class="">#6324</a>)</li>
+<li class=""><strong>组织 MCP 控制</strong>：添加了在组织级别管理 MCP 服务器的支持，允许跨团队的集中配置 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6378" target="_blank" rel="noopener noreferrer" class="">#6378</a>)</li>
+<li class=""><strong>扩展标题更新</strong>：从所有语言的扩展标题中移除了 &quot;(prev Zoo Cline)&quot; (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6426" target="_blank" rel="noopener noreferrer" class="">#6426</a>)</li>
+<li class=""><strong>翻译改进</strong>：更新了自动翻译提示并添加了翻译检查操作 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6430" target="_blank" rel="noopener noreferrer" class="">#6430</a>, <a href="https://github.com/RooCodeInc/Roo-Code/pull/6393" target="_blank" rel="noopener noreferrer" class="">#6393</a>)</li>
+<li class=""><strong>模式配置</strong>：更新了 PR 审查者规则和模式配置 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6391" target="_blank" rel="noopener noreferrer" class="">#6391</a>, <a href="https://github.com/RooCodeInc/Roo-Code/pull/6428" target="_blank" rel="noopener noreferrer" class="">#6428</a>)</li>
+<li class=""><strong>Navigator 全局错误</strong>：通过更新 mammoth 和 bluebird 依赖解决了错误 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6363" target="_blank" rel="noopener noreferrer" class="">#6363</a>)</li>
+<li class=""><strong>夜间构建修复</strong>：通过单独的更新日志解决了市场冻结问题 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6449" target="_blank" rel="noopener noreferrer" class="">#6449</a>)</li>
+<li class=""><strong>云提供商配置文件同步</strong>：添加了从云端同步提供商配置文件的支持，启用跨设备和团队协作的自动同步 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/6540" target="_blank" rel="noopener noreferrer" class="">#6540</a>)</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_sDfD" id="文档更新">文档更新<a href="#文档更新" class="hash-link" aria-label="Direct link to 文档更新" title="Direct link to 文档更新" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>ask_followup_question Tool</strong>：简化了提示指导以实现更清晰的创作，使创建有效的后续问题更快 (<a href="https://github.com/RooCodeInc/Roo-Code/pull/7191" target="_blank" rel="noopener noreferrer" class="">#7191</a>)</li>
+</ul></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_lGPW"><a href="https://github.com/Zoo-Code-Org/Zoo-Code-Docs/edit/main/docs/update-notes/v3.25.mdx" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_kM6b" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_Sg7T"><span class="theme-last-updated">Last updated<!-- --> on <b><time datetime="2026-05-06T23:52:37.000Z" itemprop="dateModified">May 6, 2026</time></b></span></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/update-notes/v3.26.0"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">3.26.0</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/update-notes/v3.25.23"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">3.25.23</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_QezQ thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#vertex-ai-接地功能" class="table-of-contents__link toc-highlight">Vertex AI 接地功能</a></li><li><a href="#子任务待办列表" class="table-of-contents__link toc-highlight">子任务待办列表</a></li><li><a href="#自定义斜杠命令" class="table-of-contents__link toc-highlight">自定义斜杠命令</a></li><li><a href="#消息排队" class="table-of-contents__link toc-highlight">消息排队</a></li><li><a href="#read_file-tool-的图像支持" class="table-of-contents__link toc-highlight">read_file Tool 的图像支持</a></li><li><a href="#gemini-toolsurl-上下文和-google-搜索" class="table-of-contents__link toc-highlight">Gemini Tools：URL 上下文和 Google 搜索</a></li><li><a href="#上下文感知提示增强" class="table-of-contents__link toc-highlight">上下文感知提示增强</a></li><li><a href="#自动批准成本限制" class="table-of-contents__link toc-highlight">自动批准成本限制</a></li><li><a href="#生活质量改进" class="table-of-contents__link toc-highlight">生活质量改进</a></li><li><a href="#bug-修复" class="table-of-contents__link toc-highlight">Bug 修复</a></li><li><a href="#提供程序更新" class="table-of-contents__link toc-highlight">提供程序更新</a></li><li><a href="#其他改进" class="table-of-contents__link toc-highlight">其他改进</a></li><li><a href="#文档更新" class="table-of-contents__link toc-highlight">文档更新</a></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="footer__main"><div class="footer__brand"><div class="footer__logo-container"><div class="footerLogoWrap_kr34"><img src="/img/zoo-code-logo-dark.png" alt="Zoo Code Logo" class="footer__logo footerLogoImage_M_qT themedComponent_Gb2o themedComponent--light_uHUl" width="120" height="24"><img src="/img/zoo-code-logo-white.png" alt="Zoo Code Logo" class="footer__logo footerLogoImage_M_qT themedComponent_Gb2o themedComponent--dark_tuAW" width="120" height="24"><span class="footerLogoText_KZjl">Zoo Code</span></div></div><div class="footer__tagline">Your AI Software Engineering Team. Interactive in the IDE, autonomous in the cloud.</div><div class="footer__social-icons"><div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center"><a href="https://github.com/Zoo-Code-Org/Zoo-Code" aria-label="GitHub" class="footer__link-item" style="text-decoration:none;transition:opacity 0.2s ease"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg></a><a href="https://discord.gg/SfHYG44NUA" aria-label="Discord" class="footer__link-item" style="text-decoration:none;transition:opacity 0.2s ease"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 640 512" height="24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M524.531,69.836a1.5,1.5,0,0,0-.764-.7A485.065,485.065,0,0,0,404.081,32.03a1.816,1.816,0,0,0-1.923.91,337.461,337.461,0,0,0-14.9,30.6,447.848,447.848,0,0,0-134.426,0,309.541,309.541,0,0,0-15.135-30.6,1.89,1.89,0,0,0-1.924-.91A483.689,483.689,0,0,0,116.085,69.137a1.712,1.712,0,0,0-.788.676C39.068,183.651,18.186,294.69,28.43,404.354a2.016,2.016,0,0,0,.765,1.375A487.666,487.666,0,0,0,176.02,479.918a1.9,1.9,0,0,0,2.063-.676A348.2,348.2,0,0,0,208.12,430.4a1.86,1.86,0,0,0-1.019-2.588,321.173,321.173,0,0,1-45.868-21.853,1.885,1.885,0,0,1-.185-3.126c3.082-2.309,6.166-4.711,9.109-7.137a1.819,1.819,0,0,1,1.9-.256c96.229,43.917,200.41,43.917,295.5,0a1.812,1.812,0,0,1,1.924.233c2.944,2.426,6.027,4.851,9.132,7.16a1.884,1.884,0,0,1-.162,3.126,301.407,301.407,0,0,1-45.89,21.83,1.875,1.875,0,0,0-1,2.611,391.055,391.055,0,0,0,30.014,48.815,1.864,1.864,0,0,0,2.063.7A486.048,486.048,0,0,0,610.7,405.729a1.882,1.882,0,0,0,.765-1.352C623.729,277.594,590.933,167.465,524.531,69.836ZM222.491,337.58c-28.972,0-52.844-26.587-52.844-59.239S193.056,219.1,222.491,219.1c29.665,0,53.306,26.82,52.843,59.239C275.334,310.993,251.924,337.58,222.491,337.58Zm195.38,0c-28.971,0-52.843-26.587-52.843-59.239S388.437,219.1,417.871,219.1c29.667,0,53.307,26.82,52.844,59.239C470.715,310.993,447.538,337.58,417.871,337.58Z"></path></svg></a><a href="https://www.reddit.com/r/ZooCode/" aria-label="Reddit" class="footer__link-item" style="text-decoration:none;transition:opacity 0.2s ease"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M0 256C0 114.6 114.6 0 256 0S512 114.6 512 256s-114.6 256-256 256L37.1 512c-13.7 0-20.5-16.5-10.9-26.2L75 437C28.7 390.7 0 326.7 0 256zM349.6 153.6c23.6 0 42.7-19.1 42.7-42.7s-19.1-42.7-42.7-42.7c-20.6 0-37.8 14.6-41.8 34c-34.5 3.7-61.4 33-61.4 68.4l0 .2c-37.5 1.6-71.8 12.3-99 29.1c-10.1-7.8-22.8-12.5-36.5-12.5c-33 0-59.8 26.8-59.8 59.8c0 24 14.1 44.6 34.4 54.1c2 69.4 77.6 125.2 170.6 125.2s168.7-55.9 170.6-125.3c20.2-9.6 34.1-30.2 34.1-54c0-33-26.8-59.8-59.8-59.8c-13.7 0-26.3 4.6-36.4 12.4c-27.4-17-62.1-27.7-100-29.1l0-.2c0-25.4 18.9-46.5 43.4-49.9l0 0c4.4 18.8 21.3 32.8 41.5 32.8zM177.1 246.9c16.7 0 29.5 17.6 28.5 39.3s-13.5 29.6-30.3 29.6s-31.4-8.8-30.4-30.5s15.4-38.3 32.1-38.3zm190.1 38.3c1 21.7-13.7 30.5-30.4 30.5s-29.3-7.9-30.3-29.6c-1-21.7 11.8-39.3 28.5-39.3s31.2 16.6 32.1 38.3zm-48.1 56.7c-10.3 24.6-34.6 41.9-63 41.9s-52.7-17.3-63-41.9c-1.2-2.9 .8-6.2 3.9-6.5c18.4-1.9 38.3-2.9 59.1-2.9s40.7 1 59.1 2.9c3.1 .3 5.1 3.6 3.9 6.5z"></path></svg></a><a href="https://x.com/ZooCodeDev" aria-label="X (Twitter)" class="footer__link-item" style="text-decoration:none;transition:opacity 0.2s ease"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"></path></svg></a><a href="https://www.linkedin.com" aria-label="LinkedIn" class="footer__link-item" style="text-decoration:none;transition:opacity 0.2s ease"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg></a></div></div></div><div class="footer__links-wrapper"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">GitHub</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/Zoo-Code-Org/Zoo-Code/issues" target="_blank" rel="noopener noreferrer" class="footer__link-item">Issues</a></li><li class="footer__item"><a href="https://github.com/Zoo-Code-Org/Zoo-Code/discussions/categories/feature-requests?discussions_q=is%3Aopen+category%3A%22Feature+Requests%22+sort%3Atop" target="_blank" rel="noopener noreferrer" class="footer__link-item">Feature Requests</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Download</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://marketplace.visualstudio.com/items?itemName=ZooCodeOrganization.zoo-code" target="_blank" rel="noopener noreferrer" class="footer__link-item">VS Code Marketplace</a></li><li class="footer__item"><a href="https://open-vsx.org/extension/ZooCodeOrganization.zoo-code" target="_blank" rel="noopener noreferrer" class="footer__link-item">Open VSX Registry</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Company</div><ul class="footer__items clean-list"><li class="footer__item"><a href="mailto:support@zoocode.dev" target="_self" rel="noopener noreferrer" class="footer__link-item">Contact</a></li></ul></div></div></div></div></div></footer><div role="banner" aria-label="Cookie consent banner" aria-live="polite"></div></div>
+</body>
+</html>
